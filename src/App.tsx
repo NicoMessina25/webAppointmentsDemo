@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import "./scss/styles.scss"
+import "primereact/resources/themes/lara-light-indigo/theme.css"
+import "primereact/resources/primereact.min.css"
+import "primeicons/primeicons.css"
+import LogginForm from './Components/LogginForm/LoginForm';
+import {BrowserRouter} from "react-router-dom"
+import Modal from './Components/Modal/Modal';
 
 function App() {
+
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App flexible--column">
+        <img src="/img/ccyr.png" alt="" className='logoSite' />
+        <LogginForm/>
+        <img src="/img/advenio-medere.png" alt="" className='logo' />
+      </div>
+    </BrowserRouter>
   );
 }
 

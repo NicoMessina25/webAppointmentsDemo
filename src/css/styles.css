@@ -1,0 +1,129 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter';
+    font-style: normal;
+}
+
+body{
+    background-color: rgba(25, 59, 103, 0.05);
+}
+
+.flexible--row{
+    display: flex;
+    flex-direction: row;
+}
+
+.flexible--rowWrap{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.flexible--rowReverse{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.flexible--column{
+    display: flex;
+    flex-direction: column;
+}
+
+.flexible--columnReverse{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.flexible--columnWrap{
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.buttonMain{
+    color:#FFF  !important;
+    background-color: #3CB8BA !important;
+    border: 0 !important;
+    margin: 2% !important;
+    width: 100%;
+
+}
+
+.buttonMain:hover{
+    transition: all .2s;
+    background-color:  #01717C !important;
+    transform: scale(1.01, 1.01);
+}
+
+.buttonMain2{
+    color: #3CB8BA !important;
+    background-color: #FFF !important;
+    border: 2px solid #3CB8BA !important;
+    margin: 2% !important;
+    width: 100%;
+
+}
+
+.buttonMain2:hover{
+    transition: all .2s;
+    color: #FFF !important;
+    background-color:  #3CB8BA!important;
+    border: 2px solid #3CB8BA !important;
+    transform: scale(1.02, 1.02);
+}
+
+.inputContainer{
+    width: 100%;
+    font-weight: 500;
+    color: rgba(27, 43, 65, 0.72);
+    font-size: 90%;
+    margin: 2% 0%;
+}
+
+input{
+    background-color: rgba(26, 56, 96, 0.1) !important;
+    border: 0 !important;
+    margin: 2% 0% !important;
+    color: rgba(24, 39, 58, 0.94) !important;
+    font-weight: 500 !important;
+    width: 100% !important;
+}
+
+.checkboxContainer{
+    width: 30%;
+    color: rgba(24, 39, 58, 0.94);
+    font-weight: 400;
+    justify-content: space-around;
+}
+
+
+.p-checkbox-box{
+    background-color: rgba(28, 55, 90, 0.16)  !important;
+    border: 0 !important;
+    
+}
+
+.p-checkbox-checked{
+    background-color: #3CB8BA !important;
+    border-radius: 4px !important;
+}
+
+.linkContainer{
+    width: 50%;
+    justify-content: flex-end;
+}
+
+.link{
+    color: #3CB8BA;
+    font-size: 90%;
+    font-weight: 400;
+}
+
+.text{
+    color: rgba(27, 43, 65, 0.72)
+}
+
+.textDark{
+    color: #282828;
+} */

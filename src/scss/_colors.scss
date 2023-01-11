@@ -1,0 +1,21 @@
+/* $lightPalette:(primary: #3CB8BA, info: #E29583, warning: #FFC107, success: #28A745, error: #DC3545); 
+
+$lightPaletteText:(primary: #01717C, info:#B27668,warning:#E0A800, success:#28A745, error:#DC3545); */
+
+$contrast: #FFF;
+$contrastDark: #192434;
+$lightContrastShade: (100: $contrastDark, 90: #18273AF0, 80: #1A293DD4,70: #1B2B41B8, 60: #1C2E4599, 50: #1C304A80, 40: #1C324F61, 30:#1C345442, 20:#1C375A29, 10: #1A38601A, 5: #193B670D);
+
+$lightPrimary:(main: #3CB8BA, text: #01717C, contrast: $contrast); 
+$lightInfo:(main: #E29583, text: #B27668, contrast: $contrast); 
+$lightWarning:(main: #FFC107, text: #E0A800, contrast: $contrast); 
+$lightSuccess:(main: #28A745, text: #28A745, contrast: $contrast); 
+$lightError:(main: #DC3545, text: #DC3545, contrast: $contrast);
+$lightBase: (main: #FFFFFF, baseContrast: #193B671A);
+$lightText: (heading: map-get($lightContrastShade, 100), body: map-get($lightContrastShade, 90), secondary:map-get($lightContrastShade, 70), icon: map-get($lightContrastShade, 60), tertiary:map-get($lightContrastShade, 50), disable:map-get($lightContrastShade, 30));
+
+$lightPaletteText:(primary: #01717C, info:#B27668,warning:#E0A800, success:#28A745, error:#DC3545);
+
+
+
+$transpMainCol:(transPrimary: rgba(10, 5, 5, 0.85), transBlue: rgba(4, 200, 242,0.85));

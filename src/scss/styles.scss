@@ -1,0 +1,153 @@
+@import 'mixins', 'fontFamilies', 'colors';
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: $primaryFont;
+    font-style: normal;
+}
+
+body{
+    background-color: map-get($lightBase, baseContrast);
+}
+
+.flexible--row{
+    display: flex;
+    flex-direction: row;
+}
+
+.flexible--rowWrap{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.flexible--rowReverse{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.flexible--column{
+    display: flex;
+    flex-direction: column;
+}
+
+.flexible--columnReverse{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.flexible--columnWrap{
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.button{
+    margin: 0% !important;
+    width: 100%;
+    transition: all .5s;
+
+    &:hover{
+        transform: scale(1.01, 1.01);
+    }
+}
+
+.buttonMain{
+    @extend.button;
+    color:$contrast !important;
+    background-color: map-get($lightPrimary, main) !important;
+    border: 0 !important;
+
+    &:hover{
+        background-color:  map-get($lightPrimary, text) !important;
+    }
+
+}
+
+.buttonMain2{
+    @extend.button;
+    color: map-get($lightPrimary, main) !important;
+    background-color: $contrast !important;
+    border: 2px solid map-get($lightPrimary, main) !important;
+ 
+    &:hover{
+        color: $contrast !important;
+        background-color:  map-get($lightPrimary, main)!important;
+        border: 2px solid map-get($lightPrimary, main) !important;
+    }
+
+}
+
+.buttonMain3{
+    @extend.button;
+    color: map-get($lightPrimary, text) !important;
+    background-color: map-get($lightContrastShade, 5) !important;
+    border: 0px !important;
+
+    &:hover{
+        background-color:   map-get($lightContrastShade, 20)!important;
+    }
+}
+
+.inputContainer{
+    width: 100%;
+    font-weight: 500;
+    color: #1b2b41b8;
+    font-size: 90%;
+    margin: 2% 0%;
+
+    input{
+        margin: 2% 0% !important;
+    }
+ 
+}
+
+input{
+    background-color: map-get($lightContrastShade, 10) !important;
+    border: 0 !important;
+    color: map-get($lightText, body) !important;
+    font-weight: 500 !important;
+    width: 100% !important;
+}
+
+
+
+.checkboxContainer{
+    width: 30%;
+    color: map-get($lightContrastShade, 90);
+    font-weight: 400;
+    justify-content: space-around;
+}
+
+
+.p-checkbox-box{
+    background-color: map-get($lightContrastShade, 20)  !important;
+    border: 0 !important;
+    
+}
+
+.p-checkbox-checked{
+    background-color: map-get($lightPrimary, main) !important;
+    border-radius: 4px !important;
+}
+
+.linkContainer{
+    width: 50%;
+    justify-content: flex-end;
+
+    .link{
+        color: map-get($lightPrimary, main);
+        font-size: 90%;
+        font-weight: 400;
+    }
+}
+
+
+.text{
+    text-align: justify;
+    color: map-get($lightText, secondary)
+}
+
+.textDark{
+    @extend.text;
+    color: map-get($lightText, body);
+}
