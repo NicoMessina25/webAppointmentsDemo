@@ -2194,6 +2194,7 @@
     "Result": "Result",
     "ResultNotModified": "Result not modified",
     "RetentionAgent": "Retention agent",
+    "Return":"Return",
     "ReturnPreparations": "Preparation return",
     "ReturnToHospitalization": "Return to hospitalization",
     "ReturnToQueueToAllPatients": "Return the patients to \"IN QUEUE\"",
@@ -2749,5 +2750,17 @@
     "qtyAlreadyOccuppiedAppointments": "%s appointmen(s) already occuppied",
     "selectedAppointments": "Selected appointments (%d sessions selected)",
     "toAntecedentShort": "Anteced.",
-    "urinaryCatheter": "Urinary catheter"
+    "urinaryCatheter": "Urinary catheter",
+    "EnterOrRequestYourTurnOrRecipe":"Enter or request your turn or recipe",
+    "SignInWithGoogle":"Sign in with Google",
+    "ForgotPassword" : "I forgot my password",
+    "Join":"Join",
+    "FirstTimeHere":"First time here?",
+    "SignIn":"Sign in",
+    "UserDoesNotExist":"User does not exist",
+    "UserDoesNotExistDescription":"Register or verify if the account you entered was the one used to sign up.",
+    "BeforeStarting":"Before starting",
+    "BeforeStartingDescription":"Have the data of your social or prepaid work available (you will have to enter them in case you have one)."
+
+
   }

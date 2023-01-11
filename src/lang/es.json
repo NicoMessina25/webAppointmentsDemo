@@ -2207,6 +2207,7 @@
     "Result": "Resultado",
     "ResultNotModified": "El Resultado no ha sido modificado",
     "RetentionAgent": "Agente de retención IIBB",
+    "Return":"Volver",
     "ReturnPreparations": "Devolución de preparaciones",
     "ReturnToHospitalization": "Regresar a hospitalización",
     "ReturnToQueueToAllPatients": "Poner a los pacientes \"EN ESPERA\"",
@@ -2767,5 +2768,16 @@
     "qtyAlreadyOccuppiedAppointments": "%s turno(s) ya ocupado(s)",
     "selectedAppointments": "Turnos seleccionados (%d sesiones seleccionadas)",
     "toAntecedentShort": "Anteced.",
-    "urinaryCatheter": "Sonda Vesical"
+    "urinaryCatheter": "Sonda Vesical",
+    "EnterOrRequestYourTurnOrRecipe":"Ingresá o solicitá tu turno o receta",
+    "SignInWithGoogle":"Ingresá con Google",
+    "ForgotPassword" : "Olvidé mi contraseña",
+    "Join":"Ingresar",
+    "FirstTimeHere":"¿Primera vez acá?",
+    "SignIn":"Registrarme",
+    "UserDoesNotExist":"El usuario no existe",
+    "UserDoesNotExistDescription":"Registrate o verificá si la cuenta que ingresaste fue la usada para darte de alta.",
+    "BeforeStarting":"Antes de comenzar",
+    "BeforeStartingDescription":"Tené a disposición los datos de tu obra social o prepaga (vas a tener que ingresarlos en caso de que tengas una)."
+
 }
