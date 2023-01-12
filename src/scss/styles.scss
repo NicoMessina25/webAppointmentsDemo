@@ -8,7 +8,7 @@
 }
 
 body{
-    background-color: map-get($lightBase, baseContrast);
+    background-color: #FFF;//map-get($lightBase, baseContrast);
 }
 
 .flexible--row{
@@ -41,10 +41,15 @@ body{
     flex-flow: column wrap;
 }
 
+a{
+    text-decoration: none;
+    
+}
+
 .button{
     margin: 0% !important;
     width: 100%;
-    transition: all .5s;
+    transition: all .5s !important;
 
     &:hover{
         transform: scale(1.01, 1.01);
@@ -57,7 +62,7 @@ body{
     background-color: map-get($lightPrimary, main) !important;
     border: 0 !important;
 
-    &:hover{
+    &:hover{  
         background-color:  map-get($lightPrimary, text) !important;
     }
 

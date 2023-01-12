@@ -21,14 +21,15 @@ const LangProvider = ({children}:any) => {
 
 
     useEffect(()=>{
-        getLanguage().then(res=>{
+        
+        /* getLanguage().then(res=>{
             setLanguageId(res);
             switch(res){
                 case 1: setMessages(SpanishMessages); setLocale('es');locale('es');break;
                 case 2: setMessages(EnglishMessages);setLocale('en');locale('en');break;
                 default : setMessages(SpanishMessages);setLocale('es');locale('es');;
             }
-        })
+        }) */
     },[])
     
     return (

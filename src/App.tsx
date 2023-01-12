@@ -6,8 +6,10 @@ import "primereact/resources/themes/lara-light-indigo/theme.css"
 import "primereact/resources/primereact.min.css"
 import "primeicons/primeicons.css"
 import LogginForm from './Components/LogginForm/LoginForm';
-import {BrowserRouter} from "react-router-dom"
+import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Modal from './Components/Modal/Modal';
+import Login from './Components/Login/Login';
+import Register from './Components/Register/Register';
 
 function App() {
 
@@ -15,10 +17,17 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="App flexible--column">
-        <img src="/img/ccyr.png" alt="" className='logoSite' />
-        <LogginForm/>
-        <img src="/img/advenio-medere.png" alt="" className='logo' />
+      <div>
+
+        <Routes>
+          <Route path='/' element={
+            <Login/>
+          }/>
+          <Route path='/register/*' element={
+            <Register/>
+          }/>
+        </Routes>
+
       </div>
     </BrowserRouter>
   );

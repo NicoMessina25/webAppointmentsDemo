@@ -3,8 +3,9 @@ import {Dialog} from "primereact/dialog"
 import "../../scss/styles.scss"
 import "./Modal.scss"
 import { Button } from "primereact/button";
+import { Link } from "react-router-dom";
 
-export default function Modal({visible, setVisible, header, footerButtonRightText, footerButtonLeftText, onClickLeftBtn, onClickRightBtn, children}:any){
+export default function Modal({visible, setVisible, header, footerButtonRightText, footerButtonLeftText, onClickLeftBtn, onClickRightBtn, pathRightBtn, pathLeftBtn, children}:any){
 
     const onHide = () => {
         setVisible(false);
@@ -15,8 +16,8 @@ export default function Modal({visible, setVisible, header, footerButtonRightTex
 
         return (
             <div className={`modalFooter flexible--row ${flexEnd}`}>
-                {footerButtonLeftText && <Button  className="buttonMain3" onClick={onClickLeftBtn}>{footerButtonLeftText}</Button>} 
-                <Button  className="buttonMain" onClick={onClickRightBtn}>{footerButtonRightText}</Button>
+                {footerButtonLeftText && <Link to={pathLeftBtn} ><Button className="buttonMain3" onClick={onClickLeftBtn}>{footerButtonLeftText}</Button></Link>} 
+                <Link to={pathRightBtn}> <Button  className="buttonMain" onClick={onClickRightBtn}>{footerButtonRightText}</Button></Link>
             </div>
         );
     }

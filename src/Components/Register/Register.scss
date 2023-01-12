@@ -1,0 +1,80 @@
+@import '../../scss/mixins', '../../scss/colors', '../../scss/fontFamilies';
+
+.registerContainer{
+    justify-content: center;
+    align-items: center;
+}
+
+.registerBody{
+    width: 70%;
+}
+
+.registerHeader{
+    justify-content: space-around;
+    align-items: center;
+    background-color: map-get($lightContrastShade, 10);
+    height: 30vh;
+    width: 100%;
+
+    img{
+        width: 30%;
+        height: auto;
+        
+    }
+
+    h1{
+        font-size: 180%;
+        color: map-get($lightPrimary, text);
+        font-weight: 600;
+    }
+
+    .steps{
+        width: 80%;
+        
+    }
+
+
+    
+
+    
+}
+
+.p-steps{
+
+    .p-steps-item{
+        color: map-get($lightText, disable) !important;
+
+        .p-steps-number{
+            background-color: map-get($lightContrastShade, 10) !important;
+            color: map-get($lightText, disable);
+            border: 2px solid  map-get($lightText, disable) !important;
+        }
+    }
+
+    .p-steps-item::before{
+        border-top: 2px solid map-get($lightText, disable) !important;
+    }
+
+    .p-steps-item.p-highlight:before{
+        border-top: 2px solid map-get($lightPrimary, text) !important;
+    }
+
+
+    .p-steps-item.p-highlight{
+        
+         .p-steps-number{
+            color: map-get($lightPrimary, text) !important;
+            border: 2px solid  map-get($lightPrimary, text) !important;
+        }
+
+        .p-steps-title{
+            color: map-get($lightPrimary, text) !important;
+            font-weight: 600;
+        }
+    }
+
+    .p-menuitem-link{
+        background-color: map-get($lightContrastShade, 0) !important;
+        border-color: map-get($lightPrimary, text);
+    }
+} 

@@ -27,7 +27,7 @@ export default function LogginForm(){
         <div className="formContainer flexible--column">
             <div className="loginHeader">
                 <h1>{intl.formatMessage({ id: 'Welcome' })}</h1>
-                <h4>{intl.formatMessage({ id: 'EnterOrRequestYourTurnOrRecipe' })}</h4>
+                <h4>{intl.formatMessage({ id: 'EnterAndRequestYourTurnOrRecipe' })}</h4>
             </div>
             <div className="flexible--column loginBody">
             
@@ -58,10 +58,10 @@ export default function LogginForm(){
                <p className="text">{intl.formatMessage({ id: 'FirstTimeHere' })}</p>
                <Button label={intl.formatMessage({ id: 'SignIn' })} className="buttonMain2" onClick={()=>setDisplayRegister(true)}/>
             </div>
-            <Modal visible={displayNotUserFound} setVisible={setDisplayNotUserFound} header={intl.formatMessage({ id: 'UserDoesNotExist' })} footerButtonRightText={intl.formatMessage({ id: 'Return' })}  onClickRightBtn={()=>setDisplayNotUserFound(false)}>
+            <Modal visible={displayNotUserFound} setVisible={setDisplayNotUserFound} header={intl.formatMessage({ id: 'UserDoesNotExist' })} footerButtonRightText={intl.formatMessage({ id: 'Return' })}  onClickRightBtn={()=>setDisplayNotUserFound(false)} pathRightBtn={"#"}>
             {intl.formatMessage({ id: 'UserDoesNotExistDescription' })}
             </Modal>
-            <Modal visible={displayRegister} setVisible={setDisplayRegister} header={intl.formatMessage({ id: 'BeforeStarting' }) + "..."}  footerButtonRightText={intl.formatMessage({ id: 'Continue' })}  footerButtonLeftText={intl.formatMessage({ id: 'Cancel' })} onClickLeftBtn={()=>setDisplayRegister(false)}>
+            <Modal visible={displayRegister} setVisible={setDisplayRegister} header={intl.formatMessage({ id: 'BeforeStarting' }) + "..."}  footerButtonRightText={intl.formatMessage({ id: 'Continue' })}  footerButtonLeftText={intl.formatMessage({ id: 'Cancel' })} onClickLeftBtn={()=>setDisplayRegister(false)} pathLeftBtn={"#"} pathRightBtn={"/register/step1"}>
             {intl.formatMessage({ id: 'BeforeStartingDescription' })}
             </Modal>
         </div>
