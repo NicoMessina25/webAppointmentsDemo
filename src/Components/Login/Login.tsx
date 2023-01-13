@@ -5,16 +5,16 @@ import "./Login.scss"
 import { getLogo } from "../../services/imageService";
 
 export default function Login(){
-    const [logo, setLogo] = useState("");
+    const [logo, setLogo] = useState("logo.png");
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         getLogo().then(res=>{
             console.log(res);
             
             setLogo(res);
             
         })
-    },[])
+    },[]) */
 
   
 

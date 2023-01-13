@@ -1,0 +1,53 @@
+@import '../../scss/mixins', '../../scss/colors', '../../scss/fontFamilies';
+
+.radioBtnGContainer{
+    align-items: center;
+
+    p{
+        color: map-get($lightText, secondary);
+        font-weight: 500;
+    }
+}
+
+.field-radiobutton{
+    width: 10%;
+    margin: 2% 0%;
+    min-width: fit-content;
+    justify-content:flex-start;
+}
+
+.p-radiobutton{ 
+    margin: 0% 6% !important;
+    .p-radiobutton-box{
+        
+
+        &:hover{
+            border-color: map-get($lightPrimary, text) !important;
+        }
+
+        .p-radiobutton-icon{
+            transform: translateZ(0) scale(0.7, 0.7);
+        }
+    }
+
+    .p-radiobutton-box.p-highlight{
+        background-color: map-get($lightPrimary, main); 
+        border-color: map-get($lightPrimary, text);
+
+        &:hover{
+            background-color: map-get($lightContrastShade, 100) !important;
+            border-color: map-get($lightPrimary, text) !important;
+            .p-radiobutton-icon{
+                background-color: map-get($lightPrimary, text) !important; 
+            }
+        }
+
+    }
+
+    .p-radiobutton-box.p-focus{
+        border-color: map-get($lightPrimary, text) !important;
+        box-shadow: 0 0 0 .2rem map-get($lightContrastShadeTranparent, 10) !important;
+    }
+
+    
+}
