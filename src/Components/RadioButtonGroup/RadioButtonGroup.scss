@@ -7,17 +7,22 @@
         color: map-get($lightText, secondary);
         font-weight: 500;
     }
+
+    .optionsContainer{
+        width: 100%;
+        justify-content: space-around;
+    }
 }
 
 .field-radiobutton{
     width: 10%;
-    margin: 2% 0%;
+    margin: 2%;
     min-width: fit-content;
     justify-content:flex-start;
 }
 
 .p-radiobutton{ 
-    margin: 0% 6% !important;
+    margin: 0% 10px !important;
     .p-radiobutton-box{
         background-color: map-get($lightContrastShade, 20);
 

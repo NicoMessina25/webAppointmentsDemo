@@ -7,14 +7,17 @@ export default function RadioButtonGroup({options, value, setValue, labelId, cla
 
 
     return(
-        <div className={`flexible--${orientation}Wrap radioBtnGContainer ${className}`}>
+        <div className={`flexible--column radioBtnGContainer ${className}`}>
             <p>{intl.formatMessage({id: labelId})}:</p>
-            {options.map((op:any, ind:number)=>{
-                return <div className="field-radiobutton flexible--row" key={`${op.label}-${ind}`}>
-                        <RadioButton  inputId={`docType${ind}`} name="docType" value={op.label} onChange={(e) => setValue(e.value)} checked={value === op.label} />
-                        <label htmlFor={`docType${ind}`}>{op.label}</label>
-                    </div>
-            })}
+            <div className={`flexible--${orientation}Wrap optionsContainer`}>
+                {options.map((op:any, ind:number)=>{
+                    return <div className="field-radiobutton flexible--row" key={`${op.label}-${ind}`}>
+                            <RadioButton  inputId={`docType${ind}`} name="docType" value={op.label} onChange={(e) => setValue(e.value)} checked={value === op.label} />
+                            <label htmlFor={`docType${ind}`}>{op.label}</label>
+                        </div>
+                })}
+            </div>
+            
         </div>
     );
 }
