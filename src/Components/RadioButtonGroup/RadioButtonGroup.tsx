@@ -13,11 +13,11 @@ export default function RadioButtonGroup({options, value, setValue, labelId, cla
                 {options.map((op:any, ind:number)=>{
                     return <div className="field-radiobutton flexible--row" key={`${op.label}-${ind}`}>
                                 
-                                {op.captions && <label htmlFor={`${labelId}${ind}`} className="radioButtonLabel">{op.captions}:</label>}
+                                {op.captions && <label htmlFor={`${op.label}${ind}`} className="radioButtonLabel">{op.captions}:</label>}
 
-                                <RadioButton  inputId={`${labelId}${ind}`} name={labelId} value={op.label} onChange={(e) => setValue(e.value)} checked={value === op.label} />
+                                <RadioButton  inputId={`${op.label}${ind}`} name={labelId} value={op.label} onChange={(e) => setValue(e.value)} checked={value === op.label} />
 
-                                <label htmlFor={`${labelId}${ind}`}>{op.label}</label>
+                                <label htmlFor={`${op.label}${ind}`}>{op.label}</label>
                             </div>
                 })}
             </div>
