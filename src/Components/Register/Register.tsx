@@ -21,7 +21,7 @@ export default function Register(){
         <div className="flexible--column registerContainer">
             <header className="flexible--column registerHeader">
                 <img src="/img/ccyr.png" alt="" />
-                <h1>Registro de Datos</h1>
+                <h1>{intl.formatMessage({id: "Registration"})}</h1>
                 <Steps model={items} className="steps" activeIndex={activeIndex}/>
             </header>
             <main className="registerBody">

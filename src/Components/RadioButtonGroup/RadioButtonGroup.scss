@@ -19,7 +19,7 @@
 .p-radiobutton{ 
     margin: 0% 6% !important;
     .p-radiobutton-box{
-        
+        background-color: map-get($lightContrastShade, 20);
 
         &:hover{
             border-color: map-get($lightPrimary, text) !important;

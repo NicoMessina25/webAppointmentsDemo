@@ -26,7 +26,18 @@
     "Foreign":"Foreign",
     "Number":"Number",
     "Send":"Send",
-    "WeWillSendYouaNumericalCode":"We will send you a numerical code"
-
-
+    "WeWillSendYouaNumericalCode":"We will send you a numerical code",
+    "Registration":"Registration",
+    "DocumentType": "Document type",
+    "Name":"Name",
+    "Lastname": "Lastname",
+    "DocumentNumber": "Document number",
+    "Gender": "Gender",
+    "Female": "Female",
+    "Male": "Male",
+    "BirthDate": "Birth date",
+    "Phone": "Phone",
+    "Address": "Address",
+    "City": "City",
+    "Follow":"Follow"
   }
