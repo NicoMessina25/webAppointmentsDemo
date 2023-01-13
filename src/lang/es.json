@@ -18,5 +18,14 @@
     "Welcome":"Bienvenido",
     "User":"Usuario",
     "Password":"Contraseña",
-    "RememberMe":"Recordar"
+    "RememberMe":"Recordar",
+    "Type":"Tipo",
+    "Confirm":"Confirmar",
+    "ForgotPasswordDescriptionStepOne":"Para establecer una nueva contraseña necesitamos que ingreses los datos de tu",
+    "DniRegistered":"DNI registrado",
+    "Foreign":"Extranjero",
+    "Number":"Numero",
+    "Send":"Enviar",
+    "WeWillSendYouaNumericalCode":"Vamos a enviarte un código numérico"
+    
 }

@@ -18,6 +18,15 @@
     "Welcome":"Welcome",
     "User":"User",
     "Password":"Password",
-    "RememberMe":"Remember me"
+    "RememberMe":"Remember me",
+    "Type":"Type",
+    "Confirm":"Confirm",
+    "ForgotPasswordDescriptionStepOne":"To set a new password we need you to enter the data of your",
+    "DniRegistered":"Entity document registered",
+    "Foreign":"Foreign",
+    "Number":"Number",
+    "Send":"Send",
+    "WeWillSendYouaNumericalCode":"We will send you a numerical code"
+
 
   }
