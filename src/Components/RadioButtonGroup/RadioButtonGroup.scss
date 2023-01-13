@@ -1,7 +1,7 @@
 @import '../../scss/mixins', '../../scss/colors', '../../scss/fontFamilies';
 
 .radioBtnGContainer{
-    align-items: center;
+    align-items: flex-start;
 
     .radioButtonLabel{
         color: map-get($lightText, secondary);

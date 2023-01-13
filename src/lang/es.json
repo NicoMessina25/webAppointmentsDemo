@@ -39,5 +39,6 @@
     "Phone": "Celular",
     "Address": "Dirección",
     "City": "Ciudad",
-    "Follow":"Seguir"
+    "Follow":"Seguir",
+    "Area":"Área"
 }

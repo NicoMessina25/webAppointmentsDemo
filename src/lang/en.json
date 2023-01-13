@@ -39,5 +39,6 @@
     "Phone": "Phone",
     "Address": "Address",
     "City": "City",
-    "Follow":"Follow"
+    "Follow":"Follow",
+    "Area":"Area"
   }

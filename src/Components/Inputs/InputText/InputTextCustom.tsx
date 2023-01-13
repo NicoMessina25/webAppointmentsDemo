@@ -4,15 +4,15 @@ import { Password } from "primereact/password";
 
 
 
-export default function InputTextCustom({value, onChange, labelId, className, password}:any){
+export default function InputTextCustom({value, onChange, labelId, className, password, placeholder, onKeyDown}:any){
 
     const intl = useIntl();
 
     return (
         <div className={`flexible--column inputContainer ${className}`}>
-                <p>{intl.formatMessage({id: labelId})}</p>
-                { !password &&  <InputText value={value} onChange={onChange} className="input"/>}
-                { password && <Password value={value} onChange={onChange} toggleMask={true} />}
+                {labelId && <p>{intl.formatMessage({id: labelId})}</p>}
+                { !password &&  <InputText value={value} onChange={onChange} className="input" placeholder={placeholder} onKeyDown={onKeyDown}/>}
+                { password && <Password value={value} onChange={onChange} toggleMask={true} placeholder={placeholder} onKeyDown={onKeyDown}/>}
                 
         </div>
     );
