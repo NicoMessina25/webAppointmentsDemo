@@ -15,7 +15,7 @@ export default function RadioButtonGroup({options, value, setValue, labelId, cla
                                 
                                 {op.captions && <label htmlFor={`${op.label}${ind}`} className="radioButtonLabel">{op.captions}:</label>}
 
-                                <RadioButton  inputId={`${op.label}${ind}`} name={labelId} value={op.label} onChange={(e) => setValue(e.value)} checked={value === op.label} />
+                                <RadioButton  inputId={`${op.label}${ind}`} name={op.label} value={op.label} onChange={(e) => setValue(e.value)} checked={value === op.label} />
 
                                 <label htmlFor={`${op.label}${ind}`}>{op.label}</label>
                             </div>
