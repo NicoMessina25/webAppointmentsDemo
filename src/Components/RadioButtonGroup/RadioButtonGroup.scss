@@ -3,7 +3,7 @@
 .radioBtnGContainer{
     align-items: center;
 
-    p{
+    .radioButtonLabel{
         color: map-get($lightText, secondary);
         font-weight: 500;
     }
