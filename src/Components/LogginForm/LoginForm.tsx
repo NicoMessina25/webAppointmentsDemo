@@ -8,6 +8,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { Link } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import { useIntl } from 'react-intl';
+import InputTextCustom from "../Inputs/InputText/InputTextCustom";
 
 export default function LogginForm(){
     const [checked, setChecked] = useState(false);
@@ -37,14 +38,10 @@ export default function LogginForm(){
                     <p>O</p>
                     <div className="lineGreenBlue"></div>
                </div>
-               <div className="flexible--column inputContainer">
-                    <p>{intl.formatMessage({ id: 'User' })}</p>
-                    <InputText value={userName} onChange={(e) => setUserName(e.target.value)} className="input" placeholder=""/>
-               </div>
-               <div className="flexible--column inputContainer">
-                    <p>{intl.formatMessage({ id: 'Password' })}</p>
-                    <Password value={password} onChange={(e) => setPassword(e.target.value)} toggleMask={true} />
-               </div>
+             
+                
+                <InputTextCustom value={userName} onChange={(e:any) => setUserName(e.target.value)} className="input" placeholder="" labelId="User"/>
+                <InputTextCustom value={password} onChange={(e:any) => setPassword(e.target.value)} placeholder="" labelId="Password" password/>
                <div className="rememberForgetPasswordContainer flexible--row">
                     <div className="checkboxContainer flexible--row">
                         <Checkbox onChange={e => setChecked(e.checked)} checked={checked} className="checkbox"/>
