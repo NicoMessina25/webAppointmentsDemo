@@ -11,7 +11,7 @@
     "Personal":"Personales",
     "Coverage":"Cobertura",
     "Security":"Seguridad",
-    "Return":"Volver",
+    "Back":"Volver",
     "Cancel":"Cancelar",
     "Continue":"Continuar",
     "EnterAndRequestYourTurnOrRecipe":"Ingresá y autogestioná tu turno o receta",
@@ -40,5 +40,15 @@
     "Address": "Dirección",
     "City": "Ciudad",
     "Follow":"Seguir",
-    "Area":"Área"
+    "Area":"Área",
+    "ID":"DNI",
+    "Yes": "Sí",
+    "No": "No",
+    "DoYouHaveMedicalCoverage?": "¿Tenes cobertura médica?",
+    "IsThroughYourJob?":"¿A través de tu trabajo?",
+    "PrepaidHealthInsurance":"Obra Social / Prepaga",
+    "Plan":"Plan",
+    "NumberOfMember":"N° de Afiliado",
+    "IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform":"Acepto los términos y condiciones de uso de la plataforma de telemedicina.",
+    "SeeDetails":"Ver detalle"
 }

@@ -11,7 +11,7 @@
     "Personal":"Personal",
     "Coverage":"Coverage",
     "Security":"Security",
-    "Return":"Return",
+    "Back":"Back",
     "Cancel":"Cancel",
     "Continue":"Continue",
     "EnterAndRequestYourTurnOrRecipe":"Enter and request your turn or recipe",
@@ -40,5 +40,15 @@
     "Address": "Address",
     "City": "City",
     "Follow":"Follow",
-    "Area":"Area"
-  }
+    "Area":"Area",
+    "ID":"ID",
+    "Yes": "Yes",
+    "No": "No",
+    "DoYouHaveMedicalCoverage?": "Do you have medical coverage?",
+    "IsThroughYourJob?":"Is through your job?",
+    "PrepaidHealthInsurance":"Prepaid Health Insurance",
+    "Plan":"Plan",
+    "NumberOfMember":"Number of Member",
+    "IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform":"I accept the terms and conditions of use of the telemedicine platform.",
+    "SeeDetails":"See details"
+}

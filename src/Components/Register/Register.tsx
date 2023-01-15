@@ -27,13 +27,13 @@ export default function Register(){
             <main className="registerBody">
                 <Routes>
                     <Route path="/step1" element={
-                            <PersonalDataForm/>
+                            <PersonalDataForm setStep={setActiveIndex}/>
                         }/>
                     <Route path="/step2" element={
-                            <CoverageDataForm/>
+                            <CoverageDataForm setStep={setActiveIndex}/>
                         }/>
                     <Route path="/step3" element={
-                            <SecurityDataForm/>
+                            <SecurityDataForm setStep={setActiveIndex}/>
                         }/>
                 </Routes>
             </main>

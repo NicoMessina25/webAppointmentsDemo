@@ -5,14 +5,13 @@ import RadioButtonGroup from '../../RadioButtonGroup/RadioButtonGroup';
 import { useIntl } from 'react-intl';
 import "./PersonalDataForm.scss"
 import InputTextCustom from '../../Inputs/InputText/InputTextCustom';
-import { setegid } from 'process';
 import { Calendar } from 'primereact/calendar';
 import InputPhone from '../../Inputs/InputPhone/InputPhone';
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 
 
-export default function PersonalDataForm(){
+export default function PersonalDataForm({setStep}:any){
     const [documentType, setDocumentType] = useState("DNI");
     const [gender, setGender] = useState("");
     const [user, setUser] = useState({
@@ -31,7 +30,7 @@ export default function PersonalDataForm(){
     const intl = useIntl();
 
     const documentOptions = [
-        {label: intl.formatMessage({id: "DNI"})},
+        {label: intl.formatMessage({id: "ID"})},
         {label: intl.formatMessage({id: "Foreign"})}
     ]
 
@@ -61,8 +60,8 @@ export default function PersonalDataForm(){
             <InputTextCustom value={user.city} onChange={(e:any) => setUser({...user, city: e.target.value})}  labelId="City"/>
 
             <div className='flexible--row flex-end'>
-                <Link to="/"><Button label={intl.formatMessage({id: "Cancel"})} className='buttonMain3'/></Link>
-                <Link to="/register/step2"><Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} className='buttonMain'/></Link>
+                <Link to="/"><Button label={intl.formatMessage({id: "Cancel"})} className='buttonMain3' /></Link>
+                <Link to="../step2"><Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} className='buttonMain' onClick={()=>setStep(1)}/></Link>
             </div>
             
         </div>

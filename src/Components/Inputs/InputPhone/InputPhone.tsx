@@ -15,8 +15,8 @@ export default function InputPhone({value, setValue, labelId, className, passwor
             {labelId && <p>{intl.formatMessage({id: labelId})}</p>}
             <div className="flexible--row phoneFieldsContainer">
                 <Dropdown className="comboboxPhone"/>
-                <InputTextCustom placeholder={intl.formatMessage({id:"Area"})} className="areaInputPhone"/>
-                <InputTextCustom placeholder={intl.formatMessage({id:"Number"})} className="numberInputPhone"/>
+                <InputTextCustom placeholder={intl.formatMessage({id:"Area"})} className="areaInputPhone" onKeyDown={onKeyDownHandler}/>
+                <InputTextCustom placeholder={intl.formatMessage({id:"Number"})} className="numberInputPhone" onKeyDown={onKeyDownHandler}/>
             </div>
         </div>
     );

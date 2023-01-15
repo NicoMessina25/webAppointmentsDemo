@@ -43,13 +43,14 @@ body{
 
 a{
     text-decoration: none;
-    
+   
 }
 
 .button{
     margin: 2% !important;
     width: fit-content;
     transition: all .5s !important;
+    
 
     &:hover{
         transform: scale(1.01, 1.01);
@@ -125,7 +126,7 @@ input, .p-dropdown{
 
 
 .p-checkbox-box{
-    background-color: map-get($lightContrastShade, 20)  !important;
+    background-color: map-get($lightContrastShadeTranparent, 20)  !important;
     border: 0 !important;
     
 }
@@ -139,11 +140,19 @@ input, .p-dropdown{
     width: 50%;
     justify-content: flex-end;
 
-    .link{
-        color: map-get($lightPrimary, main);
-        font-size: 90%;
-        font-weight: 400;
-    }
+    
+}
+
+.link{
+    color: map-get($lightPrimary, main);
+    font-size: 80%;
+    font-weight: 400;
+    text-decoration: underline
+}
+
+.linkInfo{
+    @extend.link;
+    color: map-get($lightInfo, text);
 }
 
 
@@ -179,11 +188,28 @@ input, .p-dropdown{
     }
 }
 
-.p-button:focus{
-    box-shadow: 0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
+.p-button{
+    
+    &:focus{
+        box-shadow: 0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
+    }
 }
+    
 
 .flex-end{
     justify-content: flex-end;
+}
+
+.p-focus{
+    box-shadow:0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
+}
+
+.label{
+    color: map-get($lightText, secondary);
+    font-weight: 500;
+}
+
+.buttonContainer{
+    margin: 3% 0%;
 }
 
