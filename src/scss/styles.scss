@@ -46,6 +46,8 @@ a{
    
 }
 
+
+
 .button{
     margin: 2% !important;
     width: fit-content;
@@ -166,50 +168,22 @@ input, .p-dropdown{
     color: map-get($lightText, body);
 }
 
-.p-button-icon-only{
-    background-color: map-get($lightPrimary, main) !important;
-    border: 0 !important;
-
-    &:hover{
-        background-color: map-get($lightPrimary, text) !important;
-    }
+.textHeading{
+    @extend.text;
+    color: map-get($lightText, heading);
 }
 
-.p-datepicker{
-    .p-highlight{
-        color:map-get($lightPrimary, main) !important;
-        background-color: map-get($lightPrimary, transparent ) !important;
-    }
+.infoText{
+    @extend.text;
+    color: map-get($lightInfo,text);
 }
 
-.p-link{
-    &:hover{
-        color:map-get($lightPrimary, main) !important;
-    }
+.logoSite {
+    width: auto;
+    height: 7%;
 }
 
-.p-button{
-    
-    &:focus{
-        box-shadow: 0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
-    }
-}
-    
+.textTertiary{
+    color: map-get($lightText , tertiary )
 
-.flex-end{
-    justify-content: flex-end;
 }
-
-.p-focus{
-    box-shadow:0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
-}
-
-.label{
-    color: map-get($lightText, secondary);
-    font-weight: 500;
-}
-
-.buttonContainer{
-    margin: 3% 0%;
-}
-

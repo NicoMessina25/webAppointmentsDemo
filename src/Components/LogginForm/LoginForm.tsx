@@ -48,7 +48,7 @@ export default function LogginForm(){
                         <p>{intl.formatMessage({ id: 'RememberMe' })}</p>
                     </div>
                     <div className="linkContainer flexible--row">
-                        <Link to={"/"} className="link">{intl.formatMessage({ id: 'ForgotPassword' })}</Link>
+                        <Link to={"/forgotPassword"} className="link">{intl.formatMessage({ id: 'ForgotPassword' })}</Link>
                     </div>
                </div>
                <Button  label={intl.formatMessage({ id: 'Join' })} className="buttonMain" onClick={()=>{validateUser()}}/>

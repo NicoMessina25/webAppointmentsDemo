@@ -10,6 +10,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Modal from './Components/Modal/Modal';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
+import ForgotPasswordStepOne from './Components/ForgotPassword/ForgotPasswordStepOne';
 
 function App() {
 
@@ -25,6 +26,9 @@ function App() {
           }/>
           <Route path='/register/*' element={
             <Register/>
+          }/>
+          <Route path='/forgotPassword/*' element={
+            <ForgotPasswordStepOne/>
           }/>
         </Routes>
 
