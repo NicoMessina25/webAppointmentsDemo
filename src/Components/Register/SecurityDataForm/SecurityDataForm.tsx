@@ -9,6 +9,7 @@ import RadioButtonGroup from "../../RadioButtonGroup/RadioButtonGroup";
 export default function SecurityDataForm({setStep, user, setUser, setDisplayRegisterCancel}:any){
     const intl = useIntl();
     const [displayRegisterComplete, setDisplayRegisterComplete] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     useEffect(()=>{
         setStep(2);
@@ -29,12 +30,13 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
 
             <InputTextCustom value={user.password} onChange={(e:any) => setUser({...user, password: e.target.value})} labelId={intl.formatMessage({id:"Password"})} password caption={intl.formatMessage({id:"AtLeast8Characters"})}/>
 
-            <InputTextCustom value={user.password} onChange={(e:any) => setUser({...user, password: e.target.value})} labelId={intl.formatMessage({id:"RepeatPassword"})} password />
+            <InputTextCustom value={confirmPassword} onChange={(e:any) => setConfirmPassword(e.target.value)} labelId={intl.formatMessage({id:"RepeatPassword"})} password feedback={false}/>
+
 
             <div className="flexible--row buttonContainer" >
-                <Link to="../step2"><Button icon="pi pi-angle-left" iconPos="left" label={intl.formatMessage({id: "Back"})} className="buttonMain3"/></Link>
-                <Link to="#"><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
-                <Link to="#"><Button icon="pi pi-check" iconPos="right" label={intl.formatMessage({id: "Finish"})} className="buttonMain" onClick={()=>{setDisplayRegisterComplete(true)}}/></Link>
+                <Link to="/register/2" className='linkReactRouter'><Button icon="pi pi-angle-left" iconPos="left" label={intl.formatMessage({id: "Back"})} className="buttonMain3"/></Link>
+                <Link to="#" className='linkReactRouter'><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
+                <Link to="#" className='linkReactRouter'><Button icon="pi pi-check" iconPos="right" label={intl.formatMessage({id: "Finish"})} className="buttonMain" onClick={()=>{setDisplayRegisterComplete(true)}}/></Link>
             </div>
 
             <Modal visible={displayRegisterComplete} setVisible={setDisplayRegisterComplete} header={`${intl.formatMessage({id:"SuccessfullSignUp"})}`}  footerButtonRightText={intl.formatMessage({ id: 'Join' })}  footerButtonLeftText={intl.formatMessage({ id: 'Cancel' })}  onClickLeftBtn={()=>setDisplayRegisterComplete(false)} pathLeftBtn={"#"} pathRightBtn={"/"}>

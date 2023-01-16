@@ -36,9 +36,9 @@ export default function CoverageDataForm({setStep, setDisplayRegisterCancel}:any
             <Link to="#" className="linkInfo">{intl.formatMessage({id: "SeeDetails"})}</Link>
             
             <div className="flexible--row buttonContainer" >
-                <Link to="../step1"><Button icon="pi pi-angle-left" iconPos="left" label={intl.formatMessage({id: "Back"})} className="buttonMain3" /></Link>
-                <Link to="#"><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
-                <Link to="../step3"><Button icon="pi pi-angle-right" iconPos="right" label={intl.formatMessage({id: "Follow"})} className="buttonMain" /></Link>
+                <Link to="/register/1" className='linkReactRouter'><Button icon="pi pi-angle-left" iconPos="left" label={intl.formatMessage({id: "Back"})} className="buttonMain3" /></Link>
+                <Link to="#" className='linkReactRouter'><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
+                <Link to="/register/3" className='linkReactRouter'><Button icon="pi pi-angle-right" iconPos="right" label={intl.formatMessage({id: "Follow"})} className="buttonMain" /></Link>
             </div>
         </div>
     );

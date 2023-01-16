@@ -1,8 +1,8 @@
 import "./Register.scss"
 import { Steps } from 'primereact/steps';
 import { useIntl } from 'react-intl';
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Route, Routes, useParams } from "react-router-dom";
 import PersonalDataForm from "./PersonalDataForm/PersonalDataForm";
 import CoverageDataForm from "./CoverageDataForm/CoverageDataForm";
 import SecurityDataForm from "./SecurityDataForm/SecurityDataForm";
@@ -32,7 +32,23 @@ export default function Register(){
         {label: intl.formatMessage({ id: 'Security'})}
     ];
 
+    const {step}:any = useParams();
 
+    useEffect(() => {
+      setActiveIndex(step-1)
+      console.log("step:", step);
+    }, [step])
+    
+
+    function renderStep(){
+        switch (step){
+            case "1":return <PersonalDataForm user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>;
+            case "2": return <CoverageDataForm setStep={setActiveIndex} setDisplayRegisterCancel={setDisplayRegisterCancel}/>; 
+            case "3": return <SecurityDataForm setStep={setActiveIndex} user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>;
+            
+            default: <PersonalDataForm user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>;
+        }
+    }
 
     return(
         <div className="flexible--column registerContainer">
@@ -42,7 +58,9 @@ export default function Register(){
                 <Steps model={items} className="steps" activeIndex={activeIndex}/>
             </header>
             <main className="registerBody">
-                <Routes>
+                {renderStep()}
+                    
+                {/* <Routes>
                     <Route path="/step1" element={
                             <PersonalDataForm setStep={setActiveIndex} user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>
                         }/>
@@ -52,7 +70,7 @@ export default function Register(){
                     <Route path="/step3" element={
                             <SecurityDataForm setStep={setActiveIndex} user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>
                         }/>
-                </Routes>
+                </Routes> */}
                 <Modal visible={displayRegisterCancel} setVisible={setDisplayRegisterCancel} header={intl.formatMessage({ id: 'CancelSignUp' })}  footerButtonRightText={intl.formatMessage({ id: 'ContinueSigningUp' })}  footerButtonLeftText={intl.formatMessage({ id: 'YesCancel' })} onClickRightBtn={()=>{setDisplayRegisterCancel(false)}}  pathLeftBtn={"/"} pathRightBtn={"#"}>
                         {intl.formatMessage({id:"CancelSignUpDescription"})}
                 </Modal>

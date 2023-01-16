@@ -10,7 +10,7 @@ import Modal from "../Modal/Modal";
 import { useIntl } from 'react-intl';
 import InputTextCustom from "../Inputs/InputText/InputTextCustom";
 
-export default function LogginForm(){
+export default function LogginForm({googleLogin}:any){
     const [checked, setChecked] = useState(false);
     const [displayNotUserFound, setDisplayNotUserFound] = useState(false);
     const [displayRegister, setDisplayRegister] = useState(false);
@@ -32,16 +32,17 @@ export default function LogginForm(){
             </div>
             <div className="flexible--column loginBody">
             
-               <Button label={intl.formatMessage({ id: 'SignInWithGoogle' })} className="buttonMain2"/>
-               <div className="lineContainer flexible--row">
-                    <div className="lineGreenBlue"></div>
-                    <p>O</p>
-                    <div className="lineGreenBlue"></div>
-               </div>
-             
+               {googleLogin && <div className="googleLogin">
+                                        <Button label={intl.formatMessage({ id: 'SignInWithGoogle' })} className="buttonMain2"/>
+                                        <div className="lineContainer flexible--row">
+                                                <div className="lineGreenBlue"></div>
+                                                <p>O</p>
+                                                <div className="lineGreenBlue"></div>
+                                        </div>
+                                </div>}
                 
                 <InputTextCustom value={userName} onChange={(e:any) => setUserName(e.target.value)} className="input" placeholder="" labelId="User"/>
-                <InputTextCustom value={password} onChange={(e:any) => setPassword(e.target.value)} placeholder="" labelId="Password" password/>
+                <InputTextCustom value={password} onChange={(e:any) => setPassword(e.target.value)} placeholder="" labelId="Password" password feedback={false}/>
                <div className="rememberForgetPasswordContainer flexible--row">
                     <div className="checkboxContainer flexible--row">
                         <Checkbox onChange={e => setChecked(e.checked)} checked={checked} className="checkbox"/>

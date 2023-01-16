@@ -46,10 +46,12 @@ a{
    
 }
 
-
+.marginButton{
+    margin: 2% !important;
+}
 
 .button{
-    margin: 2% !important;
+    @extend.marginButton;
     
     width: fit-content;
     transition: all .5s !important;
@@ -131,7 +133,6 @@ input, .p-dropdown{
 .p-checkbox-box{
     background-color: map-get($lightContrastShadeTranparent, 20)  !important;
     border: 0 !important;
-    
 }
 
 .p-checkbox-checked{
@@ -237,4 +238,8 @@ input, .p-dropdown{
 
 .buttonContainer{
     margin: 3% 0%;
+}
+
+.linkReactRouter{
+    @extend.marginButton;
 }

@@ -1,6 +1,6 @@
 
 import { RadioButton } from 'primereact/radiobutton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RadioButtonGroup from '../../RadioButtonGroup/RadioButtonGroup';
 import { useIntl } from 'react-intl';
 import "./PersonalDataForm.scss"
@@ -51,8 +51,8 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
             <InputTextCustom value={user.city} onChange={(e:any) => setUser({...user, city: e.target.value})}  labelId="City"/>
 
             <div className='flexible--row flex-end buttonContainer'>
-                <Link to="#"><Button label={intl.formatMessage({id: "Cancel"})} className='buttonMain3' onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
-                <Link to="../step2"><Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} className='buttonMain' onClick={()=>setStep(1)}/></Link>
+                <Button label={intl.formatMessage({id: "Cancel"})} className='buttonMain3' onClick={()=>{setDisplayRegisterCancel(true)}}/>
+                <Link to="/register/2" className='linkReactRouter'><Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} className='buttonMain'/></Link>
             </div>
             
         </div>
