@@ -1,13 +1,14 @@
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { RadioButton } from 'primereact/radiobutton';
-import { useEffect, useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useEffect, useRef, useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import RadioButtonGroup from '../RadioButtonGroup/RadioButtonGroup';
 import "./ForgotPassword.scss"
 import { getLogo } from "../../services/imageService";
 import InputTextCustom from '../Inputs/InputText/InputTextCustom';
 import { getMailAndCellphone } from '../../services/loginService';
+import Modal from '../Modal/Modal';
 
 export default function ForgotPasswordStepOne(){
     const [document,setDocument]=useState("");
@@ -20,18 +21,30 @@ export default function ForgotPasswordStepOne(){
     ];
 
     let [mail,setMail]=useState("");
-    let [cellphone,setCellphone]=useState("");
+    let [mobilephone,setMobilephone]=useState("");
 
     const sendOptions=[
         {label:mail,captions:"Mail"},
-        {label:cellphone,captions:"SMS"}
+        {label:mobilephone,captions:"SMS"}
     ];
     const [confirm,setConfirm]=useState(false);
     const [descriptionClass,setDescriptionClass]=useState("infoText");
     const [dniClass,setDniClass]=useState("textHeading dniRegistered");
     const [sendOptionSelected,setSendOptionSelected]=useState("");
     const request:any=null;
+    
+    const [visibilityCompleteFields,setVisibilityCompleteFields]=useState(false);
+    const [visibilityUserNotExist,setVisibilityUserNotExist]=useState(false);
+    const [visibilityCancelModal,setVisibilityCancelModal]=useState(false);
+    const [visibilityCodeModal,setVisibilityCodeModal]=useState(false);
 
+    function toggleModalFields(){
+        setVisibilityCompleteFields(!visibilityCompleteFields);
+    }
+
+    function toggleModalUserNotExists(){
+        setVisibilityUserNotExist(!visibilityUserNotExist);
+    }
 
     useEffect(()=>{
         getLogo().then(res=>{
@@ -43,32 +56,41 @@ export default function ForgotPasswordStepOne(){
     function handleConfirm(){
         
         if(documentType!="" && document!=""){
-            if(true){   //VALIDACION DE DOCUMENTO en medere, Traer el mail y telefono para setearlos debajo
-                setConfirm(true);
-                setDescriptionClass("textTertiary");
-                setDniClass("textTertiary");
-                //SETEAR CAMPO MAIL Y DNI, ej:
-                getMailAndCellphone(document).then(res => {
-                    console.log(res.mobilephone)
+            //SETEAR CAMPO MAIL Y DNI, ej:
+            getMailAndCellphone(document).then(res => {
+                if ("response" in res && res.response.status === 404){
+                    toggleModalUserNotExists();
+                }else{
+                    setConfirm(true);
+                    setDescriptionClass("textTertiary");
+                    setDniClass("textTertiary");
                     setMail(res.email);
-                    setCellphone(res.mobilephone);
-                });
-            }
+                    setMobilephone(res.mobilephone);
+                }
+            });
+        }else{
+            toggleModalFields();
         }
     }
 
     function handleSend(e:any){
         
-        if(sendOptionSelected!=mail && sendOptionSelected!=cellphone) // No eligio contacto
+        if(sendOptionSelected!=mail && sendOptionSelected!=mobilephone) // No eligio contacto
             console.log("No elegiste contacto")
         if(sendOptionSelected==mail){
             //abrir modal con esta opcion
         }
          else{
             //abrir modal con esta opcion celular
-         }
+            setVisibilityCodeModal(!visibilityCodeModal)
+        }
             
     }
+
+    function handleCancel(){
+        setVisibilityCancelModal(!visibilityCancelModal);
+    }
+    
     
 
     return (
@@ -104,7 +126,7 @@ export default function ForgotPasswordStepOne(){
                 }
 
                 <div className="flexible--row buttonsContainer">
-                    <Button label={intl.formatMessage({ id:'Cancel' })} className="buttonMain3 cancelButton"></Button>
+                    <Button onClick={handleCancel} label={intl.formatMessage({ id:'Cancel' })} className="buttonMain3 cancelButton"></Button>
                     {
                          !confirm && <Button onClick={handleConfirm} icon="pi pi-angle-right" iconPos="right" label={intl.formatMessage({ id:'Confirm' })} className="buttonMain saveButton"></Button> 
                     }
@@ -112,7 +134,29 @@ export default function ForgotPasswordStepOne(){
                         confirm && <Button icon="pi pi-angle-right" iconPos="right" onClick={handleSend} label={intl.formatMessage({ id:'Send' })} className="buttonMain saveButton"></Button>
                     }
                 </div>
+                <Modal visible={visibilityCompleteFields} setVisible={setVisibilityCompleteFields} header={intl.formatMessage({ id: 'IncompleteData' })} footerButtonRightText={intl.formatMessage({ id: 'Back' })}  onClickRightBtn={()=>setVisibilityCompleteFields(false)} pathRightBtn={"#"}>
+                {intl.formatMessage({ id: 'CompleteTheTypeOfIDAndTheNumber' })}
+                </Modal>
+                <Modal visible={visibilityUserNotExist} setVisible={setVisibilityUserNotExist} header={intl.formatMessage({ id: 'UserDoesNotExist' })} footerButtonRightText={intl.formatMessage({ id: 'Back' })}  onClickRightBtn={()=>setVisibilityUserNotExist(false)} pathRightBtn={"#"}>
+                {intl.formatMessage({ id: 'UserNotExistByDocument' })}
+                </Modal>
+                <Modal visible={visibilityCancelModal} setVisible={setVisibilityCancelModal} header={intl.formatMessage({ id: 'CancelYourRecovery' })} footerButtonLeftText={intl.formatMessage({ id: 'YesCancel'})} footerButtonRightText={intl.formatMessage({ id: 'ContinueWithRecovery' })}  onClickRightBtn={()=>setVisibilityCancelModal(false)} pathLeftBtn={"/"}>
+                {intl.formatMessage({ id: 'CancelYourRecoveryMessage' })}
+                </Modal>
+
+                <Modal visible={visibilityCodeModal} setVisible={setVisibilityCodeModal} header={intl.formatMessage({ id: 'WeSendYouACode' })} footerButtonLeftText={intl.formatMessage({ id: 'TryAnotherWay'})} footerButtonRightText={intl.formatMessage({ id: 'Validate' })}  onClickRightBtn={()=>setVisibilityCodeModal(false)} pathLeftBtn={"#"}>
+                {
+                    <FormattedMessage
+                    id="MobileVerificationMesssage"
+                    defaultMessage=""
+                    values={{
+                        mobilephone: mobilephone,
+                    }}
+                  />
+                }
                 
+                </Modal>
+
             </div>
 
         </div>

@@ -61,5 +61,18 @@
     "SuccessfullSignUpDescription":"You've finished the registration, you can enter and request an office or telemedicine appointment.",
     "ContinueSigningUp":"Continue signing up",
     "CancelSignUp":"Cancel sign up",
-    "CancelSignUpDescription":"You are about to abandon your user registration. The data entered will not be saved."
+    "CancelSignUpDescription":"You are about to abandon your user registration. The data entered will not be saved.",
+    "IncompleteData":"Incomplete data",
+    "CompleteTheTypeOfIDAndTheNumber": "To continue please fill the type of ID and the number",
+    "UserNotExistByDocument":"There is no user with that type of ID and that ID number",
+    "CancelYourRecovery":"Cancel your recovery",
+    "CancelYourRecoveryMessage":"You are about to cancel your password recovery.",
+    "ContinueWithRecovery":"Continue with recovery",
+    "YesCancel":"Yes, cancel",
+    "WeSendYouACode":"We send you a code!",
+    "EmailVerificationMesssage":"We have just sent an email with a verification code to",
+    "MobileVerificationMesssage":"We have just sent a verification code to the phone number {mobilephone}",
+    "Validate":"Validate",
+    "TryAnotherWay":"try another way"
+
 }

@@ -10,7 +10,7 @@ export function getMailAndCellphone(document:any){
       .then(res => 
         res.data
       )
-      .catch(er => {
-        console.log(er);
-      });
+      .catch(er => 
+        er
+      );
 }
