@@ -50,6 +50,7 @@ a{
 
 .button{
     margin: 2% !important;
+    
     width: fit-content;
     transition: all .5s !important;
     
@@ -158,6 +159,7 @@ input, .p-dropdown{
 }
 
 
+
 .text{
     text-align: justify;
     color: map-get($lightText, secondary)
@@ -184,6 +186,55 @@ input, .p-dropdown{
 }
 
 .textTertiary{
+    @extend.text;
     color: map-get($lightText , tertiary )
 
+}
+
+.p-button-icon-only{
+    background-color: map-get($lightPrimary, main) !important;
+    border: 0 !important;
+
+    &:hover{
+        background-color: map-get($lightPrimary, text) !important;
+    }
+}
+
+.p-datepicker{
+    .p-highlight{
+        color:map-get($lightPrimary, main) !important;
+        background-color: map-get($lightPrimary, transparent ) !important;
+    }
+}
+
+.p-link{
+    &:hover{
+        color:map-get($lightPrimary, main) !important;
+    }
+}
+
+.flex-end{
+    justify-content: flex-end;
+}
+
+
+.p-button{
+    
+    &:focus{
+        box-shadow: 0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
+    }
+}
+
+
+.p-focus{
+    box-shadow:0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
+}
+
+.label{
+    color: map-get($lightText, secondary);
+    font-weight: 500;
+}
+
+.buttonContainer{
+    margin: 3% 0%;
 }

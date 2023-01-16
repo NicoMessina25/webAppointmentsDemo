@@ -20,11 +20,12 @@
 }
 
 .p-dialog-footer{
-    background-color: mix(map-get($lightContrastShade, 5), $contrast, 7)  !important;
+    background-color: map-get($lightContrastShade, 5) !important;
     padding: 1% !important;
 
     .modalFooter{
         justify-content: space-between;
+        align-items: flex-end;
 
         .buttonMain, .buttonMain3{
             font-weight: 600 !important;

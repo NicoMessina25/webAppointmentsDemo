@@ -1,0 +1,6 @@
+@import '../../../scss/mixins', '../../../scss/colors';
+
+.caption{
+    font-size: smaller;
+    color: map-get($lightText, secondary);
+}

@@ -11,19 +11,10 @@ import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 
 
-export default function PersonalDataForm({setStep}:any){
+export default function PersonalDataForm({setStep, user, setUser, setDisplayRegisterCancel}:any){
     const [documentType, setDocumentType] = useState("DNI");
     const [gender, setGender] = useState("");
-    const [user, setUser] = useState({
-        documentNumber:"",
-        name: "",
-        lastname: "",
-        gender: "",
-        date: {},
-        phone: "",
-        address: "",
-        city: ""
-    });
+    
 
     const [date, setDate] = useState<Date | Date[] | undefined>(undefined);
 
@@ -59,8 +50,8 @@ export default function PersonalDataForm({setStep}:any){
 
             <InputTextCustom value={user.city} onChange={(e:any) => setUser({...user, city: e.target.value})}  labelId="City"/>
 
-            <div className='flexible--row flex-end'>
-                <Link to="/"><Button label={intl.formatMessage({id: "Cancel"})} className='buttonMain3' /></Link>
+            <div className='flexible--row flex-end buttonContainer'>
+                <Link to="#"><Button label={intl.formatMessage({id: "Cancel"})} className='buttonMain3' onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
                 <Link to="../step2"><Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} className='buttonMain' onClick={()=>setStep(1)}/></Link>
             </div>
             

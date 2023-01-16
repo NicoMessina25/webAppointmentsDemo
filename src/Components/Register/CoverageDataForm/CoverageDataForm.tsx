@@ -7,7 +7,7 @@ import Combobox from "../../Combobox/Combobox";
 import RadioButtonGroup from "../../RadioButtonGroup/RadioButtonGroup";
 import "./CoverageDataForm.scss"
 
-export default function CoverageDataForm({setStep}:any){
+export default function CoverageDataForm({setStep, setDisplayRegisterCancel}:any){
     const intl = useIntl();
 
     const [medicalCoverage, setMedicalCoverage] = useState("");
@@ -37,7 +37,7 @@ export default function CoverageDataForm({setStep}:any){
             
             <div className="flexible--row buttonContainer" >
                 <Link to="../step1"><Button icon="pi pi-angle-left" iconPos="left" label={intl.formatMessage({id: "Back"})} className="buttonMain3" /></Link>
-                <Link to="/"><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" /></Link>
+                <Link to="#"><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
                 <Link to="../step3"><Button icon="pi pi-angle-right" iconPos="right" label={intl.formatMessage({id: "Follow"})} className="buttonMain" /></Link>
             </div>
         </div>
