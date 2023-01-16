@@ -113,11 +113,13 @@ a{
 }
 
 input, .p-dropdown{
+
     background-color: map-get($lightContrastShade, 10) !important;
     border: 0 !important;
     color: map-get($lightText, body) !important;
     font-weight: 500 !important;
     width: 100% !important;
+
 }
 
 
@@ -242,4 +244,12 @@ input, .p-dropdown{
 
 .linkReactRouter{
     @extend.marginButton;
+}
+.p-invalid{
+    .p-inputtext{
+        background-color: map-get($lightError, main) !important;
+
+    }
+    
+    
 }

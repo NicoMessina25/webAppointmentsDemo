@@ -70,9 +70,13 @@
     "ContinueWithRecovery":"Continuar con el recupero",
     "YesCancel":"Sí, cancelar",
     "WeSendYouACode":"¡Te enviamos un código!",
-    "EmailVerificationMesssage":"Acabamos de enviar un mail con un código de verificación a ",
+    "EmailVerificationMesssage":"Acabamos de enviar un mail con un código de verificación a {mail}",
     "MobileVerificationMesssage":"Acabamos de enviar al teléfono {mobilephone} un código de verificación:",
     "Validate":"Validar",
-    "TryAnotherWay":"probar otra manera"
+    "TryAnotherWay":"probar otra manera",
+    "WriteReceivedCode":"Escribí el código recibido:",
+    "NewPassword":"Nueva contraseña",
+    "CanEnterToSystem":"Ya podés ingresar la nueva contraseña para ingresar a nuestro sistema de turnos:",
+    "PasswordsDoNotMatch":"Las contraseñas no coinciden"
 
 }

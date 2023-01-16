@@ -12,7 +12,8 @@ $lightPrimary:(main: #3CB8BA, text: #01717C, contrast: $contrast, transparent50:
 $lightInfo:(main: #E29583, text: #B27668, contrast: $contrast); 
 $lightWarning:(main: #FFC107, text: #E0A800, contrast: $contrast); 
 $lightSuccess:(main: #28A745, text: #28A745, contrast: $contrast); 
-$lightError:(main: #DC3545, text: #DC3545, contrast: $contrast);
+$lightError:(main: #fdf2f3, transparent10: #DC354510, text: #DC3545, contrast: $contrast);
+
 $lightBase: (main: #FFFFFF, baseContrast: #193B671A);
 $lightText: (heading: map-get($lightContrastShade, 100), body: map-get($lightContrastShade, 90), secondary:map-get($lightContrastShade, 70), icon: map-get($lightContrastShade, 60), tertiary:map-get($lightContrastShade, 50), disable:map-get($lightContrastShade, 30));
 

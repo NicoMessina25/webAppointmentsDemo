@@ -70,9 +70,13 @@
     "ContinueWithRecovery":"Continue with recovery",
     "YesCancel":"Yes, cancel",
     "WeSendYouACode":"We send you a code!",
-    "EmailVerificationMesssage":"We have just sent an email with a verification code to",
+    "EmailVerificationMesssage":"We have just sent an email with a verification code to {mail}",
     "MobileVerificationMesssage":"We have just sent a verification code to the phone number {mobilephone}",
     "Validate":"Validate",
-    "TryAnotherWay":"try another way"
+    "TryAnotherWay":"try another way",
+    "WriteReceivedCode":"Write the received code:",
+    "NewPassword":"New password",
+    "CanEnterToSystem":"You can now enter the new password to enter our shift system:",
+    "PasswordsDoNotMatch":"Passwords do not match"
 
 }

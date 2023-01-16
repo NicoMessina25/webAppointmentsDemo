@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, useIntl } from 'react-intl';
 import EnglishMessages from '../../lang/en.json';
 import SpanishMessages from '../../lang/es.json';
 import { getLanguage } from '../../services/siteService';
@@ -14,11 +14,8 @@ const LangProvider = ({children}:any) => {
     const[messages,setMessages]:any = useState(SpanishMessages);
     const[localeintl,setLocale] = useState('es');
 
-
     addLocale('es',SpanishMessagesPrime );
     locale('es');
-
-
 
     useEffect(()=>{
         
