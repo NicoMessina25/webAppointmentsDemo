@@ -52,6 +52,14 @@
     "NumberOfMember":"N° de Afiliado",
     "IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform":"Acepto los términos y condiciones de uso de la plataforma de telemedicina.",
     "SeeDetails":"Ver detalle",
-    "Contact":"Contacto"
-
+    "Contact":"Contacto",
+    "Mail":"Mail",
+    "AtLeast8Characters": "Al menos 8 caracteres",
+    "RepeatPassword":"Repetir contraseña",
+    "Finish":"Finalizar",
+    "SuccessfullSignUp":"¡Registro exitoso!",
+    "SuccessfullSignUpDescription":"Finalizaste el registro, podes ingresar y solicitar un turno para consultorio o telemedicina.",
+    "ContinueSigningUp":"Continuar cargando datos",
+    "CancelSignUp":"Cancelar registro",
+    "CancelSignUpDescription":"Estas por abandonar tu registro de usuario. Los datos ingresados no quedarán guardados."
 }

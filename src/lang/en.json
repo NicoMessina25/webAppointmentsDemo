@@ -52,5 +52,14 @@
     "IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform":"I accept the terms and conditions of use of the telemedicine platform.",
     "SeeDetails":"See details",
     "NumericalCodeMsg":" so you can generate a new password. Choose the means of contact where you would prefer to receive it",
-    "Contact":"Contact"
+    "Contact":"Contact",
+    "Mail":"Mail",
+    "AtLeast8Characters": "At least 8 characters",
+    "RepeatPassword":"Repeat password",
+    "Finish":"Finish",
+    "SuccessfullSignUp":"Successfull sign up!",
+    "SuccessfullSignUpDescription":"You've finished the registration, you can enter and request an office or telemedicine appointment.",
+    "ContinueSigningUp":"Continue signing up",
+    "CancelSignUp":"Cancel sign up",
+    "CancelSignUpDescription":"You are about to abandon your user registration. The data entered will not be saved."
 }
