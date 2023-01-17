@@ -14,15 +14,21 @@ export default function Register(){
     const [user, setUser] = useState({
         username: "",
         password: "",
+        documentType:"",
         documentNumber:"",
         name: "",
         lastname: "",
         mail:"",
         gender: "",
         date: {},
-        phone: "",
+        phone: {
+            prefix: "",
+            area: "",
+            number:"",
+        },
         address: "",
-        city: ""
+        city: "",
+        memberNumber:""
     });
     const [displayRegisterCancel, setDisplayRegisterCancel] = useState(false)
 
@@ -43,7 +49,7 @@ export default function Register(){
     function renderStep(){
         switch (step){
             case "1":return <PersonalDataForm user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>;
-            case "2": return <CoverageDataForm setStep={setActiveIndex} setDisplayRegisterCancel={setDisplayRegisterCancel}/>; 
+            case "2": return <CoverageDataForm setStep={setActiveIndex} user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>; 
             case "3": return <SecurityDataForm setStep={setActiveIndex} user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>;
             
             default: <PersonalDataForm user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>;

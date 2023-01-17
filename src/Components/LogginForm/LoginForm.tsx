@@ -46,7 +46,7 @@ export default function LogginForm({googleLogin}:any){
                <div className="rememberForgetPasswordContainer flexible--row">
                     <div className="checkboxContainer flexible--row">
                         <Checkbox onChange={e => setChecked(e.checked)} checked={checked} className="checkbox"/>
-                        <p>{intl.formatMessage({ id: 'RememberMe' })}</p>
+                        <p className="checkboxLabel" >{intl.formatMessage({ id: 'RememberMe' })}</p>
                     </div>
                     <div className="linkContainer flexible--row">
                         <Link to={"/forgotPassword"} className="link">{intl.formatMessage({ id: 'ForgotPassword' })}</Link>
@@ -59,7 +59,7 @@ export default function LogginForm({googleLogin}:any){
             <Modal visible={displayNotUserFound} setVisible={setDisplayNotUserFound} header={intl.formatMessage({ id: 'UserDoesNotExist' })} footerButtonRightText={intl.formatMessage({ id: 'Back' })}  onClickRightBtn={()=>setDisplayNotUserFound(false)} pathRightBtn={"#"}>
             {intl.formatMessage({ id: 'UserDoesNotExistDescription' })}
             </Modal>
-            <Modal visible={displayRegister} setVisible={setDisplayRegister} header={intl.formatMessage({ id: 'BeforeStarting' }) + "..."}  footerButtonRightText={intl.formatMessage({ id: 'Continue' })}  footerButtonLeftText={intl.formatMessage({ id: 'Cancel' })} onClickLeftBtn={()=>setDisplayRegister(false)} pathLeftBtn={"#"} pathRightBtn={"/register/step1"}>
+            <Modal visible={displayRegister} setVisible={setDisplayRegister} header={intl.formatMessage({ id: 'BeforeStarting' }) + "..."}  footerButtonRightText={intl.formatMessage({ id: 'Continue' })}  footerButtonLeftText={intl.formatMessage({ id: 'Cancel' })} onClickLeftBtn={()=>setDisplayRegister(false)} pathLeftBtn={"#"} pathRightBtn={"/register/1"}>
             {intl.formatMessage({ id: 'BeforeStartingDescription' })}
             </Modal>
         </div>

@@ -1,6 +1,12 @@
 @import '../../../scss/mixins', '../../../scss/colors';
 
+
 .caption{
     font-size: smaller;
     color: map-get($lightText, secondary);
+}
+
+.caption-invalid{
+    @extend.caption;
+    color: map-get($lightError, text);
 }

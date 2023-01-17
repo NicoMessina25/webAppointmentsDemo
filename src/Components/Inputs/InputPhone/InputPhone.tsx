@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import InputTextCustom from "../InputText/InputTextCustom";
 import {Dropdown } from "primereact/dropdown"
 import "./InputPhone.scss";
+import { useState } from "react";
 
 export default function InputPhone({value, setValue, labelId, className, password, placeholder}:any){
     const intl = useIntl();
@@ -14,9 +15,15 @@ export default function InputPhone({value, setValue, labelId, className, passwor
         <div className={`flexible--column inputContainer ${className}`}>
             {labelId && <p>{intl.formatMessage({id: labelId})}</p>}
             <div className="flexible--row phoneFieldsContainer">
-                <Dropdown className="comboboxPhone"/>
-                <InputTextCustom placeholder={intl.formatMessage({id:"Area"})} className="areaInputPhone" onKeyDown={onKeyDownHandler}/>
-                <InputTextCustom placeholder={intl.formatMessage({id:"Number"})} className="numberInputPhone" onKeyDown={onKeyDownHandler}/>
+                <Dropdown value={value.phone.prefix} onChange={(e)=>{
+                    setValue(e.value, "prefix");
+                    }} className="comboboxPhone"/>
+                <InputTextCustom placeholder={intl.formatMessage({id:"Area"})} value={value.phone.area} onChange={(e:any)=>{
+                    setValue(e.target.value, "area");
+                }} className="areaInputPhone" onKeyDown={onKeyDownHandler}/>
+                <InputTextCustom placeholder={intl.formatMessage({id:"Number"})} value={value.phone.number} onChange={(e:any)=>{
+                    setValue(e.target.value, "number")
+                }} className="numberInputPhone" onKeyDown={onKeyDownHandler}/>
             </div>
         </div>
     );

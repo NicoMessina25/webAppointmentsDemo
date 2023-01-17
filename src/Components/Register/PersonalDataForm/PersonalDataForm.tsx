@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 
 
 export default function PersonalDataForm({setStep, user, setUser, setDisplayRegisterCancel}:any){
-    const [documentType, setDocumentType] = useState("DNI");
     const [gender, setGender] = useState("");
     
 
@@ -32,7 +31,9 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
 
     return (
         <div className='flexible--column'>
-            <RadioButtonGroup options={documentOptions} setValue={setDocumentType} labelId="DocumentType" value={documentType} className="radioGroup" orientation={"column"}/>
+            <RadioButtonGroup options={documentOptions} setValue={(docType:any)=>{
+                setUser({...user, documentType: docType})
+            }} labelId="DocumentType" value={user.documentType} className="radioGroup" orientation={"row"}/>
          
             <InputTextCustom value={user.documentNumber} onChange={(e:any) => setUser({...user, documentNumber: e.target.value})} labelId="DocumentNumber"/>
 
@@ -40,11 +41,20 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
 
             <InputTextCustom value={user.lastname} onChange={(e:any) => setUser({...user, lastname: e.target.value})} labelId="Lastname"/>
 
-            <RadioButtonGroup options={genderOptions} setValue={setGender} labelId="Gender" value={gender} className="radioGroup" orientation={"row"}/>
+            <RadioButtonGroup options={genderOptions} setValue={(gender:any)=>{
+                setUser({...user, gender: gender})
+            }} labelId="Gender" value={user.gender} className="radioGroup" orientation={"row"}/>
 
-            <Calendar value={date} onChange={(e:any) => setDate(e.value)} showIcon dateFormat="dd/mm/yy" placeholder='dd/mm/aaaa'/>
+            <Calendar value={date} onChange={(e:any) => {setDate(e.value)
+            console.log(e);
+            
+            }} showIcon dateFormat="dd/mm/yy" placeholder='dd/mm/aaaa'/>
 
-            <InputPhone labelId="Phone" />
+            <InputPhone labelId="Phone" value={user} setValue={(val:any, valField:any)=>{
+                let _user = {...user}
+                _user.phone[valField] = val;
+                setUser(_user);
+            }} />
 
             <InputTextCustom value={user.address} onChange={(e:any) => setUser({...user, address: e.target.value})} labelId="Address"/>
 

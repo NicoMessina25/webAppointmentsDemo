@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import Combobox from "../../Combobox/Combobox";
+import InputTextCustom from "../../Inputs/InputText/InputTextCustom";
 import RadioButtonGroup from "../../RadioButtonGroup/RadioButtonGroup";
 import "./CoverageDataForm.scss"
 
-export default function CoverageDataForm({setStep, setDisplayRegisterCancel}:any){
+export default function CoverageDataForm({user, setUser, setStep, setDisplayRegisterCancel}:any){
     const intl = useIntl();
 
     const [medicalCoverage, setMedicalCoverage] = useState("");
@@ -19,15 +20,22 @@ export default function CoverageDataForm({setStep, setDisplayRegisterCancel}:any
         {label: intl.formatMessage({id: "No"})}
     ]
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         setStep(1);
-    },[])
+    },[]) */
 
     return (
         <div className="flexible--column formCoverage">
             <RadioButtonGroup options={yesNo} value={medicalCoverage} setValue={setMedicalCoverage} labelId={"DoYouHaveMedicalCoverage?"} orientation="row"/>
             <RadioButtonGroup options={yesNo} value={throughJob} setValue={setThroughJob} labelId={"IsThroughYourJob?"} orientation="row"/>
-            <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} className="comboboxPrepaids"/>
+            
+            <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} className="combobox"/>
+
+            <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox"/>
+
+            <InputTextCustom labelId="NumberOfMember"  value={user.memberNumber} onChange={(e:any)=>{
+                setUser({...user, memberNumber: e.target.value})
+            }}/>
 
             <div className="flexible--row acceptTerms">
                 <Checkbox onChange={e => setAcceptTerms(e.checked)} checked={acceptTerms} className="checkbox"/>

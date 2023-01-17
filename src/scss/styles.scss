@@ -129,12 +129,18 @@ input, .p-dropdown{
     color: map-get($lightContrastShade, 90);
     font-weight: 400;
     justify-content: space-around;
+    
+}
+
+.checkboxLabel{
+    margin-left: 7px !important;
 }
 
 
 .p-checkbox-box{
     background-color: map-get($lightContrastShadeTranparent, 20)  !important;
     border: 0 !important;
+    
 }
 
 .p-checkbox-checked{
@@ -252,4 +258,8 @@ input, .p-dropdown{
     }
     
     
+}
+
+.combobox{
+    margin: 2%;
 }
