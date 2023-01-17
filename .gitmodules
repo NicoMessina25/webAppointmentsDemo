@@ -1,0 +1,3 @@
+[submodule "webappointmentsreact"]
+    path = webappointmentsreact
+    url = https://github.com/NicoMessina25/webappointmentsreact.git
