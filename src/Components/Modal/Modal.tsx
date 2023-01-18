@@ -5,10 +5,11 @@ import "./Modal.scss"
 import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 
-export default function Modal({visible, setVisible, header, footerButtonRightText, footerButtonLeftText, onClickLeftBtn, onClickRightBtn, pathRightBtn, pathLeftBtn, children}:any){
+export default function Modal({visible, setVisible, header, footerButtonRightText, footerButtonLeftText, onClickLeftBtn, onClickRightBtn, pathRightBtn, pathLeftBtn, children,onHideCustom}:any){
 
     const onHide = () => {
         setVisible(false);
+        onHideCustom && onHideCustom();
     }
 
     const renderFooter = () =>{

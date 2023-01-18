@@ -1,7 +1,7 @@
 import { Button } from 'primereact/button';
 import React, { useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl';
-import { getMailAndCellphone } from '../../services/loginService';
+import { getMailAndCellphone, sendCodeByMail, validateRecoveryCode } from '../../services/loginService';
 import InputTextCustom from '../Inputs/InputText/InputTextCustom';
 import Modal from '../Modal/Modal'
 import RadioButtonGroup from '../RadioButtonGroup/RadioButtonGroup'
@@ -36,14 +36,18 @@ export default function ForgotPasswordForm(props :any) {
     const [sendOptionSelected,setSendOptionSelected]=useState("");
     let [receivedCode,setReceivedCode]=useState("");
 
-
+    const [styleError,setStyleError]=useState(false);
+    const [messageError,setMessageError]=useState('');
 
     function handleSend(e:any){
         
         if(sendOptionSelected!=mail && sendOptionSelected!=mobilephone) // No eligio forma de contacto
             console.log("Elegi contacto")
         else{
-            setVisibilityCodeModal(!visibilityCodeModal)
+            if(sendOptionSelected==mail){
+                sendCodeByMail(props.patientId);
+                setVisibilityCodeModal(!visibilityCodeModal)
+            }
         }
     }
 
@@ -63,7 +67,7 @@ export default function ForgotPasswordForm(props :any) {
         
         if(documentType!="" && document!=""){
             //SETEAR CAMPO MAIL Y DNI, ej:
-            getMailAndCellphone(document).then(res => {
+            getMailAndCellphone(document,documentType).then(res => {
                 if ("response" in res && res.response.status === 404){
                     toggleModalUserNotExists();
                 }else{
@@ -72,6 +76,7 @@ export default function ForgotPasswordForm(props :any) {
                     setDniClass("textTertiary");
                     setMail(res.email);
                     setMobilephone(res.mobilephone);
+                    props.setPatientId(res.medereentity);
                 }
             });
         }else{
@@ -80,19 +85,22 @@ export default function ForgotPasswordForm(props :any) {
     }
 
     function handleCodeValidation(){
-        //SI EL CODIGO ES VERDADERO
-        if(true){
-            setVisibilityCodeModal(false);        
-            setVisibilityNewPasswordForm(true);
-            props.toggleForm();
-        }else{
-            console.log("el codigo no es verdadero ")
-        }
+        
+        validateRecoveryCode(props.patientId,receivedCode).then(res => {
+            if (!res){
+                setStyleError(true);
+                setMessageError(intl.formatMessage({id :'WrongCode'}))
+            }  
+            else{
+                setStyleError(false);
+                setVisibilityCodeModal(false);        
+                setVisibilityNewPasswordForm(true);
+                props.toggleForm();
+            }
+        } );
         
     }
     
-
-
     return (
     
     <div className='bodyForm flexible--column'>
@@ -132,7 +140,7 @@ export default function ForgotPasswordForm(props :any) {
         </Modal>
         
 
-        <Modal visible={visibilityCodeModal} setVisible={setVisibilityCodeModal} header={intl.formatMessage({ id: 'WeSendYouACode' })} footerButtonLeftText={intl.formatMessage({ id: 'TryAnotherWay'})} footerButtonRightText={intl.formatMessage({ id: 'Validate' })}  onClickRightBtn={handleCodeValidation} pathLeftBtn={"#"}>
+        <Modal visible={visibilityCodeModal} setVisible={setVisibilityCodeModal} header={intl.formatMessage({ id: 'WeSendYouACode' })} footerButtonLeftText={intl.formatMessage({ id: 'TryAnotherWay'})} footerButtonRightText={intl.formatMessage({ id: 'Validate' })}  onClickLeftBtn={()=> setVisibilityCodeModal(false)} onClickRightBtn={handleCodeValidation}>
         {
             (sendOptionSelected==mobilephone) && 
             <FormattedMessage
@@ -154,7 +162,9 @@ export default function ForgotPasswordForm(props :any) {
             />
         }
         {
-            <InputTextCustom labelId="WriteReceivedCode" value={receivedCode}  onChange={(e:any) => setReceivedCode(e.target.value)} className="input" placeholder=""/>
+            
+            <InputTextCustom labelId="WriteReceivedCode" error={styleError} caption={messageError} value={receivedCode}  onChange={(e:any) => setReceivedCode(e.target.value)} className="input" placeholder=""/>
+            
         }
         </Modal>
 

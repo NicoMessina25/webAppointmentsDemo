@@ -1,12 +1,15 @@
 import axios from "axios";
+import { idText } from "typescript";
+const url='http://medere1.medere.localhost:8080/rest/webappointments/'
 
 
 
-export function getMailAndCellphone(document:any){
+export function getMailAndCellphone(document:any,documenttype:any){
     
     return axios.get(`http://medere1.medere.localhost:8080/rest/webappointments/getMailAndCellphone`, {
         params: {
-          document: document
+          document: document,
+          documenttype:documenttype
         }
       })
       .then(res => 
@@ -29,4 +32,56 @@ export function saveUser(user:any) {
       user: JSON.stringify(newUser)
     }
   })
+}
+export function postNewPassword(id:number,password : string){
+  return axios.post(url+ 'newpassword', {
+    id: id,
+    password: password
+  },{
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => 
+    response
+  )
+  .catch(error => 
+      error
+  );
+
+}
+
+export function sendCodeByMail(id:number){
+  return axios.post(
+    url+'sendRecoveryCodeEmail',{
+      id:id
+    },{
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => 
+      response
+    )
+    .catch(error => 
+        error
+    )
+};
+
+export function validateRecoveryCode(id:number,code:string){
+  return axios.post(
+    url+'validateRecoveryCode',{
+      id:id,
+      code:code
+    },{
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => 
+      response.data
+    )
+    .catch(error => 
+        error
+    )
 }

@@ -16,17 +16,15 @@ export default function ForgotPasswordStepOne(){
     
 
     const [logo, setLogo] = useState("");
-    
-
-    
-    let [headerTitleBoolean,setHeaderTitleBoolean]=useState(true);
+    let [headerTitle,setHeaderTitle]=useState("");
     const intl = useIntl();
     const [visibilityCancelModal,setVisibilityCancelModal]=useState(false);
+    
+    const [patientId,setPatientId]=useState(-1);
 
     useEffect(()=>{
         getLogo().then(res=>{
             setLogo(res);
-            
         })
     },[])
 
@@ -43,12 +41,13 @@ export default function ForgotPasswordStepOne(){
     return (
         <div className='container flexible--column' >
             <div >
-                <img  src={`http://medere1.medere.localhost:8080/imgs/${logo}`} alt="" className='img' />
+                { logo!='' && <img src={`http://medere1.medere.localhost:8080/imgs/${logo}`} alt="" className='img' /> }
             </div>
             <div className='header'>
-                <h1>{ intl.formatMessage({ id: headerTitleBoolean ? 'ForgotPassword' : 'NewPassword' })}</h1>
+                { !toggleFormBoolean ? <h1>{ intl.formatMessage({ id: 'ForgotPassword' }) }</h1> : <h1>{ intl.formatMessage({ id: 'NewPassword' }) }</h1> }
             </div>
-            {  !toggleFormBoolean ? <ForgotPasswordForm toggleForm={toggleForm} handleCancel={handleCancel}/> : <NewPasswordForm handleCancel={handleCancel}/>}
+
+            {  !toggleFormBoolean ? <ForgotPasswordForm toggleForm={toggleForm} patientId={patientId} setPatientId={setPatientId} handleCancel={handleCancel}/> : <NewPasswordForm  patientId={patientId} handleCancel={handleCancel}/>}
             
             <Modal visible={visibilityCancelModal} setVisible={setVisibilityCancelModal} header={intl.formatMessage({ id: 'CancelYourRecovery' })} footerButtonLeftText={intl.formatMessage({ id: 'YesCancel'})} footerButtonRightText={intl.formatMessage({ id: 'ContinueWithRecovery' })}  onClickRightBtn={()=>setVisibilityCancelModal      (false)} pathLeftBtn={"/"}>
                 {intl.formatMessage({ id: 'CancelYourRecoveryMessage' })}

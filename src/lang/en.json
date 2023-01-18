@@ -78,5 +78,8 @@
     "NewPassword":"New password",
     "CanEnterToSystem":"You can now enter the new password to enter our shift system:",
     "PasswordsDoNotMatch":"Passwords do not match",
+    "YouHaveNewPassword":"You have a new password!",
+    "NewPasswordMessage":"To enter the system, log in with the newly generated password.",
+    "WrongCode":"Wrong code",
     "Select":"Seleccionar"
 }

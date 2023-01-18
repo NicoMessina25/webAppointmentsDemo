@@ -18,8 +18,6 @@ export default function LogginForm({googleLogin}:any){
     const [password, setPassword] = useState("");
 
     function validateUser(){
-        console.log(userName, password);
-        
         setDisplayNotUserFound(true)
     }
     

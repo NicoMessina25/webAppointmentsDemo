@@ -78,5 +78,8 @@
     "NewPassword":"Nueva contraseña",
     "CanEnterToSystem":"Ya podés ingresar la nueva contraseña para ingresar a nuestro sistema de turnos:",
     "PasswordsDoNotMatch":"Las contraseñas no coinciden",
+    "YouHaveNewPassword":"¡Tenés una nueva contraseña!",
+    "NewPasswordMessage":"Para ingresar al sistema logueate con la contraseña recién generada.",
+    "WrongCode":"Código erróneo",
     "Select":"Seleccionar"
 }

@@ -257,13 +257,22 @@ input, .p-dropdown{
 .linkReactRouter{
     @extend.marginButton;
 }
+
+/* 
+    esta clase es para la contraseña invalida
+*/
 .p-invalid{
     .p-inputtext{
         background-color: map-get($lightError, main) !important;
-
+        
     }
     
-    
+}
+/* 
+esta clase es para el input text invalido
+ */
+.p-inputtext.p-invalid{
+    background-color: map-get($lightError, main) !important;
 }
 
 .combobox{
