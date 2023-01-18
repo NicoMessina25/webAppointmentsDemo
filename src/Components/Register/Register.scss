@@ -22,6 +22,9 @@
     background-color: map-get($lightContrastShade, 10);
     height: 30vh;
     width: 100%;
+    z-index: 8;
+    position: sticky;
+    top: 0;
 
     img{
         width: 30%;

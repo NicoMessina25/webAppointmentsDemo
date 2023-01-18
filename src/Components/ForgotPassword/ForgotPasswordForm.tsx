@@ -12,8 +12,8 @@ export default function ForgotPasswordForm(props :any) {
     const [descriptionClass,setDescriptionClass]=useState("infoText");
     const intl = useIntl();
     const options=[ 
-        {label:"DNI"},
-        {label:intl.formatMessage({ id:'Foreign' })}
+        {label:"DNI", value: 1},
+        {label:intl.formatMessage({ id:'Foreign' }), value: 2}
     ];
     
     const [confirm,setConfirm]=useState(false);
@@ -30,8 +30,8 @@ export default function ForgotPasswordForm(props :any) {
     const [document,setDocument]=useState("");
     const [documentType,setDocumentType]=useState("");
     const sendOptions=[
-        {label:mail,captions:"Mail"},
-        {label:mobilephone,captions:"SMS"}
+        {label:mail, value: mail, captions:"Mail"},
+        {label:mobilephone, value: mobilephone, captions:"SMS"}
     ];
     const [sendOptionSelected,setSendOptionSelected]=useState("");
     let [receivedCode,setReceivedCode]=useState("");

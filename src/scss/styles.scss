@@ -148,6 +148,11 @@ input, .p-dropdown{
     border-radius: 4px !important;
 }
 
+.p-highlight{
+    color:map-get($lightPrimary, main) !important;
+    background-color: map-get($lightPrimary, transparent ) !important;
+}
+
 .linkContainer{
     width: 50%;
     justify-content: flex-end;
@@ -227,7 +232,7 @@ input, .p-dropdown{
 }
 
 
-.p-button{
+.p-button, .p-inputtext{
     
     &:focus{
         box-shadow: 0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
@@ -242,6 +247,7 @@ input, .p-dropdown{
 .label{
     color: map-get($lightText, secondary);
     font-weight: 500;
+    
 }
 
 .buttonContainer{

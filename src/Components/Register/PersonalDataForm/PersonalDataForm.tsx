@@ -9,24 +9,40 @@ import { Calendar } from 'primereact/calendar';
 import InputPhone from '../../Inputs/InputPhone/InputPhone';
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
+import Combobox from '../../Combobox/Combobox';
+import { getAllCities } from '../../../services/citiesService';
 
 
 export default function PersonalDataForm({setStep, user, setUser, setDisplayRegisterCancel}:any){
-    const [gender, setGender] = useState("");
+    const [validInputs, setValidInputs] = useState(false);
+    const [cities, setCities] = useState();
+    const [city, setCity]:any = useState(null);
     
-
-    const [date, setDate] = useState<Date | Date[] | undefined>(undefined);
 
     const intl = useIntl();
 
+    useEffect(()=>{
+        getAllCities().then(data=>{
+            setCities(data);           
+        })
+    },[]);
+
+    useEffect(()=>{
+        if(cities != undefined) {
+            setCity(cities[0]);
+        }
+           
+    },[cities])
+    
+
     const documentOptions = [
-        {label: intl.formatMessage({id: "ID"})},
-        {label: intl.formatMessage({id: "Foreign"})}
+        {label: intl.formatMessage({id: "ID"}), value: 1},
+        {label: intl.formatMessage({id: "Foreign"}), value: 2}
     ]
 
     const genderOptions = [
-        {label: intl.formatMessage({id: "Female"})},
-        {label: intl.formatMessage({id: "Male"})}
+        {label: intl.formatMessage({id: "Female"}), value:  "F"},
+        {label: intl.formatMessage({id: "Male"}), value: "M"}
     ]
 
     return (
@@ -45,8 +61,8 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
                 setUser({...user, gender: gender})
             }} labelId="Gender" value={user.gender} className="radioGroup" orientation={"row"}/>
 
-            <Calendar value={date} onChange={(e:any) => {setDate(e.value)
-            console.log(e);
+            <Calendar value={user.date} onChange={(e:any) => {
+                setUser({...user, date: e.value})
             
             }} showIcon dateFormat="dd/mm/yy" placeholder='dd/mm/aaaa'/>
 
@@ -58,11 +74,11 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
 
             <InputTextCustom value={user.address} onChange={(e:any) => setUser({...user, address: e.target.value})} labelId="Address"/>
 
-            <InputTextCustom value={user.city} onChange={(e:any) => setUser({...user, city: e.target.value})}  labelId="City"/>
+            <Combobox items={cities} optionLabel="description" value={city} placeholder={city?.description}  setValue={setCity}/>
 
             <div className='flexible--row flex-end buttonContainer'>
                 <Button label={intl.formatMessage({id: "Cancel"})} className='buttonMain3' onClick={()=>{setDisplayRegisterCancel(true)}}/>
-                <Link to="/register/2" className='linkReactRouter'><Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} className='buttonMain'/></Link>
+                <Link to="/register/2" className='linkReactRouter'><Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} className='buttonMain' /></Link>
             </div>
             
         </div>

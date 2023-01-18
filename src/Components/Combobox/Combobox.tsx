@@ -1,11 +1,11 @@
 import { Dropdown } from 'primereact/dropdown'
 import React from 'react'
 
-function Combobox({label, items, value, setValue, className}:any) {
+function Combobox({label, items, value, setValue, className, optionLabel}:any) {
   return (
     <div className={`flexible--column ${className}`}>
         <p className='label'>{label}</p>
-        <Dropdown value={value} onChange={(e) => setValue(e.value)}/>
+        <Dropdown value={value} onChange={(e) => setValue(e.value)} filter optionLabel={optionLabel} options={items}/>
     </div>
     
   )

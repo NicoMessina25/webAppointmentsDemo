@@ -14,13 +14,13 @@ export default function Register(){
     const [user, setUser] = useState({
         username: "",
         password: "",
-        documentType:"",
+        documentType:0,
         documentNumber:"",
         name: "",
         lastname: "",
         mail:"",
         gender: "",
-        date: {},
+        date: "",
         phone: {
             prefix: "",
             area: "",
@@ -28,7 +28,12 @@ export default function Register(){
         },
         address: "",
         city: "",
-        memberNumber:""
+        memberNumber:"",
+        medicalCoverage: false,
+        medCoverageThroughJob: true,
+        prepaid:{},
+        plan:"",
+        acceptTerms:false,
     });
     const [displayRegisterCancel, setDisplayRegisterCancel] = useState(false)
 
@@ -42,7 +47,6 @@ export default function Register(){
 
     useEffect(() => {
       setActiveIndex(step-1)
-      console.log("step:", step);
     }, [step])
     
 

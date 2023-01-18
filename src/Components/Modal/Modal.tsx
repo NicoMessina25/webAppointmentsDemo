@@ -16,8 +16,8 @@ export default function Modal({visible, setVisible, header, footerButtonRightTex
 
         return (
             <div className={`modalFooter flexible--row ${flexEnd}`}>
-                {footerButtonLeftText && <Link to={pathLeftBtn || "#"} ><Button className="buttonMain3" onClick={onClickLeftBtn}>{footerButtonLeftText}</Button></Link>} 
-                <Link to={pathRightBtn || "#"}> <Button  className="buttonMain" onClick={onClickRightBtn}>{footerButtonRightText}</Button></Link>
+                {footerButtonLeftText && <Link to={pathLeftBtn || "#"} className="left"><Button className="buttonMain3" onClick={onClickLeftBtn} label={footerButtonLeftText}/></Link>} 
+                <Link to={pathRightBtn || "#"}> <Button  className="buttonMain" onClick={onClickRightBtn} label={footerButtonRightText}/></Link>
             </div>
         );
     }

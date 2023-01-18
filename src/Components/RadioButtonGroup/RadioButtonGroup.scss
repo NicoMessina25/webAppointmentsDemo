@@ -2,11 +2,8 @@
 
 .radioBtnGContainer{
     align-items: flex-start;
+    font-size: 90%;
 
-    .radioButtonLabel{
-        color: map-get($lightText, secondary);
-        font-weight: 500;
-    }
 
     .optionsContainer{
         width: 100%;

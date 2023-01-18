@@ -1,3 +1,4 @@
+import { render } from "@testing-library/react";
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
 import { useEffect, useState } from "react";
@@ -10,14 +11,14 @@ import "./CoverageDataForm.scss"
 
 export default function CoverageDataForm({user, setUser, setStep, setDisplayRegisterCancel}:any){
     const intl = useIntl();
+    let yes = intl.formatMessage({id: "Yes"});
+    let no = intl.formatMessage({id: "No"});
 
-    const [medicalCoverage, setMedicalCoverage] = useState("");
-    const [throughJob, setThroughJob] = useState("");
-    const [acceptTerms, setAcceptTerms] = useState(false);
+   
 
     const yesNo = [
-        {label: intl.formatMessage({id: "Yes"})},
-        {label: intl.formatMessage({id: "No"})}
+        {label: yes, value: true},
+        {label: no, value: false}
     ]
 
     /* useEffect(()=>{
@@ -26,20 +27,29 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
 
     return (
         <div className="flexible--column formCoverage">
-            <RadioButtonGroup options={yesNo} value={medicalCoverage} setValue={setMedicalCoverage} labelId={"DoYouHaveMedicalCoverage?"} orientation="row"/>
-            <RadioButtonGroup options={yesNo} value={throughJob} setValue={setThroughJob} labelId={"IsThroughYourJob?"} orientation="row"/>
+            <RadioButtonGroup options={yesNo} value={user.medicalCoverage} setValue={(value:any)=>{
+                setUser({...user, medicalCoverage: value})
+            }} labelId={"DoYouHaveMedicalCoverage?"} orientation="row"/>
+        
+            {user.medicalCoverage && 
+            <div>
+                <RadioButtonGroup options={yesNo} value={user.medCoverageThroughJob} setValue={(value:any)=>{
+                setUser({...user, medCoverageThroughJob: value})
+            }} labelId={"IsThroughYourJob?"} orientation="row"/>
             
-            <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} className="combobox"/>
+                <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} className="combobox"/>
 
-            <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox"/>
+                <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox"/>
 
-            <InputTextCustom labelId="NumberOfMember"  value={user.memberNumber} onChange={(e:any)=>{
-                setUser({...user, memberNumber: e.target.value})
-            }}/>
+                <InputTextCustom labelId="NumberOfMember"  value={user.memberNumber} onChange={(e:any)=>{
+                    setUser({...user, memberNumber: e.target.value})
+                }}/>
+            </div>
+            }
 
             <div className="flexible--row acceptTerms">
-                <Checkbox onChange={e => setAcceptTerms(e.checked)} checked={acceptTerms} className="checkbox"/>
-                <p>{intl.formatMessage({ id: 'IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform' })}</p>
+                <Checkbox onChange={e => setUser({...user, acceptTerms: e.checked})} checked={user.acceptTerms} className="checkbox"/>
+                <p className="checkboxLabel">{intl.formatMessage({ id: 'IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform' })}</p>
             </div>
             <Link to="#" className="linkInfo">{intl.formatMessage({id: "SeeDetails"})}</Link>
             

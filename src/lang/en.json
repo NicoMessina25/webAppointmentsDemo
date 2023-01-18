@@ -77,6 +77,6 @@
     "WriteReceivedCode":"Write the received code:",
     "NewPassword":"New password",
     "CanEnterToSystem":"You can now enter the new password to enter our shift system:",
-    "PasswordsDoNotMatch":"Passwords do not match"
-
+    "PasswordsDoNotMatch":"Passwords do not match",
+    "Select":"Seleccionar"
 }

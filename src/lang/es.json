@@ -77,6 +77,6 @@
     "WriteReceivedCode":"Escribí el código recibido:",
     "NewPassword":"Nueva contraseña",
     "CanEnterToSystem":"Ya podés ingresar la nueva contraseña para ingresar a nuestro sistema de turnos:",
-    "PasswordsDoNotMatch":"Las contraseñas no coinciden"
-
+    "PasswordsDoNotMatch":"Las contraseñas no coinciden",
+    "Select":"Seleccionar"
 }
