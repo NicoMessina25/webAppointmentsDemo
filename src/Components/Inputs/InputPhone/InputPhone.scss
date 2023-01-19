@@ -1,15 +1,25 @@
 .phoneFieldsContainer{
     justify-content: center;
+    align-items: center;
 
     .comboboxPhone{
         width: 30% !important;
+        justify-content: center;
     }
+
 
     .areaInputPhone{
         width: 30%;
+        margin: 0 1%;
+
+        input{
+            margin: 0 !important;
+        }
     }
 
     .numberInputPhone{
+        @extend.areaInputPhone;
         width: 40%;
+        margin: 0;
     }
 }

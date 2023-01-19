@@ -4,6 +4,7 @@ import { Checkbox } from "primereact/checkbox";
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { Link } from "react-router-dom";
+import { getAllMedicalCoverages, getPlans } from "../../../services/medicalCoverageService";
 import Combobox from "../../Combobox/Combobox";
 import InputTextCustom from "../../Inputs/InputText/InputTextCustom";
 import RadioButtonGroup from "../../RadioButtonGroup/RadioButtonGroup";
@@ -11,9 +12,29 @@ import "./CoverageDataForm.scss"
 
 export default function CoverageDataForm({user, setUser, setStep, setDisplayRegisterCancel}:any){
     const intl = useIntl();
+    const [medicalCoverages, setMedicalCoverages] = useState([]);
+    const [medicalCoverage, setMedicalCoverage]:any = useState(null);
+    const [plans, setPlans] = useState([]);
+    const [plan, setPlan] = useState(null);
+
     let yes = intl.formatMessage({id: "Yes"});
     let no = intl.formatMessage({id: "No"});
 
+   useEffect(()=>{
+        getAllMedicalCoverages().then(data =>{
+            setMedicalCoverages(data);
+            
+        })
+
+        
+   },[])
+
+   useEffect(() => {
+    getPlans(medicalCoverage?.entityid).then(data => {;
+        setPlans(data)
+        
+    })
+   }, [medicalCoverage])
    
 
     const yesNo = [
@@ -37,9 +58,9 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
                 setUser({...user, medCoverageThroughJob: value})
             }} labelId={"IsThroughYourJob?"} orientation="row"/>
             
-                <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} className="combobox"/>
+                <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" items={medicalCoverages} value={medicalCoverage} setValue={setMedicalCoverage} optionLabel="name" />
 
-                <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox"/>
+                <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox" placeholder={intl.formatMessage({id: "Select"})} items={plans} value={plan} setValue={setPlan} optionLabel="name"/>
 
                 <InputTextCustom labelId="NumberOfMember"  value={user.memberNumber} onChange={(e:any)=>{
                     setUser({...user, memberNumber: e.target.value})

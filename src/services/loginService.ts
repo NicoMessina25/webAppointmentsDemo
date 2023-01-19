@@ -25,6 +25,7 @@ export function saveUser(user:any) {
 
   newUser.phone = user.phone.prefix + user.phone.area + user.phone.number
   newUser.date = Date.parse(user.date);
+  console.log(newUser);
   
 
   return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveUser', null, {

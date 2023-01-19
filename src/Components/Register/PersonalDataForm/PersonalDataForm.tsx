@@ -66,7 +66,7 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
             
             }} showIcon dateFormat="dd/mm/yy" placeholder='dd/mm/aaaa'/>
 
-            <InputPhone labelId="Phone" value={user} setValue={(val:any, valField:any)=>{
+            <InputPhone labelId="Phone" value={user.phone} setValue={(val:any, valField:any)=>{
                 let _user = {...user}
                 _user.phone[valField] = val;
                 setUser(_user);
