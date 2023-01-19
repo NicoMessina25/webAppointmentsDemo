@@ -1,12 +1,12 @@
 import axios from "axios";
 import { idText } from "typescript";
-const url='http://medere1.medere.localhost:8080/rest/webappointments/'
+const url=process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/'
 
 
 
 export function getMailAndCellphone(document:any,documenttype:any){
     
-    return axios.get(`http://medere1.medere.localhost:8080/rest/webappointments/getMailAndCellphone`, {
+    return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getMailAndCellphone', {
         params: {
           document: document,
           documenttype:documenttype
@@ -27,7 +27,7 @@ export function saveUser(user:any) {
   newUser.date = Date.parse(user.date);
   
 
-  return axios.post(`http://medere1.medere.localhost:8080/rest/webappointments/saveUser`, null, {
+  return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveUser', null, {
     params: {
       user: JSON.stringify(newUser)
     }

@@ -41,7 +41,7 @@ export default function ForgotPasswordStepOne(){
     return (
         <div className='container flexible--column' >
             <div >
-                { logo!='' && <img src={`http://medere1.medere.localhost:8080/imgs/${logo}`} alt="" className='img' /> }
+                { logo!='' && <img src={process.env.REACT_APP_MEDERE_ADDRESS+`/imgs/${logo}`} alt="" className='img' /> }
             </div>
             <div className='header'>
                 { !toggleFormBoolean ? <h1>{ intl.formatMessage({ id: 'ForgotPassword' }) }</h1> : <h1>{ intl.formatMessage({ id: 'NewPassword' }) }</h1> }

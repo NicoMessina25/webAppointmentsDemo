@@ -6,7 +6,7 @@ import { getLogo } from "../../services/imageService";
 
 export default function Login(){
     const [logo, setLogo] = useState("");
-    const [src,setSrc]=useState("http://medere1.medere.localhost:8080/imgs/");
+    const [src,setSrc]=useState(process.env.REACT_APP_MEDERE_ADDRESS+"/imgs/");
     const [defaultLogo,setDefaultLogo]=useState("/img/advenio-medere.png");
 
      useEffect(()=>{
