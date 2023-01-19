@@ -148,10 +148,7 @@ input, .p-dropdown{
     border-radius: 4px !important;
 }
 
-.p-highlight{
-    color:map-get($lightPrimary, main) !important;
-    background-color: map-get($lightPrimary, transparent ) !important;
-}
+
 
 .linkContainer{
     width: 50%;
@@ -214,10 +211,24 @@ input, .p-dropdown{
     }
 }
 
+.highlight{
+    color:map-get($lightPrimary, main) !important;
+    background: map-get($lightPrimary, transparent15 ) !important;
+}
+
+.p-calendar{
+    margin: 2% 0 !important;
+}
+
 .p-datepicker{
     .p-highlight{
-        color:map-get($lightPrimary, main) !important;
-        background-color: map-get($lightPrimary, transparent ) !important;
+        @extend.highlight;
+    }
+}
+
+.p-dropdown-items{
+    .p-dropdown-item.p-highlight{
+        @extend.highlight;
     }
 }
 
