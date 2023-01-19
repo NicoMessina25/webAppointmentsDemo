@@ -49,7 +49,10 @@ export default function LogginForm({googleLogin}:any){
                     setDisplayNotUserFound(true)
                }
                
-            });
+            }).catch(error=>{
+                setDisplayNotUserFound(true)
+                console.clear()
+            })
         }
        
         
