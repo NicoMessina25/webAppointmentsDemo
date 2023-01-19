@@ -8,7 +8,7 @@
 }
 
 body{
-    background-color: #FFF;//map-get($lightBase, baseContrast);
+    background-color: $contrast;// map-get($lightBase, baseContrast);
 }
 
 .flexible--row{
@@ -78,7 +78,7 @@ a{
     @extend.button;
     color: map-get($lightPrimary, main) !important;
     background-color: $contrast !important;
-    border: 2px solid map-get($lightPrimary, main) !important;
+    border: 1px solid map-get($lightPrimary, main) !important;
  
     &:hover{
         color: $contrast !important;
@@ -162,7 +162,7 @@ input, .p-dropdown{
 
 .link{
     color: map-get($lightPrimary, main);
-    font-size: 80%;
+    font-size: 100%;
     font-weight: 400;
     text-decoration: underline
 }
