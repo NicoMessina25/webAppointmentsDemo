@@ -85,3 +85,23 @@ export function validateRecoveryCode(id:number,code:string){
         error
     )
 }
+
+export function validateMedereUser(username:string,password:string){
+  
+  return axios.post(
+    url+'validatemedereuser',{
+      username:username,
+      password:password
+    },{
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => 
+      response
+    )
+    .catch(error => 
+        error
+    )
+}
+

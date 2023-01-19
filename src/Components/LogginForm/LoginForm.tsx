@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import { useIntl } from 'react-intl';
 import InputTextCustom from "../Inputs/InputText/InputTextCustom";
+import { validateMedereUser } from "../../services/loginService";
 
 export default function LogginForm({googleLogin}:any){
     const [checked, setChecked] = useState(false);
@@ -16,12 +17,45 @@ export default function LogginForm({googleLogin}:any){
     const [displayRegister, setDisplayRegister] = useState(false);
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    
+    const [errorUserstyle,setErrorUserstyle]=useState(false);
+    const [errorPassstyle,setErrorPassstyle]=useState(false);
+    const intl = useIntl();
+
+    const [userErrorCaption,setUserErrorCaption]=useState("");
+    const [passwordErrorCaption,setPasswordErrorCaption]=useState("");
 
     function validateUser(){
-        setDisplayNotUserFound(true)
+        //Validar antes de ir al backend que los dos campos tienen datos.
+        if(userName==""){
+            setErrorUserstyle(true);
+            setUserErrorCaption(intl.formatMessage({id:'EnterUsername'}))
+        }
+        if(password==""){
+            setPasswordErrorCaption(intl.formatMessage({id:'EnterPassword'}));
+            setErrorPassstyle(true)
+        }
+      
+        if(password!="" && userName!=""){
+            validateMedereUser(userName,password).then(res=> {
+                if(res.request.status==200){
+                    if(res.data){
+                        console.log("estas logeado")
+                    }
+                    else{
+                        console.log("contra erronea")
+                    }
+               }else{
+                    setDisplayNotUserFound(true)
+               }
+               
+            });
+        }
+       
+        
     }
     
-    const intl = useIntl();
+    
     return( 
         <div className="formContainer flexible--column">
             <div className="loginHeader">
@@ -39,8 +73,16 @@ export default function LogginForm({googleLogin}:any){
                                         </div>
                                 </div>}
                 
-                <InputTextCustom value={userName} onChange={(e:any) => setUserName(e.target.value)} className="input" placeholder="" labelId="User"/>
-                <InputTextCustom value={password} onChange={(e:any) => setPassword(e.target.value)} placeholder="" labelId="Password" password feedback={false}/>
+                <InputTextCustom value={userName} caption={userErrorCaption} error={errorUserstyle} onChange={(e:any) => {
+                        setUserName(e.target.value)
+                        setErrorUserstyle(false);
+                        setUserErrorCaption("")
+                    }} className="input" placeholder="" labelId="User"/>
+                <InputTextCustom value={password}  caption={passwordErrorCaption} error={errorPassstyle} onChange={(e:any) =>{
+                    setPassword(e.target.value);
+                    setErrorPassstyle(false);
+                    setPasswordErrorCaption("")
+                }} placeholder="" labelId="Password" password feedback={false}/>
                <div className="rememberForgetPasswordContainer flexible--row">
                     <div className="checkboxContainer flexible--row">
                         <Checkbox onChange={e => setChecked(e.checked)} checked={checked} className="checkbox"/>

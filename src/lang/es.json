@@ -81,5 +81,10 @@
     "YouHaveNewPassword":"¡Tenés una nueva contraseña!",
     "NewPasswordMessage":"Para ingresar al sistema logueate con la contraseña recién generada.",
     "WrongCode":"Código erróneo",
-    "Select":"Seleccionar"
+    "Select":"Seleccionar",
+    "EnterUsername":"Ingrese un nombre de usuario",
+    "EnterPassword":"Ingrese una contraseña"
+    
+
+
 }

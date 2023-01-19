@@ -81,5 +81,7 @@
     "YouHaveNewPassword":"You have a new password!",
     "NewPasswordMessage":"To enter the system, log in with the newly generated password.",
     "WrongCode":"Wrong code",
-    "Select":"Seleccionar"
+    "Select":"Seleccionar",
+    "EnterUsername":"Enter a username",
+    "EnterPassword":"Enter a Password"
 }
