@@ -2,17 +2,18 @@
 .login {
     justify-content: space-around;
     align-items: center;
+    
     height: 100vh;
     width: 100%;
     background-color: map-get($lightBase, baseContrast);
   }
   
 .logoSite {
-width: auto;
-height: 7%;
+  width: auto;
+  height: 7%;
 }
 
 .logo{
-width: auto;
-height: 3%;
+  width: auto;
+  height: 3%;
 }

@@ -105,8 +105,8 @@ export default function ForgotPasswordForm(props :any) {
     
     <div className='bodyForm flexible--column'>
         <div className='descriptionText littleMargin'>
-            <p className={descriptionClass}>{intl.formatMessage({ id: 'ForgotPasswordDescriptionStepOne' })}</p>
-            <p className={dniClass}>{intl.formatMessage({ id: 'DniRegistered' })+":"}</p>
+            <p className={descriptionClass}>{intl.formatMessage({ id: 'ForgotPasswordDescriptionStepOne' })}
+            <span className={dniClass}> {intl.formatMessage({ id: 'DniRegistered' })+":"}</span></p>
         </div>
 
         <RadioButtonGroup className="radioButtonGroup littleMargin" orientation="row" options={options} value={documentType} setValue={setDocumentType} labelId='Type'/>

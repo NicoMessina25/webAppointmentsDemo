@@ -2,7 +2,8 @@
 
 .formContainer{
     background-color: $contrast;
-    width: 25%;
+    width: 100%;
+    font-size: 75%;
     height: 80%;
     justify-content: space-between;
     align-items: center;
@@ -74,4 +75,11 @@
     width: 100%;
     justify-content: space-between;
     /* margin: 6% 0%; */
+}
+
+@media screen and (min-width:768px) {
+    .formContainer{
+        width: 25%;
+        font-size: 100%;
+    }
 }
