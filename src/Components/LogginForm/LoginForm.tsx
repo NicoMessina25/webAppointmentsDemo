@@ -49,7 +49,10 @@ export default function LogginForm({googleLogin}:any){
                     setDisplayNotUserFound(true)
                }
                
-            });
+            }).catch(error=>{
+                setDisplayNotUserFound(true)
+                console.clear()
+            })
         }
        
         
@@ -99,7 +102,7 @@ export default function LogginForm({googleLogin}:any){
             <Modal visible={displayNotUserFound} setVisible={setDisplayNotUserFound} header={intl.formatMessage({ id: 'UserDoesNotExist' })} footerButtonRightText={intl.formatMessage({ id: 'Back' })}  onClickRightBtn={()=>setDisplayNotUserFound(false)} pathRightBtn={"#"}>
             {intl.formatMessage({ id: 'UserDoesNotExistDescription' })}
             </Modal>
-            <Modal visible={displayRegister} setVisible={setDisplayRegister} header={intl.formatMessage({ id: 'BeforeStarting' }) + "..."}  footerButtonRightText={intl.formatMessage({ id: 'Continue' })}  footerButtonLeftText={intl.formatMessage({ id: 'Cancel' })} onClickLeftBtn={()=>setDisplayRegister(false)} pathLeftBtn={"#"} pathRightBtn={"/register/1"}>
+            <Modal visible={displayRegister} setVisible={setDisplayRegister} header={intl.formatMessage({ id: 'BeforeStarting' }) + "..."}  footerButtonRightText={intl.formatMessage({ id: 'Continue' })}  pathRightBtn={"/register/1"}>
             {intl.formatMessage({ id: 'BeforeStartingDescription' })}
             </Modal>
         </div>
