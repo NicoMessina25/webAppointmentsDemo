@@ -5,15 +5,22 @@ import {Button} from "primereact/button"
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import { useIntl } from 'react-intl';
 import InputTextCustom from "../Inputs/InputText/InputTextCustom";
 import { validateMedereUser } from "../../services/loginService";
 
+import { useNavigate } from "react-router-dom";
+
+
+
+
 export default function LogginForm({googleLogin}:any){
+
     const [checked, setChecked] = useState(false);
     const [displayNotUserFound, setDisplayNotUserFound] = useState(false);
+    
     const [displayRegister, setDisplayRegister] = useState(false);
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
@@ -24,6 +31,11 @@ export default function LogginForm({googleLogin}:any){
 
     const [userErrorCaption,setUserErrorCaption]=useState("");
     const [passwordErrorCaption,setPasswordErrorCaption]=useState("");
+
+    const [validUser,setValidUser]=useState(false);
+
+    const navigate = useNavigate();
+
 
     function validateUser(){
         //Validar antes de ir al backend que los dos campos tienen datos.
@@ -38,24 +50,23 @@ export default function LogginForm({googleLogin}:any){
       
         if(password!="" && userName!=""){
             validateMedereUser(userName,password).then(res=> {
-                if(res.request.status==200){
-                    if(res.data){
-                        console.log("estas logeado")
-                    }
-                    else{
-                        console.log("contra erronea")
-                    }
-               }else{
-                    setDisplayNotUserFound(true)
-               }
-               
+                if(res.request.status!=200){
+                    setDisplayNotUserFound(true);
+                }
+                setValidUser(res.data);
+                if(!res.data){
+                    setErrorPassstyle(true)
+                    setPasswordErrorCaption(intl.formatMessage({id:'IncorrectPassword'}))
+                }else
+                    navigate("/home");
+                    
             }).catch(error=>{
-                setDisplayNotUserFound(true)
-                console.clear()
-            })
+                setDisplayNotUserFound(true);
+                setValidUser(false);
+            })   
+        }else{
+            setValidUser(false);
         }
-       
-        
     }
     
     
@@ -81,11 +92,13 @@ export default function LogginForm({googleLogin}:any){
                         setErrorUserstyle(false);
                         setUserErrorCaption("")
                     }} className="input" placeholder="" labelId="User"/>
-                <InputTextCustom value={password}  caption={passwordErrorCaption} error={errorPassstyle} onChange={(e:any) =>{
+                <InputTextCustom value={password} caption={passwordErrorCaption} error={errorPassstyle} onChange={(e:any) =>{
                     setPassword(e.target.value);
                     setErrorPassstyle(false);
                     setPasswordErrorCaption("")
-                }} placeholder="" labelId="Password" password feedback={false}/>
+                }} 
+                onEnter={validateUser}
+                placeholder="" labelId="Password" password feedback={false}/>
                <div className="rememberForgetPasswordContainer flexible--row">
                     <div className="checkboxContainer flexible--row">
                         <Checkbox onChange={e => setChecked(e.checked)} checked={checked} className="checkbox"/>
@@ -95,9 +108,9 @@ export default function LogginForm({googleLogin}:any){
                         <Link to={"/forgotPassword"} className="link">{intl.formatMessage({ id: 'ForgotPassword' })}</Link>
                     </div>
                </div>
-               <Button  label={intl.formatMessage({ id: 'Join' })} className="buttonMain" onClick={()=>{validateUser()}}/>
+               <Button label={intl.formatMessage({ id: 'Join' })} onClick={validateUser} className="buttonMain" />
                <p className="text">{intl.formatMessage({ id: 'FirstTimeHere' })}</p>
-               <Button label={intl.formatMessage({ id: 'SignIn' })} className="buttonMain2" onClick={()=>setDisplayRegister(true)}/>
+               <Button label={intl.formatMessage({ id: 'SignIn' })} className="buttonMain2" onClick={()=>setDisplayRegister(true)} />
             </div>
             <Modal visible={displayNotUserFound} setVisible={setDisplayNotUserFound} header={intl.formatMessage({ id: 'UserDoesNotExist' })} footerButtonRightText={intl.formatMessage({ id: 'Back' })}  onClickRightBtn={()=>setDisplayNotUserFound(false)} pathRightBtn={"#"}>
             {intl.formatMessage({ id: 'UserDoesNotExistDescription' })}
@@ -105,6 +118,7 @@ export default function LogginForm({googleLogin}:any){
             <Modal visible={displayRegister} setVisible={setDisplayRegister} header={intl.formatMessage({ id: 'BeforeStarting' }) + "..."}  footerButtonRightText={intl.formatMessage({ id: 'Continue' })}  pathRightBtn={"/register/1"}>
             {intl.formatMessage({ id: 'BeforeStartingDescription' })}
             </Modal>
+            
         </div>
     );
 }

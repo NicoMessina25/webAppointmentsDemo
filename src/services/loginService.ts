@@ -35,7 +35,7 @@ export function saveUser(user:any) {
   })
 }
 export function postNewPassword(id:number,password : string){
-  return axios.post(url+ 'newpassword', {
+  return axios.post(url+ 'resetpassword', {
     id: id,
     password: password
   },{
@@ -98,7 +98,7 @@ export async function validateMedereUser(username:string,password:string){
           'Content-Type': 'application/json',
         }})
       .then(response => 
-        response.data
+        response
       )
   
   

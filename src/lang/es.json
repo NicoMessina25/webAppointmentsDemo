@@ -83,7 +83,8 @@
     "WrongCode":"Código erróneo",
     "Select":"Seleccionar",
     "EnterUsername":"Ingrese un nombre de usuario",
-    "EnterPassword":"Ingrese una contraseña"
+    "EnterPassword":"Ingrese una contraseña",
+    "IncorrectPassword":"Contraseña incorrecta"
     
 
 

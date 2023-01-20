@@ -83,5 +83,6 @@
     "WrongCode":"Wrong code",
     "Select":"Seleccionar",
     "EnterUsername":"Enter a username",
-    "EnterPassword":"Enter a Password"
+    "EnterPassword":"Enter a Password",
+    "IncorrectPassword":"Incorrect password"
 }

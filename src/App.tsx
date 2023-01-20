@@ -11,6 +11,7 @@ import Modal from './Components/Modal/Modal';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import ForgotPasswordStepOne from './Components/ForgotPassword/ForgotPassword';
+import Menu from './Components/DashBoard/Menu'
 
 function App() {
 
@@ -29,6 +30,9 @@ function App() {
           }/>
           <Route path='/forgotPassword/*' element={
             <ForgotPasswordStepOne/>
+          }/>
+          <Route path='/home' element={
+            <Menu/>
           }/>
         </Routes>
 
