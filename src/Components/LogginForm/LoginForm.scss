@@ -17,7 +17,7 @@
     width: 100%;
     color: $contrast;
     background: map-get($lightPrimary, text);
-    padding: 15% 10% 10% 10%;
+    padding: 20% 8% 6% 8%;
 
     h1 {
         font-weight: 600;
@@ -25,6 +25,7 @@
     }
 
     h4 {
+        margin-top: 2%;
         font-weight: 400;
         opacity: 0.7;
     }
@@ -35,7 +36,7 @@
 .loginBody{
     justify-content: space-evenly;
     align-items: center;
-    width: 80%;
+    width: 84%;
     height: 100%;
 
     .buttonMain, .buttonMain2, .buttonMain3{
