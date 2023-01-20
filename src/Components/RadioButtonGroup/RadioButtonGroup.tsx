@@ -11,7 +11,7 @@ export default function RadioButtonGroup({options, value, setValue, labelId, cla
             {labelId && <p className="label">{intl.formatMessage({id: labelId})}:</p>}
             <div className={`flexible--${orientation}Wrap optionsContainer`}>
                 {options.map((op:any, ind:number)=>{
-                    return <div className="field-radiobutton flexible--row" key={`${op.label}-${ind}`}>
+                    return <div className={`flexible--row ${orientation}`} key={`${op.label}-${ind}`}>
                                 
                                 {op.captions && <label htmlFor={`${op.label}${ind}`} className="label">{op.captions}:</label>}
 

@@ -13,10 +13,22 @@
 }
 
 .field-radiobutton{
-    width: 10%;
     margin: 2%;
     min-width: fit-content;
     justify-content:flex-start;
+    .label{
+          width: 10%; 
+    }
+}
+
+.row{
+    @extend .field-radiobutton;
+    width: 10%;
+}
+
+.column{
+    @extend .field-radiobutton;
+    width: 100%;
 }
 
 .p-radiobutton{ 

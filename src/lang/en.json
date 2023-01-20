@@ -63,7 +63,7 @@
     "CancelSignUp":"Cancel sign up",
     "CancelSignUpDescription":"You are about to abandon your user registration. The data entered will not be saved.",
     "IncompleteData":"Incomplete data",
-    "CompleteTheTypeOfIDAndTheNumber": "To continue please fill the type of ID and the number",
+    "CompleteFields": "There are fields that you did not complete and that are necessary to be able to advance",
     "UserNotExistByDocument":"There is no user with that type of ID and that ID number",
     "CancelYourRecovery":"Cancel your recovery",
     "CancelYourRecoveryMessage":"You are about to cancel your password recovery.",

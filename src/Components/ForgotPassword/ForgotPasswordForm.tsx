@@ -133,7 +133,7 @@ export default function ForgotPasswordForm(props :any) {
             }
         </div>
         <Modal visible={visibilityCompleteFields} setVisible={setVisibilityCompleteFields} header={intl.formatMessage({ id: 'IncompleteData' })} footerButtonRightText={intl.formatMessage({ id: 'Back' })}  onClickRightBtn={()=>setVisibilityCompleteFields(false)} pathRightBtn={"#"}>
-        {intl.formatMessage({ id: 'CompleteTheTypeOfIDAndTheNumber' })}
+        {intl.formatMessage({ id: 'CompleteFields' })}
         </Modal>
         <Modal visible={visibilityUserNotExist} setVisible={setVisibilityUserNotExist} header={intl.formatMessage({ id: 'UserDoesNotExist' })} footerButtonRightText={intl.formatMessage({ id: 'Back' })}  onClickRightBtn={()=>setVisibilityUserNotExist(false)} pathRightBtn={"#"}>
         {intl.formatMessage({ id: 'UserNotExistByDocument' })}
