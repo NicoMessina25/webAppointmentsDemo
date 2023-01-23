@@ -18,19 +18,18 @@ const LangProvider = ({children}:any) => {
     locale('es');
 
     useEffect(()=>{
-        
-        /* getLanguage().then(res=>{
+         getLanguage().then(res=>{
             setLanguageId(res);
             switch(res){
                 case 1: setMessages(SpanishMessages); setLocale('es');locale('es');break;
                 case 2: setMessages(EnglishMessages);setLocale('en');locale('en');break;
                 default : setMessages(SpanishMessages);setLocale('es');locale('es');;
             }
-        }) */
+        }) 
     },[])
     
     return (
-        <langContext.Provider value={{messages,localeintl}}>
+        <langContext.Provider value={{messages,localeintl,languageId}}>
              <IntlProvider locale={localeintl} messages={messages}>
                 {children}
             </IntlProvider>
