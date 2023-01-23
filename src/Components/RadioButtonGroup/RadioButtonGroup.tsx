@@ -2,7 +2,7 @@ import { RadioButton } from "primereact/radiobutton";
 import "./RadioButtonGroup.scss";
 import { useIntl } from "react-intl";
 
-export default function RadioButtonGroup({options, value, setValue, labelId, className, orientation}:any){
+export default function RadioButtonGroup({options, value, setValue, labelId, className, orientation, itemWidth}:any){
     const intl = useIntl();
 
 
@@ -11,7 +11,7 @@ export default function RadioButtonGroup({options, value, setValue, labelId, cla
             {labelId && <p className="label">{intl.formatMessage({id: labelId})}:</p>}
             <div className={`flexible--${orientation}Wrap optionsContainer`}>
                 {options.map((op:any, ind:number)=>{
-                    return <div className={`flexible--row ${orientation}`} key={`${op.label}-${ind}`}>
+                    return <div className={`field-radiobutton${itemWidth || 50} flexible--row`} key={`${op.label}-${ind}`}>
                                 
                                 {op.captions && <label htmlFor={`${op.label}${ind}`} className="label">{op.captions}:</label>}
 

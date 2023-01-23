@@ -8,7 +8,7 @@
 
     .optionsContainer{
         width: 100%;
-        justify-content: space-around;
+        justify-content: flex-start;
     }
 }
 
@@ -17,24 +17,46 @@
     min-width: fit-content;
     justify-content:flex-start;
     .label{
-          width: 10%; 
+          width: 10%;
+           
+    }
+
+    label{
+       display: flex;
+       align-items: center
     }
 }
 
-.row{
-    @extend .field-radiobutton;
-    width: 10%;
-}
 
-.column{
-    @extend .field-radiobutton;
+.field-radiobutton100{
+    @extend.field-radiobutton;
     width: 100%;
 }
 
-.p-radiobutton{ 
+.field-radiobutton50{
+    @extend.field-radiobutton;
+    width: 45%;
+}
+
+.field-radiobutton33{
+    @extend.field-radiobutton;
+    width: 30%;
+}
+
+.field-radiobutton25{
+    @extend.field-radiobutton;
+    width: 22%;
+}
+
+.p-radiobutton{
+    font-size: 75%;
     margin: 0% 10px !important;
+    display: flex;
+    align-items: center;
     .p-radiobutton-box{
         background-color: map-get($lightContrastShade, 20);
+        width: 15px;
+        height: 15px;
 
         &:hover{
             border-color: map-get($lightPrimary, text) !important;
@@ -42,6 +64,8 @@
 
         .p-radiobutton-icon{
             transform: translateZ(0) scale(0.7, 0.7);
+            width: 7px;
+            height: 7px;
         }
     }
 
@@ -64,4 +88,17 @@
         box-shadow: 0 0 0 .2rem map-get($lightContrastShadeTranparent, 10) !important;
     }
 
+}
+
+@media screen and (min-width: 768px) {
+    .p-radiobutton{
+        .p-radiobutton-box{
+            width: 22px;
+            height: 22px;
+            .p-radiobutton-icon{
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
 }

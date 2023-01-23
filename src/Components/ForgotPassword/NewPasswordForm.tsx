@@ -39,7 +39,7 @@ export default function NewPasswordForm(props:any){
     };
 
     return (
-        <div className='bodyForm flexible--column'>
+        <div className='bodyFormForgotPass flexible--column'>
             <p className='infoText'>{intl.formatMessage({ id:'CanEnterToSystem' })}</p>
 
             <div className="littleMargin"> 

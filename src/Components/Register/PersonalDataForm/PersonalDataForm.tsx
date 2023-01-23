@@ -74,7 +74,7 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
 
             <InputTextCustom value={user.address} onChange={(e:any) => setUser({...user, address: e.target.value})} labelId="Address"/>
 
-            <Combobox items={cities} optionLabel="description" value={city} placeholder={city?.description}  setValue={setCity}/>
+            <Combobox items={cities} label={intl.formatMessage({id:"City"})} optionLabel="description" value={city} placeholder={city?.description}  setValue={setCity}/>
 
             <div className='flexible--row flex-end buttonContainer'>
                 <Button label={intl.formatMessage({id: "Cancel"})} className='buttonMain3' onClick={()=>{setDisplayRegisterCancel(true)}}/>

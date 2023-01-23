@@ -3,10 +3,11 @@
 .registerContainer{
     justify-content: center;
     align-items: center;
+    font-size: 75%;
 }
 
 .registerBody{
-    width: 33%;
+    width: 75%;
     padding: 2%;
     .googleButton{
         width: 100%;
@@ -49,11 +50,22 @@
 }
 
 .p-steps{
-
+    font-size: 75%;
     .p-steps-item{
         color: map-get($lightText, disable) !important;
+        
+        
+
+        .p-steps-title{
+            margin-top: 1% !important;
+        }
 
         .p-steps-number{
+            font-size: 150% !important;
+            height: 1.5rem !important;
+            width: 1.5rem !important;
+            min-width: 0 !important;
+
             background-color: map-get($lightContrastShade, 10) !important;
             color: map-get($lightText, disable);
             border: 2px solid  map-get($lightText, disable) !important;
@@ -61,10 +73,12 @@
     }
 
     .p-steps-item::before{
+        margin-top: -0.5rem;
         border-top: 2px solid map-get($lightText, disable) !important;
     }
 
     .p-steps-item.p-highlight:before{
+        
         border-top: 2px solid map-get($lightPrimary, text) !important;
     }
 
@@ -85,5 +99,41 @@
     .p-menuitem-link{
         background-color: map-get($lightContrastShade, 0) !important;
         border-color: map-get($lightPrimary, text);
+     
+        border-radius: 0px !important;
+      
     }
 } 
+
+@media screen and (min-width:768px) {
+    .registerContainer{
+        font-size: 100%;
+    }
+
+    .registerBody{
+        width:50%;
+    }
+
+    .p-steps{
+        font-size: 100%;
+
+        .p-steps-item{
+            .p-steps-number{
+                font-size: 125% !important;
+                height: 2rem !important;
+                width: 2rem !important;
+                min-width: 0 !important;
+            }
+        }
+        .p-steps-item:before{
+            margin-top: -0.75rem;
+        }
+    }
+    
+}
+
+@media screen and (min-width:1280px) {
+    .registerBody{
+        width: 33%;
+    }
+}

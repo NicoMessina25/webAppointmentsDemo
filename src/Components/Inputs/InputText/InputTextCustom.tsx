@@ -12,7 +12,7 @@ export default function InputTextCustom({value, onChange, labelId, className, pa
     return (
         <div className={`flexible--column inputContainer ${className}`}>
                 {labelId && <p className="label">{intl.formatMessage({id: labelId})}</p>}
-                { password? <Password value={value} className={error &&  'p-invalid'} feedback={feedback} onChange={onChange} toggleMask={true} placeholder={placeholder} onKeyDown={(e:any)=>{ onKeyDown && onKeyDown();onEnter && e.key==="Enter" && onEnter()}} /> :<InputText value={value} onChange={onChange} className={error &&  'p-invalid'} placeholder={placeholder} onKeyDown={(e:any)=>{ onKeyDown && onKeyDown();onEnter && e.key==="Enter" && onEnter()}}/>}
+                { password? <Password value={value} className={error &&  'p-invalid'} feedback={feedback} onChange={onChange} toggleMask={true} placeholder={placeholder} onKeyDown={(e:any)=>{ onKeyDown && onKeyDown(e);onEnter && e.key==="Enter" && onEnter()}} /> :<InputText value={value} onChange={onChange} className={error &&  'p-invalid'} placeholder={placeholder} onKeyDown={(e:any)=>{ onKeyDown && onKeyDown(e);onEnter && e.key==="Enter" && onEnter()}}/>}
                 {caption && <p className={error? "caption-invalid":"caption"}>{caption}</p>}
                 
         </div>

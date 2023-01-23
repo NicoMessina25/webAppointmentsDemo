@@ -5,11 +5,12 @@
     padding: 0;
     font-family: $primaryFont;
     font-style: normal;
-
+    
 }
 
 body{
     background-color: $contrast;// map-get($lightBase, baseContrast);
+    font-size: 75%;
 }
 
 .flexible--row{
@@ -56,7 +57,7 @@ a{
     font-size: 100% !important;
     width: fit-content;
     transition: all .5s !important;
-    
+    padding: 0.25rem 0.416rem !important;
 
     &:hover{
         transform: scale(1.01, 1.01);
@@ -120,6 +121,7 @@ input, .p-dropdown{
     color: map-get($lightText, body) !important;
     font-weight: 500 !important;
     width: 100% !important;
+    font-size: 90% !important;
 
 }
 
@@ -219,9 +221,15 @@ input, .p-dropdown{
 
 .p-calendar{
     margin: 2% 0 !important;
+
+    .p-inputtext{
+        font-size: 50% !important;
+    }
 }
 
 .p-datepicker{
+    
+
     .p-highlight{
         @extend.highlight;
     }
@@ -251,6 +259,12 @@ input, .p-dropdown{
     }
 }
 
+.p-dropdown-label{
+    font-size: 90% !important;
+ }
+
+
+
 
 .p-focus{
     box-shadow:0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
@@ -264,6 +278,7 @@ input, .p-dropdown{
 
 .buttonContainer{
     margin: 3% 0%;
+    justify-content: space-evenly
 }
 
 .linkReactRouter{
@@ -295,8 +310,44 @@ esta clase es para el input text invalido
     box-shadow: none !important;
 }
 
-@media screen and (min-width:768px) {
-    .button{
+.p-dropdown-trigger{
+    width: 1.5rem !important;
+}
 
+.pi::before{
+    font-size: 50%;
+    display: flex;
+    align-items: center;
+}
+
+@media screen and (min-width:520px){
+    .button{
+        padding: 0.5rem 0.833rem !important;
     }
+
+}
+
+@media screen and (min-width:768px) {
+    body{
+        font-size: 100%;
+    }
+
+    input, .p-dropdown{
+        font-size: 100% !important;
+    }
+
+    .pi::before{
+        font-size: 100%;
+    }
+
+    .p-calendar{
+    
+        .p-inputtext{
+            font-size: 100% !important;
+        }
+    }
+
+    .p-dropdown-label{
+        font-size: 100% !important;
+     }
 }

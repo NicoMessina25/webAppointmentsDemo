@@ -1,19 +1,27 @@
 @import '../../scss/mixins', '../../scss/colors', '../../scss/fontFamilies';
 .login {
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     width: 100%;
     background-color: map-get($lightBase, baseContrast);
   }
   
 .logoSite {
-  width: auto;
-  height: 7%;
+  width: 15%;
+  height: auto;
+  margin: 1% 0%;
 }
 
 .logo{
-  width: auto;
-  height: 3%;
+  width: 15%;
+  height: auto;
+  margin: 1% 0%;
+}
+
+@media screen and (min-width: 768px) {
+  .logo{
+    width: 7%;
+  }
 }

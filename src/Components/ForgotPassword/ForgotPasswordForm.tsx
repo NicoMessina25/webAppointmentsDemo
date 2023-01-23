@@ -103,7 +103,7 @@ export default function ForgotPasswordForm(props :any) {
     
     return (
     
-    <div className='bodyForm flexible--column'>
+    <div className='bodyFormForgotPass flexible--column'>
         <div className='descriptionText littleMargin'>
             <p className={descriptionClass}>{intl.formatMessage({ id: 'ForgotPasswordDescriptionStepOne' })}
             <span className={dniClass}> {intl.formatMessage({ id: 'DniRegistered' })+":"}</span></p>
