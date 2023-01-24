@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 import Combobox from '../../Combobox/Combobox';
 import { getAllCities } from '../../../services/citiesService';
 
+import { useContext } from "react";
+import { langContext } from '../../Context/langContext';
 
 export default function PersonalDataForm({setStep, user, setUser, setDisplayRegisterCancel}:any){
     const [validInputs, setValidInputs] = useState(false);
@@ -20,9 +22,10 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
     
 
     const intl = useIntl();
+    const context:any=useContext(langContext);
 
     useEffect(()=>{
-        getAllCities().then(data=>{
+        getAllCities('mar del plata',context.languageId).then(data=>{
             setCities(data);           
         })
     },[]);
