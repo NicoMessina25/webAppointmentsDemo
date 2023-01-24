@@ -23,15 +23,18 @@ export function getMailAndCellphone(document:any,documenttype:any){
 export function saveUser(user:any) {
   let newUser= {...user}
 
-  newUser.phone = user.phone.prefix + user.phone.area + user.phone.number
-  newUser.date = Date.parse(user.date);
+  newUser.mobilephone = user.mobilephone.prefix + user.mobilephone.area + user.mobilephone.number
+  //newUser.birthdate = Date.parse(user.birthdate);
+  newUser.city = user.city.city;
+  newUser.medicalCoverage = user.medicalCoverage.entityid;
+  newUser.plan = user.plan.healthentityplan
   console.log(newUser);
-  
 
-  return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveUser', null, {
-    params: {
-      user: JSON.stringify(newUser)
-    }
+  return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveUserAndPatient',
+    newUser).then((res)=>{
+    console.log(res.data);
+    
+  }).catch((err)=>{console.log(err);
   })
 }
 export function postNewPassword(id:number,password : string){

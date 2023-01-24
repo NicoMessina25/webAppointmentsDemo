@@ -3,7 +3,7 @@ import LogginForm from "../LogginForm/LoginForm";
 import "../../scss/styles.scss"
 import "./Login.scss"
 import { getLogo } from "../../services/imageService";
-import ReCAPTCHA from "react-google-recaptcha"
+
 export default function Login(){
     const [logo, setLogo] = useState("");
     const [src,setSrc]=useState(process.env.REACT_APP_MEDERE_ADDRESS+"/imgs/");

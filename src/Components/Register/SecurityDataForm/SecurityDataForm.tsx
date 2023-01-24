@@ -11,10 +11,21 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
     const intl = useIntl();
     const [displayRegisterComplete, setDisplayRegisterComplete] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [errorInputs, setErrorInputs] = useState({
+        userName: {error: false},
+        password: false,
+        confirmPasswordValid: false,
+        email:{error:false, caption: ""}
+    })
 
     useEffect(()=>{
         setStep(2);
     },[])
+
+    function validateData(){
+        let validRegex =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return user.email.match(validRegex);
+    }
 
     return (
         <div className="flexible--column">
@@ -27,7 +38,10 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
 
             <InputTextCustom value={user.username} onChange={(e:any) => setUser({...user, username: e.target.value})} labelId="User"/>
 
-            <InputTextCustom value={user.mail} onChange={(e:any) => setUser({...user, mail: e.target.value})} labelId="Mail"/>
+            <InputTextCustom value={user.email} error={errorInputs.email.error} caption={errorInputs.email.caption} onChange={(e:any) => { 
+                setUser({...user, email: e.target.value});
+                setErrorInputs({...errorInputs, email:{error:false, caption: ""}})
+            }} labelId="Mail"/>
 
             <InputTextCustom value={user.password} onChange={(e:any) => setUser({...user, password: e.target.value})} labelId="Password" password caption={intl.formatMessage({id:"AtLeast8Characters"})}/>
 
@@ -38,8 +52,15 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
                 <Link to="/register/2" className='linkReactRouter'><Button icon="pi pi-angle-left" iconPos="left" label={intl.formatMessage({id: "Back"})} className="buttonMain3"/></Link>
                 <Link to="#" className='linkReactRouter'><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
                 <Link to="#" className='linkReactRouter'><Button icon="pi pi-check" iconPos="right" label={intl.formatMessage({id: "Finish"})} className="buttonMain" onClick={()=>{
-                    setDisplayRegisterComplete(true);
-                    saveUser(user);
+                    if(validateData()){
+                        setDisplayRegisterComplete(true);
+                        saveUser(user);
+                    } else {
+                        console.log("Y no");
+                        setErrorInputs({...errorInputs, email:{error:true, caption: intl.formatMessage({id:"EnterAValidEMail"})}})
+                    };
+                    
+                    
                     }}/></Link>
             </div>
 

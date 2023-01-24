@@ -84,7 +84,8 @@
     "Select":"Seleccionar",
     "EnterUsername":"Ingrese un nombre de usuario",
     "EnterPassword":"Ingrese una contraseña",
-    "IncorrectPassword":"Contraseña incorrecta"
+    "IncorrectPassword":"Contraseña incorrecta",
+    "EnterAValidEMail":"Ingrese un mail válido"
     
 
 

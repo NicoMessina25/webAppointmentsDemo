@@ -2,7 +2,7 @@ import { RadioButton } from "primereact/radiobutton";
 import "./RadioButtonGroup.scss";
 import { useIntl } from "react-intl";
 
-export default function RadioButtonGroup({options, value, setValue, labelId, className, orientation, itemWidth}:any){
+export default function RadioButtonGroup({id, options, value, setValue, labelId, className, orientation, itemWidth}:any){
     const intl = useIntl();
 
 
@@ -13,13 +13,13 @@ export default function RadioButtonGroup({options, value, setValue, labelId, cla
                 {options.map((op:any, ind:number)=>{
                     return <div className={`field-radiobutton${itemWidth || 50} flexible--row`} key={`${op.label}-${ind}`}>
                                 
-                                {op.captions && <label htmlFor={`${op.label}${ind}`} className="label">{op.captions}:</label>}
+                                {op.captions && <label htmlFor={`${id?id:0}${op.label}${ind}`} className="label">{op.captions}:</label>}
 
-                                <RadioButton  inputId={`${op.label}${ind}`} name={op.label} value={op.value} onChange={(e) => {
+                                <RadioButton  inputId={`${id?id:0}${op.label}${ind}`} name={op.label} value={op.value} onChange={(e) => {
                                     setValue(e.value)
                                 }} checked={value === op.value } />
 
-                                <label htmlFor={`${op.label}${ind}`}>{op.label}</label>
+                                <label htmlFor={`${id?id:0}${op.label}${ind}`}>{op.label}</label>
                             </div>
                 })}
             </div>

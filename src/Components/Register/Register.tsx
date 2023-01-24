@@ -15,13 +15,13 @@ export default function Register(){
         username: "",
         password: "",
         documentType:0,
-        documentNumber:"",
-        name: "",
+        document:"",
+        firstname: "",
         lastname: "",
-        mail:"",
+        email:"",
         gender: "",
-        date: "",
-        phone: {
+        birthdate: null,
+        mobilephone: {
             prefix: "",
             area: "",
             number:"",
@@ -29,10 +29,10 @@ export default function Register(){
         address: "",
         city: "",
         memberNumber:"",
-        medicalCoverage: false,
-        medCoverageThroughJob: true,
-        prepaid:{},
-        plan:"",
+        hasMedicalCoverage: false,
+        isMedCoverageThroughJob: true,
+        medicalCoverage:{},
+        plan:{},
         acceptTerms:false,
     });
     const [displayRegisterCancel, setDisplayRegisterCancel] = useState(false)

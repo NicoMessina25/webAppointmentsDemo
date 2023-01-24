@@ -78,14 +78,14 @@ export default function LogginForm({googleLogin}:any){
             </div>
             <div className="flexible--column loginBody">
             
-               {googleLogin && <div className="googleLogin">
-                                        <Button label={intl.formatMessage({ id: 'SignInWithGoogle' })} className="buttonMain2"/>
-                                        <div className="lineContainer flexible--row">
-                                                <div className="lineGreenBlue"></div>
-                                                <p>O</p>
-                                                <div className="lineGreenBlue"></div>
-                                        </div>
-                                </div>}
+               {googleLogin &&<Button label={intl.formatMessage({ id: 'SignInWithGoogle' })} className="buttonMain2"/>} 
+                                        
+                {  googleLogin && <div className="lineContainer flexible--row">
+                                        <div className="lineGreenBlue"></div>
+                                        <p>O</p>
+                                        <div className="lineGreenBlue"></div>
+                                </div>
+                                }
                 
                 <InputTextCustom value={userName} caption={userErrorCaption} error={errorUserstyle} onChange={(e:any) => {
                         setUserName(e.target.value)

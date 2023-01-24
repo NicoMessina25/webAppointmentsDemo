@@ -121,7 +121,7 @@ export default function ForgotPasswordForm(props :any) {
                     <span className='infoText'>{intl.formatMessage({ id:'NumericalCodeMsg' })}</span>
                 </p>
 
-                <RadioButtonGroup className="radioButtonGroup" orientation="column" options={sendOptions} value={sendOptionSelected} setValue={setSendOptionSelected}/>
+                <RadioButtonGroup className="radioButtonGroup" orientation="column" options={sendOptions} value={sendOptionSelected} setValue={setSendOptionSelected} itemWidth={100}/>
             </div>
         }
 

@@ -57,7 +57,7 @@ a{
     font-size: 100% !important;
     width: fit-content;
     transition: all .5s !important;
-    padding: 0.25rem 0.416rem !important;
+    padding: 0.35rem 0.583rem !important;
 
     &:hover{
         transform: scale(1.01, 1.01);
@@ -105,7 +105,7 @@ a{
     width: 100%;
     font-weight: 500;
     color: #1b2b41b8;
-    font-size: 90%;
+    font-size: 100%;
     margin: 2% 0%;
 
     input, .p-dropdown{
@@ -121,7 +121,7 @@ input, .p-dropdown{
     color: map-get($lightText, body) !important;
     font-weight: 500 !important;
     width: 100% !important;
-    font-size: 90% !important;
+    font-size: 100% !important;
 
 }
 
@@ -223,7 +223,7 @@ input, .p-dropdown{
     margin: 2% 0 !important;
 
     .p-inputtext{
-        font-size: 50% !important;
+        font-size: 75% !important;
     }
 }
 
@@ -260,7 +260,7 @@ input, .p-dropdown{
 }
 
 .p-dropdown-label{
-    font-size: 90% !important;
+    font-size: 115% !important;
  }
 
 
@@ -315,9 +315,24 @@ esta clase es para el input text invalido
 }
 
 .pi::before{
-    font-size: 50%;
+    font-size: 75%;
     display: flex;
     align-items: center;
+}
+
+/* .p-autocomplete-dd{
+    .p-autocomplete-input{
+        margin: 0 !important;
+    }
+} */
+
+.p-autocomplete-dropdown{
+    margin: 2% 0% !important;
+}
+
+.p-dropdown-panel{
+    font-size: 75% !important;
+    width: 1%;
 }
 
 @media screen and (min-width:520px){
@@ -340,6 +355,10 @@ esta clase es para el input text invalido
         font-size: 100%;
     }
 
+    .button{
+        padding: 0.65rem 1.083rem !important;
+    }
+
     .p-calendar{
     
         .p-inputtext{
@@ -349,9 +368,16 @@ esta clase es para el input text invalido
 
     .p-dropdown-label{
         font-size: 100% !important;
-     }
+    }
 
     
+    .p-dropdown-trigger{
+        width: 3rem !important;
+    }
+
+    .p-dropdown-panel{
+        font-size: 100% !important;
+    }
 }
 
 

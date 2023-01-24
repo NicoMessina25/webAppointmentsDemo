@@ -1,6 +1,6 @@
 
 import { RadioButton } from 'primereact/radiobutton';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import RadioButtonGroup from '../../RadioButtonGroup/RadioButtonGroup';
 import { useIntl } from 'react-intl';
 import "./PersonalDataForm.scss"
@@ -8,34 +8,40 @@ import InputTextCustom from '../../Inputs/InputText/InputTextCustom';
 import { Calendar } from 'primereact/calendar';
 import InputPhone from '../../Inputs/InputPhone/InputPhone';
 import { Button } from 'primereact/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Combobox from '../../Combobox/Combobox';
 import { getAllCities } from '../../../services/citiesService';
-
-import { useContext } from "react";
 import { langContext } from '../../Context/langContext';
 
 export default function PersonalDataForm({setStep, user, setUser, setDisplayRegisterCancel}:any){
     const [validInputs, setValidInputs] = useState(false);
     const [cities, setCities] = useState();
     const [city, setCity]:any = useState(null);
-    
+    const [inputErrors, setInputError] = useState({
+        firstname: {caption: "", isErr: false}
+    })
+    const {languageId}:any = useContext(langContext);
 
+    const navigate = useNavigate();
     const intl = useIntl();
     const context:any=useContext(langContext);
 
     useEffect(()=>{
-        getAllCities('mar del plata',context.languageId).then(data=>{
+        getAllCities("",languageId).then(data=>{
             setCities(data);           
         })
-    },[]);
+    },[languageId]);
 
     useEffect(()=>{
         if(cities != undefined) {
-            setCity(cities[0]);
+            setUser({...user, city: cities[238]});
         }
            
     },[cities])
+
+    function validateData(){
+        return user.documentType != 0 && user.document.trim() !== "" && user.firstname.trim() !== "" && user.lastname.trim() !== "" && user.mobilephone.area.trim() !== "" && user.mobilephone.number.trim() !== "" && user.birthdate != null && user.gender !== "" && user.address.trim() !== ""
+    }
     
 
     const documentOptions = [
@@ -54,9 +60,9 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
                 setUser({...user, documentType: docType})
             }} labelId="DocumentType" value={user.documentType} className="radioGroup" orientation={"row"}/>
          
-            <InputTextCustom value={user.documentNumber} onChange={(e:any) => setUser({...user, documentNumber: e.target.value})} labelId="DocumentNumber"/>
+            <InputTextCustom value={user.document} onChange={(e:any) => setUser({...user, document: e.target.value})} labelId="DocumentNumber"/>
 
-            <InputTextCustom value={user.name} onChange={(e:any) => setUser({...user, name: e.target.value})} labelId="Name"/>
+            <InputTextCustom value={user.firstname} onChange={(e:any) => setUser({...user, firstname: e.target.value})} labelId="Name"/>
 
             <InputTextCustom value={user.lastname} onChange={(e:any) => setUser({...user, lastname: e.target.value})} labelId="Lastname"/>
 
@@ -64,24 +70,29 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
                 setUser({...user, gender: gender})
             }} labelId="Gender" value={user.gender} className="radioGroup" orientation={"row"}/>
 
-            <Calendar value={user.date} onChange={(e:any) => {
-                setUser({...user, date: e.value})
+            <Calendar value={user.birthdate} onChange={(e:any) => {
+                setUser({...user, birthdate: e.value})
             
             }} showIcon dateFormat="dd/mm/yy" placeholder='dd/mm/aaaa'/>
 
-            <InputPhone labelId="Phone" value={user.phone} setValue={(val:any, valField:any)=>{
+            <InputPhone labelId="Phone" value={user.mobilephone} setValue={(val:any, valField:any)=>{
                 let _user = {...user}
-                _user.phone[valField] = val;
+                _user.mobilephone[valField] = val;
                 setUser(_user);
             }} />
 
             <InputTextCustom value={user.address} onChange={(e:any) => setUser({...user, address: e.target.value})} labelId="Address"/>
 
-            <Combobox items={cities} label={intl.formatMessage({id:"City"})} optionLabel="description" value={city} placeholder={city?.description}  setValue={setCity}/>
+            <Combobox items={cities} label={intl.formatMessage({id:"City"})} optionLabel="location" value={user.city} placeholder={user.city?.description}  setValue={(c:any)=>{
+                setUser({...user, city: c});
+            }}/>
 
             <div className='flexible--row flex-end buttonContainer'>
                 <Button label={intl.formatMessage({id: "Cancel"})} className='buttonMain3' onClick={()=>{setDisplayRegisterCancel(true)}}/>
-                <Link to="/register/2" className='linkReactRouter'><Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} className='buttonMain' /></Link>
+                <Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} onClick={()=>{
+                    if (validateData()){
+                        navigate("/register/2")
+                    }}} className='buttonMain' />
             </div>
             
         </div>

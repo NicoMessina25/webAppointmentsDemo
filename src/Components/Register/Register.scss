@@ -3,7 +3,7 @@
 .registerContainer{
     justify-content: center;
     align-items: center;
-    font-size: 75%;
+    font-size: 100%;
 }
 
 .registerBody{
@@ -20,8 +20,9 @@
     justify-content: space-around;
     align-items: center;
     background-color: map-get($lightContrastShade, 10);
-    height: 30vh;
+    height: 25vh;
     width: 100%;
+    font-size: 70%;
     z-index: 8;
     position: sticky;
     top: 0;
@@ -107,6 +108,11 @@
 
 @media screen and (min-width:768px) {
     .registerContainer{
+        font-size: 100%;
+    }
+
+    .registerHeader{
+        height: 30vh;
         font-size: 100%;
     }
 

@@ -11,6 +11,7 @@ export default function InputPhone({value, setValue, labelId, className, passwor
     
     const [countries, setCountries]:any= useState([]);
     const [country, setCountry] = useState(null);
+    const [filteredCountries, setFilteredCountries] = useState(null);
 
     useEffect(() => {
         setCountries(getPhonePrefixes());
@@ -22,7 +23,7 @@ export default function InputPhone({value, setValue, labelId, className, passwor
     useEffect(() => {
         let prefix = value.prefix || "+54";
         setCountry(countries.find((c:any)=>c.dial_code === prefix));
-        
+        setFilteredCountries(countries);
         
     }, [countries])
     
@@ -38,7 +39,7 @@ export default function InputPhone({value, setValue, labelId, className, passwor
                 <Combobox value={country} setValue={(e:any)=>{                    
                     setValue(e.dial_code, "prefix");
                     setCountry(e);
-                    }} className="comboboxPhone" items={countries} optionLabel={"dial_code"} />
+                    }} className="comboboxPhone" items={countries} optionLabel={"dial_code"}/>
                
                 <InputTextCustom placeholder={intl.formatMessage({id:"Area"}).toLowerCase()} value={value.area} onChange={(e:any)=>{
                     setValue(e.target.value, "area");

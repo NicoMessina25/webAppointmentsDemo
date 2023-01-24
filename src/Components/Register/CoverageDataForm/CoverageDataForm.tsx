@@ -13,7 +13,7 @@ import "./CoverageDataForm.scss"
 export default function CoverageDataForm({user, setUser, setStep, setDisplayRegisterCancel}:any){
     const intl = useIntl();
     const [medicalCoverages, setMedicalCoverages] = useState([]);
-    const [medicalCoverage, setMedicalCoverage]:any = useState(null);
+    const [hasMedicalCoverage, setMedicalCoverage]:any = useState(null);
     const [plans, setPlans] = useState([]);
     const [plan, setPlan] = useState(null);
 
@@ -30,11 +30,11 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
    },[])
 
    useEffect(() => {
-    getPlans(medicalCoverage?.entityid).then(data => {;
+    getPlans(user.medicalCoverage?.entityid).then(data => {;
         setPlans(data)
         
     })
-   }, [medicalCoverage])
+   }, [user.medicalCoverage])
    
 
     const yesNo = [
@@ -48,19 +48,23 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
 
     return (
         <div className="flexible--column formCoverage">
-            <RadioButtonGroup options={yesNo} value={user.medicalCoverage} setValue={(value:any)=>{
-                setUser({...user, medicalCoverage: value})
+            <RadioButtonGroup id={1} options={yesNo} value={user.hasMedicalCoverage} setValue={(value:any)=>{
+                setUser({...user, hasMedicalCoverage: value})
             }} labelId={"DoYouHaveMedicalCoverage?"} orientation="row"/>
         
-            {user.medicalCoverage && 
+            {user.hasMedicalCoverage && 
             <div>
-                <RadioButtonGroup options={yesNo} value={user.medCoverageThroughJob} setValue={(value:any)=>{
-                setUser({...user, medCoverageThroughJob: value})
+                <RadioButtonGroup id={2} options={yesNo} value={user.isMedCoverageThroughJob} setValue={(value:any)=>{
+                setUser({...user, isMedCoverageThroughJob: value})
             }} labelId={"IsThroughYourJob?"} orientation="row"/>
             
-                <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" items={medicalCoverages} value={medicalCoverage} setValue={setMedicalCoverage} optionLabel="name" />
+                <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={user.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" items={medicalCoverages} value={user.medicalCoverage} setValue={(p:any)=>{
+                    setUser({...user, medicalCoverage: p})
+                }} optionLabel="name" />
 
-                <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox" placeholder={intl.formatMessage({id: "Select"})} items={plans} value={plan} setValue={setPlan} optionLabel="name"/>
+                <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox" placeholder={intl.formatMessage({id: "Select"})} items={plans} value={user.plan} setValue={(p:any)=>{
+                    setUser({...user, plan: p})
+                }} optionLabel="name"/>
 
                 <InputTextCustom labelId="NumberOfMember"  value={user.memberNumber} onChange={(e:any)=>{
                     setUser({...user, memberNumber: e.target.value})
