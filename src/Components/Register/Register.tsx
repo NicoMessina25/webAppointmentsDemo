@@ -31,9 +31,10 @@ export default function Register(){
         memberNumber:"",
         hasMedicalCoverage: false,
         isMedCoverageThroughJob: true,
-        medicalCoverage:{},
-        plan:{},
+        medicalCoverage:null,
+        plan:null,
         acceptTerms:false,
+        repeatPassword: ""
     });
     const [displayRegisterCancel, setDisplayRegisterCancel] = useState(false)
 

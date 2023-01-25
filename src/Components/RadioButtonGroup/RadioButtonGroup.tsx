@@ -2,7 +2,7 @@ import { RadioButton } from "primereact/radiobutton";
 import "./RadioButtonGroup.scss";
 import { useIntl } from "react-intl";
 
-export default function RadioButtonGroup({id, options, value, setValue, labelId, className, orientation, itemWidth}:any){
+export default function RadioButtonGroup({id, options, value, setValue, labelId, className, orientation, itemWidth, error, caption}:any){
     const intl = useIntl();
 
 
@@ -23,7 +23,7 @@ export default function RadioButtonGroup({id, options, value, setValue, labelId,
                             </div>
                 })}
             </div>
-            
+            {caption && <p className={error? "caption-invalid":"caption"}>{caption}</p>}
         </div>
     );
 }

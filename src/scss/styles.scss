@@ -224,6 +224,7 @@ input, .p-dropdown{
 
     .p-inputtext{
         font-size: 75% !important;
+        margin: 0 !important;
     }
 }
 
@@ -334,6 +335,17 @@ esta clase es para el input text invalido
     font-size: 75% !important;
     width: 1%;
 }
+
+.caption{
+    font-size: smaller;
+    color: map-get($lightText, secondary);
+}
+
+.caption-invalid{
+    @extend.caption;
+    color: map-get($lightError, text);
+}
+
 
 @media screen and (min-width:520px){
     .button{

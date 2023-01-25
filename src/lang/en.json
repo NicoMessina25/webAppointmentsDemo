@@ -85,5 +85,13 @@
     "EnterUsername":"Enter a username",
     "EnterPassword":"Enter a Password",
     "IncorrectPassword":"Incorrect password",
-    "EnterAValidEMail":"Enter a valid email"
+    "EnterAValidEMail":"Enter a valid email",
+    "SelectADocumentType":"Select a document type",
+    "EnterADocument":"Enter a document",
+    "EnterYourName":"Enter your name",
+    "EnterYourLastname":"Enter your lastname",
+    "EnterAPhoneZone":"Enter a phone zone",
+    "EnterAPhoneNumber":"Enter a phone number",
+    "EnterYourBirthdate":"Enter your birthdate",
+    "ThisFieldIsRequired":"This field is required"
 }

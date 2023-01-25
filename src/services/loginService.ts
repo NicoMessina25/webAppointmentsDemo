@@ -22,17 +22,16 @@ export function getMailAndCellphone(document:any,documenttype:any){
 
 export function saveUser(user:any) {
   let newUser= {...user}
-
   newUser.mobilephone = user.mobilephone.prefix + user.mobilephone.area + user.mobilephone.number
   //newUser.birthdate = Date.parse(user.birthdate);
   newUser.city = user.city.city;
-  newUser.medicalCoverage = user.medicalCoverage.entityid;
-  newUser.plan = user.plan.healthentityplan
+  newUser.medicalCoverage = user.medicalCoverage?.entityid;
+  newUser.plan = user.plan?.healthentityplan
   console.log(newUser);
 
   return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveUserAndPatient',
     newUser).then((res)=>{
-    console.log(res.data);
+    return res.data;
     
   }).catch((err)=>{console.log(err);
   })
@@ -103,6 +102,50 @@ export async function validateMedereUser(username:string,password:string){
       .then(response => 
         response
       )
+  
+  
+}
+
+
+export function sendLocationConsent(userId:number){
+
+  
+
+  const onLocationAllowed = ({coords, timestamp}:any) => {
+    console.log(coords);
+    
+    
+    axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveDigitalConsent',
+    {
+      userId: userId,
+      latitude: coords.latitude,
+      longitude: coords.longitude
+    }).then((res)=>{
+    console.log(res.data);
+    
+  }).catch((err)=>{console.log(err);
+  })
+  }
+
+  const onLocationNotAllowed = () => {
+    
+    
+    
+    axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveDigitalConsent',
+    {
+      userId: userId,
+      latitude: null,
+      longitude: null
+    }).then((res)=>{
+    console.log(res.data);
+    
+  }).catch((err)=>{console.log(err);
+  })
+  }
+
+
+  //console.log(userId +  " ea");
+  navigator.geolocation?.getCurrentPosition(onLocationAllowed, onLocationNotAllowed);
   
   
 }

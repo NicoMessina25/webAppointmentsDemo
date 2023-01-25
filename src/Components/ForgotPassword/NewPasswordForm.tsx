@@ -66,7 +66,7 @@ export default function NewPasswordForm(props:any){
 
     const [siteKey,setSiteKey]=useState("");
     
-    getCaptchaKey(siteKey);
+    getCaptchaKey();
     
 
 

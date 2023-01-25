@@ -2,10 +2,10 @@ import { Dropdown } from 'primereact/dropdown'
 import React, { useState } from 'react';
 import { AutoComplete } from 'primereact/autocomplete';
 
-function Combobox({label, items,  value, setValue, className, optionLabel, placeholder}:any) {
+function Combobox({label, items,  value, setValue, className, optionLabel, placeholder, error, caption}:any) {
   const [filteredItems, setFilteredItems] = useState(items)
 
-  const searchItem = (e: {query:string}) => {
+  /* const searchItem = (e: {query:string}) => {
     
 
     setTimeout(()=>{
@@ -26,13 +26,14 @@ function Combobox({label, items,  value, setValue, className, optionLabel, place
     },750);
 
     return 
-  }
+  } */
 
   return (
     <div className={`inputContainer flexible--column ${className}`}>
         <p className='label'>{label}</p>
         <Dropdown value={value} onChange={(e) => setValue(e.value)} placeholder={placeholder} filter onFilter={(e)=>{console.log(e);
-        }} optionLabel={optionLabel} options={items}/>
+        }} optionLabel={optionLabel} options={items} className={error && "p-invalid"} />
+        {caption && <p className={error? "caption-invalid":"caption"}>{caption}</p>}
         {/* <AutoComplete value={value} suggestions={filteredItems} completeMethod={searchItem} field={optionLabel} dropdown forceSelection onChange={(e) => setValue(e.value)} aria-label="Countries" dropdownAriaLabel="Select Country" /> */}
     </div>
     

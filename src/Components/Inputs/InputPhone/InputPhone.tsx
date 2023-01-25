@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Combobox from "../../Combobox/Combobox";
 import getPhonePrefixes from "../../../services/phonePrefixes";
 
-export default function InputPhone({value, setValue, labelId, className, password, placeholder}:any){
+export default function InputPhone({value, setValue, labelId, className, error, caption}:any){
     const intl = useIntl();
     
     const [countries, setCountries]:any= useState([]);
@@ -43,11 +43,12 @@ export default function InputPhone({value, setValue, labelId, className, passwor
                
                 <InputTextCustom placeholder={intl.formatMessage({id:"Area"}).toLowerCase()} value={value.area} onChange={(e:any)=>{
                     setValue(e.target.value, "area");
-                }} className="areaInputPhone" onKeyDown={onKeyDownHandler}/>
+                }} className="areaInputPhone" onKeyDown={onKeyDownHandler} error={error}/>
                 <InputTextCustom placeholder={intl.formatMessage({id:"Number"}).toLowerCase()} value={value.number} onChange={(e:any)=>{
                     setValue(e.target.value, "number")
-                }} className="numberInputPhone" onKeyDown={onKeyDownHandler}/>
+                }} className="numberInputPhone" onKeyDown={onKeyDownHandler} error={error}/>
             </div>
+            {caption && <p className={error? "caption-invalid":"caption"}>{caption}</p>}
         </div>
     );
 }

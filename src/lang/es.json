@@ -85,8 +85,14 @@
     "EnterUsername":"Ingrese un nombre de usuario",
     "EnterPassword":"Ingrese una contraseña",
     "IncorrectPassword":"Contraseña incorrecta",
-    "EnterAValidEMail":"Ingrese un mail válido"
-    
-
+    "EnterAValidEMail":"Ingrese un mail válido",
+    "SelectADocumentType":"Seleccione un tipo de documento",
+    "EnterADocument":"Ingrese un documento",
+    "EnterYourName":"Ingrese su nombre",
+    "EnterYourLastname":"Ingrese su apellido",
+    "EnterAPhoneZone":"Ingrese el área",
+    "EnterAPhoneNumber":"Ingrese su número",
+    "EnterYourBirthdate":"Ingrese su fecha de nacimiento",
+    "ThisFieldIsRequired":"Este campo es obligatorio"
 
 }
