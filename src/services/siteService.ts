@@ -12,7 +12,11 @@ export function getCaptchaKey(){
         params:{
             appid:2
         }
-    }).then(res =>  res=res.data);
+    }).then(res => {
+        console.log(res.data);
+        
+        return res.data
+    } );
         
     
 }

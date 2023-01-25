@@ -3,6 +3,8 @@ import LogginForm from "../LogginForm/LoginForm";
 import "../../scss/styles.scss"
 import "./Login.scss"
 import { getLogo } from "../../services/imageService";
+import ReCAPTCHA from "react-google-recaptcha";
+import { getCaptchaKey } from "../../services/siteService";
 
 export default function Login(){
     const [logo, setLogo] = useState("");
@@ -18,13 +20,13 @@ export default function Login(){
     },[]) 
 
     
+
+    
     return(
         <div className="login flexible--column">
             { logo!="" && <img src={src} onError={()=>{setSrc(defaultLogo)}} alt="" className='logoSite' /> }
             <LogginForm googleLogin/>
          
-
-            
 
 
             <img src="/img/graylogo.png" alt="" className='logo' />

@@ -28,7 +28,8 @@ export default function NewPasswordForm(props:any){
     
     const [validCaptcha,setValidCaptcha]:any=useState();
     const [validUser,setValidUser]=useState(false);
-    const captcha:any=useRef();
+
+    let isSiteKey = false;
     
 
     function handleConfirm(){
@@ -66,7 +67,14 @@ export default function NewPasswordForm(props:any){
 
     const [siteKey,setSiteKey]=useState("");
     
-    getCaptchaKey();
+    useEffect(()=>{
+        if(!isSiteKey){
+            isSiteKey = true;
+            getCaptchaKey().then(key=>{
+                setSiteKey(key); 
+            });
+        }
+    },[])
     
 
 
@@ -81,7 +89,7 @@ export default function NewPasswordForm(props:any){
             </div>
             
             <div className="captcha flexible--column passwordCaptcha">
-                {siteKey!="" && <ReCAPTCHA ref={captcha} sitekey={siteKey} onChange={onCaptchaChange}/>}
+                {siteKey!="" && <ReCAPTCHA sitekey={siteKey} onChange={onCaptchaChange}/>}
                 {validCaptcha == false && <div className="caption-invalid">Complete el captcha</div>}
             </div>
             
