@@ -12,7 +12,6 @@ export default function Terms(){
 
     useEffect(()=>{
         if(!logoBoolean){
-            console.log("Entro")
             setLogo(true);
             logoBoolean=true;
             getLogo().then(res=>{
