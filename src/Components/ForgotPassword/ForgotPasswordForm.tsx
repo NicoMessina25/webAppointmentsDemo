@@ -34,7 +34,6 @@ export default function ForgotPasswordForm(props :any) {
         {label:mobilephone, value: mobilephone, captions:"SMS"}
     ];
     const [sendOptionSelected,setSendOptionSelected]=useState("");
-    let [receivedCode,setReceivedCode]=useState("");
 
     const [styleError,setStyleError]=useState(false);
     const [messageError,setMessageError]=useState('');
@@ -86,7 +85,7 @@ export default function ForgotPasswordForm(props :any) {
 
     function handleCodeValidation(){
         
-        validateRecoveryCode(props.patientId,receivedCode).then(res => {
+        validateRecoveryCode(props.patientId,props.receivedCode).then(res => {
             if (!res){
                 setStyleError(true);
                 setMessageError(intl.formatMessage({id :'WrongCode'}))
@@ -163,7 +162,7 @@ export default function ForgotPasswordForm(props :any) {
         }
         {
             
-            <InputTextCustom labelId="WriteReceivedCode" error={styleError} caption={messageError} value={receivedCode}  onChange={(e:any) => setReceivedCode(e.target.value)} className="input" placeholder=""/>
+            <InputTextCustom labelId="WriteReceivedCode" error={styleError} caption={messageError} value={props.receivedCode}  onChange={(e:any) => props.setReceivedCode(e.target.value)} className="input" placeholder=""/>
             
         }
         </Modal>

@@ -36,10 +36,14 @@ export function saveUser(user:any) {
   }).catch((err)=>{console.log(err);
   })
 }
-export function postNewPassword(id:number,password : string){
+
+export function postNewPassword(id:number,password : string,repeatPassword : string,token:string,code:string){
   return axios.post(url+ 'resetpassword', {
     id: id,
-    password: password
+    password: password,
+    repeatPassword: repeatPassword,
+    token:token,
+    verificationCode:code
   },{
     headers: {
       'Content-Type': 'application/json',
@@ -51,7 +55,6 @@ export function postNewPassword(id:number,password : string){
   .catch(error => 
       error
   );
-
 }
 
 export function sendCodeByMail(id:number){

@@ -9,7 +9,7 @@ import { getCaptchaKey } from "../../services/siteService";
 export default function Login(){
     const [logo, setLogo] = useState("");
     const [src,setSrc]=useState(process.env.REACT_APP_MEDERE_ADDRESS+"/imgs/");
-    const [defaultLogo,setDefaultLogo]=useState("/img/logo.png");
+    const [defaultLogo,setDefaultLogo]=useState("/img/graylogo.png");
     
 
      useEffect(()=>{

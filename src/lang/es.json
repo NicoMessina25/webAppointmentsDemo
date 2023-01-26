@@ -93,6 +93,7 @@
     "EnterAPhoneZone":"Ingrese el área",
     "EnterAPhoneNumber":"Ingrese su número",
     "EnterYourBirthdate":"Ingrese su fecha de nacimiento",
-    "ThisFieldIsRequired":"Este campo es obligatorio"
+    "ThisFieldIsRequired":"Este campo es obligatorio",
+    "ErrorResetingPassword":"Ocurrió un error, la contraseña no se ha podido restrablecer"
 
 }

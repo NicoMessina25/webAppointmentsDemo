@@ -25,9 +25,13 @@ export default function NewPasswordForm(props:any){
     
     const [visibilitySuccessModal,setVisibilitySuccessModal]=useState(false);
 
-    
     const [validCaptcha,setValidCaptcha]:any=useState();
     const [validUser,setValidUser]=useState(false);
+    const [tokenGenerated,setTokenGenerated]=useState("");
+
+    const [visibilityFailureModal,setVisibilityFailureModal]=useState(false);
+
+    const reCaptchaRef:any=useRef(null);
 
     let isSiteKey = false;
     
@@ -35,8 +39,15 @@ export default function NewPasswordForm(props:any){
     function handleConfirm(){
         console.log(validUser)
         if(password!="" && repeatPassword!="" && validUser && password==repeatPassword){
-            postNewPassword(props.patientId,password).then(res =>{
-                setVisibilitySuccessModal(!visibilitySuccessModal);
+            postNewPassword(props.patientId,password,repeatPassword,tokenGenerated,props.receivedCode).then(res =>{
+                if(res.status===200)
+                    setVisibilitySuccessModal(!visibilitySuccessModal);
+                else{
+                    //ATTEMPS + 1
+                    if(reCaptchaRef.current)
+                        reCaptchaRef.current.reset();
+                    setVisibilityFailureModal(true);
+                }
             });
         }else{
             setStyleError(true);
@@ -59,9 +70,10 @@ export default function NewPasswordForm(props:any){
         navigate('/');
     };
 
-    //El token es el evento
+    //El evento es el token que se genera al validar el captcha que se debe mandar a google y validar desde el backend 
     function onCaptchaChange(e:any){
-        setValidUser(true)
+        setTokenGenerated(e);
+        setValidUser(true);
         setValidCaptcha(true);
     }
 
@@ -89,7 +101,7 @@ export default function NewPasswordForm(props:any){
             </div>
             
             <div className="captcha flexible--column passwordCaptcha">
-                {siteKey!="" && <ReCAPTCHA sitekey={siteKey} onChange={onCaptchaChange}/>}
+                {siteKey!="" && <ReCAPTCHA ref={reCaptchaRef} sitekey={siteKey} onChange={onCaptchaChange}  />}
                 {validCaptcha == false && <div className="caption-invalid">Complete el captcha</div>}
             </div>
             
@@ -100,6 +112,11 @@ export default function NewPasswordForm(props:any){
 
             <Modal visible={visibilitySuccessModal} setVisible={setVisibilitySuccessModal} header={intl.formatMessage({ id: 'YouHaveNewPassword' })} footerButtonRightText={intl.formatMessage({ id: 'Continue' })} pathRightBtn={"/"} onHideCustom={onHide}>
             {intl.formatMessage({ id: 'NewPasswordMessage' })}
+            </Modal>
+
+            <Modal visible={visibilityFailureModal} setVisible={setVisibilityFailureModal} header="Error"  footerButtonRightText={intl.formatMessage({ id: 'Back' })} 
+            onClickRightBtn={(()=>{{ setVisibilityFailureModal(false) }})}>
+            {intl.formatMessage({ id: 'ErrorResetingPassword' })}
         </Modal>
             
         </div>

@@ -22,6 +22,9 @@ export default function ForgotPasswordStepOne(){
     
     const [patientId,setPatientId]=useState(-1);
 
+    let [receivedCode,setReceivedCode]=useState("");
+    
+
     useEffect(()=>{
         getLogo().then(res=>{
             setLogo(res);
@@ -47,7 +50,7 @@ export default function ForgotPasswordStepOne(){
                 { !toggleFormBoolean ? <h1>{ intl.formatMessage({ id: 'ForgotPassword' }) }</h1> : <h1>{ intl.formatMessage({ id: 'NewPassword' }) }</h1> }
             </div>
 
-            {  !toggleFormBoolean ? <ForgotPasswordForm toggleForm={toggleForm} patientId={patientId} setPatientId={setPatientId} handleCancel={handleCancel}/> : <NewPasswordForm  patientId={patientId} handleCancel={handleCancel}/>}
+            {  !toggleFormBoolean ? <ForgotPasswordForm receivedCode={receivedCode} setReceivedCode={setReceivedCode} toggleForm={toggleForm} patientId={patientId} setPatientId={setPatientId} handleCancel={handleCancel}/> : <NewPasswordForm receivedCode={receivedCode} patientId={patientId} handleCancel={handleCancel}/>}
             
             <Modal visible={visibilityCancelModal} setVisible={setVisibilityCancelModal} header={intl.formatMessage({ id: 'CancelYourRecovery' })} footerButtonLeftText={intl.formatMessage({ id: 'YesCancel'})} footerButtonRightText={intl.formatMessage({ id: 'ContinueWithRecovery' })}  onClickRightBtn={()=>setVisibilityCancelModal      (false)} pathLeftBtn={"/"}>
                 {intl.formatMessage({ id: 'CancelYourRecoveryMessage' })}
