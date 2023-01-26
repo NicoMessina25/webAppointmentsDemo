@@ -27,7 +27,7 @@ export function saveUser(user:any) {
   newUser.city = user.city.city;
   newUser.medicalCoverage = user.medicalCoverage?.entityid;
   newUser.plan = user.plan?.healthentityplan
-  console.log(newUser);
+  
 
   return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveUserAndPatient',
     newUser).then((res)=>{
@@ -115,8 +115,6 @@ export function sendLocationConsent(userId:number){
   
 
   const onLocationAllowed = ({coords, timestamp}:any) => {
-    console.log(coords);
-    
     
     axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveDigitalConsent',
     {

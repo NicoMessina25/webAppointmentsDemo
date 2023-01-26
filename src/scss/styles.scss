@@ -179,6 +179,12 @@ input, .p-dropdown{
     color: map-get($lightText, secondary)
 }
 
+.textDarkItalic{
+    @extend .textDark;
+    font-style: italic;
+}
+
+
 .textDark{
     @extend.text;
     color: map-get($lightText, body);
@@ -346,7 +352,6 @@ esta clase es para el input text invalido
     color: map-get($lightError, text);
 }
 
-
 @media screen and (min-width:520px){
     .button{
         padding: 0.5rem 0.833rem !important;
@@ -391,6 +396,4 @@ esta clase es para el input text invalido
         font-size: 100% !important;
     }
 }
-
-
 

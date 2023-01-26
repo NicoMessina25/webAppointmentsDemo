@@ -94,5 +94,8 @@
     "EnterAPhoneNumber":"Enter a phone number",
     "EnterYourBirthdate":"Enter your birthdate",
     "ThisFieldIsRequired":"This field is required",
-    "ErrorResetingPassword":"An error has occurred, the password could not be reset"
+    "ErrorResetingPassword":"An error has occurred, the password could not be reset",
+    "TermsAndConditions":"Terms and conditions",
+    "YesAccept":"Yes, i accept",
+    "NoAccept":"I do not accept"
 }

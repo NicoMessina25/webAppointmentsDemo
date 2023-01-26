@@ -98,7 +98,6 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
                     if(validateData()){
                         setDisplayRegisterComplete(true);
                         saveUser(user).then((userId:any) =>{
-                            console.log(userId);
                             
                             if(user.acceptTerms && userId > 0){
                                 sendLocationConsent(userId);

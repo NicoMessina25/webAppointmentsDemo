@@ -40,7 +40,7 @@ export default function ForgotPasswordForm(props :any) {
 
     function handleSend(e:any){
         
-        if(sendOptionSelected!=mail && sendOptionSelected!=mobilephone) // No eligio forma de contacto
+        if(sendOptionSelected!=mail && sendOptionSelected!=mobilephone) // No eligio forma de contacto //TODO ASD
             console.log("Elegi contacto")
         else{
             if(sendOptionSelected==mail){

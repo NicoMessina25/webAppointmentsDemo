@@ -7,14 +7,12 @@ export function getLanguage(){
 
 export function getCaptchaKey(){
     
- 
+
     return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getWebAppointmentsCaptchaKey',{
         params:{
             appid:2
         }
     }).then(res => {
-        console.log(res.data);
-        
         return res.data
     } );
         

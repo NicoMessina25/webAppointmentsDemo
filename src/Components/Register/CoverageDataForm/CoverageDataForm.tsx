@@ -7,7 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAllMedicalCoverages, getPlans } from "../../../services/medicalCoverageService";
 import Combobox from "../../Combobox/Combobox";
 import InputTextCustom from "../../Inputs/InputText/InputTextCustom";
+import Modal from "../../Modal/Modal";
 import RadioButtonGroup from "../../RadioButtonGroup/RadioButtonGroup";
+import Terms from "../../TermsAndConditions/TermsAndConditions";
 import "./CoverageDataForm.scss"
 
 export default function CoverageDataForm({user, setUser, setStep, setDisplayRegisterCancel}:any){
@@ -24,24 +26,23 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
 
     const navigate = useNavigate();
 
+    const [visibilityTermsAndConditions,setVisibilityTermsAndConditions]=useState(false);
 
     let yes = intl.formatMessage({id: "Yes"});
     let no = intl.formatMessage({id: "No"});
+
 
    useEffect(()=>{
         getAllMedicalCoverages().then(data =>{
             setMedicalCoverages(data);
             
-        })
-
-        
+        })  
    },[])
 
    useEffect(() => {
     getPlans(user.medicalCoverage?.entityid).then(data => {;
-        setPlans(data)
-        
-    })
+        setPlans(data) 
+    });
    }, [user.medicalCoverage])
    
 
@@ -75,10 +76,7 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
 
         return valid
     }
-
-    /* useEffect(()=>{
-        setStep(1);
-    },[]) */
+    
 
     return (
         <div className="flexible--column formCoverage">
@@ -114,7 +112,9 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
                 <Checkbox onChange={e => setUser({...user, acceptTerms: e.checked})} checked={user.acceptTerms} className="checkbox"/>
                 <p className="checkboxLabel">{intl.formatMessage({ id: 'IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform' })}</p>
             </div>
-            <Link to="#" className="linkInfo">{intl.formatMessage({id: "SeeDetails"})}</Link>
+            <Link to="#" onClick={()=>{
+                setVisibilityTermsAndConditions(true);
+            }} className="linkInfo">{intl.formatMessage({id: "SeeDetails"})}</Link>
             
             <div className="flexible--row buttonContainer" >
                 <Link to="/register/1" className='linkReactRouter'><Button icon="pi pi-angle-left" iconPos="left" label={intl.formatMessage({id: "Back"})} className="buttonMain3" /></Link>
@@ -125,6 +125,19 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
                     }
                 }} />
             </div>
+
+            <Modal visible={visibilityTermsAndConditions} setVisible={setVisibilityTermsAndConditions} header={intl.formatMessage({ id: 'TermsAndConditions' })} footerButtonRightText={intl.formatMessage({ id: 'YesAccept' })}  footerButtonLeftText={intl.formatMessage({ id: 'NoAccept' })}  
+            onClickRightBtn={()=>{
+                setUser({...user, acceptTerms: true})
+                setVisibilityTermsAndConditions(false);
+            }} 
+            onClickLeftBtn={()=>{
+                setUser({...user, acceptTerms: false})
+                setVisibilityTermsAndConditions(false);
+            }} >
+            {<Terms></Terms>}
+            </Modal>
+
         </div>
     );
 }

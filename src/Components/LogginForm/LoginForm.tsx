@@ -10,7 +10,6 @@ import Modal from "../Modal/Modal";
 import { useIntl } from 'react-intl';
 import InputTextCustom from "../Inputs/InputText/InputTextCustom";
 import { validateMedereUser } from "../../services/loginService";
-
 import { useNavigate } from "react-router-dom";
 
 
@@ -68,7 +67,6 @@ export default function LogginForm({googleLogin}:any){
             setValidUser(false);
         }
     }
-    
     
     return( 
         <div className="formContainer flexible--column">
