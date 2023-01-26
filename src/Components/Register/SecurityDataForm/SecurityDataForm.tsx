@@ -1,15 +1,17 @@
 import { Button } from "primereact/button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { saveUser, sendLocationConsent } from "../../../services/loginService";
 import InputTextCustom from "../../Inputs/InputText/InputTextCustom";
 import Modal from "../../Modal/Modal";
 import RadioButtonGroup from "../../RadioButtonGroup/RadioButtonGroup";
 
-export default function SecurityDataForm({setStep, user, setUser, setDisplayRegisterCancel}:any){
+
+export default function SecurityDataForm({setStep, user, setUser, setDisplayRegisterCancel, toast}:any){
     const intl = useIntl();
     const [displayRegisterComplete, setDisplayRegisterComplete] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState("");
     const [inputErrors, setInputErrors] = useState({
         username: {caption: "", isValid: true},
@@ -17,6 +19,10 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
         repeatPassword: {caption: "", isValid: true},
         email:{isValid:true, caption: ""}
     })
+
+    const navigate = useNavigate();
+
+
 
     useEffect(()=>{
         setStep(2);
@@ -96,12 +102,36 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
                 <Link to="#" className='linkReactRouter'><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
                 <Link to="#" className='linkReactRouter'><Button icon="pi pi-check" iconPos="right" label={intl.formatMessage({id: "Finish"})} className="buttonMain" onClick={()=>{
                     if(validateData()){
-                        setDisplayRegisterComplete(true);
-                        saveUser(user).then((userId:any) =>{
+                        saveUser(user, false).then((res:any) =>{
                             
-                            if(user.acceptTerms && userId > 0){
-                                sendLocationConsent(userId);
+                
+                            if (res.data > 0) {
+                                setDisplayRegisterComplete(true);
+                            } else {
+                                switch (res.status){
+                                    case 409:
+                                    case 226:{
+                                        console.log("/register/1"); 
+                                        toast.current?.show({severity: 'error', summary: 'Error', detail: intl.formatMessage({id: res.status === 409?"ThereAreMissingRequiredFields":"ThereIsAlreadyAnUserWithTheSameDocument"})});
+                                        navigate("/register/1");
+                                        break;
+                                    }
+                                    case 302: {
+                                        console.log("verificamos que sos vos"); 
+                                        saveUser(user,true)
+                                        break;
+                                    }
+                                    case 303:{
+                                        toast.current?.show({severity: 'error', summary: 'Error', detail: intl.formatMessage({id: "ThatUsernameIsAlreadyUsed"})});
+                                        setInputErrors({...inputErrors, username: {isValid: false, caption: intl.formatMessage({id: "ThatUsernameIsAlreadyUsed"})}})
+                                        break;
+                                    }
+                                    
+                                    default: console.log("nada")
+                                }
                             }
+
+                            
                         });
                     }
                     

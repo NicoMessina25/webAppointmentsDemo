@@ -34,7 +34,7 @@ export default function InputPhone({value, setValue, labelId, className, error, 
 
     return(
         <div className={`flexible--column inputContainer ${className}`}>
-            {labelId && <p>{intl.formatMessage({id: labelId})}</p>}
+            {labelId && <p className="label inputLabel">{intl.formatMessage({id: labelId})}</p>}
             <div className="flexible--row phoneFieldsContainer">
                 <Combobox value={country} setValue={(e:any)=>{                    
                     setValue(e.dial_code, "prefix");

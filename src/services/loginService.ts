@@ -20,7 +20,7 @@ export function getMailAndCellphone(document:any,documenttype:any){
       );
 }
 
-export function saveUser(user:any) {
+export function saveUser(user:any, onlyUser:boolean) {
   let newUser= {...user}
   newUser.mobilephone = user.mobilephone.prefix + user.mobilephone.area + user.mobilephone.number
   //newUser.birthdate = Date.parse(user.birthdate);
@@ -29,11 +29,19 @@ export function saveUser(user:any) {
   newUser.plan = user.plan?.healthentityplan
   
 
-  return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveUserAndPatient',
+  return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+`/rest/webappointments/${onlyUser?"saveOnlyUser":"saveUserAndPatient"}`,
     newUser).then((res)=>{
-    return res.data;
+    console.log(res);
+    let userId = res.data;
+    if(user.acceptTerms && userId > 0){
+        sendLocationConsent(userId);
+    }
+    return res;
     
-  }).catch((err)=>{console.log(err);
+  }).catch((err)=>{
+
+    console.log(err);
+    return err.response;
   })
 }
 
@@ -138,7 +146,7 @@ export function sendLocationConsent(userId:number){
       latitude: null,
       longitude: null
     }).then((res)=>{
-    console.log(res.data);
+      console.log(res.data);
     
   }).catch((err)=>{console.log(err);
   })

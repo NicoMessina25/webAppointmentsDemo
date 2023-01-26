@@ -97,6 +97,8 @@
     "ErrorResetingPassword":"Ocurrió un error, la contraseña no se ha podido restrablecer",
     "TermsAndConditions":"Términos y condiciones",
     "YesAccept":"Sí, Acepto",
-    "NoAccept":"No, Acepto"
-
+    "NoAccept":"No, Acepto",
+    "ThereAreMissingRequiredFields":"Existen campos obligatorios sin completar",
+    "ThereIsAlreadyAnUserWithTheSameDocument":"Ya existe un usuario con el mismo documento",
+    "ThatUsernameIsAlreadyUsed":"Ese nombre de usuario ya fue utilizado"
 }

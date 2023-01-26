@@ -30,8 +30,9 @@ function Combobox({label, items,  value, setValue, className, optionLabel, place
 
   return (
     <div className={`inputContainer flexible--column ${className}`}>
-        <p className='label'>{label}</p>
-        <Dropdown value={value} onChange={(e) => setValue(e.value)} placeholder={placeholder} filter optionLabel={optionLabel} options={items} className={error && "p-invalid"} />
+        <p className='label inputLabel'>{label}</p>
+        <Dropdown value={value} onChange={(e) => setValue(e.value)} placeholder={placeholder} filter onFilter={(e)=>{console.log(e);
+        }} optionLabel={optionLabel} options={items} className={error && "p-invalid"} />
         {caption && <p className={error? "caption-invalid":"caption"}>{caption}</p>}
         {/* <AutoComplete value={value} suggestions={filteredItems} completeMethod={searchItem} field={optionLabel} dropdown forceSelection onChange={(e) => setValue(e.value)} aria-label="Countries" dropdownAriaLabel="Select Country" /> */}
     </div>

@@ -106,7 +106,7 @@ a{
     font-weight: 500;
     color: #1b2b41b8;
     font-size: 100%;
-    margin: 2% 0%;
+    margin: 3% 0%;
 
     input, .p-dropdown{
         margin: 2% 0% !important;
@@ -143,12 +143,15 @@ input, .p-dropdown{
 .p-checkbox-box{
     background-color: map-get($lightContrastShadeTranparent, 20)  !important;
     border: 0 !important;
-    
+    width: 17px !important;
+    height: 17px !important;
 }
 
 .p-checkbox-checked{
     background-color: map-get($lightPrimary, main) !important;
     border-radius: 4px !important;
+    width: 17px !important;
+    height: 17px !important;
 }
 
 
@@ -236,9 +239,17 @@ input, .p-dropdown{
 
 .p-datepicker{
     
+    
+    td, th, button,span{
+        font-size: 80% !important;
+    }
 
     .p-highlight{
         @extend.highlight;
+    }
+
+    button:focus, span:focus{
+        box-shadow: 0 0 0 .1rem map-get($lightPrimary, transparent50) !important; 
     }
 }
 
@@ -267,7 +278,7 @@ input, .p-dropdown{
 }
 
 .p-dropdown-label{
-    font-size: 115% !important;
+    font-size: 100% !important;
  }
 
 
@@ -281,6 +292,10 @@ input, .p-dropdown{
     color: map-get($lightText, secondary);
     font-weight: 500;
     
+}
+
+.inputLabel{
+    margin: 1% 0%;
 }
 
 .buttonContainer{
@@ -333,6 +348,13 @@ esta clase es para el input text invalido
     }
 } */
 
+.p-password{
+    .p-inputtext{
+       font-size: 75% !important; 
+    }
+    
+}
+
 .p-autocomplete-dropdown{
     margin: 2% 0% !important;
 }
@@ -356,7 +378,9 @@ esta clase es para el input text invalido
     .button{
         padding: 0.5rem 0.833rem !important;
     }
-
+    .buttonContainer{
+        justify-content: flex-end;
+    }
 }
 
 @media screen and (min-width:768px) {
@@ -394,6 +418,31 @@ esta clase es para el input text invalido
 
     .p-dropdown-panel{
         font-size: 100% !important;
+    }
+
+    .p-datepicker{
+    
+    
+        td, th, button,span{
+            font-size: 75% !important;
+        }
+    }
+    
+    .p-checkbox-box{
+        width: 22px !important;
+        height: 22px !important;
+    }
+    
+    .p-checkbox-checked{
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    .p-password{
+        .p-inputtext{
+           font-size: 100% !important; 
+        }
+        
     }
 }
 

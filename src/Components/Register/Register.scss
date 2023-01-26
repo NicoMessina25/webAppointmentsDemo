@@ -20,6 +20,7 @@
     justify-content: space-around;
     align-items: center;
     background-color: map-get($lightContrastShade, 10);
+    min-height: 174px;
     height: 25vh;
     width: 100%;
     font-size: 70%;
@@ -50,7 +51,7 @@
 }
 
 .p-steps{
-    font-size: 75%;
+    font-size: 100%;
     .p-steps-item{
         color: map-get($lightText, disable) !important;
         

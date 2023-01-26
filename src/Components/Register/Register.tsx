@@ -1,8 +1,9 @@
 import "./Register.scss"
 import { Steps } from 'primereact/steps';
 import { useIntl } from 'react-intl';
-import { useEffect, useState } from "react";
-import { Route, Routes, useParams } from "react-router-dom";
+import { useEffect, useState, useRef  } from "react";
+import { Toast } from 'primereact/toast';
+import { Route, Routes, useParams} from "react-router-dom";
 import PersonalDataForm from "./PersonalDataForm/PersonalDataForm";
 import CoverageDataForm from "./CoverageDataForm/CoverageDataForm";
 import SecurityDataForm from "./SecurityDataForm/SecurityDataForm";
@@ -29,8 +30,8 @@ export default function Register(){
         address: "",
         city: "",
         memberNumber:"",
-        hasMedicalCoverage: false,
-        isMedCoverageThroughJob: true,
+        hasMedicalCoverage: null,
+        isMedCoverageThroughJob: null,
         medicalCoverage:null,
         plan:null,
         acceptTerms:false,
@@ -45,6 +46,7 @@ export default function Register(){
     ];
 
     const {step}:any = useParams();
+    const toast = useRef(null);
 
     useEffect(() => {
       setActiveIndex(step-1)
@@ -53,11 +55,11 @@ export default function Register(){
 
     function renderStep(){
         switch (step){
-            case "1":return <PersonalDataForm user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>;
+            case "1":return <PersonalDataForm user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel} toast={toast} />;
             case "2": return <CoverageDataForm setStep={setActiveIndex} user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>; 
-            case "3": return <SecurityDataForm setStep={setActiveIndex} user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>;
+            case "3": return <SecurityDataForm setStep={setActiveIndex} user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel} toast={toast} />;
             
-            default: <PersonalDataForm user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel}/>;
+            default: <PersonalDataForm user={user} setUser={setUser} setDisplayRegisterCancel={setDisplayRegisterCancel} toast={toast} />;
         }
     }
 
@@ -85,6 +87,7 @@ export default function Register(){
                 <Modal visible={displayRegisterCancel} setVisible={setDisplayRegisterCancel} header={intl.formatMessage({ id: 'CancelSignUp' })}  footerButtonRightText={intl.formatMessage({ id: 'ContinueSigningUp' })}  footerButtonLeftText={intl.formatMessage({ id: 'YesCancel' })} onClickRightBtn={()=>{setDisplayRegisterCancel(false)}}  pathLeftBtn={"/"} pathRightBtn={"#"}>
                         {intl.formatMessage({id:"CancelSignUpDescription"})}
                 </Modal>
+                <Toast ref={toast} />
             </main>
         </div>
     );

@@ -129,7 +129,10 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
             }} error={!inputErrors.mobilephone.isValid} caption={inputErrors.mobilephone.caption} />
 
 
-            <InputTextCustom value={user.address} onChange={(e:any) => setUser({...user, address: e.target.value})} labelId="Address" error={!inputErrors.address.isValid} caption={inputErrors.address.caption} />
+            <InputTextCustom value={user.address} onChange={(e:any) =>{
+                setUser({...user, address: e.target.value})
+                onChangeRemoveError("address");
+            } } labelId="Address" error={!inputErrors.address.isValid} caption={inputErrors.address.caption} />
 
             <Combobox items={cities} label={intl.formatMessage({id:"City"})} optionLabel="location" value={user.city} placeholder={user.city?.description}  setValue={(c:any)=>{
                 setUser({...user, city: c});

@@ -15,10 +15,10 @@ import "./CoverageDataForm.scss"
 export default function CoverageDataForm({user, setUser, setStep, setDisplayRegisterCancel}:any){
     const intl = useIntl();
     const [medicalCoverages, setMedicalCoverages] = useState([]);
-    const [hasMedicalCoverage, setMedicalCoverage]:any = useState(null);
     const [plans, setPlans] = useState([]);
-    const [plan, setPlan] = useState(null);
     const [inputErrors, setInputErrors] = useState({
+        hasMedicalCoverage: {caption: "", isValid: true},
+        isMedCoverageThroughJob: {caption: "", isValid:true},
         medicalCoverage: {caption: "", isValid: true},
         plan: {caption: "", isValid: true},
         memberNumber: {caption: "", isValid: true},
@@ -65,11 +65,17 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
 
         if(user.hasMedicalCoverage){
             for(const ie in inputErrors){
-                if(!user[ie]){
+                
+                if(!user[ie] && user[ie] !== false){
+                    console.log("xd");
+                    
                     _inputErrors[ie].caption = intl.formatMessage({id: "ThisFieldIsRequired"});
                     _inputErrors[ie].isValid = valid = false;
                 }
             }
+        } else if (user.hasMedicalCoverage === null){
+            _inputErrors["hasMedicalCoverage"].caption = intl.formatMessage({id: "ThisFieldIsRequired"});
+            _inputErrors["hasMedicalCoverage"].isValid = valid = false;
         }
 
         setInputErrors(_inputErrors);
@@ -82,13 +88,15 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
         <div className="flexible--column formCoverage">
             <RadioButtonGroup id={1} options={yesNo} value={user.hasMedicalCoverage} setValue={(value:any)=>{
                 setUser({...user, hasMedicalCoverage: value})
-            }} labelId={"DoYouHaveMedicalCoverage?"} orientation="row"/>
+                onChangeRemoveError("hasMedicalCoverage")
+            }} labelId={"DoYouHaveMedicalCoverage?"} orientation="row" error={!inputErrors.hasMedicalCoverage.isValid} caption={inputErrors.hasMedicalCoverage.caption} />
         
             {user.hasMedicalCoverage && 
             <div>
                 <RadioButtonGroup id={2} options={yesNo} value={user.isMedCoverageThroughJob} setValue={(value:any)=>{
                 setUser({...user, isMedCoverageThroughJob: value})
-            }} labelId={"IsThroughYourJob?"} orientation="row"/>
+                onChangeRemoveError("isMedCoverageThroughJob")
+            }} labelId={"IsThroughYourJob?"} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} />
             
                 <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={user.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" items={medicalCoverages} value={user.medicalCoverage} setValue={(p:any)=>{
                     setUser({...user, medicalCoverage: p});
@@ -110,11 +118,9 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
 
             <div className="flexible--row acceptTerms">
                 <Checkbox onChange={e => setUser({...user, acceptTerms: e.checked})} checked={user.acceptTerms} className="checkbox"/>
-                <p className="checkboxLabel">{intl.formatMessage({ id: 'IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform' })}</p>
+                <p className="checkboxLabel">{intl.formatMessage({ id: 'IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform' })} <Link to="#" className="linkInfo">{intl.formatMessage({id: "SeeDetails"})}</Link></p>
             </div>
-            <Link to="#" onClick={()=>{
-                setVisibilityTermsAndConditions(true);
-            }} className="linkInfo">{intl.formatMessage({id: "SeeDetails"})}</Link>
+            
             
             <div className="flexible--row buttonContainer" >
                 <Link to="/register/1" className='linkReactRouter'><Button icon="pi pi-angle-left" iconPos="left" label={intl.formatMessage({id: "Back"})} className="buttonMain3" /></Link>
