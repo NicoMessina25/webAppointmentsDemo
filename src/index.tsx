@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { LangProvider } from './Components/Context/langContext';
+import { CaptchaProvider } from './Components/Context/captchaContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <LangProvider>
-      <App />
+      <CaptchaProvider>
+        <App />
+      </CaptchaProvider>
     </LangProvider>
   </React.StrictMode>
 );
