@@ -1,5 +1,5 @@
 import { Button } from "primereact/button";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 import { postNewPassword } from "../../services/loginService";
 import InputTextCustom from "../Inputs/InputText/InputTextCustom";
@@ -10,6 +10,7 @@ import ReCAPTCHA from "react-google-recaptcha"
 
 import { Toast } from 'primereact/toast';
 import { getCaptchaKey } from "../../services/siteService";
+import { captchaContext } from "../Context/captchaContext";
 
 
 
@@ -55,7 +56,7 @@ export default function NewPasswordForm(props:any){
         }else{
             setStyleError(true);
             if(password=="" || repeatPassword=="")
-                setMessageError("Completa la info gato");
+                setMessageError(intl.formatMessage({id:'CompleteTheData'}));
             else if(password!=repeatPassword)
                 setMessageError(intl.formatMessage({id:'PasswordsDoNotMatch'}));
             else if(!validUser){
@@ -81,13 +82,12 @@ export default function NewPasswordForm(props:any){
     }
 
     const [siteKey,setSiteKey]=useState("");
-    
+    const {captchaKey}:any = useContext(captchaContext);
+
     useEffect(()=>{
         if(!isSiteKey){
             isSiteKey = true;
-            getCaptchaKey().then(key=>{
-                setSiteKey(key); 
-            });
+            setSiteKey(captchaKey);    
         }
     },[])
     
