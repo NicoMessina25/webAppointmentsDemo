@@ -100,12 +100,15 @@ export function validateRecoveryCode(id:number,code:string){
     )
 }
 
-export async function validateMedereUser(username:string,password:string){
+export async function authenticateUser(username:string,password:string){
 
     return axios.post(
-      url+'validatemedereuser',{
+      process.env.REACT_APP_MEDERE_ADDRESS+'/api/auth/authenticate',{
         username:username,
-        password:password
+        password:password,
+        siteURL:'localhost',
+        appId:2,
+        deviceId:'PcTade'
       },{
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +116,6 @@ export async function validateMedereUser(username:string,password:string){
       .then(response => 
         response
       )
-  
   
 }
 

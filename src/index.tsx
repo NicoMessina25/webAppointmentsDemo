@@ -3,19 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { LangProvider } from './Components/Context/langContext';
-import { CaptchaProvider } from './Components/Context/captchaContext';
+import { AppProvider } from './Components/Context/appContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <LangProvider>
-      <CaptchaProvider>
-        <App />
-      </CaptchaProvider>
-    </LangProvider>
+    <AppProvider>
+      <App />
+    </AppProvider>
   </React.StrictMode>
 );
 

@@ -100,5 +100,6 @@
     "NoAccept":"I do not accept",
     "ThereAreMissingRequiredFields":"There are missing required fields",
     "ThereIsAlreadyAnUserWithTheSameDocument":"There is already an user with the same document",
-    "ThatUsernameIsAlreadyUsed":"That username is already used"
+    "ThatUsernameIsAlreadyUsed":"That username is already used",
+    "CompleteTheData":"Complete the data"
 }

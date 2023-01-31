@@ -11,7 +11,7 @@ import { Button } from 'primereact/button';
 import { Link, useNavigate } from 'react-router-dom';
 import Combobox from '../../Combobox/Combobox';
 import { getAllCities } from '../../../services/citiesService';
-import { langContext } from '../../Context/langContext';
+import { appContext } from '../../Context/appContext';
 import InputDate from '../../Inputs/InputDate/InputDate';
 import { isError } from '@jest/expect-utils';
 
@@ -30,11 +30,11 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
         address: {caption: "", isValid:true}
     })
 
-    const {languageId}:any = useContext(langContext);
+    const {languageId}:any = useContext(appContext);
 
     const navigate = useNavigate();
     const intl = useIntl();
-    const context:any=useContext(langContext);
+    const context:any=useContext(appContext);
 
     useEffect(()=>{
         getAllCities("",languageId).then(data=>{

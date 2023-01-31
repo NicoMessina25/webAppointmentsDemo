@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useContext, useState} from "react";
 import "../../scss/styles.scss"
 import "./LoginForm.scss"
 import {Button} from "primereact/button"
@@ -9,8 +9,9 @@ import { Link, Navigate } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import { useIntl } from 'react-intl';
 import InputTextCustom from "../Inputs/InputText/InputTextCustom";
-import { validateMedereUser } from "../../services/loginService";
+import { authenticateUser } from "../../services/loginService";
 import { useNavigate } from "react-router-dom";
+import { appContext } from "../Context/appContext";
 
 
 
@@ -31,10 +32,8 @@ export default function LogginForm({googleLogin}:any){
     const [userErrorCaption,setUserErrorCaption]=useState("");
     const [passwordErrorCaption,setPasswordErrorCaption]=useState("");
 
-    const [validUser,setValidUser]=useState(false);
-
     const navigate = useNavigate();
-
+    const {setAppSettings}:any = useContext(appContext);
 
     function validateUser(){
         //Validar antes de ir al backend que los dos campos tienen datos.
@@ -48,23 +47,19 @@ export default function LogginForm({googleLogin}:any){
         }
       
         if(password!="" && userName!=""){
-            validateMedereUser(userName,password).then(res=> {
-                if(res.request.status!=200){
-                    setDisplayNotUserFound(true);
-                }
-                setValidUser(res.data);
-                if(!res.data){
-                    setErrorPassstyle(true)
-                    setPasswordErrorCaption(intl.formatMessage({id:'IncorrectPassword'}))
-                }else
+            
+            authenticateUser(userName,password).then(res=>{
+                if(res.request.status==200){
+                    setAppSettings(res.data)
                     navigate("/home");
-                    
+                }else{
+                    setErrorPassstyle(true)
+                }
+                
             }).catch(error=>{
                 setDisplayNotUserFound(true);
-                setValidUser(false);
-            })   
-        }else{
-            setValidUser(false);
+            })
+               
         }
     }
     

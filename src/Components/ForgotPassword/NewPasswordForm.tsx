@@ -10,7 +10,7 @@ import ReCAPTCHA from "react-google-recaptcha"
 
 import { Toast } from 'primereact/toast';
 import { getCaptchaKey } from "../../services/siteService";
-import { captchaContext } from "../Context/captchaContext";
+import { appContext } from "../Context/appContext";
 
 
 
@@ -38,10 +38,7 @@ export default function NewPasswordForm(props:any){
     
 
     function handleConfirm(){
-        console.log(validUser)
-
-        
-
+       
         if(password!="" && repeatPassword!="" && validUser && password==repeatPassword){
             postNewPassword(props.patientId,password,repeatPassword,tokenGenerated,props.receivedCode).then(res =>{
                 if(res.status===200)
@@ -82,17 +79,14 @@ export default function NewPasswordForm(props:any){
     }
 
     const [siteKey,setSiteKey]=useState("");
-    const {captchaKey}:any = useContext(captchaContext);
+    const {captchaKey}:any = useContext(appContext);
 
     useEffect(()=>{
         if(!isSiteKey){
             isSiteKey = true;
-            setSiteKey(captchaKey);    
+            setSiteKey(captchaKey);
         }
     },[])
-    
-
-
     
     return (
         <div className='bodyFormForgotPass flexible--column'>
@@ -105,6 +99,7 @@ export default function NewPasswordForm(props:any){
             
             <div className="captcha flexible--column passwordCaptcha">
                 {siteKey!="" && <ReCAPTCHA ref={reCaptchaRef} sitekey={siteKey} onChange={onCaptchaChange}  />}
+
                 {validCaptcha == false && <div className="caption-invalid">Complete el captcha</div>}
             </div>
             
