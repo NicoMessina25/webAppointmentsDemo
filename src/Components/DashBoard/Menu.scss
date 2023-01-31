@@ -1,5 +1,12 @@
+@import '../../scss/mixins', '../../scss/colors', '../../scss/fontFamilies';
+.menu-container{
+    justify-content: space-between;
+    height: 100%;
+    width:23%
+}
+
 .p-panelmenu-panel{
-    width:fit-content !important;
+    width:100% !important;
    
 }
 .p-panelmenu .p-panelmenu-header-link{
@@ -7,14 +14,69 @@
     border: 0px !important;
     .iconify{
         color:#3CB8BA;
-    }
-    box-shadow: none !important;
-    
-    
+        font-size: 150%
+
+    };
+    box-shadow: none !important;   
+    display: flex;
 }
 
-.button8{
-    color:black;
+.p-panelmenu .p-panelmenu-icon {
+    justify-self: flex-end;
+    order:3
 }
+
+.p-panelmenu-icon::before {
+    content: "";
+    background-repeat: no-repeat;
+
+  }
+
+.p-menuitem-text{
+    color:map-get($lightPrimary, text);
+}
+
+.buttonHeader{
+    .iconify{
+        font-size: 150%;
+    }
+    margin-right: 10px;
+    color:white;
+}
+
+.container{
+    width:100%;
+    height:100%
+}
+
+.header{
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    height: 7%;
+    background-color: #F3F5F7;
+    .header-title{
+        color: #192434;
+        font-weight: 600;
+    }
+}
+
+.background-red{
+    background-color: #F6DBD5
+}
+
+.text-secondary{
+    color:map-get($lightText, secondary);
+}
+
+
+.consent-medicine{
+    .iconify{
+        color:map-get($lightInfo, text);
+    }
+    color:map-get($lightInfo, text);
+}
+  
+  
 
 
