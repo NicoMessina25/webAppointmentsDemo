@@ -1,6 +1,6 @@
 
 import { RadioButton } from 'primereact/radiobutton';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import RadioButtonGroup from '../../RadioButtonGroup/RadioButtonGroup';
 import { useIntl } from 'react-intl';
 import "./PersonalDataForm.scss"
@@ -14,11 +14,13 @@ import { getAllCities } from '../../../services/citiesService';
 import { appContext } from '../../Context/appContext';
 import InputDate from '../../Inputs/InputDate/InputDate';
 import { isError } from '@jest/expect-utils';
+import Modal from '../../Modal/Modal';
+import { existsPatientAndNotUser, getValidationData, saveUser, sendValidationDataAnswers } from '../../../services/loginService';
+import UserVerificationForm from '../UserVerificationForm/UserVerificationForm';
+import { Toast } from 'primereact/toast';
 
-export default function PersonalDataForm({setStep, user, setUser, setDisplayRegisterCancel}:any){
-    const [validInputs, setValidInputs] = useState(false);
+export default function PersonalDataForm({user, setUser, setDisplayRegisterCancel, onSubmit}:any){
     const [cities, setCities] = useState();
-    const [city, setCity]:any = useState(null);
     const [inputErrors, setInputErrors] = useState({
         firstname: {caption: "", isValid: true},
         lastname: {caption: "", isValid: true},
@@ -29,12 +31,28 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
         mobilephone: {caption: "", isValid: true},
         address: {caption: "", isValid:true}
     })
+    const [questions, setQuestions]:any = useState(null);
+    const [answers, setAnswers]:any = useState({
+        city: null,
+        birthDate: null,
+        phone: "",
+        address: "",
+        email:""
+      })
+    const [patientId, setPatientId] = useState(0);
+    const [completedAnswers, setCompletedAnswers] = useState(true);
+    const [displayUserVerification, setDisplayUserVerification] = useState(false);
+    const [displayCouldNotValidateUser, setDisplayCouldNotValidateUser] = useState(false);
+    
 
     const {languageId}:any = useContext(appContext);
 
     const navigate = useNavigate();
     const intl = useIntl();
-    const context:any=useContext(appContext);
+    
+    const toast:any = useRef(null);
+
+
 
     useEffect(()=>{
         getAllCities("",languageId).then(data=>{
@@ -48,6 +66,14 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
         }
            
     },[cities]);
+
+    useEffect(()=>{
+        if(questions?.length > 2){
+            
+            
+            setDisplayUserVerification(true);
+        }
+    },[questions]);
 
     function onChangeRemoveError(field:any){
         let _inputErrors:any = {...inputErrors}
@@ -89,16 +115,80 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
         {label: intl.formatMessage({id: "Male"}), value: "M"}
     ]
 
+    const documentTimeout:any = useRef(null);
+
+    function validateCompleteAnswers(){
+        let numberAnswered = 0;
+
+        for(const a in answers){
+            answers[a] && numberAnswered++
+        }
+        
+
+        return numberAnswered > 2 
+    }
+
+    function verifyIfPatientExists(document:any, docType:any){
+        clearTimeout(documentTimeout.current);
+                documentTimeout.current = setTimeout(()=>{
+                    setQuestions([]);
+                    user.document && existsPatientAndNotUser(document, docType).then(patientId => {
+                        if(patientId > 0){
+                            
+                            setCompletedAnswers(true);
+                            getValidationData(languageId, patientId).then(res => {
+                                setPatientId(patientId);
+                                switch(res.status){
+                                    case 200:{
+                                        console.log(res.data);
+                                        
+                                        let validationData = res.data;
+                                        let _questions = [];
+                                        
+                                        for(const q in validationData){
+                                            let options:any = [];
+                                            validationData[q]?.forEach((op:any)=>{
+                                                switch(q){
+                                                    case "city": options.push({label:op.description, value:op.city}); break;
+                                                    case "birthDate":{
+                                                        let date = new Date(op);
+                                                        options.push({label:date.toLocaleDateString(), value:date}); 
+                                                        break;
+                                                    } 
+                                                    default:  options.push({label:op, value:op});
+                                                }    
+                                            })
+                                            
+                                            _questions.push({label:intl.formatMessage({id:q[0].toUpperCase() +  q.slice(1)}), field: q, options: options})
+                                        }
+        
+                                        setQuestions(_questions); 
+                                        console.log(_questions);
+                                        
+                                        break;
+                                    }
+                                    case 204:{
+                                        setDisplayCouldNotValidateUser(true)
+                                    } 
+                                }
+                            })
+                        }
+                    })
+                }, 2000);
+    }
+
     return (
         <div className='flexible--column'>
             <RadioButtonGroup options={documentOptions} setValue={(docType:any)=>{
                 setUser({...user, documentType: docType})
                 onChangeRemoveError("documentType")
-            }} labelId="DocumentType" value={user.documentType} className="radioGroup" orientation={"row"} error={!inputErrors.documentType.isValid} caption={inputErrors.documentType.caption}/>
+                verifyIfPatientExists(user.document, docType);
+            }} label={intl.formatMessage({id: "DocumentType"})} value={user.documentType} className="radioGroup" orientation={"row"} error={!inputErrors.documentType.isValid} caption={inputErrors.documentType.caption}/>
          
             <InputTextCustom value={user.document} onChange={(e:any) => {
                 setUser({...user, document: e.target.value})
                 onChangeRemoveError("document")
+                verifyIfPatientExists(e.target.value, user.documentType);
                 }} labelId="DocumentNumber" error={!inputErrors.document.isValid} caption={inputErrors.document.caption}/>
 
             <InputTextCustom value={user.firstname} onChange={(e:any) => {
@@ -114,7 +204,7 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
             <RadioButtonGroup options={genderOptions} setValue={(gender:any)=>{
                 setUser({...user, gender: gender})
                 onChangeRemoveError("gender")
-            }} labelId="Gender" value={user.gender} className="radioGroup" orientation={"row"} error={!inputErrors.gender.isValid} caption={inputErrors.gender.caption}/>
+            }} label={intl.formatMessage({id: "Gender"})} value={user.gender} className="radioGroup" orientation={"row"} error={!inputErrors.gender.isValid} caption={inputErrors.gender.caption}/>
 
             <InputDate  value={user.birthdate} label={intl.formatMessage({id: "BirthDate"})} onChange={(e:any) => {
                 setUser({...user, birthdate: e.value})
@@ -146,6 +236,56 @@ export default function PersonalDataForm({setStep, user, setUser, setDisplayRegi
                     }}} className='buttonMain' />
             </div>
             
+            <Modal visible={displayUserVerification} setVisible={setDisplayUserVerification} header={intl.formatMessage({id:"Attention"})} footerButtonRightText={intl.formatMessage({ id: 'SignIn' })} footerButtonLeftText={intl.formatMessage({ id: 'Back' })} onClickLeftBtn={()=>{
+                    setDisplayUserVerification(false);
+                    setUser({...user, document: ""})
+                 }} onClickRightBtn={()=>{
+                    if(validateCompleteAnswers()){
+                        sendValidationDataAnswers(answers, patientId).then((patient) =>{
+                            const {firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, birthdate, city} = patient
+
+                            const {hasMedicalCoverage, healthentity, healthentityplan} = healthpatientcoverage; 
+                            
+                            console.log(patient);
+                            if(patient){
+                                console.log("guarda usuario");
+                                let _user = {...user, 
+                                    firstname: firstname, 
+                                    lastname: lastname, 
+                                    address:address, 
+                                    birthdate: new Date(birthdate),
+                                    email:email,
+                                    document: document,
+                                    documentType: documentType.documentType,
+                                    gender: gender,
+                                    hasMedicalCoverage: hasMedicalCoverage,
+                                    medicalCoverage: healthentity,
+                                    plan: healthentityplan
+
+                                }
+
+                                console.log(_user);
+                                
+                                setUser(_user);
+                            } else{
+                                toast.current?.show({severity: 'error', summary: 'Error', detail: intl.formatMessage({id: "IncorrectAnswers"})});
+                            }
+                            
+                        })
+                            
+                    } else {
+                        setCompletedAnswers(false);
+                    }
+
+                }} >
+                    <UserVerificationForm questions={questions} answers={answers} setAnswers={setAnswers} error={!completedAnswers} />
+                </Modal>
+                 <Modal visible={displayCouldNotValidateUser} setVisible={setDisplayCouldNotValidateUser} header={intl.formatMessage({id:"Attention"})} footerButtonLeftText={intl.formatMessage({id:"Back"})} onClickLeftBtn={()=>{
+                    setDisplayCouldNotValidateUser(false);
+                 }} footerButtonRightText={intl.formatMessage({id: "CustomersService"})} >
+                    <p className='textDark'>{intl.formatMessage({id: "CouldNotValidateLabel"})}.</p>
+                </Modal>
+                <Toast ref={toast} />
         </div>
     );
 }

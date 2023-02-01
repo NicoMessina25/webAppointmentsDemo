@@ -10,7 +10,7 @@
 
 body{
     background-color: $contrast;// map-get($lightBase, baseContrast);
-    font-size: 75%;
+    font-size: 100%;//75%
 }
 
 .flexible--row{
@@ -57,7 +57,7 @@ a{
     font-size: 100% !important;
     width: fit-content;
     transition: all .5s !important;
-    padding: 0.35rem 0.583rem !important;
+    padding:  0.65rem 1.083rem !important; //0.35rem 0.583rem 
 
     &:hover{
         transform: scale(1.01, 1.01);
@@ -113,6 +113,7 @@ a{
     }
  
 }
+
 
 input, .p-dropdown{
 
@@ -232,7 +233,7 @@ input, .p-dropdown{
     margin: 2% 0 !important;
 
     .p-inputtext{
-        font-size: 75% !important;
+        font-size: 100% !important; //75%
         margin: 0 !important;
     }
 }
@@ -278,7 +279,7 @@ input, .p-dropdown{
 }
 
 .p-dropdown-label{
-    font-size: 100% !important;
+    font-size: 100% !important; 
  }
 
 
@@ -334,6 +335,7 @@ esta clase es para el input text invalido
 
 .p-dropdown-trigger{
     width: 1.5rem !important;
+    
 }
 
 .pi::before{
@@ -350,7 +352,7 @@ esta clase es para el input text invalido
 
 .p-password{
     .p-inputtext{
-       font-size: 75% !important; 
+       font-size: 100% !important; //75%
     }
     
 }
@@ -361,7 +363,8 @@ esta clase es para el input text invalido
 
 .p-dropdown-panel{
     font-size: 75% !important;
-    width: 1%;
+    max-width: 500px !important;
+
 }
 
 .caption{
@@ -376,7 +379,7 @@ esta clase es para el input text invalido
 
 @media screen and (min-width:520px){
     .button{
-        padding: 0.5rem 0.833rem !important;
+        padding:  0.65rem 1.083rem !important; // 0.5rem 0.833rem
     }
     .buttonContainer{
         justify-content: flex-end;

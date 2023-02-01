@@ -28,6 +28,8 @@ export function saveUser(user:any, onlyUser:boolean) {
   newUser.medicalCoverage = user.medicalCoverage?.entityid;
   newUser.plan = user.plan?.healthentityplan
   
+  console.log(user);
+  
 
   return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+`/rest/webappointments/${onlyUser?"saveOnlyUser":"saveUserAndPatient"}`,
     newUser).then((res)=>{
@@ -159,5 +161,31 @@ export function sendLocationConsent(userId:number){
   navigator.geolocation?.getCurrentPosition(onLocationAllowed, onLocationNotAllowed);
   
   
+}
+
+export function getValidationData(language:number, id:number){
+  return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getValidationData', {
+    params:{
+      id:id,
+      language:language
+    }
+  }).then(res => res)
+}
+
+export function sendValidationDataAnswers(validationDTO:any, patientId:any){
+  return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/validatePatient', validationDTO, {
+    params: {
+      id: patientId
+    }
+  }).then(res => res.data);
+}
+
+export function existsPatientAndNotUser(patientDocument:any, documentType:any){
+  return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/existsPatientAndNotUser', {
+    params: {
+      patientDocument: patientDocument,
+      documentType: documentType
+    }
+  }).then(res => res.data);
 }
 

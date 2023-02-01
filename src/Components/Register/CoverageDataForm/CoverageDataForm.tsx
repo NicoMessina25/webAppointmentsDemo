@@ -12,7 +12,7 @@ import RadioButtonGroup from "../../RadioButtonGroup/RadioButtonGroup";
 import Terms from "../../TermsAndConditions/TermsAndConditions";
 import "./CoverageDataForm.scss"
 
-export default function CoverageDataForm({user, setUser, setStep, setDisplayRegisterCancel}:any){
+export default function CoverageDataForm({user, setUser, setDisplayRegisterCancel, onSubmit}:any){
     const intl = useIntl();
     const [medicalCoverages, setMedicalCoverages] = useState([]);
     const [plans, setPlans] = useState([]);
@@ -89,14 +89,14 @@ export default function CoverageDataForm({user, setUser, setStep, setDisplayRegi
             <RadioButtonGroup id={1} options={yesNo} value={user.hasMedicalCoverage} setValue={(value:any)=>{
                 setUser({...user, hasMedicalCoverage: value})
                 onChangeRemoveError("hasMedicalCoverage")
-            }} labelId={"DoYouHaveMedicalCoverage?"} orientation="row" error={!inputErrors.hasMedicalCoverage.isValid} caption={inputErrors.hasMedicalCoverage.caption} />
+            }} label={intl.formatMessage({id: "DoYouHaveMedicalCoverage?"})} orientation="row" error={!inputErrors.hasMedicalCoverage.isValid} caption={inputErrors.hasMedicalCoverage.caption} />
         
             {user.hasMedicalCoverage && 
             <div>
                 <RadioButtonGroup id={2} options={yesNo} value={user.isMedCoverageThroughJob} setValue={(value:any)=>{
                 setUser({...user, isMedCoverageThroughJob: value})
                 onChangeRemoveError("isMedCoverageThroughJob")
-            }} labelId={"IsThroughYourJob?"} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} />
+            }} label={intl.formatMessage({id: "IsThroughYourJob?"})} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} />
             
                 <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={user.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" items={medicalCoverages} value={user.medicalCoverage} setValue={(p:any)=>{
                     setUser({...user, medicalCoverage: p});
