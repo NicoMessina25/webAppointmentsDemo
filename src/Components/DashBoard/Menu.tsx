@@ -9,41 +9,50 @@ import './Menu.scss'
 import { appContext } from "../Context/appContext";
 import Combobox from "../Combobox/Combobox";
 
+
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+
 const Menu = React.forwardRef((props:any,ref) => {
 
-    const intl = useIntl();
-    
+    let settingsString:any = localStorage.getItem("settings");
     const [bigMenu, setBigmenu] = useState(true);
-    let iconbutton=<Icon icon="material-symbols:menu-rounded" />
-
-
+    const intl = useIntl();
     const [items,setItems]:any=useState([]);
-
-    const {settings}:any = useContext(appContext);
+    let iconbutton=<Icon icon="material-symbols:menu-rounded" />
+    let settingsJson:any;
+    if(settingsString)
+            settingsJson=JSON.parse(settingsString)
+    
+    let navigate = useNavigate();
 
     useEffect(buildMenuComponent,[])
-
+  
     function buildMenuComponent(){
-
+       
         let menu =[];
 
         let item;
         let subItems;
 
-        for (let i = 0; i < settings.menu.length; i++) {
+        
+        for (let i = 0; i < settingsJson.menu.length; i++) {
+            console.log(settingsJson.menu)
             item={
-                label: settings.menu[i].caption.toUpperCase(),
-                icon: <Icon icon={settings.menu[i].icon} />,
+                label: settingsJson.menu[i].caption.toUpperCase(),
+                icon: <Icon icon={settingsJson.menu[i].icon} />,
                 subItems:[],
+                command:()=> {return settingsJson.menu[i].items.length>0 ? "" : navigate('/'+settingsJson.menu[i].route)}
             }
             
             //si tiene items dentro
-            if(settings.menu[i].items.length>0){
+            if(settingsJson.menu[i].items.length>0){
                 subItems = [];
-                for (let j = 0; j < settings.menu[i].items.length; j++) {
+                for (let j = 0; j < settingsJson.menu[i].items.length; j++) {
                     let subitem={
-                        label: settings.menu[i].items[j].caption,
-                        //icon: <Icon icon={settings.menu[i].items[j].icon} />,
+                        label: settingsJson.menu[i].items[j].caption,
+                        icon: <Icon icon={settingsJson.menu[i].items[j].icon} />,
+                        command:()=> {navigate('/'+settingsJson.menu[i].items[j].route)}
+                        
                     }
                     subItems.push(subitem)
                 }
@@ -54,47 +63,6 @@ const Menu = React.forwardRef((props:any,ref) => {
         }
         setItems(menu);
 
-    }
-
-    function addTextToItems(){
-        
-        let completeItems=[...items];
-
-        completeItems=settings.menu.map((element:any)=>{
-            return {...element,label:element.caption.toUpperCase()}
-        })
-        
-       setItems(completeItems)
-        
-       
-
-        //    iconsItems=settings.menu.map((element:any)=>{
-        //     return {...element,label:element.caption.toUpperCase()}})
-       
-
-
-
-        // for (let i = 0; i < settings.menu.length; i++) {
-        //     item={
-        //         label: settings.menu[i].caption.toUpperCase(),
-        //     }
-            
-        //     //si tiene items dentro
-        //     if(settings.menu[i].items.length>0){
-        //         subItems = [];
-        //         for (let j = 0; j < settings.menu[i].items.length; j++) {
-        //             let subitem={
-        //                 label: settings.menu[i].items[j].caption,
-        //                 //icon: <Icon icon={settings.menu[i].items[j].icon} />,
-        //             }
-        //             subItems.push(subitem)
-        //         }
-        //         item={...item,items:subItems};
-                
-        //     }
-        //     menu.push(item)
-        // }
-        // setItems(menu);
     }
 
     function handleDisplayMenu(){
@@ -111,7 +79,7 @@ const Menu = React.forwardRef((props:any,ref) => {
             })
             setItems(iconsItems)
          }
- 
+
     }
     
     return (
@@ -119,7 +87,7 @@ const Menu = React.forwardRef((props:any,ref) => {
             <div className="flexible--row header">
                 {/* Header */}
                 <Button className="p-button-rounded buttonHeader" icon={iconbutton} onClick={handleDisplayMenu}></Button>
-                <h2 className="header-title">{settings.siteName}</h2>
+                <h2 className="header-title">{settingsJson.siteName}</h2>
                
             </div>
             
