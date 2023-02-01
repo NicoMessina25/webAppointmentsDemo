@@ -62,12 +62,14 @@ const Menu = React.forwardRef((props:any,ref) => {
 
         completeItems=settings.menu.map((element:any)=>{
             return {...element,label:element.caption.toUpperCase()}
-       })
-       console.log(completeItems)
+        })
+        
        setItems(completeItems)
+        
+       
 
-    //    iconsItems=settings.menu.map((element:any)=>{
-    //     return {...element,label:element.caption.toUpperCase()}})
+        //    iconsItems=settings.menu.map((element:any)=>{
+        //     return {...element,label:element.caption.toUpperCase()}})
        
 
 
@@ -110,8 +112,6 @@ const Menu = React.forwardRef((props:any,ref) => {
             setItems(iconsItems)
          }
  
-
-
     }
     
     return (
