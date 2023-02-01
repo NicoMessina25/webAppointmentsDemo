@@ -11,11 +11,20 @@ import Modal from './Components/Modal/Modal';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import ForgotPasswordStepOne from './Components/ForgotPassword/ForgotPassword';
-import Menu from './Components/DashBoard/Menu'
-import PrivateRoute from './Components/PrivateComponent/PrivateComponent';
+import Menu from './Components/Views/DashBoard/Menu'
 import { appContext } from './Components/Context/appContext';
 import { amilogged } from './services/loginService';
 import PrivateComponent from './Components/PrivateComponent/PrivateComponent';
+import MyPrescriptions from './Components/Views/Prescriptions/MyPrescriptions';
+import NewAppointments from './Components/Views/Appointments/NewAppointments';
+import HistoricAppointments from './Components/Views/Appointments/HistoricAppointments';
+import MyAppointments from './Components/Views/Appointments/MyAppointments';
+import NewRp from './Components/Views/Prescriptions/NewRp';
+import ClinicRequest from './Components/Views/ClinicHistory/ClinicRequest';
+import SendStudyResults from './Components/Views/ClinicHistory/SendStudyResults';
+import MyProfile from './Components/Views/Profile/MyProfile';
+import FamilyGroup from './Components/Views/FamilyGroup/FamilyGroup';
+
 
 function App() {
 
@@ -53,7 +62,7 @@ function App() {
     <BrowserRouter>
       <div className='App'>
         <Routes>
-          <Route path='/'  element={
+          <Route path='/login'  element={
             <Login/>
           }/>
           <Route path='/register/:step' element={
@@ -61,10 +70,12 @@ function App() {
           }/>
           
           <Route element={<PrivateComponent/>}>
-            <Route path='/home' element={<Menu/>  }/>
-            <Route path='/forgotPassword' element={<ForgotPasswordStepOne/>  }/>
+            <Route path='/*' element={<Menu/>  }/>
           </Route>
         </Routes>
+
+        
+
       </div>
     </BrowserRouter>
   );

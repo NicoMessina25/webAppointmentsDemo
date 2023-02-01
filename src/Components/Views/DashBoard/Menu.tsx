@@ -1,16 +1,25 @@
-import React, { useContext, useEffect } from "react";
-import { useImperativeHandle, useRef, useState } from "react";
+import React, { useEffect } from "react";
+import {  useState } from "react";
 import { useIntl } from "react-intl";
 import { PanelMenu } from 'primereact/panelmenu';
 import { Button } from "primereact/button";
-import  { FaStethoscope } from 'react-icons/fa';
 import { Icon } from '@iconify/react';
 import './Menu.scss'
-import { appContext } from "../Context/appContext";
-import Combobox from "../Combobox/Combobox";
 
 
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import PrivateComponent from "../../PrivateComponent/PrivateComponent";
+import ForgotPasswordStepOne from "../../ForgotPassword/ForgotPassword";
+import NewAppointments from "../Appointments/NewAppointments";
+import MyAppointments from "../Appointments/MyAppointments";
+import HistoricAppointments from "../Appointments/HistoricAppointments";
+import NewRp from "../Prescriptions/NewRp";
+import MyPrescriptions from "../Prescriptions/MyPrescriptions";
+import SendStudyResults from "../ClinicHistory/SendStudyResults";
+import ClinicRequest from "../ClinicHistory/ClinicRequest";
+import MyProfile from "../Profile/MyProfile";
+import FamilyGroup from "../FamilyGroup/FamilyGroup";
+import Home from "../Home";
 
 const Menu = React.forwardRef((props:any,ref) => {
 
@@ -34,14 +43,13 @@ const Menu = React.forwardRef((props:any,ref) => {
         let item;
         let subItems;
 
-        
+        console.log(settingsJson.menu)
         for (let i = 0; i < settingsJson.menu.length; i++) {
-            console.log(settingsJson.menu)
             item={
                 label: settingsJson.menu[i].caption.toUpperCase(),
                 icon: <Icon icon={settingsJson.menu[i].icon} />,
                 subItems:[],
-                command:()=> {return settingsJson.menu[i].items.length>0 ? "" : navigate('/'+settingsJson.menu[i].route)}
+                command:()=> {return settingsJson.menu[i].items.length>0  ? "" : navigate('/'+settingsJson.menu[i].route)}
             }
             
             //si tiene items dentro
@@ -51,7 +59,7 @@ const Menu = React.forwardRef((props:any,ref) => {
                     let subitem={
                         label: settingsJson.menu[i].items[j].caption,
                         icon: <Icon icon={settingsJson.menu[i].items[j].icon} />,
-                        command:()=> {navigate('/'+settingsJson.menu[i].items[j].route)}
+                        command:()=> {navigate('./'+settingsJson.menu[i].items[j].route)}
                         
                     }
                     subItems.push(subitem)
@@ -102,6 +110,24 @@ const Menu = React.forwardRef((props:any,ref) => {
                     </div>
                 </div>
             </div>
+        
+            <Routes>
+                <Route element={<PrivateComponent/>}>
+                    <Route path='/home' element={<Home/>  }/>
+                    <Route path='/forgotPassword' element={<ForgotPasswordStepOne/>  }/>
+                    <Route path='/newAppointment' element={<NewAppointments/>  }/>
+                    <Route path='/myAppointments' element={<MyAppointments/>  }/>
+                    <Route path='/historicAppointments' element={<HistoricAppointments/>  }/>
+                    <Route path='/newRp' element={<NewRp/>  }/>
+                    <Route path='/myPrescriptions' element={<MyPrescriptions/>  }/>
+                    <Route path='/sendStudyResults' element={<SendStudyResults/>  }/>
+                    <Route path='/request' element={<ClinicRequest/>  }/>
+                    <Route path='/myProfile' element={<MyProfile/>  }/>
+                    <Route path='/familyGroup' element={<FamilyGroup/>  }/>
+                </Route>
+            </Routes>
+        
+        
         </div>
     )
 });

@@ -26,16 +26,16 @@ const PrivateComponent = ({children, ...props}:any) => {
     let storedSettings=localStorage.getItem("settings");
     if(storedSettings) 
         if(JSON.parse(storedSettings).userId===-1){
-            return <Navigate to="/"/>
+            return <Navigate to="/login"/>
         }
         else{
             //if(serverConfirmation())
                 return <Outlet/>
             //else
-                return <Navigate to="/"/>
+                return <Navigate to="/login"/>
         }
     else{
-        return <Navigate to="/"/>
+        return <Navigate to="/login"/>
     }
 
 }
