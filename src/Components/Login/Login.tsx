@@ -26,7 +26,7 @@ export default function Login(){
         
     return(
         <div className="login flexible--column">
-            { logo!="" && <img src={src} onError={()=>{setSrc(defaultLogo)}} alt="" className='logoSite' /> }
+            <img src={src} onError={()=>{setSrc(defaultLogo)}} alt="" className='logoSite' />
             <LogginForm googleLogin/>
          
             <img src="/img/graylogo.png" alt="" className='logo' />

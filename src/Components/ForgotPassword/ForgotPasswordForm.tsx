@@ -30,7 +30,7 @@ export default function ForgotPasswordForm(props :any) {
     const [document,setDocument]=useState("");
     const [documentType,setDocumentType]=useState("");
     const sendOptions=[
-        {label:mail, value: mail, captions:"Mail"},
+        {label:mail, value: mail, captions:"Email"},
         {label:mobilephone, value: mobilephone, captions:"SMS"}
     ];
     const [sendOptionSelected,setSendOptionSelected]=useState("");
@@ -71,8 +71,8 @@ export default function ForgotPasswordForm(props :any) {
                     toggleModalUserNotExists();
                 }else{
                     setConfirm(true);
-                    setDescriptionClass("textTertiary");
-                    setDniClass("textTertiary");
+                    //setDniClass("textTertiary");
+                    setDescriptionClass("textHeading");
                     setMail(res.email);
                     setMobilephone(res.mobilephone);
                     props.setPatientId(res.medereentity);
@@ -108,7 +108,7 @@ export default function ForgotPasswordForm(props :any) {
             <span className={dniClass}> {intl.formatMessage({ id: 'DniRegistered' })+":"}</span></p>
         </div>
 
-        <RadioButtonGroup className="radioButtonGroup littleMargin" orientation="row" options={options} value={documentType} setValue={setDocumentType} labelId='Type'/>
+        <RadioButtonGroup className="radioButtonGroup littleMargin" orientation="row" options={options} value={documentType} setValue={setDocumentType} label={intl.formatMessage({id: 'Type'})}/>
 
         
         <InputTextCustom labelId="Number" value={document}  onChange={(e:any) => setDocument(e.target.value)} className="input" placeholder=""/>

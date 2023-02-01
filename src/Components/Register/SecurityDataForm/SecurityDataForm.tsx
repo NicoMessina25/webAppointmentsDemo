@@ -8,11 +8,10 @@ import Modal from "../../Modal/Modal";
 import RadioButtonGroup from "../../RadioButtonGroup/RadioButtonGroup";
 
 
-export default function SecurityDataForm({setStep, user, setUser, setDisplayRegisterCancel, toast}:any){
+export default function SecurityDataForm({user, setUser, setDisplayRegisterCancel, toast, onSubmit}:any){
     const intl = useIntl();
-    const [displayRegisterComplete, setDisplayRegisterComplete] = useState(false);
+    
     const [loading, setLoading] = useState(false);
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [inputErrors, setInputErrors] = useState({
         username: {caption: "", isValid: true},
         password: {caption: intl.formatMessage({id:"AtLeast8Characters"}), isValid: true},
@@ -24,9 +23,9 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
 
 
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         setStep(2);
-    },[])
+    },[]) */
 
     function onChangeRemoveError(field:any){
         let _inputErrors:any = {...inputErrors}
@@ -43,7 +42,7 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
         let valid = true;
         let _inputErrors:any = {...inputErrors}
 
-        if(!user.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
+        if(!user.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
             _inputErrors.email = {isValid: false, caption: intl.formatMessage({id:"EnterAValidEMail"})};
             valid = false
         }
@@ -84,7 +83,7 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
             <InputTextCustom value={user.email} error={!inputErrors.email.isValid} caption={inputErrors.email.caption} onChange={(e:any) => { 
                 setUser({...user, email: e.target.value});
                 onChangeRemoveError("email");
-            }} labelId="Mail"/>
+            }} labelId="Email"/>
 
             <InputTextCustom value={user.password} onChange={(e:any) => {
                 setUser({...user, password: e.target.value})
@@ -102,46 +101,14 @@ export default function SecurityDataForm({setStep, user, setUser, setDisplayRegi
                 <Link to="#" className='linkReactRouter'><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
                 <Link to="#" className='linkReactRouter'><Button icon="pi pi-check" iconPos="right" label={intl.formatMessage({id: "Finish"})} className="buttonMain" onClick={()=>{
                     if(validateData()){
-                        saveUser(user, false).then((res:any) =>{
-                            
-                
-                            if (res.data > 0) {
-                                setDisplayRegisterComplete(true);
-                            } else {
-                                switch (res.status){
-                                    case 409:
-                                    case 226:{
-                                        console.log("/register/1"); 
-                                        toast.current?.show({severity: 'error', summary: 'Error', detail: intl.formatMessage({id: res.status === 409?"ThereAreMissingRequiredFields":"ThereIsAlreadyAnUserWithTheSameDocument"})});
-                                        navigate("/register/1");
-                                        break;
-                                    }
-                                    case 302: {
-                                        console.log("verificamos que sos vos"); 
-                                        saveUser(user,true)
-                                        break;
-                                    }
-                                    case 303:{
-                                        toast.current?.show({severity: 'error', summary: 'Error', detail: intl.formatMessage({id: "ThatUsernameIsAlreadyUsed"})});
-                                        setInputErrors({...inputErrors, username: {isValid: false, caption: intl.formatMessage({id: "ThatUsernameIsAlreadyUsed"})}})
-                                        break;
-                                    }
-                                    
-                                    default: console.log("nada")
-                                }
-                            }
-
-                            
-                        });
+                        onSubmit(user)
                     }
                     
                     
                     }}/></Link>
             </div>
 
-            <Modal visible={displayRegisterComplete} setVisible={setDisplayRegisterComplete} header={`${intl.formatMessage({id:"SuccessfullSignUp"})}`}  footerButtonRightText={intl.formatMessage({ id: 'Join' })}  footerButtonLeftText={intl.formatMessage({ id: 'Cancel' })}  onClickLeftBtn={()=>setDisplayRegisterComplete(false)} pathLeftBtn={"#"} pathRightBtn={"/"}>
-                {intl.formatMessage({ id: 'SuccessfullSignUpDescription' })}
-            </Modal>
+            
 
         </div>
     );

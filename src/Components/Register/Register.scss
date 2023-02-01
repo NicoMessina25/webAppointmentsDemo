@@ -113,7 +113,7 @@
 
     .registerHeader{
         height: 20vh;
-        font-size: 100%;
+        font-size: 80%;
         padding-top: 1px;
         img{
             width:30%
@@ -130,8 +130,8 @@
         .p-steps-item{
             .p-steps-number{
                 font-size: 125% !important;
-                height: 2rem !important;
-                width: 2rem !important;
+                height: 1.6rem !important;
+                width: 1.6rem !important;
                 min-width: 0 !important;
             }
         }
@@ -153,4 +153,6 @@
             width:20%
         }
     }
+
+    
 }
