@@ -1,13 +1,17 @@
 @import '../../../scss/mixins', '../../../scss/colors', '../../../scss/fontFamilies';
+
+.container{
+    min-height: 100vh;
+}
+
 .menu-container{
-    justify-content: space-between;
     height: 100%;
-    width:23%
+    width:16%;
+    justify-content: space-between;
 }
 
 .p-panelmenu-panel{
     width:100% !important;
-   
 }
 .p-panelmenu .p-panelmenu-header-link{
     background: white !important;
@@ -61,7 +65,15 @@
     }
 }
 
+.menuOption{
+    padding: 5% 0%;
+    margin: 5% 5%;
+    
+    font-weight: 600;
+}
+
 .background-red{
+    border-radius: 4px;
     background-color: #F6DBD5
 }
 
@@ -74,9 +86,14 @@
     .iconify{
         color:map-get($lightInfo, text);
     }
+    margin-right: 10px;
     color:map-get($lightInfo, text);
+    
 }
   
+.maxwidth{
+    width: 100%;
+}
   
 
 

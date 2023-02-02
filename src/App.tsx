@@ -54,7 +54,6 @@ function App() {
           return result;
         })
       }
-       
     return false;
   }
 
@@ -72,9 +71,9 @@ function App() {
           <Route element={<PrivateComponent/>}>
             <Route path='/*' element={<Menu/>  }/>
           </Route>
+          
+          <Route path='/forgotPassword' element={<ForgotPasswordStepOne/>  }/>
         </Routes>
-
-        
 
       </div>
     </BrowserRouter>

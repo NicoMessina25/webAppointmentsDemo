@@ -5,6 +5,7 @@
     "FirstTimeHere":"¿Primera vez acá?",
     "SignIn":"Registrarme",
     "UserDoesNotExist":"El usuario no existe",
+    "UserOrPasswordAreInvalid":"El usuario o contraseña son incorrectos",
     "UserDoesNotExistDescription":"Registrate o verificá si la cuenta que ingresaste fue la usada para darte de alta.",
     "BeforeStarting":"Antes de comenzar",
     "BeforeStartingDescription":"Tené a disposición los datos de tu obra social o prepaga (vas a tener que ingresarlos en caso de que tengas una).",
@@ -115,5 +116,8 @@
     "SeemsSomethingWentWrongTryAgain":"Parece que algo salió mal, vuelve a intentarlo",
     "Attention":"¡Atención!",
     "CouldNotValidateLabel":"Se ha encontrado información de un paciente con el mismo documento. Sin embargo, no se cuenta con la información suficiente para verificar que es usted",
-    "CustomersService":"Atención al cliente"
+    "CustomersService":"Atención al cliente",
+    "TelemedicineConsent":"Consentimiento telemedicina",
+    "SignOut":"Cerrar sesión"
+
 }

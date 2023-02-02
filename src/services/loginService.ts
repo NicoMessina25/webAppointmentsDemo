@@ -105,8 +105,12 @@ export function validateRecoveryCode(id:number,code:string){
 }
 
 export async function authenticateUser(username:string,password:string){
-
-    return axios.post(
+  //axios.defaults.withCredentials = true;
+  const instance = axios.create({
+    withCredentials: true,
+ })
+ 
+    return instance.post(
       process.env.REACT_APP_MEDERE_ADDRESS+'/api/auth/authenticate',{
         username:username,
         password:password,
@@ -125,11 +129,10 @@ export async function authenticateUser(username:string,password:string){
 
 export async function amilogged(){
 
-  return axios.get(
-    process.env.REACT_APP_MEDERE_ADDRESS+'/api/secure/amilogged')
-    .then(response => 
-      response
-    ).catch(e=>e)
+  return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/api/secure/amilogged').then(res =>
+     res
+  )
+
 }
 
 

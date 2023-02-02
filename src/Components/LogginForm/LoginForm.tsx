@@ -49,7 +49,6 @@ export default function LogginForm({googleLogin}:any){
         if(password!="" && userName!=""){
             authenticateUser(userName,password).then(res=>{
                 if(res.request.status==200){
-                    //setAppSettings(res.data)
                     localStorage.setItem("settings",JSON.stringify(res.data))
                     navigate("/home");
                 }else{
@@ -105,7 +104,7 @@ export default function LogginForm({googleLogin}:any){
                <p className="text">{intl.formatMessage({ id: 'FirstTimeHere' })}</p>
                <Button label={intl.formatMessage({ id: 'SignIn' })} className="buttonMain2" onClick={()=>setDisplayRegister(true)} />
             </div>
-            <Modal visible={displayNotUserFound} setVisible={setDisplayNotUserFound} header={intl.formatMessage({ id: 'UserDoesNotExist' })} footerButtonRightText={intl.formatMessage({ id: 'Back' })}  onClickRightBtn={()=>setDisplayNotUserFound(false)} pathRightBtn={"#"}>
+            <Modal visible={displayNotUserFound} setVisible={setDisplayNotUserFound} header={intl.formatMessage({ id: 'UserOrPasswordAreInvalid' })} footerButtonRightText={intl.formatMessage({ id: 'Back' })}  onClickRightBtn={()=>setDisplayNotUserFound(false)} pathRightBtn={"#"}>
             {intl.formatMessage({ id: 'UserDoesNotExistDescription' })}
             </Modal>
             <Modal visible={displayRegister} setVisible={setDisplayRegister} header={intl.formatMessage({ id: 'BeforeStarting' }) + "..."}  footerButtonRightText={intl.formatMessage({ id: 'Continue' })}  pathRightBtn={"/register/1"}>

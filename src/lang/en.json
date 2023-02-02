@@ -5,6 +5,7 @@
     "FirstTimeHere":"First time here?",
     "SignIn":"Sign in",
     "UserDoesNotExist":"User does not exist",
+    "UserOrPasswordAreInvalid":"User or password are invalid",
     "UserDoesNotExistDescription":"Register or verify if the account you entered was the one used to sign up.",
     "BeforeStarting":"Before starting",
     "BeforeStartingDescription":"Have the data of your social or prepaid work available (you will have to enter them in case you have one).",
@@ -115,5 +116,7 @@
     "SeemsSomethingWentWrongTryAgain":"It seems that something went wrong, try again",
     "Attention":"Attention!",
     "CouldNotValidateLabel":"A patient data related to this document has been found. However, there isn't enough information to verify is you",
-    "CustomersService":"Customer service"
+    "CustomersService":"Customer service",
+    "TelemedicineConsent":"Telemedicine consent",
+    "SignOut":"Sign out"
 }

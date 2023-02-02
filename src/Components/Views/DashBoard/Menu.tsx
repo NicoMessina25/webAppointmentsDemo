@@ -74,7 +74,8 @@ const Menu = React.forwardRef((props:any,ref) => {
     }
 
     function handleDisplayMenu(){
-        
+       
+
         setBigmenu(!bigMenu);
 
         let iconsItems=[...items];
@@ -90,8 +91,13 @@ const Menu = React.forwardRef((props:any,ref) => {
 
     }
     
+    function handleSignOut(){
+        localStorage.clear();
+        navigate('/login')
+    }
+
     return (
-        <div className="flexible--column container">
+        <div className="container">
             <div className="flexible--row header">
                 {/* Header */}
                 <Button className="p-button-rounded buttonHeader" icon={iconbutton} onClick={handleDisplayMenu}></Button>
@@ -99,35 +105,40 @@ const Menu = React.forwardRef((props:any,ref) => {
                
             </div>
             
-            <div className="menu-container">
-                <PanelMenu className="" model={items} />
-                <div>
-                    <div className="background-red">
-                        <a className="consent-medicine"><Icon icon="material-symbols:edit-document-outline-sharp" />Consentimiento telemedicina</a>
-                    </div>
+            <div className="flexible--row " >
+
+                <div className="menu-container flexible--column">
+                    <PanelMenu className="" model={items} />
                     <div>
-                        <p className="text-secondary"><Icon className="consent-medicine" icon="vaadin:sign-out"  /> cerrar sesion</p>
+                        <div className="menuOption background-red flexible--row">
+                            <Icon className="consent-medicine" icon="material-symbols:edit-document-outline-sharp" />
+                            <div className="consent-medicine">{intl.formatMessage({ id: 'TelemedicineConsent' })}</div>
+                        </div>
+                        <div className="menuOption flexible--row" onClick={handleSignOut}>
+                            <Icon className="consent-medicine" icon="vaadin:sign-out"  />
+                            <div className="text-secondary"> {intl.formatMessage({ id: 'SignOut' })}</div>
+                        </div>
                     </div>
                 </div>
+            
+            
+                <Routes>
+                    <Route element={<PrivateComponent/>}>
+                        <Route path='/home' element={<Home/>  }/>
+                        <Route path='/newAppointment' element={<NewAppointments/>  }/>
+                        <Route path='/myAppointments' element={<MyAppointments/>  }/>
+                        <Route path='/historicAppointments' element={<HistoricAppointments/>  }/>
+                        <Route path='/newRp' element={<NewRp/>  }/>
+                        <Route path='/myPrescriptions' element={<MyPrescriptions/>  }/>
+                        <Route path='/sendStudyResults' element={<SendStudyResults/>  }/>
+                        <Route path='/request' element={<ClinicRequest/>  }/>
+                        <Route path='/myProfile' element={<MyProfile/>  }/>
+                        <Route path='/familyGroup' element={<FamilyGroup/>  }/>
+                    </Route>
+                </Routes>
+            
             </div>
-        
-            <Routes>
-                <Route element={<PrivateComponent/>}>
-                    <Route path='/home' element={<Home/>  }/>
-                    <Route path='/forgotPassword' element={<ForgotPasswordStepOne/>  }/>
-                    <Route path='/newAppointment' element={<NewAppointments/>  }/>
-                    <Route path='/myAppointments' element={<MyAppointments/>  }/>
-                    <Route path='/historicAppointments' element={<HistoricAppointments/>  }/>
-                    <Route path='/newRp' element={<NewRp/>  }/>
-                    <Route path='/myPrescriptions' element={<MyPrescriptions/>  }/>
-                    <Route path='/sendStudyResults' element={<SendStudyResults/>  }/>
-                    <Route path='/request' element={<ClinicRequest/>  }/>
-                    <Route path='/myProfile' element={<MyProfile/>  }/>
-                    <Route path='/familyGroup' element={<FamilyGroup/>  }/>
-                </Route>
-            </Routes>
-        
-        
+           
         </div>
     )
 });
