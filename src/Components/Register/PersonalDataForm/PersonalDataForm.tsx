@@ -1,23 +1,22 @@
-
-import { RadioButton } from 'primereact/radiobutton';
 import { useContext, useEffect, useRef, useState } from 'react';
 import RadioButtonGroup from '../../RadioButtonGroup/RadioButtonGroup';
 import { useIntl } from 'react-intl';
 import "./PersonalDataForm.scss"
 import InputTextCustom from '../../Inputs/InputText/InputTextCustom';
-import { Calendar } from 'primereact/calendar';
 import InputPhone from '../../Inputs/InputPhone/InputPhone';
 import { Button } from 'primereact/button';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Combobox from '../../Combobox/Combobox';
 import { getAllCities } from '../../../services/citiesService';
 import { appContext } from '../../Context/appContext';
 import InputDate from '../../Inputs/InputDate/InputDate';
-import { isError } from '@jest/expect-utils';
 import Modal from '../../Modal/Modal';
 import { existsPatientAndNotUser, getValidationData, saveUser, sendValidationDataAnswers } from '../../../services/loginService';
 import UserVerificationForm from '../UserVerificationForm/UserVerificationForm';
 import { Toast } from 'primereact/toast';
+import { ProgressSpinner } from 'primereact/progressspinner';
+import Loader from '../../Loader/Loader';
+import { isErrored } from 'stream';
 
 export default function PersonalDataForm({user, setUser, setDisplayRegisterCancel, onSubmit}:any){
     const [cities, setCities] = useState();
@@ -43,7 +42,8 @@ export default function PersonalDataForm({user, setUser, setDisplayRegisterCance
     const [completedAnswers, setCompletedAnswers] = useState(true);
     const [displayUserVerification, setDisplayUserVerification] = useState(false);
     const [displayCouldNotValidateUser, setDisplayCouldNotValidateUser] = useState(false);
-    
+    const [loadMoreFields, setLoadMoreFields] = useState(user.firstname !== "");
+    const [loading, setLoading] = useState(false);
 
     const {languageId}:any = useContext(appContext);
 
@@ -61,7 +61,9 @@ export default function PersonalDataForm({user, setUser, setDisplayRegisterCance
     },[languageId]);
 
     useEffect(()=>{
-        if(cities != undefined) {
+        if(cities != undefined && !user.city) {
+            console.log(cities[238]);
+            
             setUser({...user, city: cities[238]});
         }
            
@@ -103,6 +105,26 @@ export default function PersonalDataForm({user, setUser, setDisplayRegisterCance
 
         return valid
     }
+
+    function validateField(field:string){
+        let valid = true;
+        let _inputErrors:any = {...inputErrors}
+
+        if(!user[field] && field.localeCompare("mobilephone")){
+            _inputErrors[field].caption = intl.formatMessage({id: "ThisFieldIsRequired"});
+            _inputErrors[field].isValid = valid = false;
+        } else if (!field.localeCompare("mobilephone")) {
+            if(user.mobilephone.area === "" || user.mobilephone.number === ""){
+                _inputErrors.mobilephone.caption = intl.formatMessage({id: "ThisFieldIsRequired"});
+                _inputErrors.mobilephone.isValid = valid = false;
+            }
+        }
+
+        setInputErrors(_inputErrors);
+
+        return valid;
+
+    }
     
 
     const documentOptions = [
@@ -128,112 +150,151 @@ export default function PersonalDataForm({user, setUser, setDisplayRegisterCance
         return numberAnswered > 2 
     }
 
-    function verifyIfPatientExists(document:any, docType:any){
-        clearTimeout(documentTimeout.current);
-                documentTimeout.current = setTimeout(()=>{
-                    setQuestions([]);
-                    user.document && existsPatientAndNotUser(document, docType).then(patientId => {
-                        if(patientId > 0){
+    function verifyIfPatientExists(document:any, docType:any){        
+        setQuestions([]);
+        user.document && existsPatientAndNotUser(document, docType).then(patientId => {
+            if(patientId > 0){
+                setCompletedAnswers(true);
+                getValidationData(languageId, patientId).then(res => {
+                    setPatientId(patientId);
+                    switch(res.status){
+                        case 200:{
+                            console.log(res.data);
                             
-                            setCompletedAnswers(true);
-                            getValidationData(languageId, patientId).then(res => {
-                                setPatientId(patientId);
-                                switch(res.status){
-                                    case 200:{
-                                        console.log(res.data);
-                                        
-                                        let validationData = res.data;
-                                        let _questions = [];
-                                        
-                                        for(const q in validationData){
-                                            let options:any = [];
-                                            validationData[q]?.forEach((op:any)=>{
-                                                switch(q){
-                                                    case "city": options.push({label:op.description, value:op.city}); break;
-                                                    case "birthDate":{
-                                                        let date = new Date(op);
-                                                        options.push({label:date.toLocaleDateString(), value:date}); 
-                                                        break;
-                                                    } 
-                                                    default:  options.push({label:op, value:op});
-                                                }    
-                                            })
-                                            
-                                            _questions.push({label:intl.formatMessage({id:q[0].toUpperCase() +  q.slice(1)}), field: q, options: options})
-                                        }
-        
-                                        setQuestions(_questions); 
-                                        console.log(_questions);
-                                        
-                                        break;
-                                    }
-                                    case 204:{
-                                        setDisplayCouldNotValidateUser(true)
-                                    } 
-                                }
-                            })
+                            let validationData = res.data;
+                            let _questions = [];
+                            
+                            for(const q in validationData){
+                                let options:any = [];
+                                validationData[q]?.forEach((op:any)=>{
+                                    switch(q){
+                                        case "city": options.push({label:op.location, value:op}); break;
+                                        case "birthDate":{
+                                            let date = new Date(op);
+                                            options.push({label:date.toLocaleDateString(), value:date}); 
+                                            break;
+                                        } 
+                                        default:  options.push({label:op, value:op});
+                                    }    
+                                })
+                                
+                                _questions.push({label:intl.formatMessage({id:q[0].toUpperCase() +  q.slice(1)}), field: q, options: options})
+                            }
+
+                            setQuestions(_questions); 
+                            console.log(_questions);
+                            
+                            break;
                         }
-                    })
-                }, 2000);
+                        case 204:{
+                            setDisplayCouldNotValidateUser(true)
+                        } 
+                    }
+                    setLoading(false);
+                })
+            } else {
+                setLoadMoreFields(true);
+                setLoading(false);
+            }
+        })
+                
     }
+    
 
     return (
         <div className='flexible--column'>
             <RadioButtonGroup options={documentOptions} setValue={(docType:any)=>{
                 setUser({...user, documentType: docType})
                 onChangeRemoveError("documentType")
-                verifyIfPatientExists(user.document, docType);
+                setLoadMoreFields(false)
             }} label={intl.formatMessage({id: "DocumentType"})} value={user.documentType} className="radioGroup" orientation={"row"} error={!inputErrors.documentType.isValid} caption={inputErrors.documentType.caption}/>
          
             <InputTextCustom value={user.document} onChange={(e:any) => {
                 setUser({...user, document: e.target.value})
                 onChangeRemoveError("document")
-                verifyIfPatientExists(e.target.value, user.documentType);
+                setLoadMoreFields(false)
                 }} labelId="DocumentNumber" error={!inputErrors.document.isValid} caption={inputErrors.document.caption}/>
+            
+            {loadMoreFields && 
+            <div>
+                <InputTextCustom value={user.firstname} onChange={(e:any) => {
+                    setUser({...user, firstname: e.target.value})
+                    onChangeRemoveError("firstname")
+                    }} labelId="Name" error={!inputErrors.firstname.isValid} caption={inputErrors.firstname.caption} />
 
-            <InputTextCustom value={user.firstname} onChange={(e:any) => {
-                setUser({...user, firstname: e.target.value})
-                onChangeRemoveError("firstname")
-                }} labelId="Name" error={!inputErrors.firstname.isValid} caption={inputErrors.firstname.caption} />
+                <InputTextCustom value={user.lastname} onChange={(e:any) => {
+                    setUser({...user, lastname: e.target.value})
+                    onChangeRemoveError("lastname")
+                    }} labelId="Lastname" error={!inputErrors.lastname.isValid} caption={inputErrors.lastname.caption}/>
 
-            <InputTextCustom value={user.lastname} onChange={(e:any) => {
-                setUser({...user, lastname: e.target.value})
-                onChangeRemoveError("lastname")
-                }} labelId="Lastname" error={!inputErrors.lastname.isValid} caption={inputErrors.lastname.caption}/>
+                <RadioButtonGroup options={genderOptions} setValue={(gender:any)=>{
+                    setUser({...user, gender: gender})
+                    onChangeRemoveError("gender")
+                }} label={intl.formatMessage({id: "Gender"})} value={user.gender} className="radioGroup" orientation={"row"} error={!inputErrors.gender.isValid} caption={inputErrors.gender.caption}/>
 
-            <RadioButtonGroup options={genderOptions} setValue={(gender:any)=>{
-                setUser({...user, gender: gender})
-                onChangeRemoveError("gender")
-            }} label={intl.formatMessage({id: "Gender"})} value={user.gender} className="radioGroup" orientation={"row"} error={!inputErrors.gender.isValid} caption={inputErrors.gender.caption}/>
+                <InputDate  value={user.birthdate} label={intl.formatMessage({id: "BirthDate"})} onChange={(e:any) => {
+                    setUser({...user, birthdate: e.value})
+                    onChangeRemoveError("birthdate")
+                }} showIcon dateFormat="dd/mm/yy" maxDate={new Date()}  placeholder='dd/mm/aaaa' caption={inputErrors.birthdate.caption} error={!inputErrors.birthdate.isValid}/>
 
-            <InputDate  value={user.birthdate} label={intl.formatMessage({id: "BirthDate"})} onChange={(e:any) => {
-                setUser({...user, birthdate: e.value})
-                onChangeRemoveError("birthdate")
-            }} showIcon dateFormat="dd/mm/yy" maxDate={new Date()}  placeholder='dd/mm/aaaa' caption={inputErrors.birthdate.caption} error={!inputErrors.birthdate.isValid}/>
-
-            <InputPhone labelId="Phone" value={user.mobilephone} setValue={(val:any, valField:any)=>{
-                let _user = {...user}
-                _user.mobilephone[valField] = val;
-                setUser(_user);
-                onChangeRemoveError("mobilephone")
-            }} error={!inputErrors.mobilephone.isValid} caption={inputErrors.mobilephone.caption} />
+                <InputPhone labelId="Phone" value={user.mobilephone} setValue={(val:any, valField:any)=>{
+                    let _user = {...user}
+                    _user.mobilephone[valField] = val;
+                    setUser(_user);
+                    onChangeRemoveError("mobilephone")
+                }} error={!inputErrors.mobilephone.isValid} caption={inputErrors.mobilephone.caption} />
 
 
-            <InputTextCustom value={user.address} onChange={(e:any) =>{
-                setUser({...user, address: e.target.value})
-                onChangeRemoveError("address");
-            } } labelId="Address" error={!inputErrors.address.isValid} caption={inputErrors.address.caption} />
+                <InputTextCustom value={user.address} onChange={(e:any) =>{
+                    setUser({...user, address: e.target.value})
+                    onChangeRemoveError("address");
+                } } labelId="Address" error={!inputErrors.address.isValid} caption={inputErrors.address.caption} />
 
-            <Combobox items={cities} label={intl.formatMessage({id:"City"})} optionLabel="location" value={user.city} placeholder={user.city?.description}  setValue={(c:any)=>{
-                setUser({...user, city: c});
-            }}/>
+                <Combobox items={cities} label={intl.formatMessage({id:"City"})} optionLabel="location" value={user.city} placeholder={user.city?.description}  setValue={(c:any)=>{
+                    setUser({...user, city: c});
+                }}/>
+            </div>
+            } 
+
+            
 
             <div className='flexible--row flex-end buttonContainer'>
                 <Button label={intl.formatMessage({id: "Cancel"})} className='buttonMain3' onClick={()=>{setDisplayRegisterCancel(true)}}/>
-                <Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} onClick={()=>{
+                { loadMoreFields ? <Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({id: "Follow"})} onClick={()=>{
                     if (validateData()){
                         navigate("/register/2")
-                    }}} className='buttonMain' />
+                    }}} className='buttonMain' /> : <Button icon={!loading && "pi pi-angle-down"} iconPos='right' label={intl.formatMessage({id: "Confirm"})} onClick={()=>{
+                        
+                        if (validateField("document") && validateField("documentType")){
+                            setLoading(true)
+                            setUser({
+                                username: "",
+                                password: "",
+                                documentType:user.documentType,
+                                document:user.document,
+                                firstname: "",
+                                lastname: "",
+                                email:"",
+                                gender: "",
+                                birthdate: null,
+                                mobilephone: {
+                                    prefix: "+54",
+                                    area: "",
+                                    number:"",
+                                },
+                                address: "",
+                                city: "",
+                                memberNumber:"",
+                                hasMedicalCoverage: null,
+                                isMedCoverageThroughJob: null,
+                                medicalCoverage:null,
+                                plan:null,
+                                acceptTerms:false,
+                                repeatPassword: ""
+                            })
+                            verifyIfPatientExists(user.document, user.documentType);
+                        }
+                    }} className='buttonMain' >{ loading && <Loader size={25} strokeWidth={6} className={"whiteSpinner"} margin={"0% 5%"} />}  </Button>} 
             </div>
             
             <Modal visible={displayUserVerification} setVisible={setDisplayUserVerification} header={intl.formatMessage({id:"Attention"})} footerButtonRightText={intl.formatMessage({ id: 'SignIn' })} footerButtonLeftText={intl.formatMessage({ id: 'Back' })} onClickLeftBtn={()=>{
@@ -260,13 +321,15 @@ export default function PersonalDataForm({user, setUser, setDisplayRegisterCance
                                     gender: gender,
                                     hasMedicalCoverage: hasMedicalCoverage,
                                     medicalCoverage: healthentity,
-                                    plan: healthentityplan
-
+                                    plan: healthentityplan,
+                                    city: city
                                 }
 
                                 console.log(_user);
                                 
                                 setUser(_user);
+                                setDisplayUserVerification(false)
+                                setLoadMoreFields(true)
                             } else{
                                 toast.current?.show({severity: 'error', summary: 'Error', detail: intl.formatMessage({id: "IncorrectAnswers"})});
                             }

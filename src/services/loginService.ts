@@ -184,6 +184,8 @@ export function getValidationData(language:number, id:number){
 }
 
 export function sendValidationDataAnswers(validationDTO:any, patientId:any){
+  console.log(validationDTO);
+  
   return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/validatePatient', validationDTO, {
     params: {
       id: patientId

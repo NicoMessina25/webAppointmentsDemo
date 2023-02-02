@@ -8,7 +8,9 @@ export function getAllCities(inputText:any,languageId:any){
     , null, {
         params:{
             languageCode:languageId,
-            inputText:inputText
+            inputText:inputText,
+            offSet: 0,
+            pageSize: 500
         }
     }
     ).then(res => res.data)
