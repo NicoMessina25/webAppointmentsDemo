@@ -118,6 +118,9 @@
     "CouldNotValidateLabel":"Se ha encontrado información de un paciente con el mismo documento. Sin embargo, no se cuenta con la información suficiente para verificar que es usted",
     "CustomersService":"Atención al cliente",
     "TelemedicineConsent":"Consentimiento telemedicina",
-    "SignOut":"Cerrar sesión"
+    "SignOut":"Cerrar sesión",
+    "BackToLogIn":"Volver a inicio de sesión",
+    "IfYouForgotYourPassword":"Si olvidaste tu contraseña",
+    "ClickHere":"Haga click aquí"
 
 }

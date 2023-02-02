@@ -5,7 +5,7 @@ import "./PersonalDataForm.scss"
 import InputTextCustom from '../../Inputs/InputText/InputTextCustom';
 import InputPhone from '../../Inputs/InputPhone/InputPhone';
 import { Button } from 'primereact/button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Combobox from '../../Combobox/Combobox';
 import { getAllCities } from '../../../services/citiesService';
 import { appContext } from '../../Context/appContext';
@@ -46,6 +46,9 @@ export default function PersonalDataForm({user, setUser, setDisplayRegisterCance
     const [loading, setLoading] = useState(false);
 
     const {languageId}:any = useContext(appContext);
+
+    const [displayUserExists,setDisplayUserExists]=useState(false);
+
 
     const navigate = useNavigate();
     const intl = useIntl();
@@ -192,8 +195,11 @@ export default function PersonalDataForm({user, setUser, setDisplayRegisterCance
                     }
                     setLoading(false);
                 })
-            } else {
+            } else if(patientId===-2){
                 setLoadMoreFields(true);
+                setLoading(false);
+            }else{
+                setDisplayUserExists(true)
                 setLoading(false);
             }
         })
@@ -347,6 +353,15 @@ export default function PersonalDataForm({user, setUser, setDisplayRegisterCance
                     setDisplayCouldNotValidateUser(false);
                  }} footerButtonRightText={intl.formatMessage({id: "CustomersService"})} >
                     <p className='textDark'>{intl.formatMessage({id: "CouldNotValidateLabel"})}.</p>
+                </Modal>
+                <Modal visible={displayUserExists} setVisible={setDisplayUserExists} header={intl.formatMessage({id:"Attention"})} footerButtonRightText={intl.formatMessage({id: "Back"})} 
+                onClickRightBtn={()=>{
+                    setDisplayUserExists(false)
+                 }} >
+                    <p className='textDark'>{intl.formatMessage({id: "ThereIsAlreadyAnUserWithTheSameDocument"}) + ". " + intl.formatMessage({id: "IfYouForgotYourPassword"})
+                    +" "}
+                    <Link to={"/forgotPassword"} className="link">{intl.formatMessage({ id: 'ClickHere' })}</Link>
+                    </p>
                 </Modal>
                 <Toast ref={toast} />
         </div>

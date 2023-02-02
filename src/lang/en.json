@@ -118,5 +118,9 @@
     "CouldNotValidateLabel":"A patient data related to this document has been found. However, there isn't enough information to verify is you",
     "CustomersService":"Customer service",
     "TelemedicineConsent":"Telemedicine consent",
-    "SignOut":"Sign out"
+    "SignOut":"Sign out",
+    "BackToLogIn":"Back to log in",
+    "IfYouForgotYourPassword":"If you forgot your password",
+    "ClickHere":"Click here"
+   
 }
