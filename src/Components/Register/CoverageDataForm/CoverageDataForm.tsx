@@ -118,7 +118,10 @@ export default function CoverageDataForm({user, setUser, setDisplayRegisterCance
 
             <div className="flexible--row acceptTerms">
                 <Checkbox onChange={e => setUser({...user, acceptTerms: e.checked})} checked={user.acceptTerms} className="checkbox"/>
-                <p className="checkboxLabel">{intl.formatMessage({ id: 'IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform' })} <Link to="#" className="linkInfo">{intl.formatMessage({id: "SeeDetails"})}</Link></p>
+                <p className="checkboxLabel">{intl.formatMessage({ id: 'IAcceptTheTermsAndConditionsOfUseOfTheTelemedicinePlatform' })} <Link to="#" onClick={()=>{
+                setVisibilityTermsAndConditions(true);
+            }}
+             className="linkInfo">{intl.formatMessage({id: "SeeDetails"})}</Link></p>
             </div>
             
             
