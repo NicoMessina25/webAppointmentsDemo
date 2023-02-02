@@ -1,4 +1,4 @@
-@import '../../scss/mixins', '../../scss/colors', '../../scss/fontFamilies';
+@import '../../../scss/mixins', '../../../scss/colors', '../../../scss/fontFamilies';
 .menu-container{
     justify-content: space-between;
     height: 100%;
@@ -27,8 +27,8 @@
 }
 
 .p-panelmenu-icon::before {
-    content: "";
-    background-repeat: no-repeat;
+    // content: "";
+    // background-repeat: no-repeat;
 
   }
 

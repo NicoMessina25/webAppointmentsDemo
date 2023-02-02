@@ -14,7 +14,6 @@ const AppProvider = ({children}:any) => {
     let [languageId,setLanguageId]=useState(0);
     const[messages,setMessages]:any = useState(SpanishMessages);
     const[localeintl,setLocale] = useState('es');
-    const [auth,setAuth]=useState(false);
 
     addLocale('es',SpanishMessagesPrime );
     locale('es');
@@ -43,7 +42,7 @@ const AppProvider = ({children}:any) => {
        //Captcha
 
     
-    //application configuration obtained via log
+  /*   //application configuration obtained via log
 
     let [settings,setSettings]=useState({
         userId:-1,
@@ -68,9 +67,9 @@ const AppProvider = ({children}:any) => {
     function setAppSettings(settingsObject:any){
         setSettings(settingsObject);
     }
-    
+     */
     return (
-        <appContext.Provider value={{messages,localeintl,languageId,captchaKey,settings,setAppSettings,auth,setAuth}}>
+        <appContext.Provider value={{messages,localeintl,languageId,captchaKey}}>
              <IntlProvider locale={localeintl} messages={messages}>
                 {children}
             </IntlProvider>

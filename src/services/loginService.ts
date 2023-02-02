@@ -3,6 +3,8 @@ import { idText } from "typescript";
 const url=process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/'
 
 
+const urlLocal= window.location.href;
+const baseUrl = new URL(urlLocal).origin;
 
 export function getMailAndCellphone(document:any,documenttype:any){
     
@@ -108,7 +110,7 @@ export async function authenticateUser(username:string,password:string){
       process.env.REACT_APP_MEDERE_ADDRESS+'/api/auth/authenticate',{
         username:username,
         password:password,
-        siteURL:'localhost',
+        siteURL:baseUrl,
         appId:2,
         deviceId:'PcTade'
       },{
@@ -119,6 +121,15 @@ export async function authenticateUser(username:string,password:string){
         response
       )
   
+}
+
+export async function amilogged(){
+
+  return axios.get(
+    process.env.REACT_APP_MEDERE_ADDRESS+'/api/secure/amilogged')
+    .then(response => 
+      response
+    ).catch(e=>e)
 }
 
 

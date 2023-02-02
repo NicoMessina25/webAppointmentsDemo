@@ -47,10 +47,10 @@ export default function LogginForm({googleLogin}:any){
         }
       
         if(password!="" && userName!=""){
-            
             authenticateUser(userName,password).then(res=>{
                 if(res.request.status==200){
-                    setAppSettings(res.data)
+                    //setAppSettings(res.data)
+                    localStorage.setItem("settings",JSON.stringify(res.data))
                     navigate("/home");
                 }else{
                     setErrorPassstyle(true)

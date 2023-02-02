@@ -10,8 +10,8 @@ import SecurityDataForm from "./SecurityDataForm/SecurityDataForm";
 import Modal from "../Modal/Modal";
 import { getValidationData, saveUser, sendValidationDataAnswers } from "../../services/loginService";
 import UserVerificationForm from "./UserVerificationForm/UserVerificationForm";
-import { langContext } from "../Context/langContext";
 import { forEachChild } from "typescript";
+import { appContext } from "../Context/appContext";
 
 
 export default function Register(){
@@ -57,7 +57,7 @@ export default function Register(){
     const {step}:any = useParams();
     const toast:any = useRef(null);
     const navigate = useNavigate();
-    const {languageId}:any = useContext(langContext)
+    const {languageId}:any = useContext(appContext)
 
     useEffect(() => {
       setActiveIndex(step-1)
