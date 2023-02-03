@@ -144,7 +144,7 @@ export default function CoverageDataForm({user, setUser, setDisplayRegisterCance
                 setUser({...user, acceptTerms: false})
                 setVisibilityTermsAndConditions(false);
             }} >
-            {<Terms></Terms>}
+                {<Terms></Terms>}
             </Modal>
 
         </div>

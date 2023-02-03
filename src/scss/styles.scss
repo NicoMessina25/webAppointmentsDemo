@@ -194,6 +194,11 @@ input, .p-dropdown{
     color: map-get($lightText, body);
 }
 
+.textWhite{
+    @extend.text;
+    color:map-get($lightBase,main);
+}
+
 .textHeading{
     @extend.text;
     color: map-get($lightText, heading);
@@ -295,6 +300,12 @@ input, .p-dropdown{
     
 }
 
+.whiteLabel{
+    color:map-get($lightBase,main);
+    font-weight: 500;
+    
+}
+
 .inputLabel{
     margin: 1% 0%;
 }
@@ -384,6 +395,7 @@ esta clase es para el input text invalido
     }
 
 }
+
 
     
 

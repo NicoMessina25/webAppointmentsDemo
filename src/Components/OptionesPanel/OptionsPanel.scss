@@ -1,0 +1,19 @@
+@import '../../scss/mixins', '../../scss/colors', '../../scss/fontFamilies';
+
+.options-panel{
+    width:100%;
+    background-color: map-get($lightPrimary,text);
+    padding: 2%;
+    justify-content: space-between;
+    .tittle{
+        color:map-get($lightBase,main);
+        margin-bottom: 1%;
+        font-weight: 600;
+    }
+    .option-component{
+        margin-right: 2%;
+    }
+    border-radius: 8px;
+
+}
+

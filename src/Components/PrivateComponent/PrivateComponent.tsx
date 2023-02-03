@@ -9,18 +9,19 @@ const PrivateComponent = ({children, ...props}:any) => {
     
 
     function serverConfirmation() {
-        console.log("verificando");
-        try {
-          amilogged().then(res=>{
-            console.log(res)
-            if (res.request.status === 403) {
-                return false;
-              }
-            return true;
-          })
-        } catch (e) {
-          return false;
-        }
+      return true;  
+      // console.log("verificando");
+      //   try {
+      //     amilogged().then(res=>{
+      //       console.log(res)
+      //       if (res.status === 403) {
+      //           return false;
+      //         }
+      //       return true;
+      //     })
+      //   } catch (e) {
+      //     return false;
+      //   }
     }
 
     let storedSettings=localStorage.getItem("settings");
@@ -29,9 +30,9 @@ const PrivateComponent = ({children, ...props}:any) => {
             return <Navigate to="/login"/>
         }
         else{
-            //if(serverConfirmation())
+            if(serverConfirmation())
                 return <Outlet/>
-            //else
+            else
                 return <Navigate to="/login"/>
         }
     else{

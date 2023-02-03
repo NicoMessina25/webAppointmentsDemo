@@ -6,7 +6,7 @@
 
 .menu-container{
     height: 100%;
-    width:16%;
+    width:fit-content;
     justify-content: space-between;
 }
 
@@ -93,6 +93,10 @@
   
 .maxwidth{
     width: 100%;
+}
+.inside-component{
+    width: 100%;
+    margin: 1% 1%
 }
   
 
