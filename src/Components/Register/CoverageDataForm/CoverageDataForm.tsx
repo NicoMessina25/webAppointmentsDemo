@@ -1,10 +1,10 @@
 import { render } from "@testing-library/react";
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllMedicalCoverages, getPlans } from "../../../services/medicalCoverageService";
+import { getMedicalCoverages, getPlans } from "../../../services/medicalCoverageService";
 import Combobox from "../../Combobox/Combobox";
 import InputTextCustom from "../../Inputs/InputText/InputTextCustom";
 import Modal from "../../Modal/Modal";
@@ -14,8 +14,6 @@ import "./CoverageDataForm.scss"
 
 export default function CoverageDataForm({user, setUser, setDisplayRegisterCancel, onSubmit}:any){
     const intl = useIntl();
-    const [medicalCoverages, setMedicalCoverages] = useState([]);
-    const [plans, setPlans] = useState([]);
     const [inputErrors, setInputErrors] = useState({
         hasMedicalCoverage: {caption: "", isValid: true},
         isMedCoverageThroughJob: {caption: "", isValid:true},
@@ -32,18 +30,21 @@ export default function CoverageDataForm({user, setUser, setDisplayRegisterCance
     let no = intl.formatMessage({id: "No"});
 
 
-   useEffect(()=>{
-        getAllMedicalCoverages().then(data =>{
+   /* useEffect(()=>{
+        getMedicalCoverages().then(data =>{
             setMedicalCoverages(data);
             
         })  
-   },[])
+   },[]) */
 
-   useEffect(() => {
-    getPlans(user.medicalCoverage?.entityid).then(data => {;
-        setPlans(data) 
-    });
-   }, [user.medicalCoverage])
+/*     useEffect(() => {
+        console.log(user.medicalCoverage);
+        console.log(comboPlans.current);
+        
+        
+
+    
+    }, [user.medicalCoverage]) */
    
 
     const yesNo = [
@@ -98,16 +99,18 @@ export default function CoverageDataForm({user, setUser, setDisplayRegisterCance
                 onChangeRemoveError("isMedCoverageThroughJob")
             }} label={intl.formatMessage({id: "IsThroughYourJob?"})} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} />
             
-                <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={user.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" items={medicalCoverages} value={user.medicalCoverage} setValue={(p:any)=>{
+                <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={user.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" getItems={getMedicalCoverages} value={user.medicalCoverage} setValue={(p:any)=>{
                     setUser({...user, medicalCoverage: p});
                     onChangeRemoveError("medicalCoverage")
                     
                 }} optionLabel="name" error={!inputErrors.medicalCoverage.isValid} caption={inputErrors.medicalCoverage.caption} />
 
-                <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox" placeholder={intl.formatMessage({id: "Select"})} items={plans} value={user.plan} setValue={(p:any)=>{
+                <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox" placeholder={intl.formatMessage({id: "Select"})} getItems={(inputText:any, offSet:any, pageSize:any)=>{
+                    return getPlans(inputText, offSet, pageSize, user.medicalCoverage?.entityid)
+                }} value={user.plan} setValue={(p:any)=>{
                     setUser({...user, plan: p})
                     onChangeRemoveError("plan");
-                }} optionLabel="name" error={!inputErrors.plan.isValid} caption={inputErrors.plan.caption}/>
+                }} optionLabel="name" reLoadItemsValue={user.medicalCoverage} error={!inputErrors.plan.isValid} caption={inputErrors.plan.caption}/>
 
                 <InputTextCustom labelId="NumberOfMember"  value={user.memberNumber} onChange={(e:any)=>{
                     setUser({...user, memberNumber: e.target.value})

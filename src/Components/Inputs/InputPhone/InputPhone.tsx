@@ -10,22 +10,24 @@ export default function InputPhone({value, setValue, labelId, className, error, 
     const intl = useIntl();
     
     const [countries, setCountries]:any= useState([]);
-    const [country, setCountry] = useState(null);
+    const [country, setCountry] = useState({name: "Argentina",
+    dial_code: "+54",
+    code: "AR"});
     const [filteredCountries, setFilteredCountries] = useState(null);
 
-    useEffect(() => {
+    /* useEffect(() => {
         setCountries(getPhonePrefixes());
        
         
         //setCountry(countries[0]);
-    }, [])
+    }, []) */
 
-    useEffect(() => {
+    /* useEffect(() => {
         let prefix = value.prefix || "+54";
         setCountry(countries.find((c:any)=>c.dial_code === prefix));
         setFilteredCountries(countries);
         
-    }, [countries])
+    }, [countries]) */
     
 
     function onKeyDownHandler(evt:any){
@@ -39,7 +41,7 @@ export default function InputPhone({value, setValue, labelId, className, error, 
                 <Combobox value={country} setValue={(e:any)=>{                    
                     setValue(e.dial_code, "prefix");
                     setCountry(e);
-                    }} className="comboboxPhone" items={countries} optionLabel={"dial_code"}/>
+                    }} className="comboboxPhone" getItems={getPhonePrefixes} optionLabel={"dial_code"}/>
                
                 <InputTextCustom placeholder={intl.formatMessage({id:"Area"}).toLowerCase()} value={value.area} onChange={(e:any)=>{
                     setValue(e.target.value, "area");

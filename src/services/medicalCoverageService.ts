@@ -1,21 +1,25 @@
 import axios from "axios";
 
 
-export function getAllMedicalCoverages(){
+export function getMedicalCoverages(inputText:any, offSet:any, pageSize:any){
     return axios.get(process.env.REACT_APP_MEDERE_ADDRESS +  '/rest/webappointments/getMedicalCompanies', {
         params: {
-            offSet: 0,
-            pageSize: 700
+            inputText:inputText,
+            offSet: offSet,
+            pageSize: pageSize
         }
     }).then(res => res.data)
 }
 
-export function getPlans(filterId:any){
+export function getPlans(inputText:any, offSet:any, pageSize:any, filterId:any){
+    console.log(filterId);
+    
     return axios.get(process.env.REACT_APP_MEDERE_ADDRESS +  '/rest/webappointments/getPlans', {
         params: {
-            filterId: filterId,
-            offSet: 0,
-            pageSize: 700
+            inputText: inputText,
+            filterId: filterId || 0,
+            offSet: offSet,
+            pageSize: pageSize
         }
     }).then(res => res.data)
 }

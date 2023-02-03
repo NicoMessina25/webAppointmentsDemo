@@ -1212,5 +1212,7 @@ const phonePrefixes = [
 ]
 
 export default function getPhonePrefixes(){
-    return phonePrefixes;
+    return new Promise((resolve:any)=>{
+        resolve(phonePrefixes)
+    });
 }

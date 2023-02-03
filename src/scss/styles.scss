@@ -1,121 +1,125 @@
 @import 'mixins', 'fontFamilies', 'colors';
 
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: $primaryFont;
     font-style: normal;
-    
+
 }
 
-body{
-    background-color: $contrast;// map-get($lightBase, baseContrast);
-    font-size: 100%;//75%
+body {
+    background-color: $contrast; // map-get($lightBase, baseContrast);
+    font-size: 100%; //75%
 }
 
-.flexible--row{
+.flexible--row {
     display: flex;
     flex-direction: row;
 }
 
-.flexible--rowWrap{
+.flexible--rowWrap {
     display: flex;
     flex-flow: row wrap;
 }
 
-.flexible--rowReverse{
+.flexible--rowReverse {
     display: flex;
     flex-direction: row-reverse;
 }
 
-.flexible--column{
+.flexible--column {
     display: flex;
     flex-direction: column;
 }
 
-.flexible--columnReverse{
+.flexible--columnReverse {
     display: flex;
     flex-direction: column-reverse;
 }
 
-.flexible--columnWrap{
+.flexible--columnWrap {
     display: flex;
     flex-flow: column wrap;
 }
 
-a{
+a {
     text-decoration: none;
-   
+
 }
 
-.marginButton{
+.marginButton {
     margin: 2% !important;
 }
 
-.button{
+.button {
     @extend.marginButton;
     font-size: 100% !important;
     width: fit-content;
     transition: all .5s !important;
-    padding:  0.65rem 1.083rem !important; //0.35rem 0.583rem 
+    padding: 0.65rem 1.083rem !important; //0.35rem 0.583rem 
 
-    &:hover{
+    &:hover {
         transform: scale(1.01, 1.01);
     }
 }
 
-.buttonMain{
+.buttonMain {
     @extend.button;
-    color:$contrast !important;
+    color: $contrast !important;
     background-color: map-get($lightPrimary, main) !important;
     border: 0 !important;
 
-    &:hover{  
-        background-color:  map-get($lightPrimary, text) !important;
+    &:hover {
+        background-color: map-get($lightPrimary, text) !important;
     }
 
 }
 
-.buttonMain2{
+.buttonMain2 {
     @extend.button;
     color: map-get($lightPrimary, main) !important;
     background-color: $contrast !important;
     border: 1px solid map-get($lightPrimary, main) !important;
- 
-    &:hover{
+
+    &:hover {
         color: $contrast !important;
-        background-color:  map-get($lightPrimary, main)!important;
+        background-color: map-get($lightPrimary, main) !important;
         border: 2px solid map-get($lightPrimary, main) !important;
     }
 
 }
 
-.buttonMain3{
+.buttonMain3 {
     @extend.button;
     color: map-get($lightPrimary, text) !important;
     background-color: map-get($lightContrastShade, 5) !important;
     border: 0px !important;
 
-    &:hover{
-        background-color:   map-get($lightContrastShade, 20)!important;
+    &:hover {
+        background-color: map-get($lightContrastShade, 20) !important;
     }
 }
 
-.inputContainer{
+.inputContainer {
     width: 100%;
     font-weight: 500;
     color: #1b2b41b8;
     font-size: 100%;
     margin: 3% 0%;
 
-    input, .p-dropdown{
+    input,
+    .p-dropdown {
         margin: 2% 0% !important;
     }
- 
+
 }
 
 
-input, .p-dropdown{
+
+
+input,
+.p-dropdown {
 
     background-color: map-get($lightContrastShade, 10) !important;
     border: 0 !important;
@@ -128,27 +132,27 @@ input, .p-dropdown{
 
 
 
-.checkboxContainer{
+.checkboxContainer {
     width: 30%;
     color: map-get($lightContrastShade, 90);
     font-weight: 400;
     justify-content: space-around;
-    
+
 }
 
-.checkboxLabel{
+.checkboxLabel {
     margin-left: 7px !important;
 }
 
 
-.p-checkbox-box{
-    background-color: map-get($lightContrastShadeTranparent, 20)  !important;
+.p-checkbox-box {
+    background-color: map-get($lightContrastShadeTranparent, 20) !important;
     border: 0 !important;
     width: 22px !important;
     height: 22px !important;
 }
 
-.p-checkbox-checked{
+.p-checkbox-checked {
     background-color: map-get($lightPrimary, main) !important;
     border-radius: 4px !important;
     width: 22px !important;
@@ -157,41 +161,40 @@ input, .p-dropdown{
 
 
 
-.linkContainer{
+.linkContainer {
     width: 50%;
     justify-content: flex-end;
 
-    
+
 }
 
-.link{
+.link {
     color: map-get($lightPrimary, main);
     font-size: 100%;
     font-weight: 400;
     text-decoration: underline
 }
 
-.linkInfo{
+.linkInfo {
     @extend.link;
     color: map-get($lightInfo, text);
 }
 
 
 
-.text{
+.text {
     text-align: justify;
     color: map-get($lightText, secondary)
 }
 
-.textDarkItalic{
+.textDarkItalic {
     @extend .textDark;
     font-style: italic;
 }
 
 
 .textDark{
-    @extend.text;
-    color: map-get($lightText, body);
+    @extend.text;color: map-get($lightText, body) !important;
 }
 
 .textWhite{
@@ -199,14 +202,20 @@ input, .p-dropdown{
     color:map-get($lightBase,main);
 }
 
-.textHeading{
+
+.p-inputtext{
+    @extend.textDark;
+}
+
+
+.textHeading {
     @extend.text;
     color: map-get($lightText, heading);
 }
 
-.infoText{
+.infoText {
     @extend.text;
-    color: map-get($lightInfo,text);
+    color: map-get($lightInfo, text);
 }
 
 .logoSite {
@@ -214,90 +223,91 @@ input, .p-dropdown{
     height: 7%;
 }
 
-.textTertiary{
+.textTertiary {
     @extend.text;
-    color: map-get($lightText , tertiary )
-
+    color: map-get($lightText , tertiary)
 }
 
-.p-button-icon-only{
+.p-button-icon-only {
     background-color: map-get($lightPrimary, main) !important;
     border: 0 !important;
 
-    &:hover{
+    &:hover {
         background-color: map-get($lightPrimary, text) !important;
     }
 }
 
-.highlight{
-    color:map-get($lightPrimary, main) !important;
-    background: map-get($lightPrimary, transparent15 ) !important;
+.highlight {
+    color: map-get($lightPrimary, main) !important;
+    background: map-get($lightPrimary, transparent15) !important;
 }
 
-.p-calendar{
+.p-calendar {
     margin: 2% 0 !important;
 
-    .p-inputtext{
+    .p-inputtext {
         font-size: 100% !important; //75%
         margin: 0 !important;
     }
 }
 
-.p-datepicker{
-    
-    
+.p-datepicker {
+
+
     /* td, th, button,span{
         font-size: 80% !important;
     } */
 
-    .p-highlight{
+    .p-highlight {
         @extend.highlight;
     }
 
-    button:focus, span:focus{
-        box-shadow: 0 0 0 .1rem map-get($lightPrimary, transparent50) !important; 
+    button:focus,
+    span:focus {
+        box-shadow: 0 0 0 .1rem map-get($lightPrimary, transparent50) !important;
     }
 }
 
-.p-dropdown-items{
-    .p-dropdown-item.p-highlight{
+.p-dropdown-items {
+    .p-dropdown-item.p-highlight {
         @extend.highlight;
     }
 }
 
-.p-link{
-    &:hover{
-        color:map-get($lightPrimary, main) !important;
+.p-link {
+    &:hover {
+        color: map-get($lightPrimary, main) !important;
     }
 }
 
-.flex-end{
+.flex-end {
     justify-content: flex-end;
 }
 
 
-.p-button, .p-inputtext{
-    
-    &:focus{
+.p-button,
+.p-inputtext {
+
+    &:focus {
         box-shadow: 0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
     }
 }
 
-.p-dropdown-label{
-    font-size: 100% !important; 
- }
-
-
-
-
-.p-focus{
-    box-shadow:0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
+.p-dropdown-label {
+    font-size: 100% !important;
 }
 
-.label{
+
+
+
+.p-focus {
+    box-shadow: 0 0 0 .2rem map-get($lightPrimary, transparent50) !important;
+}
+
+.label {
     color: map-get($lightText, secondary);
     font-weight: 500;
-    
+
 }
 
 .whiteLabel{
@@ -315,36 +325,37 @@ input, .p-dropdown{
     justify-content: space-evenly
 }
 
-.linkReactRouter{
+.linkReactRouter {
     @extend.marginButton;
 }
 
 /* 
     esta clase es para la contraseña invalida
 */
-.p-invalid{
-    .p-inputtext{
+.p-invalid {
+    .p-inputtext {
         background-color: map-get($lightError, main) !important;
-        
+
     }
-    
+
 }
+
 /* 
 esta clase es para el input text invalido
  */
-.p-inputtext.p-invalid{
+.p-inputtext.p-invalid {
     background-color: map-get($lightError, main) !important;
 }
 
-.combobox{
+.combobox {
     margin: 2%;
 }
 
-.p-dialog-header-icon:focus{
+.p-dialog-header-icon:focus {
     box-shadow: none !important;
 }
 
-.p-dropdown-trigger{
+.p-dropdown-trigger {
     width: 0rem !important;
     opacity: 0;
 }
@@ -361,58 +372,65 @@ esta clase es para el input text invalido
     }
 } */
 
-.p-password{
-    .p-inputtext{
-       font-size: 100% !important; //75%
+.p-password {
+    .p-inputtext {
+        font-size: 100% !important; //75%
     }
-    
+
 }
 
-.p-autocomplete-dropdown{
+.p-autocomplete-dropdown {
     margin: 2% 0% !important;
 }
 
-.p-dropdown-panel{
+.p-dropdown-panel {
     //font-size: 75% !important;
     max-width: 500px !important;
 
 }
 
-.caption{
+.caption {
     font-size: smaller;
     color: map-get($lightText, secondary);
 }
 
-.caption-invalid{
+.caption-invalid {
     @extend.caption;
     color: map-get($lightError, text);
 }
 
-.whiteSpinner{
-    .p-progress-spinner-circle{
+.whiteSpinner {
+    .p-progress-spinner-circle {
         stroke: $contrast !important;
-        
+
+    }
+
+}
+
+.primarySpinner {
+    .p-progress-spinner-circle {
+        stroke: map-get($lightPrimary, main);
+
     }
 
 }
 
 
-    
 
 
-
-@media screen and (min-width:440px){
-    .p-dropdown-trigger{
+@media screen and (min-width:440px) {
+    .p-dropdown-trigger {
         width: 1.5rem !important;
         opacity: 1;
     }
 }
 
-@media screen and (min-width:520px){
-    .button{
-        padding:  0.65rem 1.083rem !important; // 0.5rem 0.833rem
+@media screen and (min-width:520px) {
+    .button {
+        padding: 0.65rem 1.083rem !important; // 0.5rem 0.833rem
     }
-    .buttonContainer{
+
+    .buttonContainer {
         justify-content: flex-end;
     }
 }
@@ -430,7 +448,7 @@ esta clase es para el input text invalido
         font-size: 100%;
     } */
 
-    .button{
+    .button {
         padding: 0.65rem 1.083rem !important;
     }
 
@@ -445,8 +463,8 @@ esta clase es para el input text invalido
         font-size: 100% !important;
     } */
 
-    
-    .p-dropdown-trigger{
+
+    .p-dropdown-trigger {
         width: 3rem !important;
     }
 
@@ -461,8 +479,8 @@ esta clase es para el input text invalido
             font-size: 100% !important;
         }
     } */
-    
-   /*  .p-checkbox-box{
+
+    /*  .p-checkbox-box{
         width: 22px !important;
         height: 22px !important;
     }
@@ -472,11 +490,10 @@ esta clase es para el input text invalido
         height: 22px !important;
     } */
 
-    .p-password{
-        .p-inputtext{
-           font-size: 100% !important; 
+    .p-password {
+        .p-inputtext {
+            font-size: 100% !important;
         }
-        
+
     }
 }
-
