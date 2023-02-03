@@ -21,6 +21,7 @@ const BoxList: React.FC = (options:any) => {
         <div key={index++} className='flexible--column option-component'>
           <div className='whiteLabel'>{component.label}</div>
           {component.component}
+          <div className='options-panel-footer'>{component.footer}</div>
         </div>
     )
     )

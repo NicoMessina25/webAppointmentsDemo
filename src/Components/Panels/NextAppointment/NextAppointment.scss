@@ -1,0 +1,28 @@
+@import '../../../scss/mixins', '../../../scss/colors', '../../../scss/fontFamilies';
+
+.next-appointment{
+    background-color: map-get($lightInfo,shiny);
+    padding: 1% 2%;
+    .next-appointment-header{
+        margin-bottom: 1%;
+    }
+    .next-appointment-date{
+        text-align: center;
+        font-size: 250%;
+        font-weight: 600;
+        margin-bottom: 1%;
+    }
+
+    .next-appointment-professional{
+        text-align: center;
+        margin-bottom: 1%;
+    }
+
+    .next-appointment-location{
+        background-color: map-get($lightInfo,main);
+        text-align: center;
+        font-weight: 600;
+        padding: 1%;
+    }
+
+}

@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import Combobox from '../../Combobox/Combobox';
-import OptionsPanel from '../../OptionesPanel/OptionsPanel'
+import IconPanel from '../../Panels/IconPanel/IconPanel';
+import InputTextCustom from '../../Inputs/InputText/InputTextCustom';
+import OptionsPanel from '../../Panels/OptionesPanel/OptionsPanel'
 import './Home.scss'
+import NextAppointment from '../../Panels/NextAppointment/NextAppointment';
 
 export default function Home() {
 
@@ -14,13 +17,15 @@ export default function Home() {
     let component={
       id:1,
       label:'roberto',
-      component:<div>soy un fake combobox</div>
+      component:<InputTextCustom></InputTextCustom>,
+      footer:"Acepto solo numeros"
     }
 
     let component2={
       id:1,
       label:'roberto',
-      component:<div>soy un componente raro</div>
+      component:<InputTextCustom></InputTextCustom>,
+      footer:"asd"
     }
 
     componentes.push(component)
@@ -34,6 +39,13 @@ export default function Home() {
     <div className='Home-container'>
         <OptionsPanel tittle="Este es un titulo" options={createComponents()}></OptionsPanel>
         <div>soy un componente de home</div>
+        
+        <div className='flexible--row'>
+          <IconPanel className="icons" iconName="vaadin:pills" label="usuario"></IconPanel>
+          <IconPanel className="icons" iconName="vaadin:paperclip" label="usuario"></IconPanel>
+          <IconPanel className="icons" iconName="vaadin:pills" label="usuario"></IconPanel>
+        </div>
+        <NextAppointment></NextAppointment>
     </div>
   )
 }
