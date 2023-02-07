@@ -12,6 +12,7 @@ import InputTextCustom from "../Inputs/InputText/InputTextCustom";
 import { authenticateUser } from "../../services/loginService";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../Context/appContext";
+import { log } from "console";
 
 
 
@@ -57,6 +58,8 @@ export default function LogginForm({googleLogin}:any){
                 
             }).catch(error=>{
                 setDisplayNotUserFound(true);
+                console.log(error);
+                
             })
                
         }

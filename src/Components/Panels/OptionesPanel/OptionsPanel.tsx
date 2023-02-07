@@ -1,4 +1,6 @@
+import { Button } from 'primereact/button';
 import React from 'react'
+
 
 import "./OptionsPanel.scss"
 
@@ -30,22 +32,27 @@ const BoxList: React.FC = (options:any) => {
     return <div className='flexible--row'>{boxes}</div>;
   };
 
+  
 
 
-export default function OptionsPanel({tittle,options}:any) {
+
+
+export default function OptionsPanel({title,children, buttonLabel, onClickBtn}:any) {
   return (
     <div className='flexible--column options-panel'>
-        {tittle!="" && 
+        {title!="" && 
         
-        <div className='tittle'>
-        
-        {tittle}
-
-        </div>
+        <div className='title'>{title}</div>
 
         }
 
-        {BoxList(options)}
+        <div className='flexible--rowWrap optionsContainer'>
+          {children}
+             
+          <Button label={buttonLabel} className="buttonMain" onClick={onClickBtn} />
+        </div>
+
+        
         
 
     </div>

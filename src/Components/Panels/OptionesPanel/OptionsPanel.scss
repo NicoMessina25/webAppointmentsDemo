@@ -4,7 +4,9 @@
     width:100%;
     background-color: map-get($lightPrimary,text);
     padding: 2%;
-    .tittle{
+    margin: 1% 0%;
+    justify-content: space-between;
+    .title{
         color:map-get($lightBase,main);
         margin-bottom: 1%;
         font-weight: 600;
@@ -12,6 +14,39 @@
     .option-component{
         margin-right: 2%;
     }
+
+    .combobox{
+        margin: 1%;
+        
+        font-size: 90% !important;
+        min-width: 150px;
+
+        .label{
+            color: $contrast;
+        }
+
+        
+        
+       
+    }
+
+    .buttonMain{
+        height: fit-content;
+        margin: 1% !important;
+        margin-bottom: 1.5% !important;
+      
+    }
+
+    .optionsContainer{
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+
+    .inputs{
+        width: 80%;
+        justify-content: space-between;
+    }
+
     border-radius: 8px;
 
     .options-panel-footer{
@@ -20,5 +55,13 @@
         color: map-get($lightText, heading);
     }
 
+}
+
+@media screen and (max-width: 768px) {
+    .options-panel{
+        .combobox, .buttonMain{
+            width: 100% !important;
+        }
+    }
 }
 

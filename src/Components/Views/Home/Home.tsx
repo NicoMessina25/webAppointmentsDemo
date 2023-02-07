@@ -1,14 +1,34 @@
 import React, { useState } from 'react'
+import { useIntl } from 'react-intl';
+import getPhonePrefixes from '../../../services/phonePrefixes';
 import Combobox from '../../Combobox/Combobox';
 import IconPanel from '../../Panels/IconPanel/IconPanel';
 import InputTextCustom from '../../Inputs/InputText/InputTextCustom';
 import OptionsPanel from '../../Panels/OptionesPanel/OptionsPanel'
 import './Home.scss'
 import NextAppointment from '../../Panels/NextAppointment/NextAppointment';
+import HomePrescriptionsPanel from '../../Panels/HomePrescriptionsPanel/HomePrescriptionsPanel';
 
 export default function Home() {
 
   const numbers: number[] = [1, 2, 3, 4, 5, 6];
+  const intl = useIntl();
+
+  const options = [
+    {label: "Profesional" },
+    {label: "Especialidad"},
+    {label: "Sede"}
+  ]
+
+  const [country, setCountry] = useState({name: "Argentina",
+    dial_code: "+54",
+    code: "AR"});
+
+  const receivedPrescriptions = [
+    {doctor: "Dr. Pinna", medicationDesc: "Letrozole 2,5 mg x 3 cajas", date: new Date(2020, 3, 14), status:"ready"},
+    {doctor: "Dr. Pinna", medicationDesc: "Letrozole 2,5 mg x 3 cajas", date: new Date(2020, 3, 14), status:"observed"},
+    {doctor: "Dr. Pinna", medicationDesc: "Letrozole 2,5 mg x 3 cajas", date: new Date(2020, 3, 14), status:"inCourse"}
+  ]
   
   function createComponents(){
     
@@ -37,15 +57,31 @@ export default function Home() {
 
   return (
     <div className='Home-container'>
-        <OptionsPanel tittle="Este es un titulo" options={createComponents()}></OptionsPanel>
-        <div>soy un componente de home</div>
+        <OptionsPanel buttonLabel={"Buscar turno"} >
         
-        <div className='flexible--row'>
-          <IconPanel className="icons" iconName="vaadin:pills" label="usuario"></IconPanel>
-          <IconPanel className="icons" iconName="vaadin:paperclip" label="usuario"></IconPanel>
-          <IconPanel className="icons" iconName="vaadin:pills" label="usuario"></IconPanel>
+          {options.map((op, ind)=>{
+            return <Combobox key={op.label + ind} getItems={getPhonePrefixes} label={op.label} optionLabel={"dial_code"} setValue={(e:any)=>
+            {                 
+              setCountry(e);
+            }} placeholder={intl.formatMessage({id: "Select"})} className="combobox" width={90/(options.length + 1)} />
+          })}
+        </OptionsPanel>
+        
+
+        
+        
+        <div className='flexible--rowWrap'>
+          <NextAppointment/>
+          <div className='flexible--rowWrap homeOptions'>
+            <IconPanel className="icons" iconName="vaadin:pills" label="usuario"></IconPanel>
+            <IconPanel className="icons" iconName="vaadin:paperclip" label="usuario"></IconPanel>
+            <IconPanel className="icons" iconName="vaadin:pills" label="usuario"></IconPanel>
+          </div>
+          
         </div>
-        <NextAppointment></NextAppointment>
+
+        <HomePrescriptionsPanel receivedPrescriptions={receivedPrescriptions} />
+        
     </div>
   )
 }

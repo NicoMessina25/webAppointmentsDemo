@@ -8,6 +8,12 @@
     height: 100%;
     width:fit-content;
     justify-content: space-between;
+
+   
+}
+
+.menuBody{
+    
 }
 
 .p-panelmenu-panel{
@@ -41,11 +47,13 @@
 }
 
 .buttonHeader{
+    margin: 1% !important;
+    padding: 0% !important;
+    width: 35px !important;
+    height: 35px !important;
     .iconify{
-        font-size: 150%;
+        font-size: 130%;
     }
-    margin-right: 10px;
-    color:white;
 }
 
 .container{

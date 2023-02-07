@@ -38,29 +38,33 @@ const Menu = React.forwardRef((props: any, ref) => {
     useEffect(buildMenuComponent, [])
 
     function buildMenuComponent() {
-
+        console.log(settingsJson)
         let menu = [];
 
         let item;
         let subItems;
 
         console.log(settingsJson.menu)
-        for (let i = 0; i < settingsJson.menu.length; i++) {
+        for (const element of settingsJson.menu) {
             item = {
-                label: settingsJson.menu[i].caption.toUpperCase(),
-                icon: <Icon icon={settingsJson.menu[i].icon} />,
+                label: element.caption.toUpperCase(),
+                icon: <Icon icon={element.icon} />,
                 subItems: [],
-                command: () => { return settingsJson.menu[i].items.length > 0 ? "" : navigate('/' + settingsJson.menu[i].route) }
+                command: (e:any) => {
+                    if(element.items.length === 0){ 
+                        return navigate('/' + element.route) 
+                    }
+                }
             }
 
             //si tiene items dentro
-            if (settingsJson.menu[i].items.length > 0) {
+            if (element.items.length > 0) {
                 subItems = [];
-                for (let j = 0; j < settingsJson.menu[i].items.length; j++) {
+                for (let j = 0; j < element.items.length; j++) {
                     let subitem = {
-                        label: settingsJson.menu[i].items[j].caption,
-                        icon: <Icon icon={settingsJson.menu[i].items[j].icon} />,
-                        command: () => { navigate('./' + settingsJson.menu[i].items[j].route) }
+                        label: element.items[j].caption,
+                        icon: <Icon icon={element.items[j].icon} />,
+                        command: () => { navigate('./' + element.items[j].route) }
 
                     }
                     subItems.push(subitem)
@@ -104,11 +108,11 @@ const Menu = React.forwardRef((props: any, ref) => {
         <div className="container">
             <div className="flexible--row header">
                 {/* Header */}
-                <Button className="p-button-rounded buttonHeader" icon={iconbutton} onClick={handleDisplayMenu}></Button>
+                <Button className="p-button-rounded buttonMain buttonHeader " icon={iconbutton} onClick={handleDisplayMenu}></Button>
                 <h2 className="header-title">{settingsJson.siteName}</h2>
             </div>
 
-            <div className="flexible--row maxwidth" >
+            <div className="flexible--row maxwidth menuBody" >
             
             <div className="menu-container flexible--column">
                     <PanelMenu className="" model={items} />

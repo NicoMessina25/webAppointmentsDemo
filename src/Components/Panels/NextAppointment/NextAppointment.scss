@@ -3,6 +3,13 @@
 .next-appointment{
     background-color: map-get($lightInfo,shiny);
     padding: 1% 2%;
+    margin: 5px 0%;
+    margin-right: .5%;
+    border-radius: 4px;
+    justify-content: space-evenly;
+    width: 100%;
+
+
     .next-appointment-header{
         margin-bottom: 1%;
     }
@@ -25,4 +32,10 @@
         padding: 1%;
     }
 
+}
+
+@media screen and (min-width: 768px) {
+    .next-appointment{
+        width: 38%;
+    }
 }

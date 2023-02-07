@@ -62,6 +62,8 @@ a {
     &:hover {
         transform: scale(1.01, 1.01);
     }
+
+    
 }
 
 .buttonMain {
@@ -73,6 +75,8 @@ a {
     &:hover {
         background-color: map-get($lightPrimary, text) !important;
     }
+
+    
 
 }
 
@@ -218,6 +222,16 @@ input,
     color: map-get($lightInfo, text);
 }
 
+.errorText{
+    @extend.text;
+    color: map-get($lightError, text);
+}
+
+.warningText{
+    @extend.text;
+    color: map-get($lightWarning, text);
+}
+
 .logoSite {
     width: auto;
     height: 7%;
@@ -228,14 +242,7 @@ input,
     color: map-get($lightText , tertiary)
 }
 
-.p-button-icon-only {
-    background-color: map-get($lightPrimary, main) !important;
-    border: 0 !important;
 
-    &:hover {
-        background-color: map-get($lightPrimary, text) !important;
-    }
-}
 
 .highlight {
     color: map-get($lightPrimary, main) !important;
@@ -297,7 +304,9 @@ input,
     font-size: 100% !important;
 }
 
-
+.p-dropdown-label.p-placeholder{
+    color: #6c757d !important;
+}
 
 
 .p-focus {

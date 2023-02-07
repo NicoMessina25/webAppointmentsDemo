@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import { appContext } from '../Context/appContext';
 import Loader from '../Loader/Loader';
 
-function Combobox({label, getItems, value, setValue, className, optionLabel, placeholder, scrollHeight, error, caption, reLoadItemsValue}:any) {
+function Combobox({label, getItems, value, setValue, className, optionLabel, placeholder, scrollHeight, error, caption, reLoadItemsValue, width}:any) {
   const [items, setItems]:any = useState([]);
   const [isMoreData, setIsMoreData] = useState(true);
   const [isLoadingData, setIsLoadingData] = useState(false);
@@ -102,7 +102,7 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
   }
 
   return (
-    <div className={`inputContainer flexible--column ${className}`}>
+    <div className={`inputContainer flexible--column ${className}`} style={{width:`${width}%`}}>
         <p className='label inputLabel'>{label}</p>
         <Dropdown 
           ref={dropdown} 

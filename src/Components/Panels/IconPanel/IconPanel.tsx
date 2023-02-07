@@ -8,7 +8,7 @@ export default function IconPanel({label,iconName,className}:any) {
         <div>
             <Icon className='icon-panel-icon' icon={iconName}/>
         </div>
-        <div>
+        <div className='label'>
             {label}
         </div>
     </div>

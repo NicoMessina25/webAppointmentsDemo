@@ -47,6 +47,16 @@ export default function SecurityDataForm({user, setUser, setDisplayRegisterCance
             valid = false
         }
 
+        if (user.password.length < 8){
+            _inputErrors.password = {isValid: false, caption: intl.formatMessage({id:"AtLeast8Characters"})}
+            valid = false;
+        }
+
+        if(user.repeatPassword.length < 8){
+            _inputErrors.repeatPassword = {isValid: false, caption: ""}
+            valid = false;
+        }
+
         if(user.password.localeCompare(user.repeatPassword)){
             _inputErrors.repeatPassword = {isValid: false, caption: intl.formatMessage({id:"PasswordsDoNotMatch"})}
             _inputErrors.password.caption = "";

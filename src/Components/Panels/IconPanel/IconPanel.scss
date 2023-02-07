@@ -2,11 +2,20 @@
 
 .icon-panel{
     align-items: center;
+    justify-content: space-evenly;
+    margin: 5px 0.5%;
+    padding: 2%;
     .icon-panel-icon{
         font-size: 400%;
         margin-bottom: 5%;
         color:#3CB8BA;
     }
+
+    .label{
+        margin: 1% 0%;
+        color: map-get($lightContrastShade,90);
+    }
+
     box-shadow: 0px 3px 12px -1px rgba(28, 52, 84, 0.26), 0px 2px 4px -1px rgba(28, 55, 90, 0.16);
     border-radius: 4px;
     color:map-get($lightContrastShade,90);

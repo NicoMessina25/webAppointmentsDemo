@@ -1,0 +1,37 @@
+@import "../../scss/colors";
+
+.itemListTemplate{
+    margin: 1%;
+
+    .label{
+        color: map-get($lightText, body);
+        font-weight: 600;
+        margin: 0.5% 0%;
+    }
+
+    .date{
+        color: map-get($lightText, body);
+        font-size:90%;
+        text-align: right;
+    }
+
+    .dataContainer{
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .statusText{
+        font-weight: 500;
+        
+    }
+
+    .observedStatusText{
+        @extend.statusText;
+        text-decoration: underline;
+    }
+
+    .buttonMain3{
+        margin: 0 !important;
+        
+    }
+}
