@@ -114,7 +114,7 @@ export default function Register() {
     return (
         <div className="flexible--column registerContainer">
             <header className="flexible--column registerHeader">
-                <img src="/img/ccyr.png" alt="" />
+                <img src="/img/advenio-medere.png" alt="" />
                 <h1>{intl.formatMessage({ id: "Registration" })}</h1>
                 <Steps model={items} className="steps" activeIndex={activeIndex} />
             </header>

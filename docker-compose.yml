@@ -1,0 +1,11 @@
+version: "3"
+services:
+  webappointments-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        - REACT_APP_MEDERE_ADDRESS=http://medere1.medere.localhost:8080
+        - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "8098:80"
