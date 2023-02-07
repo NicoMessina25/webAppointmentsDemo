@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useIntl } from 'react-intl';
 import getPhonePrefixes from '../../../services/phonePrefixes';
 import Combobox from '../../Combobox/Combobox';
 import IconPanel from '../../Panels/IconPanel/IconPanel';
@@ -7,7 +6,11 @@ import InputTextCustom from '../../Inputs/InputText/InputTextCustom';
 import OptionsPanel from '../../Panels/OptionesPanel/OptionsPanel'
 import './Home.scss'
 import NextAppointment from '../../Panels/NextAppointment/NextAppointment';
+import AppointmentModal from '../../Modal/CustomModal/AppointmentModal';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { Icon } from '@iconify/react';
 import HomePrescriptionsPanel from '../../Panels/HomePrescriptionsPanel/HomePrescriptionsPanel';
+import { Button } from 'primereact/button';
 
 export default function Home() {
 
@@ -55,6 +58,9 @@ export default function Home() {
   
   }
 
+  
+
+
   return (
     <div className='Home-container'>
         <OptionsPanel buttonLabel={"Buscar turno"} >
@@ -66,9 +72,6 @@ export default function Home() {
             }} placeholder={intl.formatMessage({id: "Select"})} className="combobox" width={90/(options.length + 1)} />
           })}
         </OptionsPanel>
-        
-
-        
         
         <div className='flexible--rowWrap'>
           <NextAppointment/>
@@ -82,6 +85,9 @@ export default function Home() {
 
         <HomePrescriptionsPanel receivedPrescriptions={receivedPrescriptions} />
         
+        
+    
+    
     </div>
   )
 }

@@ -150,7 +150,7 @@ input,
 
 
 .p-checkbox-box {
-    background-color: map-get($lightContrastShadeTranparent, 20) !important;
+    background-color: map-get($lightContrastShadeTransparent, 20) !important;
     border: 0 !important;
     width: 22px !important;
     height: 22px !important;
@@ -220,6 +220,12 @@ input,
 .infoText {
     @extend.text;
     color: map-get($lightInfo, text);
+}
+
+.textBold {
+    @extend.text;
+    font-weight: 600;
+    
 }
 
 .errorText{
@@ -424,7 +430,18 @@ esta clase es para el input text invalido
 
 }
 
+.grey-background{
+    background-color: map-get($lightInfo,transparent60);
+}
 
+.orange-background{
+    background-color: map-get($background,orange);
+}
+
+.lightPrimaryText{
+    @extend.text;
+    color:map-get($lightPrimary,text)
+}
 
 
 @media screen and (min-width:440px) {

@@ -1,0 +1,80 @@
+@import "../../../scss/colors";
+
+.appointment-modal-container{
+    
+    padding: 5%;
+    
+    .icon-clock-class{
+        width:10%;
+        align-items: center;
+        .iconify{
+            
+            color: map-get($lightContrastShadeTransparent,60);   
+            
+        }   
+    }
+
+    .icon-class{
+        width:10%;
+        align-items: center;
+        .iconify{
+            margin-top: 30%;
+            color: map-get($lightContrastShadeTransparent,60);
+            
+        }
+    }
+    
+
+    .content{
+        border-bottom: 1px solid map-get($lightContrastShadeTransparent, 20);
+        // margin-bottom: 3%;
+        width: 100%;
+        padding-left: 4%;
+
+        .title{
+            font-size: 90%;
+            padding-bottom: 1%;
+        }
+
+        .description{
+            font-size: 100%;
+        }
+
+        .footer{
+            font-size: 78%;
+            margin: 4% 0% 5%;
+        }
+    }
+
+}
+
+.grey-background{
+
+    .content{
+        border-bottom: 0px;
+        margin-bottom: 0%;
+
+        .footer{
+            font-size: 78%;
+            margin: 4% 0% 0%;
+        }
+    }   
+}
+
+.buttonMain2{
+    margin: 1% !important;
+}
+
+.clock-container-content{
+        font-size: 90%;
+        padding-bottom: 1%;
+        width: 100%;
+        padding-left: 4%;
+        margin-bottom: 5%;
+        width: 100%;
+        .description{
+            font-size: 16px;
+        }
+}
+
+

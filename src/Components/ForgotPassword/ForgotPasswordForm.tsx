@@ -66,6 +66,7 @@ export default function ForgotPasswordForm(props: any) {
 
         if (documentType != "" && document != "") {
             //SETEAR CAMPO MAIL Y DNI, ej:
+            
             getMailAndCellphone(document, documentType).then(res => {
                 if ("response" in res && res.response.status === 404) {
                     toggleModalUserNotExists();
@@ -77,7 +78,11 @@ export default function ForgotPasswordForm(props: any) {
                     setMobilephone(res.mobilephone);
                     props.setPatientId(res.medereentity);
                 }
-            });
+            }).catch(error=>{
+                toggleModalUserNotExists();
+                console.clear()
+            })
+            
         } else {
             toggleModalFields();
         }

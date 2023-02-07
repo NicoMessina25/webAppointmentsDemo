@@ -86,7 +86,7 @@
 
     .p-radiobutton-box.p-focus{
         border-color: map-get($lightPrimary, text) !important;
-        box-shadow: 0 0 0 .2rem map-get($lightContrastShadeTranparent, 10) !important;
+        box-shadow: 0 0 0 .2rem map-get($lightContrastShadeTransparent, 10) !important;
     }
 
 }

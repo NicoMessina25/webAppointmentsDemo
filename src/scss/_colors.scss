@@ -1,15 +1,15 @@
 /* $lightPalette:(primary: #3CB8BA, info: #E29583, warning: #FFC107, success: #28A745, error: #DC3545); 
 
 $lightPaletteText:(primary: #01717C, info:#B27668,warning:#E0A800, success:#28A745, error:#DC3545); */
-
+//rgba(28, 46, 69, 0.6);
 $contrast: #FFF;
 $contrastDark: #192434;
-$lightContrastShadeTranparent: (100: $contrastDark, 90: #18273AF0, 80: #1A293DD4,70: #1B2B41B8, 60: #1C2E4599, 50: #1C304A80, 40: #1C324F61, 30:#1C345442, 20:#1C375A29, 10: #1A38601A, 5: #193B670D, 0: #193B670D);
+$lightContrastShadeTransparent: (100: $contrastDark, 90: #18273AF0, 80: #1A293DD4,70: #1B2B41B8, 60: #1C2E4599, 50: #1C304A80, 40: #1C324F61, 30:#1C345442, 20:#1C375A29, 10: #1A38601A, 5: #193B670D, 0: #193B670D);
 
 $lightContrastShade: (100: $contrastDark, 90: #263446, 80: #414D5E,70: #5A6676, 60: #77828F, 50: #8D97A4, 40: #A9B1BC, 30:#C4CAD3, 20:#DBDFE4, 10: #E8EBEF, 5: #F3F5F7, 0: #193B6700);
 
 $lightPrimary:(main: #3CB8BA, text: #01717C, contrast: $contrast, transparent50: #3cb8ba50, transparent15: #3cb8ba15); 
-$lightInfo:(main: #E29583, text: #B27668, contrast: $contrast,shiny:#E17056); 
+$lightInfo:(main: #E29583, text: #B27668, contrast: $contrast,shiny:#E17056, transparent60:rgba(230, 230, 230, 0.6)); 
 $lightWarning:(main: #FFC107, text: #E0A800, contrast: $contrast); 
 $lightSuccess:(main: #28A745, text: #28A745, contrast: $contrast); 
 $lightError:(main: #fdf2f3, transparent10: #DC354510, text: #DC3545, contrast: $contrast);
@@ -19,6 +19,7 @@ $lightText: (heading: map-get($lightContrastShade, 100), body: map-get($lightCon
 
 $lightPaletteText:(primary: #01717C, info:#B27668,warning:#E0A800, success:#28A745, error:#DC3545);
 
+$background:(orange: rgba(241, 203, 194, 0.7));
 
 
 $transpMainCol:(transPrimary: rgba(10, 5, 5, 0.85), transBlue: rgba(4, 200, 242,0.85));

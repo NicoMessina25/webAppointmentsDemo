@@ -5,7 +5,7 @@ import "./Modal.scss"
 import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 
-export default function Modal({visible, setVisible, header, footerButtonRightText, footerButtonLeftText, onClickLeftBtn, onClickRightBtn, pathRightBtn, pathLeftBtn, children,onHideCustom}:any){
+export default function Modal({visible, setVisible, header, footerButtonRightText, footerButtonLeftText, onClickLeftBtn, onClickRightBtn, pathRightBtn, pathLeftBtn, children,onHideCustom,footermessage}:any){
 
     const onHide = () => {
         setVisible(false);
@@ -26,6 +26,7 @@ export default function Modal({visible, setVisible, header, footerButtonRightTex
     return(
         <Dialog visible={visible} header={header} onHide={onHide} footer={renderFooter} className="modal">
             <div className="textDark">{children}</div>
+            { footermessage && footermessage }
         </Dialog>
     );
 }

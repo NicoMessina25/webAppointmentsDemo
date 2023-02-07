@@ -17,9 +17,6 @@ export function getMailAndCellphone(document:any,documenttype:any){
       .then(res => 
         res.data
       )
-      .catch(er => 
-        er
-      );
 }
 
 export function saveUser(user:any, onlyUser:boolean) {
