@@ -8,7 +8,6 @@ import { getCaptchaKey } from "../../services/siteService";
 
 export default function Login(){
     const [logo, setLogo] = useState("");
-    const [src,setSrc]=useState(process.env.REACT_APP_MEDERE_ADDRESS+"/imgs/");
     const [defaultLogo,setDefaultLogo]=useState("/img/graylogo.png");
     let logoLoaded=false;
 
@@ -17,18 +16,16 @@ export default function Login(){
             logoLoaded=true;
             getLogo().then(res=>{
                 setLogo(res);
-                setSrc(src+res);
             })
-        }
-        
+        } 
     },[]) 
-
+    
         
     return(
         <div className="login flexible--column">
-            <img src={src} onError={()=>{setSrc(defaultLogo)}} alt="" className='logoSite' />
+            
+            <img src={logo!="" ? process.env.REACT_APP_MEDERE_ADDRESS+"/imgs/"+logo : defaultLogo} onError={()=>{setLogo("")}} alt="" className='logoSite' />
             <LogginForm googleLogin/>
-         
             <img src="/img/graylogo.png" alt="" className='logo' />
         
         </div>
