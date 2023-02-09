@@ -32,6 +32,7 @@
     "DocumentType": "Document type",
     "Name":"Name",
     "Lastname": "Lastname",
+    "Document":"Document",
     "DocumentNumber": "Document number",
     "Gender": "Gender",
     "Female": "Female",

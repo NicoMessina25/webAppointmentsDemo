@@ -23,6 +23,7 @@ import Home from "../Home/Home";
 import { amilogged } from "../../../services/loginService";
 
 import { appContext } from '../../Context/appContext';
+import { logout } from "../../../services/siteService";
 
 const Menu = React.forwardRef((props: any, ref) => {
 
@@ -102,7 +103,8 @@ const Menu = React.forwardRef((props: any, ref) => {
 
     function handleSignOut() {
         localStorage.clear();
-        restoreUser()
+        restoreUser();
+        logout();
         navigate('/login')
     }
 

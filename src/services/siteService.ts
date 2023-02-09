@@ -6,15 +6,17 @@ export function getLanguage(){
 }
 
 export function getCaptchaKey(){
-    
-
     return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getWebAppointmentsCaptchaKey',{
         params:{
             appid:2
         }
     }).then(res => {
         return res.data
-    } );
-        
-    
+    } );   
+}
+
+export function logout(){
+    return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/api/auth/logout').then(res => {
+        return res.data
+    } );   
 }

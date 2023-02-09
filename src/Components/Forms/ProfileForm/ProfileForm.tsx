@@ -84,75 +84,69 @@ const [loadMoreFields, setLoadMoreFields] = useState(user.firstname !== "");
             </div>
         </div >
 
-        
-        <div className='flexible--row profile-form-container-columns'>
-        {/* Column Left */}
-        
-          <div className="flexible--column first-column">
+        <div className="flexible--row space-between">  
+          <InputTextCustom className='width-50' disable={!isButtonClicked} value={user.firstname} labelId="Name" onChange={(e:any)=>{setName(e.target.value)}} placeholder=""/>
+            
+          <InputTextCustom className='width-50' value={user.lastname} labelId="Lastname" onChange={(e:any)=>{}} placeholder="" disable={!isButtonClicked}/>
+        </div>
 
-            
-            <InputTextCustom disable={!isButtonClicked} value={user.firstname} labelId="Name" onChange={(e:any)=>{setName(e.target.value)}} placeholder=""/>
-            
-            <RadioButtonGroup options={genderOptions} setValue={(gender: any) => {
+        <div className="flexible--row space-between">
+          <RadioButtonGroup options={genderOptions} setValue={(gender: any) => {
                           setUser({ ...user, gender: gender })
                           onChangeRemoveError("gender")
-                      }} label={intl.formatMessage({ id: "Gender" })} value={user.gender} className="radioGroup" orientation={"row"} error={!inputErrors2.gender.isValid} caption={inputErrors2.gender.caption} disable={!isButtonClicked}/>
+                      }} label={intl.formatMessage({ id: "Gender" })} value={user.gender} className="radioGroup width-50" orientation={"row"} error={!inputErrors2.gender.isValid} caption={inputErrors2.gender.caption} disable={!isButtonClicked}/>
+        
+          
+        <InputDate value={user.birthdate} className='width-50' label={intl.formatMessage({id:"BirthDate"})} onChange={(e:any)=>{}} placeholder="" disable={!isButtonClicked}/>
 
-            <RadioButtonGroup options={documentOptions} setValue={(docType: any) => {
+        </div>
+
+        <div className="flexible--row space-between">
+          <RadioButtonGroup options={documentOptions} setValue={(docType: any) => {
                               setUser({ ...user, documentType: docType })
                               onChangeRemoveError("documentType")
                               setLoadMoreFields(false)
-                          }} label={intl.formatMessage({ id: "DocumentType" })} value={user.documentType} className="radioGroup" orientation={"row"} error={!inputErrors2.documentType.isValid} caption={inputErrors2.documentType.caption} disable={!isButtonClicked}/>
+                          }} label={intl.formatMessage({ id: "DocumentType" })} value={user.documentType} className="radioGroup width-50" orientation={"row"} error={!inputErrors2.documentType.isValid} caption={inputErrors2.documentType.caption} disable={!isButtonClicked}/>
+            <InputTextCustom  className='width-50' value={user.document} disable={!isButtonClicked} labelId="Document" onChange={(e:any)=>{}} placeholder=""/>
+        </div>
 
-          
+        <div className="flexible--row space-between">
+          <InputTextCustom className='width-50' value={user.address} disable={!isButtonClicked} labelId="Address" onChange={(e:any)=>{}} placeholder=""/>
+          <InputTextCustom className='width-50' value={user.city.location} labelId="City" onChange={(e:any)=>{}} placeholder="" disable={!isButtonClicked}/>
+        </div>
 
-          <InputTextCustom value={user.address} disable={!isButtonClicked} labelId="Address" onChange={(e:any)=>{}} placeholder=""/>
-
-            
-          <InputPhone labelId="Phone" value={user.mobilephone} setValue={(val: any, valField: any) => {
+        <div className="flexible--row space-between">
+          <InputPhone className='width-50' labelId="Phone" value={user.mobilephone} setValue={(val: any, valField: any) => {
                           let _user = { ...user }
                           _user.mobilephone[valField] = val;
                           setUser(_user);
                           onChangeRemoveError("mobilephone")
                       }} error={!inputErrors2.mobilephone.isValid} caption={inputErrors2.mobilephone.caption} disable={!isButtonClicked}/>
                   
-          </div>
-
-          {/* { Column Right */}
-
-          <div className="flexible--column column">
-
-          <InputTextCustom value={user.lastname} labelId="Lastname" onChange={(e:any)=>{}} placeholder="" disable={!isButtonClicked}/>
-
-          <InputDate value={user.birthdate} label={intl.formatMessage({id:"BirthDate"})} onChange={(e:any)=>{}} placeholder="" disable={!isButtonClicked}/>
-
-          <InputTextCustom value={user.document} disable={!isButtonClicked} labelId="Document" onChange={(e:any)=>{}} placeholder=""/>
-
-          <InputTextCustom value={user.city.location} labelId="City" onChange={(e:any)=>{}} placeholder="" disable={!isButtonClicked}/>
-
-
-          </div>
-
-          
-
+          <InputTextCustom className='width-50' value={user.email} labelId="Email" onChange={(e:any)=>{}} placeholder="" disable={!isButtonClicked}/>
         </div>
-        <div className='flexible-column'>
+        
+        <div className='flexible--column'>
             <div className='title textBold'>
                 {intl.formatMessage({id:"MedicalCoverage"})}
             </div>
-            <div className='flexible-row'>
 
-              <RadioButtonGroup id={1} options={yesNo} value={user.hasMedicalCoverage} setValue={(value:any)=>{
+            <div className='flexible--row'>
+              
+              <div className="width-20">
+              <RadioButtonGroup id={1} className='radioGroup ' options={yesNo} value={user.hasMedicalCoverage} setValue={(value:any)=>{
                 setUser({...user, hasMedicalCoverage: value})
                 onChangeRemoveError("hasMedicalCoverage")
-            }} label={intl.formatMessage({id: "DoYouHaveMedicalCoverage?"})} orientation="row" error={!inputErrors.hasMedicalCoverage.isValid} caption={inputErrors.hasMedicalCoverage.caption} disable={!isButtonClicked}/>
-
-              <RadioButtonGroup id={2} options={yesNo} value={user.isMedCoverageThroughJob} setValue={(value:any)=>{
-                setUser({...user, isMedCoverageThroughJob: value})
-                onChangeRemoveError("isMedCoverageThroughJob")
-            }} label={intl.formatMessage({id: "IsThroughYourJob?"})} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} disable={!isButtonClicked}/>
+                }} label={intl.formatMessage({id: "DoYouHaveMedicalCoverage?"})} orientation="row" error={!inputErrors.hasMedicalCoverage.isValid} caption={inputErrors.hasMedicalCoverage.caption} disable={!isButtonClicked}/>
+              </div>
+              <div className="width-20">
+              <RadioButtonGroup id={2} className='radioGroup' options={yesNo} value={user.isMedCoverageThroughJob} setValue={(value:any)=>{
+                  setUser({...user, isMedCoverageThroughJob: value})
+                  onChangeRemoveError("isMedCoverageThroughJob")
+              }} label={intl.formatMessage({id: "IsThroughYourJob?"})} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} disable={!isButtonClicked}/>
             </div>
-            <div className='flexible--row'>
+            </div>
+            <div className='flexible--row number-container space-between'>
 
             <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={user.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" getItems={getMedicalCoverages} value={user.medicalCoverage} setValue={(p:any)=>{
                     setUser({...user, medicalCoverage: p});
@@ -176,21 +170,22 @@ const [loadMoreFields, setLoadMoreFields] = useState(user.firstname !== "");
             
           </div>
 
-          <div className='flexible-column'>
+          <div className='flexible--column'>
             <div className='title textBold'>
                 {intl.formatMessage({id:"Security"})}
             </div>
-            <div className='flexible-row'>
+            <div className='flexible--row'>
               {intl.formatMessage({id:"SecurityMessage"})}
             </div>
             
-            <div className='flexible-row'>
+            <div className='flexible--row width-100'>
               
-              <RadioButtonGroup id={3} options={sendOptions} value={user.hasMedicalCoverage} setValue={(value:any)=>{
+              {/* <div className='flexible--row width-50-centered'> */}
+              <RadioButtonGroup className='width-25' id={3} options={sendOptions} value={user.hasMedicalCoverage} setValue={(value:any)=>{
                 setUser({...user, hasMedicalCoverage: value})
-            }} orientation="row" />
-
-            
+              }} orientation="row" />
+              {/* </div> */}
+         
             <Button icon="pi pi-check" label="Cambiar contraseña" className='buttonMain3'></Button>
 
             </div>

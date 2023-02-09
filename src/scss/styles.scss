@@ -49,7 +49,7 @@ a {
 }
 
 .marginButton {
-    margin: 2% !important;
+    margin: 12px !important;
 }
 
 .button {
@@ -110,7 +110,7 @@ a {
     font-weight: 500;
     color: #1b2b41b8;
     font-size: 100%;
-    margin: 3% 0%;
+    margin: 0px 0px 12px 0px;
 
     input,
     .p-dropdown {
@@ -344,6 +344,12 @@ input,
     @extend.marginButton;
 }
 
+.radioGroup{
+    width: 100%;
+    justify-content: space-evenly;
+    margin: 0px 16px 12px 0px;
+}
+
 /* 
     esta clase es para la contraseña invalida
 */
@@ -363,7 +369,7 @@ esta clase es para el input text invalido
 }
 
 .combobox {
-    margin: 2%;
+    margin: 0px 16px 12px 0px;
 }
 
 .p-dialog-header-icon:focus {

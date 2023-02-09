@@ -33,6 +33,7 @@
     "DocumentType": "Tipo de Documento",
     "Name":"Nombre",
     "Lastname": "Apellido",
+    "Document":"Documento",
     "DocumentNumber": "Número de documento",
     "Gender": "Sexo",
     "Female": "Femenino",
