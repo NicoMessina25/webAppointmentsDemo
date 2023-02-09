@@ -6,7 +6,7 @@ import "./InputTextCustom.scss"
 
 
 
-export default function InputTextCustom({value, onChange, labelId, className, password,feedback, placeholder, caption, onKeyDown,error,onEnter}:any){
+export default function InputTextCustom({value, onChange, labelId, className, password,feedback, placeholder, caption, onKeyDown,error,onEnter, disable}:any){
 
     const intl = useIntl();
     //{`${ error && 'inputError' }`}
@@ -28,6 +28,7 @@ export default function InputTextCustom({value, onChange, labelId, className, pa
                 {labelId && <p className="label inputLabel">{intl.formatMessage({id: labelId})}</p>}
                 { password? <Password 
                                 value={value} 
+                                disabled={disable}
                                 className={error &&  'p-invalid'} 
                                 feedback={feedback} 
                                 onChange={onChange} 
@@ -37,7 +38,8 @@ export default function InputTextCustom({value, onChange, labelId, className, pa
                                 footer={passwordFooter} /> 
                             :
                             <InputText 
-                                value={value} 
+                                value={value}
+                                disabled={disable} 
                                 onChange={onChange} 
                                 className={error &&  'p-invalid'} 
                                 placeholder={placeholder} 

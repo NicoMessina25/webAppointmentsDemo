@@ -13,39 +13,15 @@ import UserVerificationForm from "./UserVerificationForm/UserVerificationForm";
 import { forEachChild } from "typescript";
 import { appContext } from "../Context/appContext";
 
-
 export default function Register() {
     const intl = useIntl();
     const [activeIndex, setActiveIndex] = useState(0);
-    const [user, setUser] = useState({
-        username: "",
-        password: "",
-        documentType: 0,
-        document: "",
-        firstname: "",
-        lastname: "",
-        email: "",
-        gender: "",
-        birthdate: null,
-        mobilephone: {
-            prefix: "+54",
-            area: "",
-            number: "",
-        },
-        address: "",
-        city: { location: 'Mar del Plata, Buenos Aires, Argentina', city: 1 },
-        memberNumber: "",
-        hasMedicalCoverage: null,
-        isMedCoverageThroughJob: null,
-        medicalCoverage: null,
-        plan: null,
-        acceptTerms: false,
-        repeatPassword: ""
-    });
+    
     const [displayRegisterCancel, setDisplayRegisterCancel] = useState(false)
     const [displayRegisterComplete, setDisplayRegisterComplete] = useState(false);
 
-
+    const {user}:any = useContext(appContext);
+    const {setUser}:any = useContext(appContext);
 
 
     const items = [

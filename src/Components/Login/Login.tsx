@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import LogginForm from "../LogginForm/LoginForm";
+import LogginForm from "../Forms/LogginForm/LoginForm";
 import "../../scss/styles.scss"
 import "./Login.scss"
 import { getLogo } from "../../services/imageService";

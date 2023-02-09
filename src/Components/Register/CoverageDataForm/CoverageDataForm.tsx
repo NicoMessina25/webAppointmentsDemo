@@ -68,7 +68,6 @@ export default function CoverageDataForm({user, setUser, setDisplayRegisterCance
             for(const ie in inputErrors){
                 
                 if(!user[ie] && user[ie] !== false){
-                    console.log("xd");
                     
                     _inputErrors[ie].caption = intl.formatMessage({id: "ThisFieldIsRequired"});
                     _inputErrors[ie].isValid = valid = false;

@@ -1,18 +1,19 @@
 import React, { useContext, useState} from "react";
-import "../../scss/styles.scss"
+import "../../../scss/styles.scss"
 import "./LoginForm.scss"
 import {Button} from "primereact/button"
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Link, Navigate } from "react-router-dom";
-import Modal from "../Modal/Modal";
+import Modal from "../../Modal/Modal";
 import { useIntl } from 'react-intl';
-import InputTextCustom from "../Inputs/InputText/InputTextCustom";
-import { authenticateUser } from "../../services/loginService";
+import InputTextCustom from "../../Inputs/InputText/InputTextCustom";
+import { authenticateUser } from "../../../services/loginService";
 import { useNavigate } from "react-router-dom";
-import { appContext } from "../Context/appContext";
+import { appContext } from "../../Context/appContext";
 import { log } from "console";
+import { getPatientInfo } from "../../../services/UserService";
 
 
 
@@ -35,6 +36,11 @@ export default function LogginForm({googleLogin}:any){
 
     const navigate = useNavigate();
     const {setAppSettings}:any = useContext(appContext);
+    const {setModificateUser}:any = useContext(appContext);
+
+    const {user}:any = useContext(appContext);
+
+    
 
     function validateUser(){
         //Validar antes de ir al backend que los dos campos tienen datos.
@@ -50,7 +56,30 @@ export default function LogginForm({googleLogin}:any){
         if(password!="" && userName!=""){
             authenticateUser(userName,password).then(res=>{
                 if(res.request.status==200){
+
                     localStorage.setItem("settings",JSON.stringify(res.data))
+
+                    let settingsString: any = localStorage.getItem("settings");
+                    let settingsJson;
+                    
+                    if (settingsString){
+                        
+                        settingsJson = JSON.parse(settingsString)
+                    
+                        getPatientInfo(settingsJson.entityId).then(res=>{
+                            res.mobilephone={
+                                prefix: "+54",
+                                area: "",
+                                number: "",
+                            };
+                            res.birthDate = new Date(res.birthDate);
+                            setModificateUser(res);
+                            
+                            
+                        })
+                        
+                    }
+                    
                     navigate("/home");
                 }else{
                     setErrorPassstyle(true)

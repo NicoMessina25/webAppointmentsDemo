@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import { PanelMenu } from 'primereact/panelmenu';
@@ -22,6 +22,8 @@ import FamilyGroup from "../FamilyGroup/FamilyGroup";
 import Home from "../Home/Home";
 import { amilogged } from "../../../services/loginService";
 
+import { appContext } from '../../Context/appContext';
+
 const Menu = React.forwardRef((props: any, ref) => {
 
     let settingsString: any = localStorage.getItem("settings");
@@ -34,17 +36,17 @@ const Menu = React.forwardRef((props: any, ref) => {
         settingsJson = JSON.parse(settingsString)
 
     let navigate = useNavigate();
+    const {restoreUser}:any = useContext(appContext)
+
 
     useEffect(buildMenuComponent, [])
 
     function buildMenuComponent() {
-        console.log(settingsJson)
         let menu = [];
 
         let item;
         let subItems;
 
-        console.log(settingsJson.menu)
         for (const element of settingsJson.menu) {
             item = {
                 label: element.caption.toUpperCase(),
@@ -100,6 +102,7 @@ const Menu = React.forwardRef((props: any, ref) => {
 
     function handleSignOut() {
         localStorage.clear();
+        restoreUser()
         navigate('/login')
     }
 

@@ -6,6 +6,7 @@ import { getCaptchaKey, getLanguage } from '../../services/siteService';
 import { locale, addLocale } from 'primereact/api';
 import SpanishMessagesPrime from '../../lang/esPrimeReact.json';
 import { any } from 'prop-types';
+import { getPatientInfo } from '../../services/UserService';
 
 const appContext = React.createContext({});
 
@@ -18,6 +19,32 @@ const AppProvider = ({children}:any) => {
     addLocale('es',SpanishMessagesPrime );
     locale('es');
 
+    const [user, setUser] : any= useState({
+        username: "",
+        password: "",
+        documentType: 0,
+        document: "",
+        firstname: "",
+        lastname: "",
+        email: "",
+        gender: "",
+        birthdate: null,
+        mobilephone: {
+            prefix: "+54",
+            area: "",
+            number: "",
+        },
+        address: "",
+        city: { location: 'Mar del Plata, Buenos Aires, Argentina', city: 1 },
+        memberNumber: "",
+        hasMedicalCoverage: null,
+        isMedCoverageThroughJob: null,
+        medicalCoverage: null,
+        plan: null,
+        acceptTerms: false,
+        repeatPassword: ""
+    });
+    
     useEffect(()=>{
          getLanguage().then(res=>{
             setLanguageId(res);
@@ -26,7 +53,29 @@ const AppProvider = ({children}:any) => {
                 case 2: setMessages(EnglishMessages);setLocale('en');locale('en');break;
                 default : setMessages(SpanishMessages);setLocale('es');locale('es');;
             }
-        }) 
+        })
+        
+        let settingsString: any = localStorage.getItem("settings");
+        let settingsJson;
+        
+        if (settingsString){
+            
+            settingsJson = JSON.parse(settingsString)
+        
+            getPatientInfo(settingsJson.entityId).then(res=>{
+                res.mobilephone={
+                    prefix: "+54",
+                    area: "",
+                    number: "",
+                };
+                res.birthDate = new Date(res.birthDate);
+                setUser(res);
+                
+            })
+            
+        }
+
+
     },[])
 
        //Captcha
@@ -41,6 +90,66 @@ const AppProvider = ({children}:any) => {
    
        //Captcha
 
+       function setModificateUser(patient:any){
+
+        console.log(patient)
+        const { firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, birthdate, city } = patient
+
+        const { hasMedicalCoverage, healthentity, healthentityplan, voluntary } = healthpatientcoverage;
+
+        if (patient) {
+            let _user = {
+                ...user,
+                firstname: firstname,
+                lastname: lastname,
+                address: address,
+                birthdate: new Date(birthdate),
+                email: email,
+                document: document,
+                documentType: documentType.documentType,
+                gender: gender,
+                hasMedicalCoverage: hasMedicalCoverage,
+                medicalCoverage: healthentity,
+                plan: healthentityplan,
+                isMedCoverageThroughJob: voluntary,
+                city: city
+            }
+            setUser(_user);
+            
+            console.log(_user)
+        }
+       }
+
+       function restoreUser(){
+            let defaultUser={ username: "",
+            password: "",
+            documentType: 0,
+            document: "",
+            firstname: "",
+            lastname: "",
+            email: "",
+            gender: "",
+            birthdate: null,
+            mobilephone: {
+                prefix: "+54",
+                area: "",
+                number: "",
+            },
+            address: "",
+            city: { location: 'Mar del Plata, Buenos Aires, Argentina', city: 1 },
+            memberNumber: "",
+            hasMedicalCoverage: null,
+            isMedCoverageThroughJob: null,
+            medicalCoverage: null,
+            plan: null,
+            acceptTerms: false,
+            repeatPassword: ""
+            }
+
+            setUser(defaultUser)
+       }
+
+       
     
   /*   //application configuration obtained via log
 
@@ -68,8 +177,11 @@ const AppProvider = ({children}:any) => {
         setSettings(settingsObject);
     }
      */
+    
+    
+
     return (
-        <appContext.Provider value={{messages,localeintl,languageId,captchaKey}}>
+        <appContext.Provider value={{messages,localeintl,languageId,captchaKey,user,setUser,restoreUser,setModificateUser}}>
              <IntlProvider locale={localeintl} messages={messages}>
                 {children}
             </IntlProvider>

@@ -122,5 +122,10 @@
     "BackToLogIn":"Back to log in",
     "IfYouForgotYourPassword":"If you forgot your password",
     "ClickHere":"Click here",
-    "SelectACity":"Select a city"
+    "SelectACity":"Select a city",
+    "Edit":"Edit",
+    "SaveChanges":"Save changes",
+    "PersonalData":"Personal data",
+    "MedicalCoverage":"Medical coverage",
+    "SecurityMessage":"To change your password we must send you a security code. How do you want to receive it?"
 }

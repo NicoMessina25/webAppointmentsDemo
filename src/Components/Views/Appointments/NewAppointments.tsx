@@ -88,11 +88,15 @@ export default function NewAppointments() {
     
     let buttons:any=[];
 
-    buttons.push(<Button className='buttonMain2' label="09:00 am"></Button>)
-    buttons.push(<Button className='buttonMain2' label="10:00 am"></Button>)
-    buttons.push(<Button className='buttonMain2' label="18:00 am"></Button>)
-    buttons.push(<Button className='buttonMain2' label="19:00 am"></Button>)
-    buttons.push(<Button className='buttonMain2' label="20:00 am"></Button>)
+    buttons.push(<Button key={1} className='buttonMain2' label="09:00 am"></Button>)
+    buttons.push(<Button key={2} className='buttonMain2' label="10:00 am"></Button>)
+    // buttons.push(<Button className='buttonMain2' label="18:00 am"></Button>)
+    buttons.push(<Button key={3} className='buttonMain2' label="19:00 am"></Button>)
+    buttons.push(<Button key={4} className='buttonMain2' label="20:00 am"></Button>)
+    
+    buttons.push(<Button key={5} className='buttonMain2' label="20:00 am"></Button>)
+    
+    buttons.push(<Button key={6} className='buttonMain2' label="20:00 am"></Button>)
 
     let component={
       icon: <Icon icon="vaadin:clock" ></Icon>,

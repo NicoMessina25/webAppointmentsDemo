@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import { appContext } from '../Context/appContext';
 import Loader from '../Loader/Loader';
 
-function Combobox({label, getItems, value, setValue, className, optionLabel, placeholder, scrollHeight, error, caption, reLoadItemsValue, width}:any) {
+function Combobox({label, getItems, value, setValue, className, optionLabel, placeholder, scrollHeight, error, caption, reLoadItemsValue, width,disable}:any) {
   const [items, setItems]:any = useState([]);
   const [isMoreData, setIsMoreData] = useState(true);
   const [isLoadingData, setIsLoadingData] = useState(false);
@@ -22,7 +22,7 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
   },[page, filterValue]);
 
   useEffect(()=>{
-    console.log(label,reLoadItemsValue);
+
     if(reLoadItemsValue){
       if (page !== 0)
         setPage(0)
@@ -55,7 +55,6 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
                 let element = _items.find((i)=>i[optionLabel] === value[optionLabel])
 
                 if(element){
-                  console.log(element);
                   
                   _items.splice(_items.indexOf(element), 1)
                 }
@@ -116,6 +115,7 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
           optionLabel={optionLabel} 
           options={items} 
           className={error && "p-invalid"} 
+          disabled={disable}
           virtualScrollerOptions={{ lazy: false, 
             itemSize:itemSize, 
             onScroll: onScroll,

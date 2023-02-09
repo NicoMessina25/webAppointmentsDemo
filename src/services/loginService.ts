@@ -27,7 +27,6 @@ export function saveUser(user:any, onlyUser:boolean) {
   newUser.medicalCoverage = user.medicalCoverage?.entityid;
   newUser.plan = user.plan?.healthentityplan
   
-  console.log(user);
   
 
   return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+`/rest/webappointments/${onlyUser?"saveOnlyUser":"saveUserAndPatient"}`,
@@ -170,7 +169,6 @@ export function sendLocationConsent(userId:number){
       latitude: coords.latitude,
       longitude: coords.longitude
     }).then((res)=>{
-    console.log(res.data);
     
   }).catch((err)=>{console.log(err);
   })
@@ -209,7 +207,7 @@ export function getValidationData(language:number, id:number){
 }
 
 export function sendValidationDataAnswers(validationDTO:any, patientId:any){
-  console.log(validationDTO);
+
   
   return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/validatePatient', validationDTO, {
     params: {

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Combobox from "../../Combobox/Combobox";
 import getPhonePrefixes from "../../../services/phonePrefixes";
 
-export default function InputPhone({value, setValue, labelId, className, error, caption}:any){
+export default function InputPhone({value, setValue, labelId, className, error, caption,disable}:any){
     const intl = useIntl();
     
     const [countries, setCountries]:any= useState([]);
@@ -41,14 +41,14 @@ export default function InputPhone({value, setValue, labelId, className, error, 
                 <Combobox value={country} setValue={(e:any)=>{                    
                     setValue(e.dial_code, "prefix");
                     setCountry(e);
-                    }} className="comboboxPhone" getItems={getPhonePrefixes} optionLabel={"dial_code"}/>
+                    }} className="comboboxPhone" getItems={getPhonePrefixes} optionLabel={"dial_code"} disable={disable}/>
                
                 <InputTextCustom placeholder={intl.formatMessage({id:"Area"}).toLowerCase()} value={value.area} onChange={(e:any)=>{
                     setValue(e.target.value, "area");
-                }} className="areaInputPhone" onKeyDown={onKeyDownHandler} error={error}/>
+                }} className="areaInputPhone" onKeyDown={onKeyDownHandler} error={error} disable={disable}/>
                 <InputTextCustom placeholder={intl.formatMessage({id:"Number"}).toLowerCase()} value={value.number} onChange={(e:any)=>{
                     setValue(e.target.value, "number")
-                }} className="numberInputPhone" onKeyDown={onKeyDownHandler} error={error}/>
+                }} className="numberInputPhone" onKeyDown={onKeyDownHandler} error={error} disable={disable}/>
             </div>
             {caption && <p className={error? "caption-invalid":"caption"}>{caption}</p>}
         </div>

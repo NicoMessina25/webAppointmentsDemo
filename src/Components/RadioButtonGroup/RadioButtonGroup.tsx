@@ -2,7 +2,7 @@ import { RadioButton } from "primereact/radiobutton";
 import "./RadioButtonGroup.scss";
 import { useIntl } from "react-intl";
 
-export default function RadioButtonGroup({id, options, value, setValue, label, fieldId, className, orientation, itemWidth, error, caption}:any){
+export default function RadioButtonGroup({id, options, value, setValue, label, fieldId, className, orientation, itemWidth, error, caption,disable}:any){
 
 
     return(
@@ -16,7 +16,7 @@ export default function RadioButtonGroup({id, options, value, setValue, label, f
 
                                 <RadioButton  inputId={`${id?id:0}${op.label}${ind}`} name={op.label} value={op.value} onChange={(e) => {
                                     setValue(e.value, fieldId)
-                                }} checked={value === op.value } />
+                                }} checked={value === op.value } disabled={disable}/>
 
                                 <label htmlFor={`${id?id:0}${op.label}${ind}`}>{op.label}</label>
                             </div>

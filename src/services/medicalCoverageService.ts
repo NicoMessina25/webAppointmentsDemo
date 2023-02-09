@@ -12,7 +12,7 @@ export function getMedicalCoverages(inputText:any, offSet:any, pageSize:any){
 }
 
 export function getPlans(inputText:any, offSet:any, pageSize:any, filterId:any){
-    console.log(filterId);
+    
     
     return axios.get(process.env.REACT_APP_MEDERE_ADDRESS +  '/rest/webappointments/getPlans', {
         params: {

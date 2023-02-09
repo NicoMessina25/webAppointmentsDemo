@@ -122,5 +122,10 @@
     "BackToLogIn":"Volver a inicio de sesión",
     "IfYouForgotYourPassword":"Si olvidaste tu contraseña",
     "ClickHere":"Haga click aquí",
-    "SelectACity":"Selcciona una ciudad"
+    "SelectACity":"Selcciona una ciudad",
+    "Edit":"Editar",
+    "SaveChanges":"Guardar cambios",
+    "PersonalData":"Datos personales",
+    "MedicalCoverage":"Cobertura médica",
+    "SecurityMessage":"Para cambiar tu contraseña debemos enviarte un código de seguridad ¿Cómo quieres recibirlo?"
 }

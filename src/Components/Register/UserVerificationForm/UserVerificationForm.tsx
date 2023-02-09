@@ -33,7 +33,6 @@ export default function UserVerificationForm({questions, answers, setAnswers, er
                                     let _answers:any = {...answers};
                                     
                                     _answers[field] = v;
-                                    console.log(_answers);
                                     setAnswers(_answers);
                                   }} label={label}
                                   fieldId={field}

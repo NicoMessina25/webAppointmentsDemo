@@ -65,7 +65,6 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
 
     useEffect(() => {
         if (cities != undefined && !user.city) {
-            console.log(cities[238]);
 
             setUser({ ...user, city: cities[238] });
         }
@@ -162,7 +161,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                     setPatientId(patientId);
                     switch (res.status) {
                         case 200: {
-                            console.log(res.data);
+                            
 
                             let validationData = res.data;
                             let _questions = [];
@@ -185,7 +184,6 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                             }
 
                             setQuestions(_questions);
-                            console.log(_questions);
 
                             break;
                         }
@@ -313,9 +311,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
 
                         const { hasMedicalCoverage, healthentity, healthentityplan } = healthpatientcoverage;
 
-                        console.log(patient);
                         if (patient) {
-                            console.log("guarda usuario");
                             let _user = {
                                 ...user,
                                 firstname: firstname,
@@ -332,7 +328,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                                 city: city
                             }
 
-                            console.log(_user);
+                            
 
                             setUser(_user);
                             setDisplayUserVerification(false)

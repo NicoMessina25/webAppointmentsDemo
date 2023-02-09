@@ -5,7 +5,7 @@ import "./scss/styles.scss"
 import "primereact/resources/themes/lara-light-indigo/theme.css"
 import "primereact/resources/primereact.min.css"
 import "primeicons/primeicons.css"
-import LogginForm from './Components/LogginForm/LoginForm';
+import LogginForm from './Components/Forms/LogginForm/LoginForm';
 import {BrowserRouter, Navigate, Route, Routes, useNavigate} from "react-router-dom"
 import Modal from './Components/Modal/Modal';
 import Login from './Components/Login/Login';

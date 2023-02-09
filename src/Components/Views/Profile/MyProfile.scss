@@ -1,0 +1,31 @@
+@import '../../../scss/mixins', '../../../scss/colors', '../../../scss/fontFamilies';
+
+.my-profile-container{
+    width: 100%;
+
+    .my-profile-header{
+        justify-content: space-around;
+        align-items: center;
+        
+        .my-profile-header-container{
+            width: 100%
+        }
+
+        .iconify{
+            color : map-get($lightInfo, text)
+        }
+        .my-profile-header-title{
+            width: 100%;
+            margin-left: 2%;
+            font-size: 16px;
+        }
+    }
+
+    .buttonSave{
+        min-width: max-content; 
+    }
+}
+
+.buttonMain2{
+    margin: 1% !important;
+}
