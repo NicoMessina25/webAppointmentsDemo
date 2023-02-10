@@ -16,7 +16,6 @@ export default function CustomMenu({activeIndex, setActiveIndex, bigMenu, settin
     useEffect(buildMenuComponent, [bigMenu, activeIndex])
 
     useEffect(()=>{
-        console.log(urlPathName)
         if(urlPathName){
            navigate(urlPathName); 
         } else navigate("/home");
@@ -24,13 +23,11 @@ export default function CustomMenu({activeIndex, setActiveIndex, bigMenu, settin
     },[urlPathName])
 
     function buildMenuComponent() {
-        console.log(settingsJson)
         let menu:any = [];
 
         let item;
         let subItems:any;
 
-        console.log(settingsJson.menu)
         settingsJson.menu.forEach((element:any,index:any)=> {
             item = {
                 template: (item:any, options:any)=>{

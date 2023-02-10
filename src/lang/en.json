@@ -128,5 +128,7 @@
     "SaveChanges":"Save changes",
     "PersonalData":"Personal data",
     "MedicalCoverage":"Medical coverage",
-    "SecurityMessage":"To change your password we must send you a security code. How do you want to receive it?"
+    "SecurityMessage":"To change your password we must send you a security code. How do you want to receive it?",
+    "AnErrorHasOccurred":"An error has occurred",
+    "Error":"Error"
 }

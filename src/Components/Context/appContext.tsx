@@ -9,6 +9,10 @@ import { any } from 'prop-types';
 import { getPatientInfo } from '../../services/UserService';
 import { Button } from 'primereact/button';
 import { Icon } from '@iconify/react';
+import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber';
+
+
+
 
 const appContext = React.createContext({});
 
@@ -21,33 +25,36 @@ const AppProvider = ({children}:any) => {
     addLocale('es',SpanishMessagesPrime );
     locale('es');
 
-    const [user, setUser] : any= useState({
-        username: "",
-        password: "",
-        documentType: 0,
-        document: "",
-        firstname: "",
-        lastname: "",
-        email: "",
-        gender: "",
-        birthdate: null,
-        mobilephone: {
-            prefix: "+54",
-            area: "",
-            number: "",
-        },
-        address: "",
-        city: { location: 'Mar del Plata, Buenos Aires, Argentina', city: 1 },
-        memberNumber: "",
-        hasMedicalCoverage: null,
-        isMedCoverageThroughJob: null,
-        medicalCoverage: null,
-        plan: null,
-        acceptTerms: false,
-        repeatPassword: ""
-    });
+    const [user, setUser] : any= useState(getDefaultPatient());
     
+    function validMobileForInputDate(res:any){
+        try{
+            const phoneUtil = PhoneNumberUtil.getInstance();
+            const parsedNumber = phoneUtil.parse(res.mobilePhone);
+            const parts = phoneUtil.format(parsedNumber, PhoneNumberFormat.INTERNATIONAL).replace("-", "").split(" ")
+            const countryCode = parts[0];
+            const areaCode = parts[1];
+            const phoneNumber = parts[2];
+            
+            if(areaCode.length>4)
+                throw new Error("Area invalida");
+
+            return {
+                prefix: countryCode,
+                area: areaCode,
+                number: phoneNumber,
+            };
+        }catch{
+            return {
+                prefix: "",
+                area: "",
+                number: res.mobilePhone,
+            };
+        }
+    }
+
     useEffect(()=>{
+        
          getLanguage().then(res=>{
             setLanguageId(res);
             switch(res){
@@ -65,18 +72,13 @@ const AppProvider = ({children}:any) => {
             settingsJson = JSON.parse(settingsString)
         
             getPatientInfo(settingsJson.entityId).then(res=>{
-                res.mobilephone={
-                    prefix: "+54",
-                    area: "",
-                    number: "",
-                };
-                res.birthDate = new Date(res.birthDate);
-                setUser(res);
-                
+                res.mobilephone=validMobileForInputDate(res);
+                setModificateUser(res);
             })
             
         }
 
+        
 
     },[])
 
@@ -88,19 +90,20 @@ const AppProvider = ({children}:any) => {
            getCaptchaKey().then(response=>{
                setCaptchaKey(response);
            })
+
+           console.log()
        },[])
    
        //Captcha
 
        function setModificateUser(patient:any){
 
-        console.log(patient)
-        const { firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, birthdate, city } = patient
+        const { firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, birthdate, city,_user} = patient
 
-        const { hasMedicalCoverage, healthentity, healthentityplan, voluntary } = healthpatientcoverage;
+        // const { hasMedicalCoverage, healthentity, healthentityplan, voluntary, healthpatientcoverage } = healthpatientcoverage;
 
         if (patient) {
-            let _user = {
+            let modificatedUser = {
                 ...user,
                 firstname: firstname,
                 lastname: lastname,
@@ -110,20 +113,33 @@ const AppProvider = ({children}:any) => {
                 document: document,
                 documentType: documentType.documentType,
                 gender: gender,
-                hasMedicalCoverage: hasMedicalCoverage,
-                medicalCoverage: healthentity,
-                plan: healthentityplan,
-                isMedCoverageThroughJob: voluntary,
-                city: city
+                hasMedicalCoverage: healthpatientcoverage.hasMedicalCoverage,
+                medicalCoverage: healthpatientcoverage.healthentity,
+                plan: healthpatientcoverage.healthentityplan,
+                isMedCoverageThroughJob: healthpatientcoverage.voluntary,
+                city: city,
+                _user:_user,
+                healthpatientcoverage:healthpatientcoverage.healthpatientcoverage,
+                noCredential:healthpatientcoverage.noCredential,
+                affiliateNo:healthpatientcoverage.affiliateNo,
+                username:patient.username,
+                clinichistoryid:patient.clinichistoryid,
+                medereentity:patient.medereentity,
+                mobilephone:patient.mobilephone
             }
-            setUser(_user);
+            setUser(modificatedUser);
             
-            console.log(_user)
         }
        }
 
-       function restoreUser(){
-            let defaultUser={ username: "",
+       function restorePatientDefault(){
+
+            setUser(getDefaultPatient())
+       }
+
+       function getDefaultPatient(){
+        return {
+            username: "",
             password: "",
             documentType: 0,
             document: "",
@@ -146,13 +162,54 @@ const AppProvider = ({children}:any) => {
             plan: null,
             acceptTerms: false,
             repeatPassword: ""
-            }
-
-            setUser(defaultUser)
+        }
        }
 
+       function returnValidPatientDTO(patient:any){
+            let validPatientDTO=Object.assign({} , patient)
+            validPatientDTO.documentType={
+                documentType: patient.documentType,
+                externalCode:"",
+                longName:"",
+                shortName:""
+            }
+            validPatientDTO.healthpatientcoverage={
+                affiliateNo:patient.affiliateNo,
+                hasMedicalCoverage:patient.hasMedicalCoverage,
+                healthPatientCoverage:1,//patient.healthpatientcoverage,
+                healthentity:{
+                    entityid:patient.medicalCoverage.entityid,
+                    name:patient.medicalCoverage.name,
+                },
+                healthentityplan:{
+                    healthentity:patient.plan.healthentity,
+                    healthentityplan:patient.plan.healthentityplan,
+                    name:patient.plan.name
+                },
+                noCredential:patient.noCredential,
+                voluntary:patient.isMedCoverageThroughJob
+            }
+            validPatientDTO.phoneNumber=null;
+            validPatientDTO.mobilePhone=patient.mobilephone.prefix+patient.mobilephone.area+patient.mobilephone.number;
+            validPatientDTO.medereentity=patient.medereentity;
+            validPatientDTO.clinichistoryid="";
+            validPatientDTO.birthdate=patient.birthdate;
+
+            delete validPatientDTO.affiliateNo;
+            delete validPatientDTO.isMedCoverageThroughJob
+            delete validPatientDTO.memberNumber;
+            delete validPatientDTO.noCredential;
+            delete validPatientDTO.hasMedicalCoverage;
+            delete validPatientDTO.mobilephone;
+            delete validPatientDTO.repeatPassword;
+            delete validPatientDTO.acceptTerms;
+            delete validPatientDTO.plan;
+            delete validPatientDTO.medicalCoverage;
+        
+            return validPatientDTO
+       }
        
-    
+       
   /*   //application configuration obtained via log
 
     let [settings,setSettings]=useState({
@@ -190,7 +247,7 @@ const AppProvider = ({children}:any) => {
       }
 
     return (
-        <appContext.Provider value={{messages,localeintl,languageId,captchaKey, renderState, user, setUser, restoreUser, setModificateUser}}>
+        <appContext.Provider value={{messages,localeintl,languageId,captchaKey,user,setUser,renderState,restorePatientDefault,setModificateUser,getDefaultPatient,returnValidPatientDTO,validMobileForInputDate}}>
              <IntlProvider locale={localeintl} messages={messages}>
                 {children}
             </IntlProvider>

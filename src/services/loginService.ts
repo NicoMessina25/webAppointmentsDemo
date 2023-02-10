@@ -31,7 +31,6 @@ export function saveUser(user:any, onlyUser:boolean) {
 
   return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+`/rest/webappointments/${onlyUser?"saveOnlyUser":"saveUserAndPatient"}`,
     newUser).then((res)=>{
-    console.log(res);
     let userId = res.data;
     if(user.acceptTerms && userId > 0){
         sendLocationConsent(userId);

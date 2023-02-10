@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 
 export function getLanguage(){
     return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getLanguage').then(res=>res.data)

@@ -128,5 +128,7 @@
     "SaveChanges":"Guardar cambios",
     "PersonalData":"Datos personales",
     "MedicalCoverage":"Cobertura médica",
-    "SecurityMessage":"Para cambiar tu contraseña debemos enviarte un código de seguridad ¿Cómo quieres recibirlo?"
+    "SecurityMessage":"Para cambiar tu contraseña debemos enviarte un código de seguridad ¿Cómo quieres recibirlo?",
+    "AnErrorHasOccurred":"ha ocurrido un error inesperado",
+    "Error":"Error"
 }

@@ -33,7 +33,7 @@ const Menu = React.forwardRef((props: any, ref) => {
     const [selectedItemKey, setSelectedItemKey] = useState(0);
     const [items, setItems]: any = useState([]);
     const intl = useIntl();
-    const {restoreUser}:any = useContext(appContext);
+    const {restorePatientDefault}:any = useContext(appContext);
    
     let iconbutton = <Icon icon="material-symbols:menu-rounded" />
     let settingsString: any = localStorage.getItem("settings");
@@ -55,13 +55,11 @@ const Menu = React.forwardRef((props: any, ref) => {
     }
 
     function buildMenuComponent() {
-        console.log(settingsJson)
         let menu:any = [];
 
         let item;
         let subItems:any;
 
-        console.log(settingsJson.menu)
         let key = 0
         settingsJson.menu.forEach((element:any,index:any)=> {
             item = {
@@ -96,16 +94,12 @@ const Menu = React.forwardRef((props: any, ref) => {
             key++;
         }) 
         setItems(menu);
-        console.log(menu);
     }
 
-    
-
-    
-
+   
     function handleSignOut() {
         localStorage.clear();
-        restoreUser();
+        restorePatientDefault();
         logout();
         navigate('/login')
     }

@@ -35,7 +35,8 @@ export default function LogginForm({googleLogin}:any){
     const navigate = useNavigate();
     const {setAppSettings}:any = useContext(appContext);
     const {setModificateUser}:any = useContext(appContext);
-
+    const {validMobileForInputDate}:any = useContext(appContext);
+    
     const {user}:any = useContext(appContext);
 
     
@@ -65,11 +66,7 @@ export default function LogginForm({googleLogin}:any){
                         settingsJson = JSON.parse(settingsString)
                     
                         getPatientInfo(settingsJson.entityId).then(res=>{
-                            res.mobilephone={
-                                prefix: "+54",
-                                area: "",
-                                number: "",
-                            };
+                            res.mobilephone=validMobileForInputDate(res)
                             res.birthDate = new Date(res.birthDate);
                             setModificateUser(res);
                             
