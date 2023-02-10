@@ -5,42 +5,72 @@
 }
 
 .menu-container{
-    height: 100%;
-    width:fit-content;
+    height: 95vh;
+    width:20%;
     justify-content: space-between;
-
-   
+    z-index: 3;
+    background-color: $contrast;
+    border-right: 5px solid map-get($lightContrastShade, 10) !important;
+    transition: all .5s ease;
 }
 
 .menuBody{
     
 }
 
-.p-panelmenu-panel{
-    width:100% !important;
-}
-.p-panelmenu .p-panelmenu-header-link{
-    background: white !important;
-    border: 0px !important;
-    .iconify{
-        color:#3CB8BA;
-        font-size: 150%
 
-    };
-    box-shadow: none !important;   
-    display: flex;
+/* 
+.p-panelmenu-content{
+    border: 0 !important;
+    padding: 0 !important;
+
+    .p-menuitem{
+        padding: 3%;
+        margin: 1%;
+        border-bottom: 1px solid map-get($lightContrastShade, 10);
+        .subItem{
+            color: map-get($lightPrimary, text);
+            font-weight: 500;
+            margin-left: 20%;
+            
+            
+            
+        }
+    }
+    
 }
+
+
+
+.p-panelmenu {
+    .p-panelmenu-header-link{
+        background: $contrast !important;
+        border: 0px !important;
+        border-radius: 0 !important;
+        justify-content: space-between;
+        
+        .iconify{
+            color:map-get($lightPrimary, main);
+            font-size: 120%;
+            margin-right: 10px;
+        };
+
+        .angle{
+            margin: 0;
+            color: map-get($lightContrastShade, 60);
+        }
+
+        box-shadow: none !important;   
+        display: flex;
+    }
+}
+
+
 
 .p-panelmenu .p-panelmenu-icon {
     justify-self: flex-end;
     order:3
-}
-
-.p-panelmenu-icon::before {
-    // content: "";
-    // background-repeat: no-repeat;
-
-  }
+} */
 
 .p-menuitem-text{
     color:map-get($lightPrimary, text);
@@ -76,7 +106,7 @@
 .menuOption{
     padding: 5% 0%;
     margin: 5% 5%;
-    
+    cursor: pointer;
     font-weight: 600;
 }
 
@@ -105,6 +135,21 @@
 .inside-component{
     width: 100%;
     margin: 1% 1%
+}
+
+.hideLeft{
+    translate: -250px 0;
+    width: 0%;
+
+}
+
+@keyframes hideLeft {
+    0%{
+        translate: 0 0;
+    }
+    100%{
+        translate: -200px 0;
+    }
 }
   
 

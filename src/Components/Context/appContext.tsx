@@ -7,6 +7,8 @@ import { locale, addLocale } from 'primereact/api';
 import SpanishMessagesPrime from '../../lang/esPrimeReact.json';
 import { any } from 'prop-types';
 import { getPatientInfo } from '../../services/UserService';
+import { Button } from 'primereact/button';
+import { Icon } from '@iconify/react';
 
 const appContext = React.createContext({});
 
@@ -177,11 +179,18 @@ const AppProvider = ({children}:any) => {
         setSettings(settingsObject);
     }
      */
-    
-    
+
+
+    function renderState(state:any, btnClassName:any){
+        switch (state){
+          case "ready": return <Button icon="pi pi-download" className={btnClassName} />
+          case "inCourse": return <p className='warningText statusText' >en curso <Icon icon="mdi:clock-time-five-outline" /> </p>
+          case "observed": return <p className='errorText observedStatusText'>observado <Icon icon="mdi:warning-circle-outline" /></p>
+        }
+      }
 
     return (
-        <appContext.Provider value={{messages,localeintl,languageId,captchaKey,user,setUser,restoreUser,setModificateUser}}>
+        <appContext.Provider value={{messages,localeintl,languageId,captchaKey, renderState, user, setUser, restoreUser, setModificateUser}}>
              <IntlProvider locale={localeintl} messages={messages}>
                 {children}
             </IntlProvider>

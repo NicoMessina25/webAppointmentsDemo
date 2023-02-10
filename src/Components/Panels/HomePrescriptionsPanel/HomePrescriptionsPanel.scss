@@ -1,0 +1,14 @@
+@import "../../../scss/colors";
+
+.homePrescriptionsPanel{
+    width: 100%;
+    margin: 1% 0%;
+    padding: 1%;
+}
+
+@media screen and (min-width: 768px) {
+    .homePrescriptionsPanel{
+        width: 48%;
+        border-right: 2px solid map-get($lightContrastShade, 20);
+    }
+}

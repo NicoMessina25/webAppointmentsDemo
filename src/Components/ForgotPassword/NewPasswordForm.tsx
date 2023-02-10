@@ -93,8 +93,8 @@ export default function NewPasswordForm(props:any){
             <p className='infoText'>{intl.formatMessage({ id:'CanEnterToSystem' })}</p>
 
             <div className="littleMargin"> 
-                <InputTextCustom value={password}  error={styleError}  onChange={(e:any) => setPassword(e.target.value)} placeholder="" labelId="NewPassword" password/>
-                <InputTextCustom value={repeatPassword} caption={messageError} error={styleError} onChange={(e:any) => setRepeatPassword(e.target.value)} placeholder="" labelId="RepeatPassword" password feedback={false}/>
+                <InputTextCustom value={password}  error={styleError}  onChange={(e:any) => setPassword(e.target.value)} placeholder="" label={intl.formatMessage({id: "NewPassword"})} password/>
+                <InputTextCustom value={repeatPassword} caption={messageError} error={styleError} onChange={(e:any) => setRepeatPassword(e.target.value)} placeholder="" label={intl.formatMessage({id: "RepeatPassword"})} password feedback={false}/>
             </div>
             
             <div className="captcha flexible--column passwordCaptcha">

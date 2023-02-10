@@ -238,6 +238,16 @@ input,
     color: map-get($lightWarning, text);
 }
 
+.statusText{
+    font-weight: 500;
+    text-align: center
+}
+
+.observedStatusText{
+    @extend.statusText;
+    text-decoration: underline;
+}
+
 .logoSite {
     width: auto;
     height: 7%;
@@ -275,11 +285,25 @@ input,
         @extend.highlight;
     }
 
+    
+
     button:focus,
     span:focus {
         box-shadow: 0 0 0 .1rem map-get($lightPrimary, transparent50) !important;
     }
 }
+
+.p-calendar{
+    .p-button-icon-only{
+        border: 0;
+        background-color: map-get($lightPrimary, main) !important;
+
+        &:hover{
+            background-color: map-get($lightPrimary, text) !important;
+        }
+    }
+}
+
 
 .p-dropdown-items {
     .p-dropdown-item.p-highlight {
@@ -436,9 +460,49 @@ esta clase es para el input text invalido
 
 }
 
+.p-datatable{
+    td{
+        text-align: center !important;
+        justify-content: center;
+    }
+}
+
+.p-datatable-thead{
+    background-color: $contrast !important;
+    th{
+        background-color: map-get($lightPrimary, transparent15) !important;
+        font-size: 90% !important;
+        color: map-get($lightText, secondary) !important;
+        font-weight: 600 !important;
+        padding: 2% 3% !important;
+        margin: 0 0.2%;
+    }
+
+}
+
 .grey-background{
     background-color: map-get($lightInfo,transparent60);
 }
+.p-datatable{
+    td{
+        text-align: center !important;
+        justify-content: center;
+    }
+}
+
+.p-datatable-thead{
+    background-color: $contrast !important;
+    th{
+        background-color: map-get($lightPrimary, transparent15) !important;
+        font-size: 90% !important;
+        color: map-get($lightText, secondary) !important;
+        font-weight: 600 !important;
+        padding: 2% 3% !important;
+        margin: 0 0.2%;
+    }
+
+}
+
 
 .orange-background{
     background-color: map-get($background,orange);

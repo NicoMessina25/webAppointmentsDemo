@@ -111,7 +111,7 @@ export default function CoverageDataForm({user, setUser, setDisplayRegisterCance
                     onChangeRemoveError("plan");
                 }} optionLabel="name" reLoadItemsValue={user.medicalCoverage} error={!inputErrors.plan.isValid} caption={inputErrors.plan.caption}/>
 
-                <InputTextCustom labelId="NumberOfMember"  value={user.memberNumber} onChange={(e:any)=>{
+                <InputTextCustom label={intl.formatMessage({id: "NumberOfMember"})}  value={user.memberNumber} onChange={(e:any)=>{
                     setUser({...user, memberNumber: e.target.value})
                     onChangeRemoveError("memberNumber");
                 }} error={!inputErrors.memberNumber.isValid} caption={inputErrors.memberNumber.caption}/>

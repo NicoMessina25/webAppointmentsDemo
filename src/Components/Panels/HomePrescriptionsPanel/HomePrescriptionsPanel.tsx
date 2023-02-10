@@ -19,7 +19,10 @@ export default function HomePrescriptionsPanel({receivedPrescriptions}:any) {
     return <ItemListTemplate header={doctor} desc={medicationDesc} date={date} state={status} />;
 }
 
-  return (  
-    <VirtualScroller items={receivedPrescriptions} itemSize={46} itemTemplate={template} />
+  return ( <div className='homePrescriptionsPanel'  >
+    <h2>Recetas Recibidas</h2>
+    <VirtualScroller scrollHeight='300px' items={receivedPrescriptions} itemSize={46} itemTemplate={template} />
+  </div>
+    
   )
 }

@@ -8,7 +8,8 @@ $lightContrastShadeTransparent: (100: $contrastDark, 90: #18273AF0, 80: #1A293DD
 
 $lightContrastShade: (100: $contrastDark, 90: #263446, 80: #414D5E,70: #5A6676, 60: #77828F, 50: #8D97A4, 40: #A9B1BC, 30:#C4CAD3, 20:#DBDFE4, 10: #E8EBEF, 5: #F3F5F7, 0: #193B6700);
 
-$lightPrimary:(main: #3CB8BA, text: #01717C, contrast: $contrast, transparent50: #3cb8ba50, transparent15: #3cb8ba15); 
+
+$lightPrimary:(main: #3CB8BA, text: #01717C, contrast: $contrast, transparent50: #3cb8ba50, transparent15: #3cb8ba15, transparent10: #3cb8ba10);
 $lightInfo:(main: #E29583, text: #B27668, contrast: $contrast,shiny:#E17056, transparent60:rgba(230, 230, 230, 0.6)); 
 $lightWarning:(main: #FFC107, text: #E0A800, contrast: $contrast); 
 $lightSuccess:(main: #28A745, text: #28A745, contrast: $contrast); 

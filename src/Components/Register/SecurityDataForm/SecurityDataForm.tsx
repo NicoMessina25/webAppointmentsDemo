@@ -88,22 +88,22 @@ export default function SecurityDataForm({user, setUser, setDisplayRegisterCance
             <InputTextCustom value={user.username} onChange={(e:any) =>{
                 setUser({...user, username: e.target.value});
                 onChangeRemoveError("username")
-            } } labelId="User" error={!inputErrors.username.isValid} caption={inputErrors.username.caption} />
+            } } label={intl.formatMessage({id:"User" })} error={!inputErrors.username.isValid} caption={inputErrors.username.caption} />
 
             <InputTextCustom value={user.email} error={!inputErrors.email.isValid} caption={inputErrors.email.caption} onChange={(e:any) => { 
                 setUser({...user, email: e.target.value});
                 onChangeRemoveError("email");
-            }} labelId="Email"/>
+            }} label={intl.formatMessage({id:"Email" })}/>
 
             <InputTextCustom value={user.password} onChange={(e:any) => {
                 setUser({...user, password: e.target.value})
                 onChangeRemoveError("password")
-                }} labelId="Password" password error={!inputErrors.password.isValid} caption={inputErrors.password.caption}/>
+                }} label={intl.formatMessage({id: "Password"})} password error={!inputErrors.password.isValid} caption={inputErrors.password.caption}/>
 
             <InputTextCustom value={user.repeatPassword} onChange={(e:any) => {
                 setUser({...user, repeatPassword: e.target.value});
                 onChangeRemoveError("repeatPassword")
-            } } labelId="RepeatPassword" password feedback={false} error={!inputErrors.repeatPassword.isValid} caption={inputErrors.repeatPassword.caption} />
+            } } label={intl.formatMessage({id: "RepeatPassword"})} password feedback={false} error={!inputErrors.repeatPassword.isValid} caption={inputErrors.repeatPassword.caption} />
 
 
             <div className="flexible--row buttonContainer" >

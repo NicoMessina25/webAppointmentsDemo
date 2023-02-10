@@ -17,6 +17,7 @@ import { Toast } from 'primereact/toast';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import Loader from '../../Loader/Loader';
 import { isErrored } from 'stream';
+import InputNumber from '../../Inputs/InputNumber/InputNumber';
 
 export default function PersonalDataForm({ user, setUser, setDisplayRegisterCancel, onSubmit }: any) {
     const [cities, setCities] = useState();
@@ -237,23 +238,23 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                 setLoadMoreFields(false)
             }} label={intl.formatMessage({ id: "DocumentType" })} value={user.documentType} className="radioGroup" orientation={"row"} error={!inputErrors.documentType.isValid} caption={inputErrors.documentType.caption} />
 
-            <InputTextCustom value={user.document} onChange={(e: any) => {
+            <InputNumber value={user.document} onChange={(e: any) => {
                 setUser({ ...user, document: e.target.value })
                 onChangeRemoveError("document")
                 setLoadMoreFields(false)
-            }} labelId="DocumentNumber" error={!inputErrors.document.isValid} caption={inputErrors.document.caption} />
+            }} label={intl.formatMessage({id: "DocumentNumber"})} error={!inputErrors.document.isValid} caption={inputErrors.document.caption} />
 
             {loadMoreFields &&
                 <div>
                     <InputTextCustom value={user.firstname} onChange={(e: any) => {
                         setUser({ ...user, firstname: e.target.value })
                         onChangeRemoveError("firstname")
-                    }} labelId="Name" error={!inputErrors.firstname.isValid} caption={inputErrors.firstname.caption} />
+                    }} label={intl.formatMessage({id: "Name"})} error={!inputErrors.firstname.isValid} caption={inputErrors.firstname.caption} />
 
                     <InputTextCustom value={user.lastname} onChange={(e: any) => {
                         setUser({ ...user, lastname: e.target.value })
                         onChangeRemoveError("lastname")
-                    }} labelId="Lastname" error={!inputErrors.lastname.isValid} caption={inputErrors.lastname.caption} />
+                    }} label={intl.formatMessage({id: "Lastname"})} error={!inputErrors.lastname.isValid} caption={inputErrors.lastname.caption} />
 
                     <RadioButtonGroup options={genderOptions} setValue={(gender: any) => {
                         setUser({ ...user, gender: gender })
@@ -265,7 +266,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                         onChangeRemoveError("birthdate")
                     }} showIcon dateFormat="dd/mm/yy" maxDate={new Date()} placeholder='dd/mm/aaaa' caption={inputErrors.birthdate.caption} error={!inputErrors.birthdate.isValid} />
 
-                    <InputPhone labelId="Phone" value={user.mobilephone} setValue={(val: any, valField: any) => {
+                    <InputPhone label={intl.formatMessage({id: "Phone"})} value={user.mobilephone} setValue={(val: any, valField: any) => {
                         let _user = { ...user }
                         _user.mobilephone[valField] = val;
                         setUser(_user);
@@ -276,7 +277,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                     <InputTextCustom value={user.address} onChange={(e: any) => {
                         setUser({ ...user, address: e.target.value })
                         onChangeRemoveError("address");
-                    }} labelId="Address" error={!inputErrors.address.isValid} caption={inputErrors.address.caption} />
+                    }} label={intl.formatMessage({id: "Address"})} error={!inputErrors.address.isValid} caption={inputErrors.address.caption} />
 
                     <Combobox getItems={getCities} label={intl.formatMessage({ id: "City" })} optionLabel="location" value={user.city} placeholder={user.city?.description} setValue={(c: any) => {
                         setUser({ ...user, city: c });

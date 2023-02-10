@@ -116,7 +116,7 @@ export default function ForgotPasswordForm(props: any) {
             <RadioButtonGroup className="radioButtonGroup littleMargin" orientation="row" options={options} value={documentType} setValue={setDocumentType} label={intl.formatMessage({ id: 'Type' })} />
 
 
-            <InputTextCustom labelId="Number" value={document} onChange={(e: any) => setDocument(e.target.value)} className="input" placeholder="" />
+            <InputTextCustom label={intl.formatMessage({id: "Number"})} value={document} onChange={(e: any) => setDocument(e.target.value)} className="input" placeholder="" />
 
             {
                 confirm && <div >
@@ -167,7 +167,7 @@ export default function ForgotPasswordForm(props: any) {
                 }
                 {
 
-                    <InputTextCustom labelId="WriteReceivedCode" error={styleError} caption={messageError} value={props.receivedCode} onChange={(e: any) => props.setReceivedCode(e.target.value)} className="input" placeholder="" />
+                    <InputTextCustom label={intl.formatMessage({id: "WriteReceivedCode"})} error={styleError} caption={messageError} value={props.receivedCode} onChange={(e: any) => props.setReceivedCode(e.target.value)} className="input" placeholder="" />
 
                 }
             </Modal>

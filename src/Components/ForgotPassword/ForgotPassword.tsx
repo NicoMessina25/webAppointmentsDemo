@@ -1,13 +1,8 @@
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
-import { RadioButton } from 'primereact/radiobutton';
-import { useEffect, useRef, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
-import RadioButtonGroup from '../RadioButtonGroup/RadioButtonGroup';
+
+import { useEffect, useState } from 'react';
+import {  useIntl } from 'react-intl';
 import "./ForgotPassword.scss"
 import { getLogo } from "../../services/imageService";
-import InputTextCustom from '../Inputs/InputText/InputTextCustom';
-import { getMailAndCellphone } from '../../services/loginService';
 import Modal from '../Modal/Modal';
 import NewPasswordForm from './NewPasswordForm';
 import ForgotPasswordForm from './ForgotPasswordForm';

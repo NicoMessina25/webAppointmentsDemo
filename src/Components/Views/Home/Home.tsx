@@ -11,6 +11,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Icon } from '@iconify/react';
 import HomePrescriptionsPanel from '../../Panels/HomePrescriptionsPanel/HomePrescriptionsPanel';
 import { Button } from 'primereact/button';
+import RequestsStatePanel from '../../Panels/RequestsStatePanel/RequestsStatePanel';
 
 export default function Home() {
 
@@ -28,9 +29,19 @@ export default function Home() {
     code: "AR"});
 
   const receivedPrescriptions = [
-    {doctor: "Dr. Pinna", medicationDesc: "Letrozole 2,5 mg x 3 cajas", date: new Date(2020, 3, 14), status:"ready"},
+    {doctor: "Dr. Fecceti", medicationDesc: "Agua 3 mg x 5 cajas", date: new Date(2021, 5, 25), status:"ready"},
     {doctor: "Dr. Pinna", medicationDesc: "Letrozole 2,5 mg x 3 cajas", date: new Date(2020, 3, 14), status:"observed"},
     {doctor: "Dr. Pinna", medicationDesc: "Letrozole 2,5 mg x 3 cajas", date: new Date(2020, 3, 14), status:"inCourse"}
+  ]
+
+  
+
+  const requests = [
+    {type:"Laboratorio Químico", date: new Date(2002, 3, 31).toLocaleDateString(), professional: "Dr. Pinna", state: "inCourse"},
+    {type:"Laboratorio Químico", date: new Date(2022, 5, 21).toLocaleDateString(), professional: "Dr. Pinna", state: "ready"},
+    {type:"Laboratorio Químico", date: new Date(2002, 3, 31).toLocaleDateString(), professional: "Dr. Pinna", state: "observed"},
+    {type:"Laboratorio Químico", date: new Date(2002, 3, 31).toLocaleDateString(), professional: "Dr. Pinna", state: "inCourse"},
+    {type:"Laboratorio Químico", date: new Date(2002, 3, 31).toLocaleDateString(), professional: "Dr. Pinna", state: "ready"}
   ]
   
   function createComponents(){

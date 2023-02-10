@@ -22,7 +22,7 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
   },[page, filterValue]);
 
   useEffect(()=>{
-
+   
     if(reLoadItemsValue){
       if (page !== 0)
         setPage(0)
@@ -106,7 +106,13 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
         <Dropdown 
           ref={dropdown} 
           value={value} 
-          onChange={(e) => setValue(e.value)} 
+          onChange={(e:any) => {
+            setValue(e.value)
+            //e.originalEvent.target.parentElement.parentElement.scrollTo(0,0)
+            
+            
+            
+          }} 
           scrollHeight={`${scrollHeight}px`}  
           placeholder={placeholder} 
           filter 

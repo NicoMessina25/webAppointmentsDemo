@@ -2,8 +2,6 @@ import React, { useContext, useState} from "react";
 import "../../../scss/styles.scss"
 import "./LoginForm.scss"
 import {Button} from "primereact/button"
-import { InputText } from 'primereact/inputtext';
-import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Link, Navigate } from "react-router-dom";
 import Modal from "../../Modal/Modal";
@@ -115,14 +113,14 @@ export default function LogginForm({googleLogin}:any){
                         setUserName(e.target.value)
                         setErrorUserstyle(false);
                         setUserErrorCaption("")
-                    }} className="input" placeholder="" labelId="User"/>
+                    }} className="input" placeholder="" label={intl.formatMessage({id: "User"})}/>
                 <InputTextCustom value={password} caption={passwordErrorCaption} error={errorPassstyle} onChange={(e:any) =>{
                     setPassword(e.target.value);
                     setErrorPassstyle(false);
                     setPasswordErrorCaption("")
                 }} 
                 onEnter={validateUser}
-                placeholder="" labelId="Password" password feedback={false}/>
+                placeholder="" label={intl.formatMessage({id: "Password"})} password feedback={false}/>
                <div className="rememberForgetPasswordContainer flexible--row">
                     <div className="checkboxContainer flexible--row">
                         <Checkbox onChange={e => setChecked(e.checked)} checked={checked} className="checkbox"/>

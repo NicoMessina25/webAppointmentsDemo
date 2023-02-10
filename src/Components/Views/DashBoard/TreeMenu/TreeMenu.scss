@@ -1,0 +1,87 @@
+@import '../../../../scss/mixins', '../../../../scss/colors', '../../../../scss/fontFamilies';
+
+.p-tree{
+    border: 0px !important;
+    border-radius: 0 !important;
+    
+
+    .p-treenode-content{
+        flex-direction: row-reverse !important;
+        justify-content: space-between;
+        
+        .p-treenode-content{
+            border-bottom: 1px solid map-get($lightContrastShade, 10) !important;
+        }
+
+        .p-tree-toggler{
+
+            &:hover{
+                background-color: none !important;
+            }
+
+            &:focus{
+                box-shadow: none !important;
+            } 
+        }
+        
+              
+
+        .itemCaption{
+            color: map-get($lightPrimary, text) !important;
+            font-weight: 500;
+        }
+
+        &:focus{
+            box-shadow:  0 0 0 .2rem map-get($lightPrimary, transparent50) !important
+        }
+    }
+
+    .iconify{
+        color: map-get($lightPrimary, main) !important;
+        margin-right: 10px;
+    }
+
+    .p-treenode-leaf{
+        .p-tree-toggler{
+            width: 0 !important;
+        }
+    }
+
+    .p-treenode-leaf.subItemContainer{
+        padding: 0 !important
+    }
+
+    .p-treenode-content.subItemContainer{
+        border-bottom: 1px solid map-get($lightContrastShade, 10);
+        border-radius: 0 !important;
+        .subItem{
+            color: map-get($lightPrimary, text);
+            font-weight: 500;
+
+        }
+    }
+
+    
+
+    .p-treenode-content.p-highlight{
+        .p-tree-toggler{
+            color: map-get($lightPrimary, text) !important;;
+        }
+    }
+
+   
+    /* .p-treenode-children{
+        animation: appear .5s ease;
+    } */
+   
+}
+
+/* @keyframes appear {
+    0%{
+        height: 0px;
+    }
+    100%{
+        height:100%;
+    }
+} */
+

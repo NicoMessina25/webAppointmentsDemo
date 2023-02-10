@@ -7,9 +7,8 @@ import { Icon } from '@iconify/react';
 import './Menu.scss'
 
 
-import { BrowserRouter, Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import PrivateComponent from "../../PrivateComponent/PrivateComponent";
-import ForgotPasswordStepOne from "../../ForgotPassword/ForgotPassword";
 import NewAppointments from "../Appointments/NewAppointments";
 import MyAppointments from "../Appointments/MyAppointments";
 import HistoricAppointments from "../Appointments/HistoricAppointments";
@@ -20,86 +19,89 @@ import ClinicRequest from "../ClinicHistory/ClinicRequest";
 import MyProfile from "../Profile/MyProfile";
 import FamilyGroup from "../FamilyGroup/FamilyGroup";
 import Home from "../Home/Home";
-import { amilogged } from "../../../services/loginService";
+import CustomMenu from "./CustomMenu/CustomMenu";
+import TreeMenu from "./TreeMenu/TreeMenu";
+import MenuItem from "./TreeMenu/MenuItem/MenuItem";
 
 import { appContext } from '../../Context/appContext';
 import { logout } from "../../../services/siteService";
 
 const Menu = React.forwardRef((props: any, ref) => {
 
-    let settingsString: any = localStorage.getItem("settings");
+    
     const [bigMenu, setBigmenu] = useState(true);
-    const intl = useIntl();
+    const [selectedItemKey, setSelectedItemKey] = useState(0);
     const [items, setItems]: any = useState([]);
+    const intl = useIntl();
+    const {restoreUser}:any = useContext(appContext);
+   
     let iconbutton = <Icon icon="material-symbols:menu-rounded" />
+    let settingsString: any = localStorage.getItem("settings");
     let settingsJson: any;
-    if (settingsString)
-        settingsJson = JSON.parse(settingsString)
+    
+    settingsJson = settingsString && JSON.parse(settingsString)
 
-    let navigate = useNavigate();
-    const {restoreUser}:any = useContext(appContext)
+    const navigate = useNavigate();
 
-
-    useEffect(buildMenuComponent, [])
-
-    function buildMenuComponent() {
-        let menu = [];
-
-        let item;
-        let subItems;
-
-        for (const element of settingsJson.menu) {
-            item = {
-                label: element.caption.toUpperCase(),
-                icon: <Icon icon={element.icon} />,
-                subItems: [],
-                command: (e:any) => {
-                    if(element.items.length === 0){ 
-                        return navigate('/' + element.route) 
-                    }
-                }
-            }
-
-            //si tiene items dentro
-            if (element.items.length > 0) {
-                subItems = [];
-                for (let j = 0; j < element.items.length; j++) {
-                    let subitem = {
-                        label: element.items[j].caption,
-                        icon: <Icon icon={element.items[j].icon} />,
-                        command: () => { navigate('./' + element.items[j].route) }
-
-                    }
-                    subItems.push(subitem)
-                }
-                item = { ...item, items: subItems };
-
-            }
-            menu.push(item)
-        }
-        setItems(menu);
-
-    }
+    useEffect(buildMenuComponent,[]);
 
     function handleDisplayMenu() {
 
 
         setBigmenu(!bigMenu);
 
-        let iconsItems = [...items];
-
-        if (!bigMenu) {
-            buildMenuComponent()
-        } else {
-            iconsItems = items.map((element: any) => {
-                return { ...element, label: '' }
-            })
-            setItems(iconsItems)
-        }
-
 
 
     }
+
+    function buildMenuComponent() {
+        console.log(settingsJson)
+        let menu:any = [];
+
+        let item;
+        let subItems:any;
+
+        console.log(settingsJson.menu)
+        let key = 0
+        settingsJson.menu.forEach((element:any,index:any)=> {
+            item = {
+                key:key.toString(),
+                caption: element.caption,
+                route: element.route,
+                icon: element.icon
+            }
+
+            
+            subItems = [];
+            
+            //si tiene items dentro
+            if (element.items.length > 0) {
+                let subKey = 0;
+                element.items.forEach((subItem:any, subInd:any)=>{
+                    subItems.push({
+                        key:key + "-" + subKey,
+                        caption: subItem.caption,
+                        route: subItem.route,
+                        icon: subItem.icon,
+                        className: "subItemContainer"
+
+                    })
+                    subKey++;
+                }) 
+                
+                
+            } 
+            item = { ...item, children: subItems };
+            menu.push(item)
+            key++;
+        }) 
+        setItems(menu);
+        console.log(menu);
+    }
+
+    
+
+    
 
     function handleSignOut() {
         localStorage.clear();
@@ -119,12 +121,10 @@ const Menu = React.forwardRef((props: any, ref) => {
 
             <div className="flexible--row maxwidth menuBody" >
             
-            <div className="menu-container flexible--column">
-                    <PanelMenu className="" model={items} />
+            <div className={`menu-container flexible--column ${!bigMenu?'hideLeft':""}`}>
+                    <TreeMenu items={items} selectedItemKey={selectedItemKey} onSelectionChange={(e:any) => setSelectedItemKey(e.value)} />
+                   {/* <CustomMenu activeIndex={activeIndex} setActiveIndex={setActiveIndex} bigMenu={bigMenu} settingsJson={settingsJson} items={items} setItems={setItems} /> */}
                     
-                    {
-                    
-                    bigMenu && 
                     
                     <div>
 
@@ -137,7 +137,7 @@ const Menu = React.forwardRef((props: any, ref) => {
                             <div className="text-secondary"> {intl.formatMessage({ id: 'SignOut' })}</div>
                         </div>
                     </div>
-                    }
+                    
             </div>
             
             <div className="inside-component">
