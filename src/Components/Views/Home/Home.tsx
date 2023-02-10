@@ -93,8 +93,11 @@ export default function Home() {
           </div>
           
         </div>
-
-        <HomePrescriptionsPanel receivedPrescriptions={receivedPrescriptions} />
+        
+        <div className='flexible--row'>
+          <HomePrescriptionsPanel receivedPrescriptions={receivedPrescriptions} />
+          <RequestsStatePanel data={requests}/>
+        </div>
         
         
     
