@@ -130,5 +130,11 @@
     "MedicalCoverage":"Cobertura médica",
     "SecurityMessage":"Para cambiar tu contraseña debemos enviarte un código de seguridad ¿Cómo quieres recibirlo?",
     "AnErrorHasOccurred":"ha ocurrido un error inesperado",
-    "Error":"Error"
+    "Error":"Error",
+    "ChangePassword":"Cambiar contraseña",
+    "ChangePasswordIndication":"Ingresá la nueva contraseña para acceder a nuestro sistema:",
+    "Enter":"Ingresar",
+    "CurrentPassword":"contraseña actual",
+    "RepeatNewPassword":"Repetir nueva contraseña",
+    "CreateNewPassword":"Crear nueva contraseña"
 }

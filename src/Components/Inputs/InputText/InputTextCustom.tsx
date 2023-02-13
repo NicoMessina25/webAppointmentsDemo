@@ -6,7 +6,7 @@ import "./InputTextCustom.scss"
 
 
 
-export default function InputTextCustom({value, onChange, label, className, password,feedback, placeholder, caption, onKeyDown,error,onEnter, disable}:any){
+export default function InputTextCustom({value, onChange, label,labelClassName, className, password,feedback, placeholder, caption, onKeyDown,error,onEnter, disable}:any){
 
     const intl = useIntl();
     //{`${ error && 'inputError' }`}
@@ -25,7 +25,7 @@ export default function InputTextCustom({value, onChange, label, className, pass
 
     return (
         <div className={`flexible--column inputContainer ${className}`}>
-                {label && <p className="label inputLabel">{label}</p>}
+                {label && <p className={`label inputLabel ${labelClassName}`}>{label}</p>}
                 { password? <Password 
                                 value={value} 
                                 disabled={disable}

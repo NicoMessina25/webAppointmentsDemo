@@ -44,10 +44,10 @@ export default function InputPhone({value, setValue, label, className, error, ca
                
                 <InputNumber placeholder={intl.formatMessage({id:"Area"}).toLowerCase()} value={value.area} onChange={(e:any)=>{
                     setValue(e.target.value, "area");
-                }} className="areaInputPhone" error={error}/>
+                }} className="areaInputPhone" error={error} disable={disable}/>
                 <InputNumber placeholder={intl.formatMessage({id:"Number"}).toLowerCase()} value={value.number} onChange={(e:any)=>{
                     setValue(e.target.value, "number")
-                }} className="numberInputPhone" error={error}/>
+                }} className="numberInputPhone" error={error} disable={disable}/>
             </div>
             {caption && <p className={error? "caption-invalid":"caption"}>{caption}</p>}
         </div>

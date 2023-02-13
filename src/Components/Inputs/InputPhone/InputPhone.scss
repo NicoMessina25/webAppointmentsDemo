@@ -1,11 +1,14 @@
 .phoneFieldsContainer{
     justify-content: center;
     align-items: center;
-
+    margin: 4px 0% 8px 0% !important;
     .comboboxPhone{
         width: 30% !important;
         justify-content: center;
-        margin: 1% 0 !important;;
+        height: 45px;
+        .p-dropdown{
+            margin:  0% !important;
+        }
         /* .p-dropdown-label{
             padding-right: 0% !important;
         } */

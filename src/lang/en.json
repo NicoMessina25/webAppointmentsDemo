@@ -130,5 +130,11 @@
     "MedicalCoverage":"Medical coverage",
     "SecurityMessage":"To change your password we must send you a security code. How do you want to receive it?",
     "AnErrorHasOccurred":"An error has occurred",
-    "Error":"Error"
+    "Error":"Error",
+    "ChangePassword":"Change password",
+    "ChangePasswordIndication":"Enter the new password to access to our system:",
+    "Enter":"Enter",
+    "CurrentPassword":"current password",
+    "RepeatNewPassword":"Repeat new password",
+    "CreateNewPassword":"Create new password"
 }

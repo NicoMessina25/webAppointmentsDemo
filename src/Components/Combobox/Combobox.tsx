@@ -102,7 +102,7 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
 
   return (
     <div className={`inputContainer flexible--column ${className}`} style={{width:`${width}%`}}>
-        <p className='label inputLabel'>{label}</p>
+        {label && <p className='label inputLabel'>{label}</p>}
         <Dropdown 
           ref={dropdown} 
           value={value} 
