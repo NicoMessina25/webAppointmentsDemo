@@ -39,14 +39,18 @@ const AppProvider = ({children}:any) => {
             if(areaCode.length>4)
                 throw new Error("Area invalida");
 
+
+            console.log("celu valido")
+
             return {
                 prefix: countryCode,
                 area: areaCode,
                 number: phoneNumber,
             };
         }catch{
+            console.log("celu invalido")
             return {
-                prefix: "",
+                prefix: "+54",
                 area: "",
                 number: res.mobilePhone,
             };
@@ -101,7 +105,7 @@ const AppProvider = ({children}:any) => {
         const { firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, birthdate, city,_user} = patient
 
         // const { hasMedicalCoverage, healthentity, healthentityplan, voluntary, healthpatientcoverage } = healthpatientcoverage;
-
+        
         if (patient) {
             let modificatedUser = {
                 ...user,
@@ -125,7 +129,8 @@ const AppProvider = ({children}:any) => {
                 username:patient.username,
                 clinichistoryid:patient.clinichistoryid,
                 medereentity:patient.medereentity,
-                mobilephone:patient.mobilephone
+                mobilephone:patient.mobilephone,
+                memberNumber:patient.healthpatientcoverage.affiliateNo
             }
             setUser(modificatedUser);
             

@@ -84,14 +84,17 @@ a {
     @extend.button;
     color: map-get($lightPrimary, main) !important;
     background-color: $contrast !important;
-    border: 1px solid map-get($lightPrimary, main) !important;
-
+    border: 1px solid map-get($lightPrimary, main)!important;
     &:hover {
         color: $contrast !important;
         background-color: map-get($lightPrimary, main) !important;
         border: 2px solid map-get($lightPrimary, main) !important;
     }
 
+}
+
+.margin-0{
+    margin: 0px !important;
 }
 
 .buttonMain3 {
@@ -379,7 +382,51 @@ input,
     height: 100%;
     padding: 1%;
     background-color: map-get($lightContrastShadeTransparent, 5);
+    
+    p{
+       margin-bottom: 4px; 
+    }
 }
+
+.line-bottom{
+    border-bottom: 2px solid map-get($lightContrastShadeTransparent, 40) !important;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+.title-color{
+    color: map-get($lightContrastShadeTransparent,100);
+}
+
+
+.header-view-2{
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 16px;
+    .header-container{
+        align-items: center;
+        width: 100%;
+    }
+
+    .iconify{
+        color : map-get($lightInfo, text);
+    }
+    .header-title{
+        width: 100%;
+        margin-left: 2%;
+        font-size: 28px;
+    }
+
+    .buttonSave{
+        min-width: max-content; 
+    }
+}
+
+.header-view-3{
+    @extend.header-view-2;
+    justify-content: flex-start;
+}
+
 
 /* 
     esta clase es para la contraseña invalida

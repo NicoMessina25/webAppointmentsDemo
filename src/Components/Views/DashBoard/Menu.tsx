@@ -25,6 +25,8 @@ import MenuItem from "./TreeMenu/MenuItem/MenuItem";
 
 import { appContext } from '../../Context/appContext';
 import { logout } from "../../../services/siteService";
+import ChangePassword from "../Profile/ChangePassword/ChangePassword";
+import ChangePasswordModal from "../../Modal/ChangePasswordModal/ChangePasswordModal";
 
 const Menu = React.forwardRef((props: any, ref) => {
 
@@ -43,16 +45,15 @@ const Menu = React.forwardRef((props: any, ref) => {
 
     const navigate = useNavigate();
 
+    const [visibilityChangePasswordModal,setVisibilityChangePasswordModal]=useState(false);
+
     useEffect(buildMenuComponent,[]);
 
     function handleDisplayMenu() {
-
-
         setBigmenu(!bigMenu);
-
-
-
     }
+
+
 
     function buildMenuComponent() {
         let menu:any = [];
@@ -60,15 +61,14 @@ const Menu = React.forwardRef((props: any, ref) => {
         let item;
         let subItems:any;
 
-        let key = 0
+        let key = 0;
         settingsJson.menu.forEach((element:any,index:any)=> {
             item = {
                 key:key.toString(),
                 caption: element.caption,
-                route: element.route,
-                icon: element.icon
+                icon: element.icon,
+                route: element.route
             }
-
             
             subItems = [];
             
@@ -76,19 +76,31 @@ const Menu = React.forwardRef((props: any, ref) => {
             if (element.items.length > 0) {
                 let subKey = 0;
                 element.items.forEach((subItem:any, subInd:any)=>{
-                    subItems.push({
+                    
+                    let item2:any;
+                    item2={
                         key:key + "-" + subKey,
                         caption: subItem.caption,
-                        route: subItem.route,
                         icon: subItem.icon,
-                        className: "subItemContainer"
-
-                    })
+                        className: "subItemContainer",
+                        id:subItem.menuItem
+                    }
+                    subItem.menuItem===2113 ? 
+                    item2={
+                        ...item2,
+                        command: ()=>{
+                            setVisibilityChangePasswordModal(true);
+                            console.log("no and")
+                        }
+                    }:item2={
+                        ...item2,
+                        route: subItem.route
+                    }
+                    subItems.push(item2)
                     subKey++;
                 }) 
                 
-                
-            } 
+            }
             item = { ...item, children: subItems };
             menu.push(item)
             key++;
@@ -105,6 +117,12 @@ const Menu = React.forwardRef((props: any, ref) => {
     }
 
 
+    function onSelect(e:any){
+        if(e.node.id===2113){
+            setVisibilityChangePasswordModal(true)
+        }
+    }
+
     return (
         <div className="container">
             <div className="flexible--row header">
@@ -116,7 +134,7 @@ const Menu = React.forwardRef((props: any, ref) => {
             <div className="flexible--row maxwidth menuBody" >
             
             <div className={`menu-container flexible--column ${!bigMenu?'hideLeft':""}`}>
-                    <TreeMenu items={items} selectedItemKey={selectedItemKey} onSelectionChange={(e:any) => setSelectedItemKey(e.value)} />
+                    <TreeMenu items={items} onSelectCustom={onSelect}  selectedItemKey={selectedItemKey} onSelectionChange={(e:any) => setSelectedItemKey(e.value)} />
                    {/* <CustomMenu activeIndex={activeIndex} setActiveIndex={setActiveIndex} bigMenu={bigMenu} settingsJson={settingsJson} items={items} setItems={setItems} /> */}
                     
                     
@@ -151,7 +169,8 @@ const Menu = React.forwardRef((props: any, ref) => {
                 </Routes>
             </div>
             </div>
-
+            <ChangePasswordModal visible={visibilityChangePasswordModal} setVisible={setVisibilityChangePasswordModal}></ChangePasswordModal>
+            
         </div>
     )
 });

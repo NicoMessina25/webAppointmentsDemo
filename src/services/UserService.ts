@@ -19,9 +19,9 @@ export function getPatientInfo(medereEntity:any){
 
 export function savePatientInfo(user:any,returnValidPatientDTO:any,mobilePhone:any){
     
+    //Pasar mobilePhone como string
     let validDTO=returnValidPatientDTO(user)
     validDTO.mobilePhone=mobilePhone;
-    console.log("mobilePhone ", mobilePhone)
     console.log(validDTO)
     return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/updatePatient',validDTO
     ).then(res => {

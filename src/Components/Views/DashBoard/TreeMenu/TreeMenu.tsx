@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import './TreeMenu.scss'
 
-export default function TreeMenu({items, selectedItemKey, onSelectionChange}:any) {
+export default function TreeMenu({items, selectedItemKey, onSelectionChange,onSelectCustom}:any) {
 
     const navigate:any = useNavigate();
     const [expandedKeys, setExpandedKeys]:any = useState({});
@@ -48,7 +48,7 @@ export default function TreeMenu({items, selectedItemKey, onSelectionChange}:any
     }
 
     return (
-        <Tree value={items} expandedKeys={expandedKeys} selectionMode="single" selectionKeys={selectedItemKey} onSelectionChange={onSelectionChange} onToggle={e => {
+        <Tree value={items} onSelect={onSelectCustom} expandedKeys={expandedKeys} selectionMode="single" selectionKeys={selectedItemKey} onSelectionChange={onSelectionChange} onToggle={e => {
             setExpandedKeys(e.value)
         }} nodeTemplate={itemTemplate} /* onSelect={onSelect} */ onNodeClick={onSelect}
         /* onExpand={onExpand} onCollapse={onCollapse}  onUnselect={onUnselect} */ />

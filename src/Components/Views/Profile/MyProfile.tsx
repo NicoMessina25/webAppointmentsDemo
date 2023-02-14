@@ -12,23 +12,23 @@ export default function MyProfile() {
   const [isCancelButtonVisibility, setCancelButtonVisibility] = useState(false);
   const formRef:any=useRef(null);
 
-  const [buttonClassname,setButtonClassname]=useState("buttonMain2 buttonSave")
+  const [buttonClassname,setButtonClassname]=useState("buttonMain2 buttonSave margin-0")
 
   function handleEditClick(){
     setEditButtonVisibility(!isEditButtonVisible);
     setCancelButtonVisibility(!isCancelButtonVisibility)
 
     if(isEditButtonVisible==true && isCancelButtonVisibility==true){
-      setButtonClassname("buttonMain2 buttonSave");
+      setButtonClassname("buttonMain2 buttonSave margin-0");
       formRef.current.saveChanges();
     }else{
-      setButtonClassname("buttonMain buttonSave");
+      setButtonClassname("buttonMain buttonSave margin-0");
     }
   }
 
   function handleCancelClick(){
     if(isCancelButtonVisibility==true){
-      setButtonClassname("buttonMain2 buttonSave");
+      setButtonClassname("buttonMain2 buttonSave margin-0");
     }
     setEditButtonVisibility(!isEditButtonVisible);
     setCancelButtonVisibility(!isCancelButtonVisibility)
@@ -39,10 +39,10 @@ export default function MyProfile() {
   return (
     <div className='flexible--column my-profile-container'>
       {/* HEADER */}
-      <div className='flexible--row my-profile-header'>
-        <div className='flexible--row my-profile-header-container'>
+      <div className='flexible--row header-view-2'>
+        <div className='flexible--row header-container'>
           <Icon icon="vaadin:user"></Icon>
-          <div className='infoText textBold my-profile-header-title'>Datos de perfil</div>
+          <div className='infoText textBold header-title'>{intl.formatMessage({id:"ProfileData"})}</div>
         </div>
         <Button className='buttonMain2 buttonSave' visible={isEditButtonVisible} onClick={handleCancelClick} label={intl.formatMessage({id:"Cancel"})} ></Button>
         <Button className={`${buttonClassname}`} onClick={handleEditClick} label={!isEditButtonVisible ? intl.formatMessage({id:"Edit"}) : intl.formatMessage({id:"SaveChanges"})} ></Button>

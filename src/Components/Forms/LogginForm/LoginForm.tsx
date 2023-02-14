@@ -43,6 +43,7 @@ export default function LogginForm({googleLogin}:any){
 
     function validateUser(){
         //Validar antes de ir al backend que los dos campos tienen datos.
+
         if(userName==""){
             setErrorUserstyle(true);
             setUserErrorCaption(intl.formatMessage({id:'EnterUsername'}))
@@ -52,40 +53,31 @@ export default function LogginForm({googleLogin}:any){
             setErrorPassstyle(true)
         }
       
+
         if(password!="" && userName!=""){
             authenticateUser(userName,password).then(res=>{
                 if(res.request.status==200){
 
                     localStorage.setItem("settings",JSON.stringify(res.data))
-
                     let settingsString: any = localStorage.getItem("settings");
                     let settingsJson;
-                    
+                
                     if (settingsString){
-                        
                         settingsJson = JSON.parse(settingsString)
-                    
                         getPatientInfo(settingsJson.entityId).then(res=>{
                             res.mobilephone=validMobileForInputDate(res)
                             res.birthDate = new Date(res.birthDate);
-                            setModificateUser(res);
-                            
-                            
-                        })
-                        
+                            setModificateUser(res);  
+                        })   
                     }
-                    
                     navigate("/home");
                 }else{
                     setErrorPassstyle(true)
                 }
-                
             }).catch(error=>{
                 setDisplayNotUserFound(true);
                 console.log(error);
-                
             })
-               
         }
     }
     

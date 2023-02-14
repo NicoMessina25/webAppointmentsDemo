@@ -81,24 +81,21 @@ const [inputErrors2, setInputErrors2] = useState({
   address: { caption: "", isValid: true }
 })
 
-const [loadMoreFields, setLoadMoreFields] = useState(user.firstname !== "");
 
 const [patient,setPatient]=useState(user);
 
 const [errorModalVisibility,setErrorModalVisibility]=useState(false)
 
-const [mobilePhone,setMobilePhone]=useState("")
-const [mobilePhoneCopy,setMobilePhoneCopy]=useState("")
 
 useImperativeHandle(ref,()=>({
   cancelEdit(){
     setPatient(user);
-    setMobilePhoneCopy(mobilePhone)
   }
   ,
   saveChanges(){
-    console.log(mobilePhoneCopy)
-    savePatientInfo(patient,returnValidPatientDTO,mobilePhoneCopy).then(res=>{
+    
+    let mobileString=user.mobilephone.prefix+user.mobilephone.area+user.mobilephone.number;
+    savePatientInfo(patient,returnValidPatientDTO,mobileString).then(res=>{
       if(res.status===200 && res.data===true){
         setUser(patient);
       }
@@ -119,17 +116,15 @@ function isValidPhone(){
 
 useEffect(() => {
   setPatient(user)
-  if(!isValidPhone())
-    setMobilePhoneCopy(user.mobilephone.prefix+user.mobilephone.area+user.mobilephone.number)
 },[user])
 
   return (
     <div className='flexible--column profile-form-container'>
-        <div className='personal-data'>
-            <div className='title textBold'>
+        {/* <div className='personal-data'> */}
+            <div className='title textBold line-bottom title-color'>
             {intl.formatMessage({id:"PersonalData"})}
             </div>
-        </div >
+        {/* </div > */}
 
         <div className="flexible--row space-between">  
           <InputTextCustom className='width-50' disable={!props.isEditButtonClicked} value={patient.firstname} label={intl.formatMessage({ id: "Name" })} onChange={(e:any)=>{setPatient({ ...patient, firstname: e.target.value })}} placeholder=""/>
@@ -164,23 +159,18 @@ useEffect(() => {
         </div>
 
         <div className="flexible--row space-between">
-          {isValidPhone() ? <InputPhone className='width-50' label={intl.formatMessage({ id: "Phone" })} value={patient.mobilephone} setValue={(val: any, valField: any) => {
+          <InputPhone className='width-50' label={intl.formatMessage({ id: "Phone" })} value={patient.mobilephone} setValue={(val: any, valField: any) => {
                           let _patient = { ...patient }
                           _patient.mobilephone[valField] = val;
                           setPatient(_patient);
                       }} 
-                      disable={!props.isEditButtonClicked}/> :
-                      <InputTextCustom className="width-50" label={intl.formatMessage({ id: "Phone" })} value={mobilePhoneCopy} 
-                      onChange={(e:any)=>{
-                        setMobilePhoneCopy(e.target.value)
-                      }} disable={!props.isEditButtonClicked}></InputTextCustom>
-                    }
+                      disable={!props.isEditButtonClicked}/>
             
           <InputTextCustom className='width-50' value={patient.email} label={intl.formatMessage({ id: "Email" })} onChange={(e:any)=>{setPatient({...patient,email:e.target.value})}} placeholder="" disable={!props.isEditButtonClicked}/>
         </div>
         
         <div className='flexible--column'>
-            <div className='title textBold'>
+            <div className='title textBold margin-bottom-1'>
                 {intl.formatMessage({id:"MedicalCoverage"})}
             </div>
 
@@ -222,28 +212,7 @@ useEffect(() => {
             </div>
             
           </div>
-
-          <div className='flexible--column'>
-            <div className='title textBold'>
-                {intl.formatMessage({id:"Security"})}
-            </div>
-            <div className='flexible--row'>
-              {intl.formatMessage({id:"SecurityMessage"})}
-            </div>
             
-            <div className='flexible--row width-100'>
-              
-              {/* <div className='flexible--row width-50-centered'> */}
-              <RadioButtonGroup className='width-25' id={3} options={sendOptions} value={sendOption} setValue={(value:any)=>{
-                setSendOption(value)
-              }} orientation="row" />
-              {/* </div> */}
-         
-            <Button icon="pi pi-check" label="Cambiar contraseña" className='buttonMain3'></Button>
-
-            </div>
-          </div>
-
           <ErrorModal visible={errorModalVisibility} setVisible={setErrorModalVisibility}></ErrorModal>
     </div>
   )

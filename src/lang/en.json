@@ -136,5 +136,7 @@
     "Enter":"Enter",
     "CurrentPassword":"current password",
     "RepeatNewPassword":"Repeat new password",
-    "CreateNewPassword":"Create new password"
+    "CreateNewPassword":"Create new password",
+    "Mobile":"Mobile",
+    "Profile data":"Profile data"
 }

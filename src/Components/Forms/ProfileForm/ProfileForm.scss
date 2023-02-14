@@ -5,12 +5,7 @@
     height: 100%;
     padding: 1%;
     background-color: map-get($lightContrastShadeTransparent, 5);
-    .personal-data{
-        .title{
-            color: map-get($lightContrastShadeTransparent,100);
-            border-bottom: 2px solid map-get($lightContrastShadeTransparent, 40) !important;
-        }
-    }
+    
     .profile-form-container-columns{
         width:100%;
         

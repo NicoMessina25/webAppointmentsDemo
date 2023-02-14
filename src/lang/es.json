@@ -136,5 +136,7 @@
     "Enter":"Ingresar",
     "CurrentPassword":"contraseña actual",
     "RepeatNewPassword":"Repetir nueva contraseña",
-    "CreateNewPassword":"Crear nueva contraseña"
+    "CreateNewPassword":"Crear nueva contraseña",
+    "Mobile":"Teléfono",
+    "ProfileData":"Datos de perfil"
 }
