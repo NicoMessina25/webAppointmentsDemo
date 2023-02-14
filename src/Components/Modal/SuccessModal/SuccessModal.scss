@@ -1,0 +1,11 @@
+@import '../../../scss/colors';
+
+.icon-container{
+    justify-content: center;
+    align-items: center;
+    .check-icon{
+        color:map-get($lightPrimary,text);
+        font-size:500%
+    }
+}
+

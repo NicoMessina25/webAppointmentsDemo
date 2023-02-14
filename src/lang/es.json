@@ -138,5 +138,6 @@
     "RepeatNewPassword":"Repetir nueva contraseña",
     "CreateNewPassword":"Crear nueva contraseña",
     "Mobile":"Teléfono",
-    "ProfileData":"Datos de perfil"
+    "ProfileData":"Datos de perfil",
+    "ChangesSavedSuccessfully":"Cambios guardados con éxito"
 }

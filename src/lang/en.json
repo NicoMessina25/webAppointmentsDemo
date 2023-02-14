@@ -138,5 +138,6 @@
     "RepeatNewPassword":"Repeat new password",
     "CreateNewPassword":"Create new password",
     "Mobile":"Mobile",
-    "Profile data":"Profile data"
+    "Profile data":"Profile data",
+    "ChangesSavedSuccessfully":"Changes saved successfully"
 }
