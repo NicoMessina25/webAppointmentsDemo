@@ -11,7 +11,7 @@ import { Button } from 'primereact/button';
 import { appContext } from '../../Context/appContext';
 import { getMedicalCoverages, getPlans } from '../../../services/medicalCoverageService';
 import { getCities } from '../../../services/citiesService';
-import { savePatientInfo } from '../../../services/UserService';
+import { addRelativeMedere, savePatientInfo } from '../../../services/UserService';
 import ErrorModal from '../../Modal/ErrorModal/ErrorModal';
 import { useLocation } from 'react-router-dom';
 import {PhoneNumberFormat, PhoneNumberUtil}  from  'google-libphonenumber';
@@ -103,19 +103,49 @@ useImperativeHandle(ref,()=>({
         setErrorModalVisibility(true);
       }
       })
+  },
+
+  saveNewRelative(){
+
   }
 }))
 
-function isValidPhone(){
-
-  if (user.mobilephone.prefix=="" && user.mobilephone.area=="" && user.mobilephone.number.length>0){
-    return false;
+function addRelative(){
+  let relative:any;
+  relative={
+    parentUserId:user._user,
+    firstname:patient.firstname,
+    lastname:patient.lastname,
+    gender:patient.gender,
+    birthdate:patient.birthdate,
+    documenttype:patient.documentType,
+    document:patient.document,
+    healthpatientcoverage:{
+      hasMedicalCoverage:patient.hasMedicalCoverage,
+      voluntary:patient.isMedCoverageThroughJob,
+      healthentity:patient.medicalCoverage,
+      healthentityplan:patient.plan,
+      affiliateNo:patient.memberNumber,
+      noCredential:"",
+      healthPatientCoverage:""
+    }
   }
-  else return true;
+  
+  console.log(relative)
+  addRelativeMedere(relative).then(res=>{
+    if(res.status!=200 || res.data===false){
+      console.log("algo ha salido mal")
+    }else{
+      console.log("paciente guardado")
+    }
+  })
 }
 
 useEffect(() => {
-  setPatient({...user,mobilephone : {...user.mobilephone}})
+  if (props.edit){
+    setPatient({...user,mobilephone : {...user.mobilephone}})
+  }
+
 },[user])
 
   return (
@@ -153,22 +183,28 @@ useEffect(() => {
         </div>
            
         <div className="flexible--row space-between">
-          <InputTextCustom className='width-50' value={patient.address} disable={!props.isEditButtonClicked} label="Address" onChange={(e:any)=>{setPatient({...patient,address:e.target.value})}} placeholder=""/>
-          
-          <Combobox className='width-50' getItems={getCities} label={intl.formatMessage({ id: "City" })} optionLabel="location" value={patient.city} placeholder={patient.city?.  description} setValue={(c: any) => {
+          {props.address && 
+            <InputTextCustom className='width-50' value={patient.address} disable={!props.isEditButtonClicked} label="Address" onChange={(e:any)=>{setPatient({...patient,address:e.target.value})}} placeholder=""/>
+          }
+          {props.city && 
+            <Combobox className='width-50' getItems={getCities} label={intl.formatMessage({ id: "City" })} optionLabel="location" value={patient.city} placeholder={patient.     city?.  description} setValue={(c: any) => {
                         setPatient({ ...patient, city: c });
                     }} disable={!props.isEditButtonClicked}/>
-        </div>
+                  }
+          </div>
 
         <div className="flexible--row space-between">
-          <InputPhone className='width-50' label={intl.formatMessage({ id: "Phone" })} value={patient.mobilephone} setValue={(val: any, valField: any) => {
+          {props.mobilePhone && 
+            <InputPhone className='width-50' label={intl.formatMessage({ id: "Phone" })} value={patient.mobilephone} setValue={(val: any, valField: any) => {
                           let _patient = { ...patient }
                           _patient.mobilephone[valField] = val;
                           setPatient(_patient);
                       }} 
                       disable={!props.isEditButtonClicked}/>
-            
-          <InputTextCustom className='width-50' value={patient.email} label={intl.formatMessage({ id: "Email" })} onChange={(e:any)=>{setPatient({...patient,email:e.target.value})}} placeholder="" disable={!props.isEditButtonClicked}/>
+          }
+          {props.email && 
+            <InputTextCustom className='width-50' value={patient.email} label={intl.formatMessage({ id: "Email" })} onChange={(e:any)=>{setPatient({...patient,email:e.target.value})}} placeholder="" disable={!props.isEditButtonClicked}/>
+          }
         </div>
         
         <div className='flexible--column'>
@@ -218,8 +254,16 @@ useEffect(() => {
               </div>
             }
           </div>
-            
+          
           <ErrorModal visible={errorModalVisibility} setVisible={setErrorModalVisibility}></ErrorModal>
+          
+          {
+            props.addButton && 
+            <div className='flexible--row CRUDbuttons'>
+              <Button icon='pi pi-times' iconPos='left' className='buttonMain3' label={intl.formatMessage({id:"Cancel"})} ></Button>
+              <Button className='buttonMain' label={intl.formatMessage({id:"Add"})} onClick={addRelative}></Button>
+            </div>
+          }
     </div>
   )
 }

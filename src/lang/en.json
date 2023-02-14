@@ -139,5 +139,7 @@
     "CreateNewPassword":"Create new password",
     "Mobile":"Mobile",
     "Profile data":"Profile data",
-    "ChangesSavedSuccessfully":"Changes saved successfully"
+    "ChangesSavedSuccessfully":"Changes saved successfully",
+    "AddRelative":"Add relative",
+    "Add":"Add"
 }

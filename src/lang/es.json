@@ -139,5 +139,7 @@
     "CreateNewPassword":"Crear nueva contraseña",
     "Mobile":"Teléfono",
     "ProfileData":"Datos de perfil",
-    "ChangesSavedSuccessfully":"Cambios guardados con éxito"
+    "ChangesSavedSuccessfully":"Cambios guardados con éxito",
+    "AddRelative":"Agregar familiar",
+    "Add":"Agregar"
 }

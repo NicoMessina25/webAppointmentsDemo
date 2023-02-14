@@ -34,3 +34,10 @@ export function changePassword(newPasswordDTO:any){
         return res
     });
 }
+
+export function addRelativeMedere(dto:any){
+    return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/addRelative',dto
+    ).then(res => {
+        return res
+    });
+}

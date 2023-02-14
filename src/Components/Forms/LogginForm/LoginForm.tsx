@@ -76,7 +76,6 @@ export default function LogginForm({googleLogin}:any){
                 }
             }).catch(error=>{
                 setDisplayNotUserFound(true);
-                console.log(error);
             })
         }
     }

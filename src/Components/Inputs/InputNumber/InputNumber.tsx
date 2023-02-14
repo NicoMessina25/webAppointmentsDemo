@@ -8,6 +8,6 @@ export default function InputNumber({label, className, placeholder, value, onCha
     }
 
     return (
-        <InputTextCustom label={label} placeholder={placeholder} value={value.number} onChange={onChange} className={className} onKeyDown={onKeyDownHandler} error={error} disable={disable}/>
+        <InputTextCustom label={label} placeholder={placeholder} value={value} onChange={onChange} className={className} onKeyDown={onKeyDownHandler} error={error} disable={disable}/>
     )
 }

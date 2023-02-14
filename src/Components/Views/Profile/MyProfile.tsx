@@ -49,7 +49,7 @@ export default function MyProfile() {
 
       </div>
     {/* HEADER */}
-    <ProfileForm isEditButtonClicked={isEditButtonVisible}  ref={formRef}></ProfileForm>
+    <ProfileForm email address city mobilePhone isEditButtonClicked={isEditButtonVisible}  ref={formRef}></ProfileForm>
 
 
     </div>

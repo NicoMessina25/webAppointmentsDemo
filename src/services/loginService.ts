@@ -124,9 +124,9 @@ function getDevice(){
 
 export async function authenticateUser(username:string,password:string){
   //axios.defaults.withCredentials = true;
-  /* const instance = axios.create({
+  const instance = axios.create({
     withCredentials: true,
- }) */
+ })
 
     let device=getDevice();
  

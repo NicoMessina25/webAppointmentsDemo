@@ -25,8 +25,6 @@ export default function TreeMenu({items, selectedItemKey, onSelectionChange,onSe
         
         toggleNode(e.node, {...expandedKeys});
           
-    
-            
     }
 
     const toggleNode = (node:any, _expandedKeys:any) => {

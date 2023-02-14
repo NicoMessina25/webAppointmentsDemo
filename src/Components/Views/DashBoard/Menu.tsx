@@ -76,30 +76,18 @@ const Menu = React.forwardRef((props: any, ref) => {
             if (element.items.length > 0) {
                 let subKey = 0;
                 element.items.forEach((subItem:any, subInd:any)=>{
-                    
                     let item2:any;
                     item2={
                         key:key + "-" + subKey,
                         caption: subItem.caption,
                         icon: subItem.icon,
                         className: "subItemContainer",
-                        id:subItem.menuItem
-                    }
-                    subItem.menuItem===2113 ? 
-                    item2={
-                        ...item2,
-                        command: ()=>{
-                            setVisibilityChangePasswordModal(true);
-                            console.log("no and")
-                        }
-                    }:item2={
-                        ...item2,
+                        id:subItem.menuItem,
                         route: subItem.route
                     }
                     subItems.push(item2)
                     subKey++;
-                }) 
-                
+                })    
             }
             item = { ...item, children: subItems };
             menu.push(item)

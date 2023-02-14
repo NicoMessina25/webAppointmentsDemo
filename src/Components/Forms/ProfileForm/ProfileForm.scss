@@ -18,6 +18,14 @@
             
         }
     }
+    .CRUDbuttons{
+        justify-content: flex-end;
+        align-items: flex-end;
+        .pi{
+            font-size:70% !important;
+            color:map-get($lightContrastShadeTransparent,60);
+        }
+    }
 
     input,
     .p-dropdown {
