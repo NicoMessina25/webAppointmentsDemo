@@ -107,7 +107,8 @@ const AppProvider = ({children}:any) => {
         // const { hasMedicalCoverage, healthentity, healthentityplan, voluntary, healthpatientcoverage } = healthpatientcoverage;
         
         if (patient) {
-            let modificatedUser = {
+            let modificatedUser:any;
+            modificatedUser = {
                 ...user,
                 firstname: firstname,
                 lastname: lastname,
@@ -117,21 +118,30 @@ const AppProvider = ({children}:any) => {
                 document: document,
                 documentType: documentType.documentType,
                 gender: gender,
-                hasMedicalCoverage: healthpatientcoverage.hasMedicalCoverage,
-                medicalCoverage: healthpatientcoverage.healthentity,
-                plan: healthpatientcoverage.healthentityplan,
-                isMedCoverageThroughJob: healthpatientcoverage.voluntary,
                 city: city,
                 _user:_user,
-                healthpatientcoverage:healthpatientcoverage.healthpatientcoverage,
-                noCredential:healthpatientcoverage.noCredential,
-                affiliateNo:healthpatientcoverage.affiliateNo,
                 username:patient.username,
                 clinichistoryid:patient.clinichistoryid,
                 medereentity:patient.medereentity,
                 mobilephone:patient.mobilephone,
-                memberNumber:patient.healthpatientcoverage.affiliateNo
+                hasMedicalCoverage: false   
             }
+            if(healthpatientcoverage){
+                modificatedUser={
+                    ...modificatedUser,
+                    hasMedicalCoverage: healthpatientcoverage.hasMedicalCoverage,
+                    medicalCoverage: healthpatientcoverage.healthentity,
+                    plan: healthpatientcoverage.healthentityplan,
+                    isMedCoverageThroughJob: healthpatientcoverage.voluntary,
+                    healthpatientcoverage:healthpatientcoverage.healthpatientcoverage,
+                    noCredential:healthpatientcoverage.noCredential,
+                    affiliateNo:healthpatientcoverage.affiliateNo,
+                    memberNumber:patient.healthpatientcoverage.affiliateNo
+                }
+            }
+            
+
+
             setUser(modificatedUser);
             
         }

@@ -82,14 +82,14 @@ const [inputErrors2, setInputErrors2] = useState({
 })
 
 
-const [patient,setPatient]=useState(user);
+const [patient,setPatient]=useState({...user,mobilephone : {...user.mobilephone}});
 
 const [errorModalVisibility,setErrorModalVisibility]=useState(false)
 
 
 useImperativeHandle(ref,()=>({
   cancelEdit(){
-    setPatient(user);
+    setPatient({...user,mobilephone : {...user.mobilephone}});
   }
   ,
   saveChanges(){
@@ -115,7 +115,7 @@ function isValidPhone(){
 }
 
 useEffect(() => {
-  setPatient(user)
+  setPatient({...user,mobilephone : {...user.mobilephone}})
 },[user])
 
   return (
@@ -147,7 +147,9 @@ useEffect(() => {
           <RadioButtonGroup options={documentOptions} setValue={(docType: any) => {
                               setPatient({ ...patient, documentType: docType })
                           }} label={intl.formatMessage({ id: "DocumentType" })} value={patient.documentType} className="radioGroup width-50" orientation={"row"} error={!inputErrors2.documentType.isValid} caption={inputErrors2.documentType.caption} disable={!props.isEditButtonClicked}/>
-            <InputTextCustom  className='width-50' value={patient.document} disable={!props.isEditButtonClicked} label="Document" onChange={(e:any)=>{}} placeholder=""/>
+            <InputTextCustom  className='width-50' value={patient.document} disable={!props.isEditButtonClicked} label="Document" onChange={(e:any)=>{
+              setPatient({ ...patient, document: e.target.value })
+            }} placeholder=""/>
         </div>
            
         <div className="flexible--row space-between">
@@ -177,40 +179,44 @@ useEffect(() => {
             <div className='flexible--row'>
               
               <div className="width-20">
-              <RadioButtonGroup id={1} className='radioGroup ' options={yesNo} value={patient.hasMedicalCoverage} setValue={(value:any)=>{
+              <RadioButtonGroup id={1} className='radioGroup margin-right-rbg' options={yesNo} value={patient.hasMedicalCoverage} setValue={(value:any)=>{
                 setPatient({...patient, hasMedicalCoverage: value})
                 //onChangeRemoveError("hasMedicalCoverage")
                 }} label={intl.formatMessage({id: "DoYouHaveMedicalCoverage?"})} orientation="row" error={!inputErrors.hasMedicalCoverage.isValid} caption={inputErrors.hasMedicalCoverage.caption} disable={!props.isEditButtonClicked}/>
               </div>
-              <div className="width-20">
-              <RadioButtonGroup id={2} className='radioGroup' options={yesNo} value={patient.isMedCoverageThroughJob} setValue={(value:any)=>{
-                  setPatient({...patient, isMedCoverageThroughJob: value})
-                  //onChangeRemoveError("isMedCoverageThroughJob")
-              }} label={intl.formatMessage({id: "IsThroughYourJob?"})} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} disable={!props.isEditButtonClicked}/>
+              {patient.hasMedicalCoverage &&
+                  <div className="width-20">
+                  <RadioButtonGroup id={2} className='radioGroup' options={yesNo} value={patient.isMedCoverageThroughJob} setValue={(value:any)=>{
+                      setPatient({...patient, isMedCoverageThroughJob: value})
+                      //onChangeRemoveError("isMedCoverageThroughJob")
+                  }} label={intl.formatMessage({id: "IsThroughYourJob?"})} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} disable={!props.isEditButtonClicked}/>
+                </div>
+            }
             </div>
-            </div>
-            <div className='flexible--row number-container space-between'>
+            { 
+              patient.hasMedicalCoverage &&
+              <div className='flexible--row number-container space-between'>
 
-            <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={patient.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" getItems={getMedicalCoverages} value={patient.medicalCoverage} setValue={(p:any)=>{
-                    setPatient({...patient, medicalCoverage: p});
-                    //onChangeRemoveError("medicalCoverage")
-                    
-                }} optionLabel="name" error={!inputErrors.medicalCoverage.isValid} caption={inputErrors.medicalCoverage.caption}disable={!props.isEditButtonClicked} />
+              <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={patient.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" getItems={getMedicalCoverages} value={patient.medicalCoverage} setValue={(p:any)=>{
+                      setPatient({...patient, medicalCoverage: p});
+                      //onChangeRemoveError("medicalCoverage")
+                      
+                  }} optionLabel="name" error={!inputErrors.medicalCoverage.isValid} caption={inputErrors.medicalCoverage.caption}disable={!props.isEditButtonClicked} />
 
-              <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox" placeholder={intl.formatMessage({id: "Select"})} getItems={(inputText:any, offSet:any, pageSize:any)=>{
-                                  return getPlans(inputText, offSet, pageSize, patient.medicalCoverage?.entityid)
-                              }} value={patient.plan} setValue={(p:any)=>{
-                                  setPatient({...patient, plan: p})
-                                  //onChangeRemoveError("plan");
-                              }} optionLabel="name" reLoadItemsValue={patient.medicalCoverage} error={!inputErrors.plan.isValid} caption={inputErrors.plan.caption} disable={!props.isEditButtonClicked}/>
-            
-            <InputTextCustom label={intl.formatMessage({ id: "NumberOfMember" })}  value={patient.memberNumber} onChange={(e:any)=>{
-                    setPatient({...patient, memberNumber: e.target.value})
-                    //onChangeRemoveError("memberNumber");
-                }} error={!inputErrors.memberNumber.isValid} caption={inputErrors.memberNumber.caption} disable={!props.isEditButtonClicked}/>
-            
-            </div>
-            
+                <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox" placeholder={intl.formatMessage({id: "Select"})} getItems={(inputText:any, offSet:any, pageSize:any)=>{
+                                    return getPlans(inputText, offSet, pageSize, patient.medicalCoverage?.entityid)
+                                }} value={patient.plan} setValue={(p:any)=>{
+                                    setPatient({...patient, plan: p})
+                                    //onChangeRemoveError("plan");
+                                }} optionLabel="name" reLoadItemsValue={patient.medicalCoverage} error={!inputErrors.plan.isValid} caption={inputErrors.plan.caption} disable={!props.isEditButtonClicked}/>
+              
+              <InputTextCustom label={intl.formatMessage({ id: "NumberOfMember" })}  value={patient.memberNumber} onChange={(e:any)=>{
+                      setPatient({...patient, memberNumber: e.target.value})
+                      //onChangeRemoveError("memberNumber");
+                  }} error={!inputErrors.memberNumber.isValid} caption={inputErrors.memberNumber.caption} disable={!props.isEditButtonClicked}/>
+              
+              </div>
+            }
           </div>
             
           <ErrorModal visible={errorModalVisibility} setVisible={setErrorModalVisibility}></ErrorModal>
