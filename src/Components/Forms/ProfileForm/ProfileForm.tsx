@@ -177,7 +177,7 @@ useEffect(() => {
           <RadioButtonGroup options={documentOptions} setValue={(docType: any) => {
                               setPatient({ ...patient, documentType: docType })
                           }} label={intl.formatMessage({ id: "DocumentType" })} value={patient.documentType} className="radioGroup width-50" orientation={"row"} error={!inputErrors2.documentType.isValid} caption={inputErrors2.documentType.caption} disable={!props.isEditButtonClicked}/>
-            <InputTextCustom  className='width-50' value={patient.document} disable={!props.isEditButtonClicked} label="Document" onChange={(e:any)=>{
+            <InputTextCustom  className='width-50' value={patient.document} disable={!props.isEditButtonClicked} label={intl.formatMessage({id:"Document"})} onChange={(e:any)=>{
               setPatient({ ...patient, document: e.target.value })
             }} placeholder=""/>
         </div>

@@ -27,6 +27,7 @@ import { appContext } from '../../Context/appContext';
 import { logout } from "../../../services/siteService";
 import ChangePassword from "../Profile/ChangePassword/ChangePassword";
 import ChangePasswordModal from "../../Modal/ChangePasswordModal/ChangePasswordModal";
+import Combobox from "../../Combobox/Combobox";
 
 const Menu = React.forwardRef((props: any, ref) => {
 
@@ -85,6 +86,9 @@ const Menu = React.forwardRef((props: any, ref) => {
                         id:subItem.menuItem,
                         route: subItem.route
                     }
+                    if(item2.id===2113){
+                        delete item2.route;
+                    }
                     subItems.push(item2)
                     subKey++;
                 })    
@@ -115,8 +119,11 @@ const Menu = React.forwardRef((props: any, ref) => {
         <div className="container">
             <div className="flexible--row header">
                 {/* Header */}
-                <Button className="p-button-rounded buttonMain buttonHeader " icon={iconbutton} onClick={handleDisplayMenu}></Button>
-                <h2 className="header-title">{settingsJson.siteName}</h2>
+                <div className="flexible--row left-div">
+                    <Button className="p-button-rounded buttonMain buttonHeader " icon={iconbutton} onClick={handleDisplayMenu}></Button>
+                    <h2 className="header-title">{settingsJson.siteName}</h2>
+                </div>
+                <Combobox className='header-combo-box '></Combobox>
             </div>
 
             <div className="flexible--row maxwidth menuBody" >
