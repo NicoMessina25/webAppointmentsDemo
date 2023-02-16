@@ -141,5 +141,7 @@
     "Profile data":"Profile data",
     "ChangesSavedSuccessfully":"Changes saved successfully",
     "AddRelative":"Add relative",
-    "Add":"Add"
+    "Add":"Add",
+    "ChangesCouldNotBeSaved":"Changes couldn't be saved",
+    "Success":"Success"
 }

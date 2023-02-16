@@ -18,10 +18,11 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import Loader from '../../Loader/Loader';
 import { isErrored } from 'stream';
 import InputNumber from '../../Inputs/InputNumber/InputNumber';
+import { langContext } from '../../Context/langContext';
 
 export default function PersonalDataForm({ user, setUser, setDisplayRegisterCancel, onSubmit }: any) {
     const [cities, setCities] = useState();
-    const [inputErrors, setInputErrors] = useState({
+    /* const [inputErrors, setInputErrors] = useState({
         firstname: { caption: "", isValid: true },
         lastname: { caption: "", isValid: true },
         birthdate: { caption: "", isValid: true },
@@ -30,7 +31,10 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
         gender: { caption: "", isValid: true },
         mobilephone: { caption: "", isValid: true },
         address: { caption: "", isValid: true }
-    })
+    }) */
+
+    let inputFields = ["firstname", "lastname", "birthdate", "document", "documentType", "gender", "mobilephone", "address"];
+
     const [questions, setQuestions]: any = useState(null);
     const [answers, setAnswers]: any = useState({
         city: null,
@@ -46,7 +50,8 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
     const [loadMoreFields, setLoadMoreFields] = useState(user.firstname !== "");
     const [loading, setLoading] = useState(false);
 
-    const { languageId }: any = useContext(appContext);
+    const { languageId}: any = useContext(langContext);
+    const {inputErrors, setInputErrors, onChangeRemoveError, validateData}:any = useContext(appContext);
 
     const [displayUserExists,setDisplayUserExists]=useState(false);
 
@@ -57,12 +62,6 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
     const toast: any = useRef(null);
 
 
-
-    /*  useEffect(()=>{
-         getAllCities("",languageId).then(data=>{
-             setCities(data);           
-         })
-     },[languageId]); */
 
     useEffect(() => {
         if (cities != undefined && !user.city) {
@@ -80,54 +79,6 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
         }
     }, [questions]);
 
-    function onChangeRemoveError(field: any) {
-        let _inputErrors: any = { ...inputErrors }
-        _inputErrors[field].isValid = true
-        _inputErrors[field].caption = ""
-        setInputErrors(_inputErrors)
-    }
-
-    function validateData() {
-        let valid = true;
-        let _inputErrors: any = { ...inputErrors }
-
-        for (const ie in _inputErrors) {
-
-            if (!user[ie]) {
-                _inputErrors[ie].caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
-                _inputErrors[ie].isValid = valid = false;
-            }
-        }
-
-        if (user.mobilephone.area === "" || user.mobilephone.number === "") {
-            _inputErrors.mobilephone.caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
-            _inputErrors.mobilephone.isValid = valid = false;
-        } //por ahora queda asi
-
-        setInputErrors(_inputErrors);
-
-        return valid
-    }
-
-    function validateField(field: string) {
-        let valid = true;
-        let _inputErrors: any = { ...inputErrors }
-
-        if (!user[field] && field.localeCompare("mobilephone")) {
-            _inputErrors[field].caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
-            _inputErrors[field].isValid = valid = false;
-        } else if (!field.localeCompare("mobilephone")) {
-            if (user.mobilephone.area === "" || user.mobilephone.number === "") {
-                _inputErrors.mobilephone.caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
-                _inputErrors.mobilephone.isValid = valid = false;
-            }
-        }
-
-        setInputErrors(_inputErrors);
-
-        return valid;
-
-    }
 
 
     const documentOptions = [
@@ -139,8 +90,6 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
         { label: intl.formatMessage({ id: "Female" }), value: "F" },
         { label: intl.formatMessage({ id: "Male" }), value: "M" }
     ]
-
-    const documentTimeout: any = useRef(null);
 
     function validateCompleteAnswers() {
         let numberAnswered = 0;
@@ -212,7 +161,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                     },
                     address: "",
                     city: { location: 'Mar del Plata, Buenos Aires, Argentina', city: 1 },
-                    memberNumber: "",
+                    affiliateNo: "",
                     hasMedicalCoverage: null,
                     isMedCoverageThroughJob: null,
                     medicalCoverage: null,
@@ -238,7 +187,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                 setLoadMoreFields(false)
             }} label={intl.formatMessage({ id: "DocumentType" })} value={user.documentType} className="radioGroup" orientation={"row"} error={!inputErrors.documentType.isValid} caption={inputErrors.documentType.caption} />
 
-            <InputNumber value={user.document} onChange={(e: any) => {
+            <InputTextCustom value={user.document} onChange={(e: any) => {
                 setUser({ ...user, document: e.target.value })
                 onChangeRemoveError("document")
                 setLoadMoreFields(false)
@@ -290,12 +239,12 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
             <div className='flexible--row flex-end buttonContainer'>
                 <Button label={intl.formatMessage({ id: "Cancel" })} className='buttonMain3' onClick={() => { setDisplayRegisterCancel(true) }} />
                 {loadMoreFields ? <Button icon="pi pi-angle-right" iconPos='right' label={intl.formatMessage({ id: "Follow" })} onClick={() => {
-                    if (validateData()) {
+                    if (validateData(inputFields, user)) {
                         navigate("/register/2")
                     }
-                }} className='buttonMain' /> : <Button icon={!loading && "pi pi-angle-down"} iconPos='right' label={intl.formatMessage({ id: "Confirm" })} onClick={() => {
+                }} className='buttonMain' /> : <Button  label={intl.formatMessage({ id: "Confirm" })} onClick={() => {
 
-                    if (validateField("document") && validateField("documentType")) {
+                    if (validateData(["document", "documentType"], user)) {
                         setLoading(true)
                         verifyIfPatientExists(user.document, user.documentType);
                     }

@@ -20,8 +20,7 @@
     justify-content: space-around;
     align-items: center;
     background-color: map-get($lightContrastShade, 10);
-    min-height: 174px;
-    height: 25vh;
+    height: 146px;
     width: 100%;
     font-size: 70%;
     z-index: 8;
@@ -29,14 +28,20 @@
     top: 0;
 
     img{
-        width: 50%;
+        width: 30%;
         height: auto;
     }
 
     h1{
-        font-size: 180%;
+        font-size: 125%;
         color: map-get($lightPrimary, text);
         font-weight: 600;
+    }
+    .stepsContainer{
+        width: 80%;
+        justify-content: space-between;
+        align-items: center;
+        height: 50%;
     }
 
     .steps{
@@ -106,17 +111,37 @@
     }
 } 
 
+@media screen and (min-width:420px){
+    .registerHeader{
+        height: 150px;
+
+        img{
+            width: 20%;
+        }
+
+        .stepsContainer{
+            flex-direction: row;
+            width: 60%;
+            height: auto;
+            align-items: start;
+        }
+    }
+
+    
+
+    
+}
+
 @media screen and (min-width:768px) {
     .registerContainer{
         font-size: 100%;
     }
 
     .registerHeader{
-        height: 20vh;
         font-size: 80%;
         padding-top: 1px;
         img{
-            width:30%
+            width:15%
         }
     }
 
@@ -142,15 +167,14 @@
     
 }
 
+
 @media screen and (min-width:1280px) {
     .registerBody{
         width: 33%;
     }
     .registerHeader{
-        height: 20vh;
-        padding-top: 1px;
         img{
-            width:20%
+            width:10%
         }
     }
 

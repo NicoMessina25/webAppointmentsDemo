@@ -7,21 +7,17 @@
     width: 100%;
     background-color: map-get($lightBase, baseContrast);
   }
-  
-.logoSite {
-  width: 10%;
-  height: auto;
-  margin: 1% 0%;
-}
 
-.logo{
-  width: 15%;
+
+.logo, .logoSite{
+  width: 20%;
   height: auto;
-  margin: 1% 0%;
 }
 
 @media screen and (min-width: 768px) {
-  .logo{
+  .logoSite{
     width: 7%;
+    margin:0;
   }
+
 }

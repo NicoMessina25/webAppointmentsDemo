@@ -49,7 +49,7 @@ a {
 }
 
 .marginButton {
-    margin: 12px !important;
+    margin: 4px !important;
 }
 
 .button {
@@ -113,8 +113,8 @@ a {
     font-weight: 500;
     color: #1b2b41b8;
     font-size: 100%;
-    //justify-content: space-between;
     
+
     input,
     .p-dropdown {
         margin: 4px 0% 8px 0% !important;
@@ -368,7 +368,7 @@ input,
 }
 
 .linkReactRouter {
-    @extend.marginButton;
+    //@extend.marginButton;
 }
 
 .radioGroup{
@@ -417,7 +417,7 @@ input,
         font-size: 28px;
     }
 
-    .buttonSave{
+    .buttonWidth--maxContent{
         min-width: max-content; 
     }
 }
@@ -567,6 +567,20 @@ esta clase es para el input text invalido
     color:map-get($lightPrimary,text)
 }
 
+.width-25{
+    width:25%;
+    justify-content: center;
+    align-items: center;
+}
+
+.width-50{
+    width:49%;
+}
+
+.width-100{
+    width:100%
+}
+
 
 @media screen and (min-width:440px) {
     .p-dropdown-trigger {
@@ -602,43 +616,15 @@ esta clase es para el input text invalido
         padding: 0.65rem 1.083rem !important;
     }
 
-    /* .p-calendar{
-    
-        .p-inputtext{
-            font-size: 100% !important;
-        }
-    }
-
-    .p-dropdown-label{
-        font-size: 100% !important;
-    } */
 
 
     .p-dropdown-trigger {
         width: 3rem !important;
     }
 
-    /* .p-dropdown-panel{
-        font-size: 100% !important;
-    } */
-
-    /* .p-datepicker{
-    
-    
-        td, th, button,span{
-            font-size: 100% !important;
-        }
-    } */
-
-    /*  .p-checkbox-box{
-        width: 22px !important;
-        height: 22px !important;
+    .marginButton{
+        margin: 8px !important;
     }
-    
-    .p-checkbox-checked{
-        width: 22px !important;
-        height: 22px !important;
-    } */
 
     .p-password {
         .p-inputtext {

@@ -12,6 +12,7 @@ import { getValidationData, saveUser, sendValidationDataAnswers } from "../../se
 import UserVerificationForm from "./UserVerificationForm/UserVerificationForm";
 import { forEachChild } from "typescript";
 import { appContext } from "../Context/appContext";
+import { langContext } from "../Context/langContext";
 
 export default function Register() {
     const intl = useIntl();
@@ -33,7 +34,7 @@ export default function Register() {
     const { step }: any = useParams();
     const toast: any = useRef(null);
     const navigate = useNavigate();
-    const { languageId }: any = useContext(appContext)
+    const { languageId }: any = useContext(langContext)
 
     useEffect(() => {
         setActiveIndex(step - 1)
@@ -91,8 +92,11 @@ export default function Register() {
         <div className="flexible--column registerContainer">
             <header className="flexible--column registerHeader">
                 <img src="/img/advenio-medere.png" alt="" />
-                <h1>{intl.formatMessage({ id: "Registration" })}</h1>
-                <Steps model={items} className="steps" activeIndex={activeIndex} />
+                <div className="flexible--column stepsContainer" >
+                    <h1>{intl.formatMessage({ id: "Registration" })}</h1>
+                    <Steps model={items} className="steps" activeIndex={activeIndex} />
+                </div>
+                
             </header>
             <main className="registerBody">
                 {renderStep()}

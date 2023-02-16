@@ -35,7 +35,7 @@ export default function LogginForm({googleLogin}:any){
     const navigate = useNavigate();
     const {setAppSettings}:any = useContext(appContext);
     const {setModificateUser}:any = useContext(appContext);
-    const {validMobileForInputDate}:any = useContext(appContext);
+    const {validMobileForInputPhone}:any = useContext(appContext);
     
     const {user}:any = useContext(appContext);
     const {getStorage}:any = useContext(appContext);
@@ -76,7 +76,7 @@ export default function LogginForm({googleLogin}:any){
                     if (settingsString){
                         settingsJson = JSON.parse(settingsString)
                         getPatientInfo(settingsJson.entityId).then(res=>{
-                            res.mobilephone=validMobileForInputDate(res)
+                            res.mobilephone=validMobileForInputPhone(res)
                             res.birthDate = new Date(res.birthDate);
                             setModificateUser(res);  
                         })   
@@ -113,22 +113,25 @@ export default function LogginForm({googleLogin}:any){
                         setErrorUserstyle(false);
                         setUserErrorCaption("")
                     }} className="input" placeholder="" label={intl.formatMessage({id: "User"})}/>
-                <InputTextCustom value={password} caption={passwordErrorCaption} error={errorPassstyle} onChange={(e:any) =>{
-                    setPassword(e.target.value);
-                    setErrorPassstyle(false);
-                    setPasswordErrorCaption("")
-                }} 
-                onEnter={validateUser}
-                placeholder="" label={intl.formatMessage({id: "Password"})} password feedback={false}/>
-               <div className="rememberForgetPasswordContainer flexible--row">
-                    <div className="checkboxContainer flexible--row">
-                        <Checkbox onChange={e => setChecked(e.checked)} checked={checked} className="checkbox"/>
-                        <p className="checkboxLabel" >{intl.formatMessage({ id: 'RememberMe' })}</p>
+                <div className="flexible--column width-100">
+                    <InputTextCustom value={password} caption={passwordErrorCaption} error={errorPassstyle} onChange={(e:any) =>{
+                            setPassword(e.target.value);
+                            setErrorPassstyle(false);
+                            setPasswordErrorCaption("")
+                        }} 
+                        onEnter={validateUser}
+                        placeholder="" label={intl.formatMessage({id: "Password"})} password feedback={false}/>
+                    <div className="rememberForgetPasswordContainer flexible--row">
+                            <div className="checkboxContainer flexible--row">
+                                <Checkbox onChange={e => setChecked(e.checked)} checked={checked} className="checkbox"/>
+                                <p className="checkboxLabel" >{intl.formatMessage({ id: 'RememberMe' })}</p>
+                            </div>
+                            <div className="linkContainer flexible--row">
+                                <Link to={"/forgotPassword"} className="link">{intl.formatMessage({ id: 'ForgotPassword' })}</Link>
+                            </div>
                     </div>
-                    <div className="linkContainer flexible--row">
-                        <Link to={"/forgotPassword"} className="link">{intl.formatMessage({ id: 'ForgotPassword' })}</Link>
-                    </div>
-               </div>
+                </div>
+                
                <Button label={intl.formatMessage({ id: 'Join' })} onClick={validateUser} className="buttonMain" />
                <p className="text">{intl.formatMessage({ id: 'FirstTimeHere' })}</p>
                <Button label={intl.formatMessage({ id: 'SignIn' })} className="buttonMain2" onClick={()=>setDisplayRegister(true)} />

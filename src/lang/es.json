@@ -141,5 +141,7 @@
     "ProfileData":"Datos de perfil",
     "ChangesSavedSuccessfully":"Cambios guardados con éxito",
     "AddRelative":"Agregar familiar",
-    "Add":"Agregar"
+    "Add":"Agregar",
+    "ChangesCouldNotBeSaved":"Los cambios no pudieron ser guardados",
+    "Success":"Éxito"
 }

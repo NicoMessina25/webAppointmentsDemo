@@ -25,7 +25,8 @@ export function saveUser(user:any, onlyUser:boolean) {
   //newUser.birthdate = Date.parse(user.birthdate);
   newUser.city = user.city.city;
   newUser.medicalCoverage = user.medicalCoverage?.entityid;
-  newUser.plan = user.plan?.healthentityplan
+  newUser.plan = user.plan?.healthentityplan;
+  newUser.benefitNumber = newUser.affiliateNo;
   
   
 

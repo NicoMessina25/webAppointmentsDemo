@@ -4,15 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AppProvider } from './Components/Context/appContext';
+import LangProvider from './Components/Context/langContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <AppProvider>
-      <App />
-    </AppProvider>
+    <LangProvider>
+      <AppProvider>
+        <App />
+      </AppProvider>
+    </LangProvider>
+   
   </React.StrictMode>
 );
 

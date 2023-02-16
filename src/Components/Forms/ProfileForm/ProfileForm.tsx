@@ -1,4 +1,3 @@
-import { InputText } from 'primereact/inputtext'
 import React, { forwardRef, useContext, useEffect, useImperativeHandle, useState } from 'react'
 import InputTextCustom from '../../Inputs/InputText/InputTextCustom'
 import RadioButtonGroup from '../../RadioButtonGroup/RadioButtonGroup'
@@ -13,22 +12,21 @@ import { getMedicalCoverages, getPlans } from '../../../services/medicalCoverage
 import { getCities } from '../../../services/citiesService';
 import { addRelativeMedere, savePatientInfo } from '../../../services/UserService';
 import ErrorModal from '../../Modal/ErrorModal/ErrorModal';
-import { useLocation } from 'react-router-dom';
-import {PhoneNumberFormat, PhoneNumberUtil}  from  'google-libphonenumber';
 
-const ProfileForm=forwardRef( (props:any,ref) => {
+const ProfileForm=forwardRef( ({profile,setProfile, disable, isNew}:any,ref) => {
 
-  const {user}:any = useContext(appContext);
-  const {setUser}:any = useContext(appContext);
-  const {getDefaultPatient}:any = useContext(appContext);
-  const {returnValidPatientDTO}:any = useContext(appContext);
+
+
+  const {user, setUser, returnValidPatientDTO, inputErrors, onChangeRemoveError}:any = useContext(appContext);
+
 
   const {getStorage}:any = useContext(appContext);
 
   let settings=getStorage().getItem("settings");
   
   const intl = useIntl();
-  const [name,setName]=useState("");
+
+
   const genderOptions = [
       { label: intl.formatMessage({ id: "Female" }), value: "F" },
       { label: intl.formatMessage({ id: "Male" }), value: "M" }
@@ -40,69 +38,39 @@ const ProfileForm=forwardRef( (props:any,ref) => {
   ]
 
 
-let yes = intl.formatMessage({id: "Yes"});
-let no = intl.formatMessage({id: "No"});
+  let yes = intl.formatMessage({id: "Yes"});
+  let no = intl.formatMessage({id: "No"});
 
-const yesNo = [
-  {label: yes, value: true},
-  {label: no, value: false}
-]
-
-const sendOptions = [
-  { value: "Email", label: "Email" },
-  { value: "SMS", label: "SMS" }
-];
-
-const [sendOption,setSendOption]=useState("");
+  const yesNo = [
+    {label: yes, value: true},
+    {label: no, value: false}
+  ]
 
 
 
-function onChangeRemoveError(field:any){
-  let _inputErrors:any = {...inputErrors}
-  _inputErrors[field].isValid = true
-  _inputErrors[field].caption = ""
-  setInputErrors(_inputErrors)
-}
-
-const [inputErrors, setInputErrors] = useState({
-  hasMedicalCoverage: {caption: "", isValid: true},
-  isMedCoverageThroughJob: {caption: "", isValid:true},
-  medicalCoverage: {caption: "", isValid: true},
-  plan: {caption: "", isValid: true},
-  memberNumber: {caption: "", isValid: true},
-})
-
-const [inputErrors2, setInputErrors2] = useState({
-  firstname: { caption: "", isValid: true },
-  lastname: { caption: "", isValid: true },
-  birthdate: { caption: "", isValid: true },
-  document: { caption: "", isValid: true },
-  documentType: { caption: "", isValid: true },
-  gender: { caption: "", isValid: true },
-  mobilephone: { caption: "", isValid: true },
-  address: { caption: "", isValid: true }
-})
 
 
-const [patient,setPatient]=useState({...user,mobilephone : {...user.mobilephone}});
 
 const [errorModalVisibility,setErrorModalVisibility]=useState(false)
 
 
 useImperativeHandle(ref,()=>({
   cancelEdit(){
-    setPatient({...user,mobilephone : {...user.mobilephone}});
+    setProfile({...user,mobilephone : {...user.mobilephone}});
   }
   ,
-  saveChanges(){
-    
-    let mobileString=user.mobilephone.prefix+user.mobilephone.area+user.mobilephone.number;
-    savePatientInfo(patient,returnValidPatientDTO,mobileString).then(res=>{
+  saveChanges(){    
+    let mobileString=profile.mobilephone.prefix+profile.mobilephone.area+profile.mobilephone.number;
+
+    savePatientInfo(profile,returnValidPatientDTO,mobileString).then(res=>{
       if(res.status===200 && res.data===true){
-        setUser(patient);
+        setUser(profile);
+        console.log(profile);
+        return true
       }
       else{
         setErrorModalVisibility(true);
+        return false
       }
       })
   },
@@ -116,18 +84,18 @@ function addRelative(){
   let relative:any;
   relative={
     parentUserId:user._user,
-    firstname:patient.firstname,
-    lastname:patient.lastname,
-    gender:patient.gender,
-    birthdate:patient.birthdate,
-    documenttype:patient.documentType,
-    document:patient.document,
+    firstname:profile.firstname,
+    lastname:profile.lastname,
+    gender:profile.gender,
+    birthdate:profile.birthdate,
+    documenttype:profile.documentType,
+    document:profile.document,
     healthpatientcoverage:{
-      hasMedicalCoverage:patient.hasMedicalCoverage,
-      voluntary:patient.isMedCoverageThroughJob,
-      healthentity:patient.medicalCoverage,
-      healthentityplan:patient.plan,
-      affiliateNo:patient.memberNumber,
+      hasMedicalCoverage:profile.hasMedicalCoverage,
+      voluntary:profile.isMedCoverageThroughJob,
+      healthentity:profile.medicalCoverage,
+      healthentityplan:profile.plan,
+      affiliateNo:profile.memberNumber,
       noCredential:"",
       healthPatientCoverage:""
     }
@@ -144,10 +112,11 @@ function addRelative(){
 }
 
 useEffect(() => {
-  if (props.edit){
-    setPatient({...user,mobilephone : {...user.mobilephone}})
+  if (!isNew){
+   setProfile({...user,mobilephone : {...user.mobilephone}})
   }
 
+  
 },[user])
 
   return (
@@ -159,54 +128,48 @@ useEffect(() => {
         {/* </div > */}
 
         <div className="flexible--row space-between">  
-          <InputTextCustom className='width-50' disable={!props.isEditButtonClicked} value={patient.firstname} label={intl.formatMessage({ id: "Name" })} onChange={(e:any)=>{setPatient({ ...patient, firstname: e.target.value })}} placeholder=""/>
+          <InputTextCustom className='width-50' disable={disable} value={profile.firstname} label={intl.formatMessage({ id: "Name" })} onChange={(e:any)=>{setProfile({ ...profile, firstname: e.target.value })}} placeholder=""/>
             
-          <InputTextCustom className='width-50' value={patient.lastname} label={intl.formatMessage({ id: "Lastname" })} onChange={(e:any)=>{setPatient({ ...patient, lastname: e.target.value })}} placeholder="" disable={!props.isEditButtonClicked}/>
+          <InputTextCustom className='width-50' value={profile.lastname} label={intl.formatMessage({ id: "Lastname" })} onChange={(e:any)=>{setProfile({ ...profile, lastname: e.target.value })}} placeholder="" disable={disable}/>
         </div>
 
         <div className="flexible--row space-between">
           <RadioButtonGroup options={genderOptions} setValue={(gender: any) => {
-                          setPatient({...patient, gender: gender})
-                      }} label={intl.formatMessage({ id: "Gender" })} value={patient.gender} className="radioGroup width-50" orientation={"row"} 
-                      disable={!props.isEditButtonClicked}/>
+                          setProfile({...profile, gender: gender})
+                      }} label={intl.formatMessage({ id: "Gender" })} value={profile.gender} className="radioGroup width-50" orientation={"row"} 
+                      disable={disable}/>
         
           
-        <InputDate value={patient.birthdate} className='width-50' label={intl.formatMessage({id:"BirthDate"})} onChange={(e:any)=>{setPatient({...patient,birthdate:e.value})}}  disable={!props.isEditButtonClicked} showIcon dateFormat="dd/mm/yy" maxDate={new Date()} placeholder='dd/mm/aaaa'/>
+        <InputDate value={profile.birthdate} className='width-50' label={intl.formatMessage({id:"BirthDate"})} onChange={(e:any)=>{setProfile({...profile,birthdate:e.value})}}  disable={disable} showIcon dateFormat="dd/mm/yy" maxDate={new Date()} placeholder='dd/mm/aaaa'/>
 
         </div>
 
-        <div className="flexible--row space-between">
+        {/* <div className="flexible--row space-between">
           <RadioButtonGroup options={documentOptions} setValue={(docType: any) => {
-                              setPatient({ ...patient, documentType: docType })
-                          }} label={intl.formatMessage({ id: "DocumentType" })} value={patient.documentType} className="radioGroup width-50" orientation={"row"} error={!inputErrors2.documentType.isValid} caption={inputErrors2.documentType.caption} disable={!props.isEditButtonClicked}/>
-            <InputTextCustom  className='width-50' value={patient.document} disable={!props.isEditButtonClicked} label={intl.formatMessage({id:"Document"})} onChange={(e:any)=>{
-              setPatient({ ...patient, document: e.target.value })
+                              setProfile({ ...profile, documentType: docType })
+                          }} label={intl.formatMessage({ id: "DocumentType" })} value={profile.documentType} className="radioGroup width-50" orientation={"row"} error={!inputErrors.documentType.isValid} caption={inputErrors.documentType.caption} disable={!props.isEditButtonClicked}/>
+            <InputTextCustom  className='width-50' value={profile.document} disable={!props.isEditButtonClicked} label="Document" onChange={(e:any)=>{
+              setProfile({ ...profile, document: e.target.value })
             }} placeholder=""/>
-        </div>
+        </div> */}
            
         <div className="flexible--row space-between">
-          {props.address && 
-            <InputTextCustom className='width-50' value={patient.address} disable={!props.isEditButtonClicked} label="Address" onChange={(e:any)=>{setPatient({...patient,address:e.target.value})}} placeholder=""/>
-          }
-          {props.city && 
-            <Combobox className='width-50' getItems={getCities} label={intl.formatMessage({ id: "City" })} optionLabel="location" value={patient.city} placeholder={patient.     city?.  description} setValue={(c: any) => {
-                        setPatient({ ...patient, city: c });
-                    }} disable={!props.isEditButtonClicked}/>
-                  }
-          </div>
+          {!isNew && <InputTextCustom className='width-50' value={profile.address} disable={disable} label="Address" onChange={(e:any)=>{setProfile({...profile,address:e.target.value})}} placeholder=""/>}
+          
+          {!isNew && <Combobox className='width-50' getItems={getCities} label={intl.formatMessage({ id: "City" })} optionLabel="location" value={profile.city} placeholder={profile.city?.description} setValue={(c: any) => {
+                        setProfile({ ...profile, city: c });
+                    }} disable={disable}/>}
+        </div>
 
         <div className="flexible--row space-between">
-          {props.mobilePhone && 
-            <InputPhone className='width-50' label={intl.formatMessage({ id: "Phone" })} value={patient.mobilephone} setValue={(val: any, valField: any) => {
-                          let _patient = { ...patient }
-                          _patient.mobilephone[valField] = val;
-                          setPatient(_patient);
+          {!isNew && <InputPhone className='width-50' label={intl.formatMessage({ id: "Phone" })} value={profile.mobilephone} setValue={(val: any, valField: any) => {
+                          let _profile = { ...profile }
+                          _profile.mobilephone[valField] = val;
+                          setProfile(_profile);
                       }} 
-                      disable={!props.isEditButtonClicked}/>
-          }
-          {props.email && 
-            <InputTextCustom className='width-50' value={patient.email} label={intl.formatMessage({ id: "Email" })} onChange={(e:any)=>{setPatient({...patient,email:e.target.value})}} placeholder="" disable={!props.isEditButtonClicked}/>
-          }
+                      disable={disable}/>}
+            
+          {!isNew && <InputTextCustom className='width-50' value={profile.email} label={intl.formatMessage({ id: "Email" })} onChange={(e:any)=>{setProfile({...profile,email:e.target.value})}} placeholder="" disable={disable}/>}
         </div>
         
         <div className='flexible--column'>
@@ -217,41 +180,41 @@ useEffect(() => {
             <div className='flexible--row'>
               
               <div className="width-20">
-              <RadioButtonGroup id={1} className='radioGroup margin-right-rbg' options={yesNo} value={patient.hasMedicalCoverage} setValue={(value:any)=>{
-                setPatient({...patient, hasMedicalCoverage: value})
-                //onChangeRemoveError("hasMedicalCoverage")
-                }} label={intl.formatMessage({id: "DoYouHaveMedicalCoverage?"})} orientation="row" error={!inputErrors.hasMedicalCoverage.isValid} caption={inputErrors.hasMedicalCoverage.caption} disable={!props.isEditButtonClicked}/>
+              <RadioButtonGroup id={1} className='radioGroup margin-right-rbg' options={yesNo} value={profile.hasMedicalCoverage} setValue={(value:any)=>{
+                setProfile({...profile, hasMedicalCoverage: value})
+                onChangeRemoveError("hasMedicalCoverage")
+                }} label={intl.formatMessage({id: "DoYouHaveMedicalCoverage?"})} orientation="row" error={!inputErrors.hasMedicalCoverage.isValid} caption={inputErrors.hasMedicalCoverage.caption} disable={disable}/>
               </div>
-              {patient.hasMedicalCoverage &&
+              {profile.hasMedicalCoverage &&
                   <div className="width-20">
-                  <RadioButtonGroup id={2} className='radioGroup' options={yesNo} value={patient.isMedCoverageThroughJob} setValue={(value:any)=>{
-                      setPatient({...patient, isMedCoverageThroughJob: value})
-                      //onChangeRemoveError("isMedCoverageThroughJob")
-                  }} label={intl.formatMessage({id: "IsThroughYourJob?"})} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} disable={!props.isEditButtonClicked}/>
+                  <RadioButtonGroup id={2} className='radioGroup' options={yesNo} value={profile.isMedCoverageThroughJob} setValue={(value:any)=>{
+                      setProfile({...profile, isMedCoverageThroughJob: value})
+                      onChangeRemoveError("isMedCoverageThroughJob")
+                  }} label={intl.formatMessage({id: "IsThroughYourJob?"})} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} disable={disable}/>
                 </div>
             }
             </div>
             { 
-              patient.hasMedicalCoverage &&
+              profile.hasMedicalCoverage &&
               <div className='flexible--row number-container space-between'>
 
-              <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={patient.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" getItems={getMedicalCoverages} value={patient.medicalCoverage} setValue={(p:any)=>{
-                      setPatient({...patient, medicalCoverage: p});
-                      //onChangeRemoveError("medicalCoverage")
+              <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={profile.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" getItems={getMedicalCoverages} value={profile.medicalCoverage} setValue={(p:any)=>{
+                      setProfile({...profile, medicalCoverage: p});
+                      onChangeRemoveError("medicalCoverage")
                       
-                  }} optionLabel="name" error={!inputErrors.medicalCoverage.isValid} caption={inputErrors.medicalCoverage.caption}disable={!props.isEditButtonClicked} />
+                  }} optionLabel="name" error={!inputErrors.medicalCoverage.isValid} caption={inputErrors.medicalCoverage.caption}disable={disable} />
 
                 <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox" placeholder={intl.formatMessage({id: "Select"})} getItems={(inputText:any, offSet:any, pageSize:any)=>{
-                                    return getPlans(inputText, offSet, pageSize, patient.medicalCoverage?.entityid)
-                                }} value={patient.plan} setValue={(p:any)=>{
-                                    setPatient({...patient, plan: p})
-                                    //onChangeRemoveError("plan");
-                                }} optionLabel="name" reLoadItemsValue={patient.medicalCoverage} error={!inputErrors.plan.isValid} caption={inputErrors.plan.caption} disable={!props.isEditButtonClicked}/>
+                                    return getPlans(inputText, offSet, pageSize, profile.medicalCoverage?.entityid)
+                                }} value={profile.plan} setValue={(p:any)=>{
+                                    setProfile({...profile, plan: p})
+                                    onChangeRemoveError("plan");
+                                }} optionLabel="name" reLoadItemsValue={profile.medicalCoverage} error={!inputErrors.plan.isValid} caption={inputErrors.plan.caption} disable={disable}/>
               
-              <InputTextCustom label={intl.formatMessage({ id: "NumberOfMember" })}  value={patient.memberNumber} onChange={(e:any)=>{
-                      setPatient({...patient, memberNumber: e.target.value})
-                      //onChangeRemoveError("memberNumber");
-                  }} error={!inputErrors.memberNumber.isValid} caption={inputErrors.memberNumber.caption} disable={!props.isEditButtonClicked}/>
+              <InputTextCustom label={intl.formatMessage({ id: "NumberOfMember" })}  value={profile.affiliateNo} onChange={(e:any)=>{
+                      setProfile({...profile, affiliateNo: e.target.value})
+                      onChangeRemoveError("memberNumber");
+                  }} error={!inputErrors.affiliateNo.isValid} caption={inputErrors.affiliateNo.caption} disable={disable}/>
               
               </div>
             }
@@ -260,7 +223,7 @@ useEffect(() => {
           <ErrorModal visible={errorModalVisibility} setVisible={setErrorModalVisibility}></ErrorModal>
           
           {
-            props.addButton && 
+            isNew && 
             <div className='flexible--row CRUDbuttons'>
               <Button icon='pi pi-times' iconPos='left' className='buttonMain3' label={intl.formatMessage({id:"Cancel"})} ></Button>
               <Button className='buttonMain' label={intl.formatMessage({id:"Add"})} onClick={addRelative}></Button>

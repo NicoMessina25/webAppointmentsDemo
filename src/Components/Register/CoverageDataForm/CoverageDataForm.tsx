@@ -1,11 +1,12 @@
 import { render } from "@testing-library/react";
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { useIntl } from "react-intl";
 import { Link, useNavigate } from "react-router-dom";
 import { getMedicalCoverages, getPlans } from "../../../services/medicalCoverageService";
 import Combobox from "../../Combobox/Combobox";
+import { appContext } from "../../Context/appContext";
 import InputTextCustom from "../../Inputs/InputText/InputTextCustom";
 import Modal from "../../Modal/Modal";
 import RadioButtonGroup from "../../RadioButtonGroup/RadioButtonGroup";
@@ -14,37 +15,19 @@ import "./CoverageDataForm.scss"
 
 export default function CoverageDataForm({user, setUser, setDisplayRegisterCancel, onSubmit}:any){
     const intl = useIntl();
-    const [inputErrors, setInputErrors] = useState({
-        hasMedicalCoverage: {caption: "", isValid: true},
-        isMedCoverageThroughJob: {caption: "", isValid:true},
-        medicalCoverage: {caption: "", isValid: true},
-        plan: {caption: "", isValid: true},
-        memberNumber: {caption: "", isValid: true},
-    })
+
 
     const navigate = useNavigate();
+
+    const {inputErrors, setInputErrors, validateData, onChangeRemoveError}:any = useContext(appContext);
 
     const [visibilityTermsAndConditions,setVisibilityTermsAndConditions]=useState(false);
 
     let yes = intl.formatMessage({id: "Yes"});
     let no = intl.formatMessage({id: "No"});
 
+    let inputFields = ["hasMedicalCoverage", "isMedCoverageThroughJob","medicalCoverage", "plan", "affiliateNo"];
 
-   /* useEffect(()=>{
-        getMedicalCoverages().then(data =>{
-            setMedicalCoverages(data);
-            
-        })  
-   },[]) */
-
-/*     useEffect(() => {
-        console.log(user.medicalCoverage);
-        console.log(comboPlans.current);
-        
-        
-
-    
-    }, [user.medicalCoverage]) */
    
 
     const yesNo = [
@@ -52,36 +35,6 @@ export default function CoverageDataForm({user, setUser, setDisplayRegisterCance
         {label: no, value: false}
     ]
 
-    function onChangeRemoveError(field:any){
-        let _inputErrors:any = {...inputErrors}
-        _inputErrors[field].isValid = true
-        _inputErrors[field].caption = ""
-        setInputErrors(_inputErrors)
-    }
-
-    
-    function validateData(){
-        let valid = true
-        let _inputErrors:any = {...inputErrors};
-
-        if(user.hasMedicalCoverage){
-            for(const ie in inputErrors){
-                
-                if(!user[ie] && user[ie] !== false){
-                    
-                    _inputErrors[ie].caption = intl.formatMessage({id: "ThisFieldIsRequired"});
-                    _inputErrors[ie].isValid = valid = false;
-                }
-            }
-        } else if (user.hasMedicalCoverage === null){
-            _inputErrors["hasMedicalCoverage"].caption = intl.formatMessage({id: "ThisFieldIsRequired"});
-            _inputErrors["hasMedicalCoverage"].isValid = valid = false;
-        }
-
-        setInputErrors(_inputErrors);
-
-        return valid
-    }
     
 
     return (
@@ -111,10 +64,10 @@ export default function CoverageDataForm({user, setUser, setDisplayRegisterCance
                     onChangeRemoveError("plan");
                 }} optionLabel="name" reLoadItemsValue={user.medicalCoverage} error={!inputErrors.plan.isValid} caption={inputErrors.plan.caption}/>
 
-                <InputTextCustom label={intl.formatMessage({id: "NumberOfMember"})}  value={user.memberNumber} onChange={(e:any)=>{
-                    setUser({...user, memberNumber: e.target.value})
-                    onChangeRemoveError("memberNumber");
-                }} error={!inputErrors.memberNumber.isValid} caption={inputErrors.memberNumber.caption}/>
+                <InputTextCustom label={intl.formatMessage({id: "NumberOfMember"})}  value={user.affiliateNo} onChange={(e:any)=>{
+                    setUser({...user, affiliateNo: e.target.value})
+                    onChangeRemoveError("affiliateNo");
+                }} error={!inputErrors.affiliateNo.isValid} caption={inputErrors.affiliateNo.caption}/>
             </div>
             }
 
@@ -127,12 +80,17 @@ export default function CoverageDataForm({user, setUser, setDisplayRegisterCance
             </div>
             
             
-            <div className="flexible--row buttonContainer" >
+            <div className="flexible--rowWrap buttonContainer" >
                 <Link to="/register/1" className='linkReactRouter'><Button icon="pi pi-angle-left" iconPos="left" label={intl.formatMessage({id: "Back"})} className="buttonMain3" /></Link>
                 <Link to="#" className='linkReactRouter'><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
                 <Button icon="pi pi-angle-right" iconPos="right" label={intl.formatMessage({id: "Follow"})} className="buttonMain" onClick={()=>{
-                    if(validateData()){
+                    if(user.hasMedicalCoverage !== null && user.hasMedicalCoverage && validateData(inputFields, user) || !user.hasMedicalCoverage){
                         navigate("/register/3");
+                    } else if (user.hasMedicalCoverage === null){
+                        let _inputErrors = {...inputErrors};
+                        _inputErrors["hasMedicalCoverage"].caption = intl.formatMessage({id: "ThisFieldIsRequired"});
+                        _inputErrors["hasMedicalCoverage"].isValid = false;
+                        setInputErrors(_inputErrors);
                     }
                 }} />
             </div>

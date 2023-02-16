@@ -65,6 +65,7 @@ const Menu = React.forwardRef((props: any, ref) => {
 
         let key = 0;
         settingsJson.menu.forEach((element:any,index:any)=> {
+            key=element.menuItem;
             item = {
                 key:key.toString(),
                 caption: element.caption,
@@ -78,28 +79,29 @@ const Menu = React.forwardRef((props: any, ref) => {
             if (element.items.length > 0) {
                 let subKey = 0;
                 element.items.forEach((subItem:any, subInd:any)=>{
-                    let item2:any;
-                    item2={
-                        key:key + "-" + subKey,
+                    
+                    let _subItem:any;
+                    subKey = subItem.menuItem;
+                    _subItem={
+                        key: "_" + subKey,
                         caption: subItem.caption,
                         icon: subItem.icon,
                         className: "subItemContainer",
                         id:subItem.menuItem,
                         route: subItem.route
                     }
-                    if(item2.id===2114){
-                        delete item2.route;
-                        
-                    }
-                    subItems.push(item2)
-                    subKey++;
-                })    
+                    if (subItem.menuItem===2113){
+                        delete _subItem.route;
+                    } 
+
+                    
+                    subItems.push(_subItem)
+                }) 
+                
             }
             item = { ...item, children: subItems };
             menu.push(item)
-            key++;
         }) 
-        console.log(menu)
         setItems(menu);
     }
 
@@ -112,12 +114,6 @@ const Menu = React.forwardRef((props: any, ref) => {
         navigate('/login')
     }
 
-
-    function onSelect(e:any){
-        if(e.node.id===2114){
-            setVisibilityChangePasswordModal(true)
-        }
-    }
 
     return (
         <div className="container">
@@ -133,7 +129,14 @@ const Menu = React.forwardRef((props: any, ref) => {
             <div className="flexible--row maxwidth menuBody" >
             
             <div className={`menu-container flexible--column ${!bigMenu?'hideLeft':""}`}>
-                    <TreeMenu items={items} onSelectCustom={onSelect}  selectedItemKey={selectedItemKey} onSelectionChange={(e:any) => setSelectedItemKey(e.value)} />
+                    <TreeMenu items={items} selectedItemKey={selectedItemKey} onSelectionChange={(e:any) => {
+                        if(e.value === '_2113'){
+                            setVisibilityChangePasswordModal(true);
+                        } else {
+                            setSelectedItemKey(e.value)
+                        }
+                        
+                    }} />
                    {/* <CustomMenu activeIndex={activeIndex} setActiveIndex={setActiveIndex} bigMenu={bigMenu} settingsJson={settingsJson} items={items} setItems={setItems} /> */}
                     
                     
@@ -141,11 +144,11 @@ const Menu = React.forwardRef((props: any, ref) => {
 
                         <div className="menuOption background-red flexible--row">
                             <Icon className="consent-medicine" icon="material-symbols:edit-document-outline-sharp" />
-                            <div className="consent-medicine">{intl.formatMessage({ id: 'TelemedicineConsent' })}</div>
+                            <span className="consent-medicine">{intl.formatMessage({ id: 'TelemedicineConsent' })}</span>
                         </div>
                         <div className="menuOption flexible--row" onClick={handleSignOut}>
                             <Icon className="consent-medicine" icon="vaadin:sign-out" />
-                            <div className="text-secondary"> {intl.formatMessage({ id: 'SignOut' })}</div>
+                            <span className="text-secondary"> {intl.formatMessage({ id: 'SignOut' })}</span>
                         </div>
                     </div>
                     

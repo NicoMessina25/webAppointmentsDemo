@@ -12,6 +12,10 @@
     background-color: $contrast;
     border-right: 5px solid map-get($lightContrastShade, 10) !important;
     transition: all .5s ease;
+
+    span{
+        transition: all .5s ease;
+    }
 }
 
 .menuBody{
@@ -148,16 +152,11 @@
 .hideLeft{
     translate: -250px 0;
     width: 0%;
-
-}
-
-@keyframes hideLeft {
-    0%{
-        translate: 0 0;
-    }
-    100%{
-        translate: -200px 0;
-    }
+    /* span{
+        opacity: 0;
+        width: 0% !important;
+        
+    } */
 }
   
 

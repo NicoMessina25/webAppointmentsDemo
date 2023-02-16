@@ -1,39 +1,47 @@
 import { Icon } from '@iconify/react'
 import { Button } from 'primereact/button'
-import React, { useRef, useState } from 'react'
+import { Toast } from 'primereact/toast';
+import React, { useContext, useRef, useState } from 'react'
 import { useIntl } from 'react-intl';
+import { appContext } from '../../Context/appContext';
 import ProfileForm from '../../Forms/ProfileForm/ProfileForm';
 import './MyProfile.scss'
 
 export default function MyProfile() {
 
   const intl = useIntl();
-  const [isEditButtonVisible, setEditButtonVisibility]:any = useState(false);
-  const [isCancelButtonVisibility, setCancelButtonVisibility] = useState(false);
+  const [isEditing, setEditing]:any = useState(false);
   const formRef:any=useRef(null);
+  const toast:any = useRef(null);
+  const {user, validateData}:any = useContext(appContext);
+  const [profile,setProfile]=useState({...user,mobilephone : {...user.mobilephone}});
 
-  const [buttonClassname,setButtonClassname]=useState("buttonMain2 buttonSave margin-0")
+  let inputFields = ["firstname", "lastname", "email", "birthdate", "gender", "mobilephone", "address", "hasMedicalCoverage", "isMedCoverageThroughJob", "medicalCoverage", "plan", "affiliateNo"];
 
-  function handleEditClick(){
-    setEditButtonVisibility(!isEditButtonVisible);
-    setCancelButtonVisibility(!isCancelButtonVisibility)
 
-    if(isEditButtonVisible==true && isCancelButtonVisibility==true){
-      setButtonClassname("buttonMain2 buttonSave margin-0");
-      formRef.current.saveChanges();
-    }else{
-      setButtonClassname("buttonMain buttonSave margin-0");
+  function handleSaveClick(){
+    
+    if(validateData(inputFields, profile)){
+      formRef.current.saveChanges()
+      setEditing(!isEditing);
+      toast.current?.show({ severity: 'success', summary: intl.formatMessage({id:"Success"}) + "!", detail: intl.formatMessage({ id: "ChangesSavedSuccessfully" }) })
+    } else {
+      toast.current?.show({ severity: 'error', summary: 'Error', detail: intl.formatMessage({ id: "ChangesCouldNotBeSaved" }) });
     }
+    
+    
   }
 
-  function handleCancelClick(){
-    if(isCancelButtonVisibility==true){
-      setButtonClassname("buttonMain2 buttonSave margin-0");
-    }
-    setEditButtonVisibility(!isEditButtonVisible);
-    setCancelButtonVisibility(!isCancelButtonVisibility)
+  function handleEditCancelClick(){
     
-  formRef.current.cancelEdit();
+    if(isEditing){
+      formRef.current.cancelEdit();
+    }
+    
+    setEditing(!isEditing);
+
+    
+  
 }
 
   return (
@@ -44,13 +52,13 @@ export default function MyProfile() {
           <Icon icon="vaadin:user"></Icon>
           <div className='infoText textBold header-title'>{intl.formatMessage({id:"ProfileData"})}</div>
         </div>
-        <Button className='buttonMain2 buttonSave' visible={isEditButtonVisible} onClick={handleCancelClick} label={intl.formatMessage({id:"Cancel"})} ></Button>
-        <Button className={`${buttonClassname}`} onClick={handleEditClick} label={!isEditButtonVisible ? intl.formatMessage({id:"Edit"}) : intl.formatMessage({id:"SaveChanges"})} ></Button>
+        <Button className='buttonMain2 buttonWidth--maxContent' onClick={handleEditCancelClick} label={isEditing ? intl.formatMessage({id:"Cancel"}): intl.formatMessage({id:"Edit"}) } ></Button>
+        {isEditing && <Button className={"buttonMain buttonWidth--maxContent"} onClick={handleSaveClick} label={intl.formatMessage({id:"SaveChanges"})} ></Button>}
 
       </div>
     {/* HEADER */}
-    <ProfileForm email address city mobilePhone isEditButtonClicked={isEditButtonVisible}  ref={formRef}></ProfileForm>
-
+    <ProfileForm profile={profile} setProfile={setProfile} disable={!isEditing} ref={formRef}></ProfileForm>
+    <Toast ref={toast} />
 
     </div>
   )

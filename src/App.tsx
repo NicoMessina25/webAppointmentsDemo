@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import "./scss/styles.scss"
@@ -24,6 +24,7 @@ import ClinicRequest from './Components/Views/ClinicHistory/ClinicRequest';
 import SendStudyResults from './Components/Views/ClinicHistory/SendStudyResults';
 import MyProfile from './Components/Views/Profile/MyProfile';
 import FamilyGroup from './Components/Views/FamilyGroup/FamilyGroup';
+import { useIntl } from 'react-intl';
 
 
 function App() {
@@ -31,6 +32,10 @@ function App() {
   const {auth}:any = useContext(appContext);
   
   const [authServer,setAuthServer]=useState(false);
+
+
+
+  
   
   
 

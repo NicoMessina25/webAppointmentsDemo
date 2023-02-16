@@ -26,7 +26,7 @@ export default function Login(){
             
             <img src={logo!="" ? "/imgs/"+logo : defaultLogo} onError={()=>{setLogo("")}} alt="" className='logoSite' />
             <LogginForm />
-            <img src="/img/graylogo.png" alt="" className='logo' />
+            {/* <img src="/img/graylogo.png" alt="" className='logo' /> */}
         
         </div>
     )

@@ -1211,8 +1211,17 @@ const phonePrefixes = [
     }
 ]
 
-export default function getPhonePrefixes(){
+export default function getPhonePrefixes(filterValue:any){
     return new Promise((resolve:any)=>{
-        resolve(phonePrefixes)
+        resolve(phonePrefixes.filter((p)=>{
+    
+            return p.dial_code.includes(filterValue);
+        
+            
+        }))
     });
+}
+
+export function getEspecifiedPhonePrefix(filterValue:any){
+    return phonePrefixes.find((p)=> p.dial_code === filterValue);
 }

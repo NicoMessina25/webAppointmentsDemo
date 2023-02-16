@@ -19,38 +19,64 @@ const appContext = React.createContext({});
 
 const AppProvider = ({children}:any) => {
     
-    let [languageId,setLanguageId]=useState(0);
-    const[messages,setMessages]:any = useState(SpanishMessages);
-    const[localeintl,setLocale] = useState('es');
+    const intl = useIntl();
     
+    const [inputErrors, setInputErrors] = useState({
+        firstname: { caption: "", isValid: true },
+        lastname: { caption: "", isValid: true },
+        birthdate: { caption: "", isValid: true },
+        document: { caption: "", isValid: true },
+        documentType: { caption: "", isValid: true },
+        gender: { caption: "", isValid: true },
+        mobilephone: { caption: "", isValid: true },
+        address: { caption: "", isValid: true },
+        hasMedicalCoverage: {caption: "", isValid: true},
+        isMedCoverageThroughJob: {caption: "", isValid:true},
+        medicalCoverage: {caption: "", isValid: true},
+        plan: {caption: "", isValid: true},
+        affiliateNo: {caption: "", isValid: true},
+        username: {caption: "", isValid: true},
+        password: {caption: intl.formatMessage({id:"AtLeast8Characters"}), isValid: true},
+        repeatPassword: {caption: "", isValid: true},
+        email:{isValid:true, caption: ""}
+    }) 
 
     addLocale('es',SpanishMessagesPrime );
     locale('es');
 
     const [user, setUser] : any= useState(getDefaultPatient());
     
-    function validMobileForInputDate(res:any){
+    
+    function validMobileForInputPhone(res:any){
         try{
             const phoneUtil = PhoneNumberUtil.getInstance();
             const parsedNumber = phoneUtil.parse(res.mobilePhone);
-            const parts = phoneUtil.format(parsedNumber, PhoneNumberFormat.INTERNATIONAL).replace("-", "").split(" ")
-            const countryCode = parts[0];
-            const areaCode = parts[1];
-            const phoneNumber = parts[2];
+            /* console.log(phoneUtil.getLengthOfGeographicalAreaCode(parsedNumber)); 
+
+            const ex = phoneUtil.getExampleNumber("UY");
             
-            if(areaCode.length>4)
-                throw new Error("Area invalida");
+            console.log(ex, phoneUtil.getLengthOfGeographicalAreaCode(ex), phoneUtil.format(ex, PhoneNumberFormat.INTERNATIONAL))*/
+            let geographicalAreaCodeLength = phoneUtil.getLengthOfGeographicalAreaCode(parsedNumber); 
+            const countryCode = "+" + parsedNumber.getCountryCode();
+            const areaCode = parsedNumber.getNationalNumber()?.toString().slice(0,geographicalAreaCodeLength);
+            const phoneNumber = parsedNumber.getNationalNumber()?.toString().slice(geographicalAreaCodeLength);
+
+            //console.log(countryCode, areaCode, phoneNumber);
+            
+            /* if(areaCode.length>4)
+                throw new Error("Area invalida"); */
 
 
-            console.log("celu valido")
+            //console.log("celu valido")
 
             return {
                 prefix: countryCode,
                 area: areaCode,
                 number: phoneNumber,
             };
-        }catch{
-            console.log("celu invalido")
+        }catch(e){
+            console.log(e);
+            //console.log("celu invalido")
             return {
                 prefix: "+54",
                 area: "",
@@ -70,14 +96,7 @@ const AppProvider = ({children}:any) => {
 
     useEffect(()=>{
         
-         getLanguage().then(res=>{
-            setLanguageId(res);
-            switch(res){
-                case 1: setMessages(SpanishMessages); setLocale('es');locale('es');break;
-                case 2: setMessages(EnglishMessages);setLocale('en');locale('en');break;
-                default : setMessages(SpanishMessages);setLocale('es');locale('es');;
-            }
-        })
+        
         
         let settingsString: any = localStorage.getItem("settings");
         let settingsJson;
@@ -87,7 +106,7 @@ const AppProvider = ({children}:any) => {
             settingsJson = JSON.parse(settingsString)
         
             getPatientInfo(settingsJson.entityId).then(res=>{
-                res.mobilephone=validMobileForInputDate(res);
+                res.mobilephone=validMobileForInputPhone(res);
                 setModificateUser(res);
             })
             
@@ -115,6 +134,8 @@ const AppProvider = ({children}:any) => {
         const { firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, birthdate, city,_user} = patient
 
         // const { hasMedicalCoverage, healthentity, healthentityplan, voluntary, healthpatientcoverage } = healthpatientcoverage;
+
+        console.log(patient)
         
         if (patient) {
             let modificatedUser:any;
@@ -180,7 +201,7 @@ const AppProvider = ({children}:any) => {
             },
             address: "",
             city: { location: 'Mar del Plata, Buenos Aires, Argentina', city: 1 },
-            memberNumber: "",
+            affiliateNo: "",
             hasMedicalCoverage: null,
             isMedCoverageThroughJob: null,
             medicalCoverage: null,
@@ -222,7 +243,6 @@ const AppProvider = ({children}:any) => {
 
             delete validPatientDTO.affiliateNo;
             delete validPatientDTO.isMedCoverageThroughJob
-            delete validPatientDTO.memberNumber;
             delete validPatientDTO.noCredential;
             delete validPatientDTO.hasMedicalCoverage;
             delete validPatientDTO.mobilephone;
@@ -271,11 +291,96 @@ const AppProvider = ({children}:any) => {
         }
       }
 
+    function onChangeRemoveError(field: any) {
+        let _inputErrors: any = { ...inputErrors }
+        _inputErrors[field].isValid = true
+        _inputErrors[field].caption = ""
+        setInputErrors(_inputErrors)
+    }
+
+    function validateData(fields: Array<string>, u:any) {
+        let valid = true;
+        let _inputErrors: any = { ...inputErrors }
+
+        for (const ie of fields) {
+
+            valid = validateField(ie, _inputErrors, u) && valid;
+        }
+
+        setInputErrors(_inputErrors);
+        
+        return valid
+    }
+
+    function validateField(field: string, _inputErrors:any, u:any) {
+        let valid = true;
+        
+        
+        switch (field){
+            case "password":
+            case "repeatPassword":{
+                if (u.password.length < 8){
+                    _inputErrors.password = {isValid: false, caption: intl.formatMessage({id:"AtLeast8Characters"})}
+                    valid = false;
+                    
+                }
+        
+                if(u.repeatPassword.length < 8){
+                    _inputErrors.repeatPassword = {isValid: false, caption: ""}
+                    valid = false;
+                }
+
+                if(u.password.localeCompare(u.repeatPassword)){
+                    _inputErrors.repeatPassword = {isValid: false, caption: intl.formatMessage({id:"PasswordsDoNotMatch"})}
+                    _inputErrors.password.caption = "";
+                    _inputErrors.password.isValid = valid = false;
+                }
+                
+            } break;
+            case "email":{
+                if(!u.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+                    _inputErrors.email = {isValid: false, caption: intl.formatMessage({id:"EnterAValidEMail"})};
+                    valid = false
+                }
+                break;
+            }
+            case "mobilephone": {
+                if (u.mobilephone.area === "" || u.mobilephone.number === "") {
+                    _inputErrors.mobilephone.caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
+                    _inputErrors.mobilephone.isValid = valid = false;
+                }
+                break;
+            }
+            default: {
+                if (!u[field] && u[field] !== false) {
+                    _inputErrors[field].caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
+                    _inputErrors[field].isValid = valid = false;
+                }
+            }
+        }
+
+        /* if (!user[field] && user[field] !== false && field.localeCompare("mobilephone")) {
+            _inputErrors[field].caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
+            _inputErrors[field].isValid = valid = false;
+        } else if (!field.localeCompare("mobilephone")) {
+            if (user.mobilephone.area === "" || user.mobilephone.number === "") {
+                _inputErrors.mobilephone.caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
+                _inputErrors.mobilephone.isValid = valid = false;
+            }
+        } */
+
+        
+
+        
+
+        return valid;
+
+    }
+
+
     return (
-        <appContext.Provider value={{messages,localeintl,languageId,captchaKey,user,setUser,renderState,restorePatientDefault,setModificateUser,getDefaultPatient,returnValidPatientDTO,validMobileForInputDate,getStorage}}>
-             <IntlProvider locale={localeintl} messages={messages}>
+        <appContext.Provider value={{captchaKey,user,setUser,renderState,restorePatientDefault,setModificateUser,getDefaultPatient,returnValidPatientDTO,validMobileForInputPhone, inputErrors, setInputErrors, onChangeRemoveError, validateData, getStorage}}>           
                 {children}
-            </IntlProvider>
         </appContext.Provider>
     )
 }

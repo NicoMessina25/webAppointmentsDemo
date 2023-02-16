@@ -1,6 +1,7 @@
 import { Dropdown } from 'primereact/dropdown'
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { appContext } from '../Context/appContext';
+import {langContext} from '../Context/langContext';
 import Loader from '../Loader/Loader';
 
 function Combobox({label, getItems, value, setValue, className, optionLabel, placeholder, scrollHeight, error, caption, reLoadItemsValue, width,disable}:any) {
@@ -14,7 +15,7 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
   let filterTimeout:any = useRef(null)
   let pageSize = 50, itemSize = 46;
   scrollHeight = scrollHeight || 200
-  const {languageId}:any = useContext(appContext);
+  const {languageId}:any = useContext(langContext);
 
 
   useEffect(()=>{
@@ -32,7 +33,15 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
     }
     
 
-  },[reLoadItemsValue])
+  },[reLoadItemsValue]);
+
+  /* useEffect(()=>{
+    loadItems(false);
+  }, [value]); */
+
+ /*  useEffect(()=>{
+    console.log(items, label);
+  },[items]); */
   
 
   const loadingTemplate = () =>{

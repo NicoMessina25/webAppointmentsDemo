@@ -4,14 +4,14 @@ import {Dropdown } from "primereact/dropdown"
 import "./InputPhone.scss";
 import { useEffect, useState } from "react";
 import Combobox from "../../Combobox/Combobox";
-import getPhonePrefixes from "../../../services/phonePrefixes";
+import getPhonePrefixes, { getEspecifiedPhonePrefix } from "../../../services/phonePrefixes";
 import InputNumber from "../InputNumber/InputNumber";
 
 export default function InputPhone({value, setValue, label, className, error, caption,disable}:any){
     const intl = useIntl();
     
    
-    const [country, setCountry] = useState({name: "Argentina",
+    const [country, setCountry]:any = useState({name: "Argentina",
     dial_code: "+54",
     code: "AR"});
 
@@ -23,12 +23,10 @@ export default function InputPhone({value, setValue, label, className, error, ca
         //setCountry(countries[0]);
     }, []) */
 
-    /* useEffect(() => {
-        let prefix = value.prefix || "+54";
-        setCountry(countries.find((c:any)=>c.dial_code === prefix));
-        setFilteredCountries(countries);
-        
-    }, [countries]) */
+    useEffect(() => {  
+        setCountry(getEspecifiedPhonePrefix(value?.prefix || "+54"));
+
+    }, [value.prefix])
     
 
     
@@ -39,7 +37,6 @@ export default function InputPhone({value, setValue, label, className, error, ca
             <div className="flexible--row phoneFieldsContainer">
                 <Combobox value={country} setValue={(e:any)=>{                    
                     setValue(e.dial_code, "prefix");
-                    setCountry(e);
                     }} className="comboboxPhone" getItems={getPhonePrefixes} optionLabel={"dial_code"} disable={disable}/>
                
                 <InputNumber placeholder={intl.formatMessage({id:"Area"}).toLowerCase()} value={value.area} onChange={(e:any)=>{
