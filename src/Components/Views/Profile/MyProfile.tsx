@@ -16,11 +16,13 @@ export default function MyProfile() {
   const {user, validateData}:any = useContext(appContext);
   const [profile,setProfile]=useState({...user,mobilephone : {...user.mobilephone}});
 
-  let inputFields = ["firstname", "lastname", "email", "birthdate", "gender", "mobilephone", "address", "hasMedicalCoverage", "isMedCoverageThroughJob", "medicalCoverage", "plan", "affiliateNo"];
+  let inputFields = ["firstname", "lastname", "email", "birthdate", "gender", "mobilephone", "address", "hasMedicalCoverage"];
 
 
   function handleSaveClick(){
-    
+    if(profile.hasMedicalCoverage){
+      inputFields.push("isMedCoverageThroughJob", "medicalCoverage", "plan", "affiliateNo")
+    }
     if(validateData(inputFields, profile)){
       formRef.current.saveChanges()
       setEditing(!isEditing);

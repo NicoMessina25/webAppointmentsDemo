@@ -1,8 +1,9 @@
 import { Button } from 'primereact/button'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import {useIntl} from 'react-intl'
 import { changePassword } from '../../../services/UserService';
+import { appContext } from '../../Context/appContext';
 import InputTextCustom from '../../Inputs/InputText/InputTextCustom'
 import ErrorModal from '../ErrorModal/ErrorModal';
 import Modal from '../Modal';
@@ -17,8 +18,8 @@ export default function ChangePasswordModal({visible,setVisible}:any) {
     const [currentPassword,setCurrentPassword]=useState("")
     const [newPassword,setNewPassword]=useState("")
     const [repeatNewPassword,setRepeatNewPassword]=useState("")
-
-    let settingsString: any = localStorage.getItem("settings");
+    const {getStorage}:any = useContext(appContext);
+    let settingsString: any = getStorage().getItem("settings");
     let settingsJson: any;
     settingsJson = settingsString && JSON.parse(settingsString);
 

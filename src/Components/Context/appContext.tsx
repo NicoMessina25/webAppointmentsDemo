@@ -98,7 +98,7 @@ const AppProvider = ({children}:any) => {
         
         
         
-        let settingsString: any = localStorage.getItem("settings");
+        let settingsString: any = getStorage().getItem("settings");
         let settingsJson;
         
         if (settingsString){
@@ -212,6 +212,7 @@ const AppProvider = ({children}:any) => {
        }
 
        function returnValidPatientDTO(patient:any){
+        console.log(patient)
             let validPatientDTO=Object.assign({} , patient)
             validPatientDTO.documentType={
                 documentType: patient.documentType,
@@ -219,22 +220,27 @@ const AppProvider = ({children}:any) => {
                 longName:"",
                 shortName:""
             }
-            validPatientDTO.healthpatientcoverage={
-                affiliateNo:patient.affiliateNo,
-                hasMedicalCoverage:patient.hasMedicalCoverage,
-                healthPatientCoverage:1,//patient.healthpatientcoverage,
-                healthentity:{
-                    entityid:patient.medicalCoverage.entityid,
-                    name:patient.medicalCoverage.name,
-                },
-                healthentityplan:{
-                    healthentity:patient.plan.healthentity,
-                    healthentityplan:patient.plan.healthentityplan,
-                    name:patient.plan.name
-                },
-                noCredential:patient.noCredential,
-                voluntary:patient.isMedCoverageThroughJob
+            if(patient.medicalCoverage===null)
+                validPatientDTO.healthpatientcoverage=null;
+            else{
+                validPatientDTO.healthpatientcoverage={
+                    affiliateNo:patient.affiliateNo,
+                    hasMedicalCoverage:patient.hasMedicalCoverage,
+                    healthPatientCoverage:1,//patient.healthpatientcoverage,
+                    healthentity:{
+                        entityid:patient.medicalCoverage.entityid,
+                        name:patient.medicalCoverage.name,
+                    },
+                    healthentityplan:{
+                        healthentity:patient.plan.healthentity,
+                        healthentityplan:patient.plan.healthentityplan,
+                        name:patient.plan.name
+                    },
+                    noCredential:patient.noCredential,
+                    voluntary:patient.isMedCoverageThroughJob
+                }
             }
+                
             validPatientDTO.phoneNumber=null;
             validPatientDTO.mobilePhone=patient.mobilephone.prefix+patient.mobilephone.area+patient.mobilephone.number;
             validPatientDTO.medereentity=patient.medereentity;
@@ -341,6 +347,7 @@ const AppProvider = ({children}:any) => {
                 if(!u.email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
                     _inputErrors.email = {isValid: false, caption: intl.formatMessage({id:"EnterAValidEMail"})};
                     valid = false
+
                 }
                 break;
             }
@@ -356,6 +363,7 @@ const AppProvider = ({children}:any) => {
                     _inputErrors[field].caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
                     _inputErrors[field].isValid = valid = false;
                 }
+
             }
         }
 

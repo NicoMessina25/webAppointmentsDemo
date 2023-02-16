@@ -90,7 +90,7 @@ const Menu = React.forwardRef((props: any, ref) => {
                         id:subItem.menuItem,
                         route: subItem.route
                     }
-                    if (subItem.menuItem===2113){
+                    if (subItem.menuItem===2114){
                         delete _subItem.route;
                     } 
 
@@ -130,7 +130,7 @@ const Menu = React.forwardRef((props: any, ref) => {
             
             <div className={`menu-container flexible--column ${!bigMenu?'hideLeft':""}`}>
                     <TreeMenu items={items} selectedItemKey={selectedItemKey} onSelectionChange={(e:any) => {
-                        if(e.value === '_2113'){
+                        if(e.value === '_2114'){
                             setVisibilityChangePasswordModal(true);
                         } else {
                             setSelectedItemKey(e.value)

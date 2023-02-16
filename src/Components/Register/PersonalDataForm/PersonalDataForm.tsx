@@ -258,11 +258,19 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                 if (validateCompleteAnswers()) {
                     sendValidationDataAnswers(answers, patientId).then((patient) => {
                         const { firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, birthdate, city } = patient
-
-                        const { hasMedicalCoverage, healthentity, healthentityplan } = healthpatientcoverage;
+                        let _user:any;
+                        if(healthpatientcoverage){
+                            const { hasMedicalCoverage, healthentity, healthentityplan } = healthpatientcoverage;
+                            _user={
+                                hasMedicalCoverage: hasMedicalCoverage,
+                                medicalCoverage: healthentity,
+                                plan: healthentityplan,
+                            }
+                        }
 
                         if (patient) {
-                            let _user = {
+                            _user = {
+                                ..._user,
                                 ...user,
                                 firstname: firstname,
                                 lastname: lastname,
@@ -272,12 +280,9 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                                 document: document,
                                 documentType: documentType.documentType,
                                 gender: gender,
-                                hasMedicalCoverage: hasMedicalCoverage,
-                                medicalCoverage: healthentity,
-                                plan: healthentityplan,
                                 city: city
                             }
-
+                            
                             
 
                             setUser(_user);

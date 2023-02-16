@@ -72,7 +72,6 @@ export default function LogginForm({googleLogin}:any){
                     
                     let settingsString: any = getStorage().getItem("settings");
                     let settingsJson;
-                
                     if (settingsString){
                         settingsJson = JSON.parse(settingsString)
                         getPatientInfo(settingsJson.entityId).then(res=>{
