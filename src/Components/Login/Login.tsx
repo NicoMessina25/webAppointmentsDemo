@@ -24,7 +24,7 @@ export default function Login(){
     return(
         <div className="login flexible--column">
             
-            <img src={logo!="" ? process.env.REACT_APP_MEDERE_ADDRESS+"/imgs/"+logo : defaultLogo} onError={()=>{setLogo("")}} alt="" className='logoSite' />
+            <img src={logo!="" ? "/imgs/"+logo : defaultLogo} onError={()=>{setLogo("")}} alt="" className='logoSite' />
             <LogginForm />
             <img src="/img/graylogo.png" alt="" className='logo' />
         

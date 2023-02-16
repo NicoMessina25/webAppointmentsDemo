@@ -1,6 +1,6 @@
 import axios from "axios";
 import { idText } from "typescript";
-const url=process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/'
+const url='/rest/webappointments/'
 
 
 const urlLocal= window.location.href;
@@ -8,7 +8,7 @@ const baseUrl = new URL(urlLocal).origin;
 
 export function getMailAndCellphone(document:any,documenttype:any){
     
-    return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getMailAndCellphone', {
+    return axios.get('/api/notsecure/getMailAndCellphone', {
         params: {
           document: document,
           documenttype:documenttype
@@ -29,7 +29,7 @@ export function saveUser(user:any, onlyUser:boolean) {
   
   
 
-  return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+`/rest/webappointments/${onlyUser?"saveOnlyUser":"saveUserAndPatient"}`,
+  return axios.post(`/api/notsecure/${onlyUser?"saveOnlyUser":"saveUserAndPatient"}`,
     newUser).then((res)=>{
     let userId = res.data;
     if(user.acceptTerms && userId > 0){
@@ -45,7 +45,7 @@ export function saveUser(user:any, onlyUser:boolean) {
 }
 
 export function postNewPassword(id:number,password : string,repeatPassword : string,token:string,code:string){
-  return axios.post(url+ 'resetpassword', {
+  return axios.post('/api/notsecure/resetpassword', {
     id: id,
     password: password,
     repeatPassword: repeatPassword,
@@ -66,7 +66,7 @@ export function postNewPassword(id:number,password : string,repeatPassword : str
 
 export function sendCodeByMail(id:number){
   return axios.post(
-    url+'sendRecoveryCodeEmail',{
+    '/api/notsecure/sendRecoveryCodeEmail',{
       id:id
     },{
       headers: {
@@ -83,7 +83,7 @@ export function sendCodeByMail(id:number){
 
 export function validateRecoveryCode(id:number,code:string){
   return axios.post(
-    url+'validateRecoveryCode',{
+    '/api/notsecure/validateRecoveryCode',{
       id:id,
       code:code
     },{
@@ -99,7 +99,7 @@ export function validateRecoveryCode(id:number,code:string){
     )
 }
 
-function getDevice(){
+export function getDevice(){
   const userAgent = window.navigator.userAgent;
   const platform = window.navigator.platform;
   const macosPlatforms = ["Macintosh", "MacIntel", "MacPPC", "Mac68K"];
@@ -123,20 +123,15 @@ function getDevice(){
 }
 
 export async function authenticateUser(username:string,password:string){
-  //axios.defaults.withCredentials = true;
-  const instance = axios.create({
-    withCredentials: true,
- })
 
-    let device=getDevice();
  
     return axios.post(
-      process.env.REACT_APP_MEDERE_ADDRESS+'/api/auth/authenticate',{
+      '/api/auth/authenticate',{
         username:username,
         password:password,
         siteURL:baseUrl,
         appId:2,
-        deviceId:device
+        deviceId:getDevice()
       },{
         headers: {
           'Content-Type': 'application/json',
@@ -147,12 +142,10 @@ export async function authenticateUser(username:string,password:string){
   
 }
 
-export async function amilogged(){
-
-  return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/api/secure/amilogged').then(res =>
-     res
-  )
-
+export function amilogged(){
+  
+    return axios.get('/api/secure/amilogged');
+    
 }
 
 
@@ -162,7 +155,7 @@ export function sendLocationConsent(userId:number){
 
   const onLocationAllowed = ({coords, timestamp}:any) => {
     
-    axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveDigitalConsent',
+    axios.post('/api/notsecure/saveDigitalConsent',
     {
       userId: userId,
       latitude: coords.latitude,
@@ -177,7 +170,7 @@ export function sendLocationConsent(userId:number){
     
     
     
-    axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/saveDigitalConsent',
+    axios.post('/api/notsecure/saveDigitalConsent',
     {
       userId: userId,
       latitude: null,
@@ -197,7 +190,7 @@ export function sendLocationConsent(userId:number){
 }
 
 export function getValidationData(language:number, id:number){
-  return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getValidationData', {
+  return axios.get('/api/notsecure/getValidationData', {
     params:{
       id:id,
       language:language
@@ -208,7 +201,7 @@ export function getValidationData(language:number, id:number){
 export function sendValidationDataAnswers(validationDTO:any, patientId:any){
 
   
-  return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/validatePatient', validationDTO, {
+  return axios.post('/api/notsecure/validatePatient', validationDTO, {
     params: {
       id: patientId
     }
@@ -216,7 +209,7 @@ export function sendValidationDataAnswers(validationDTO:any, patientId:any){
 }
 
 export function existsPatientAndNotUser(patientDocument:any, documentType:any){
-  return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/existsPatientAndNotUser', {
+  return axios.get('/api/notsecure/existsPatientAndNotUser', {
     params: {
       patientDocument: patientDocument,
       documentType: documentType

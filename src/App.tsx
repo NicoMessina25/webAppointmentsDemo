@@ -32,30 +32,18 @@ function App() {
   
   const [authServer,setAuthServer]=useState(false);
   
-  async function serverConfirmation() {
-    console.log("verificando");
-    try {
-      const res = await amilogged();
-      console.log(res);
-      if (res.request.status === 403) {
-        return false;
-      }
-      return res.data;
-    } catch (e) {
-      return false;
-    }
-  }
+  
 
-  function validateClient(){
-    if(localStorage.getItem("auth")!=null)
-      if(localStorage.getItem("auth")==="true"){
-        serverConfirmation().then((result)=>{
-          console.log(result)
-          return result;
-        })
-      }
-    return false;
-  }
+  // function validateClient(){
+  //   if(localStorage.getItem("auth")!=null)
+  //     if(localStorage.getItem("auth")==="true"){
+  //       serverConfirmation().then((result)=>{
+  //         console.log(result)
+  //         return result;
+  //       })
+  //     }
+  //   return false;
+  // }
 
   return (
     <BrowserRouter>

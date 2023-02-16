@@ -12,6 +12,7 @@ import { Icon } from '@iconify/react';
 import HomePrescriptionsPanel from '../../Panels/HomePrescriptionsPanel/HomePrescriptionsPanel';
 import { Button } from 'primereact/button';
 import RequestsStatePanel from '../../Panels/RequestsStatePanel/RequestsStatePanel';
+import { amilogged } from '../../../services/loginService';
 
 export default function Home() {
 
@@ -87,7 +88,7 @@ export default function Home() {
         <div className='flexible--rowWrap'>
           <NextAppointment/>
           <div className='flexible--rowWrap homeOptions'>
-            <IconPanel className="icons" iconName="vaadin:pills" label="usuario"></IconPanel>
+            <IconPanel className="icons" iconName="vaadin:pills" label="usuario" ></IconPanel>
             <IconPanel className="icons" iconName="vaadin:paperclip" label="usuario"></IconPanel>
             <IconPanel className="icons" iconName="vaadin:pills" label="usuario"></IconPanel>
           </div>

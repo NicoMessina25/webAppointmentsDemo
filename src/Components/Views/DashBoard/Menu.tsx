@@ -38,8 +38,9 @@ const Menu = React.forwardRef((props: any, ref) => {
     const intl = useIntl();
     const {restorePatientDefault}:any = useContext(appContext);
    
+  const {getStorage}:any = useContext(appContext);
     let iconbutton = <Icon icon="material-symbols:menu-rounded" />
-    let settingsString: any = localStorage.getItem("settings");
+    let settingsString: any = getStorage().getItem("settings");
     let settingsJson: any;
     
     settingsJson = settingsString && JSON.parse(settingsString)
@@ -86,8 +87,9 @@ const Menu = React.forwardRef((props: any, ref) => {
                         id:subItem.menuItem,
                         route: subItem.route
                     }
-                    if(item2.id===2113){
+                    if(item2.id===2114){
                         delete item2.route;
+                        
                     }
                     subItems.push(item2)
                     subKey++;
@@ -97,12 +99,14 @@ const Menu = React.forwardRef((props: any, ref) => {
             menu.push(item)
             key++;
         }) 
+        console.log(menu)
         setItems(menu);
     }
 
    
     function handleSignOut() {
         localStorage.clear();
+        sessionStorage.clear()
         restorePatientDefault();
         logout();
         navigate('/login')
@@ -110,7 +114,7 @@ const Menu = React.forwardRef((props: any, ref) => {
 
 
     function onSelect(e:any){
-        if(e.node.id===2113){
+        if(e.node.id===2114){
             setVisibilityChangePasswordModal(true)
         }
     }
@@ -158,7 +162,7 @@ const Menu = React.forwardRef((props: any, ref) => {
                         <Route path='/myPrescriptions' element={<MyPrescriptions />} />
                         <Route path='/sendStudyResults' element={<SendStudyResults />} />
                         <Route path='/request' element={<ClinicRequest />} />
-                        <Route path='/myProfile' element={<MyProfile />} />
+                        <Route path='/myData' element={<MyProfile />} />
                         <Route path='/familyGroup' element={<FamilyGroup />} />
                     </Route>
                 </Routes>

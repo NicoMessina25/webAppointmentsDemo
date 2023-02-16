@@ -13,7 +13,8 @@ export default function ChangePassword() {
 
     const [visibilityModal,setVisibilityModal]=useState(false);
 
-    let settingsString: any = localStorage.getItem("settings");
+    const {getStorage}:any = useContext(appContext);
+    let settingsString: any = getStorage().getItem("settings");
     let settingsJson;
     
     if (settingsString)

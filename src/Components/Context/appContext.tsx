@@ -2,14 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { IntlProvider, useIntl } from 'react-intl';
 import EnglishMessages from '../../lang/en.json';
 import SpanishMessages from '../../lang/es.json';
-import { getCaptchaKey, getLanguage } from '../../services/siteService';
+import { getCaptchaKey} from '../../services/siteService';
 import { locale, addLocale } from 'primereact/api';
 import SpanishMessagesPrime from '../../lang/esPrimeReact.json';
 import { any } from 'prop-types';
-import { getPatientInfo } from '../../services/UserService';
+import { getLanguage, getPatientInfo } from '../../services/UserService';
 import { Button } from 'primereact/button';
 import { Icon } from '@iconify/react';
 import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber';
+import axios from 'axios';
 
 
 
@@ -21,6 +22,7 @@ const AppProvider = ({children}:any) => {
     let [languageId,setLanguageId]=useState(0);
     const[messages,setMessages]:any = useState(SpanishMessages);
     const[localeintl,setLocale] = useState('es');
+    
 
     addLocale('es',SpanishMessagesPrime );
     locale('es');
@@ -57,6 +59,15 @@ const AppProvider = ({children}:any) => {
         }
     }
 
+    function getStorage(){
+        let remember=localStorage.getItem("remember");
+        if(remember && remember==='true'){
+            return localStorage;
+        }else{
+            return sessionStorage;
+        }
+    }
+
     useEffect(()=>{
         
          getLanguage().then(res=>{
@@ -82,7 +93,6 @@ const AppProvider = ({children}:any) => {
             
         }
 
-        
 
     },[])
 
@@ -262,7 +272,7 @@ const AppProvider = ({children}:any) => {
       }
 
     return (
-        <appContext.Provider value={{messages,localeintl,languageId,captchaKey,user,setUser,renderState,restorePatientDefault,setModificateUser,getDefaultPatient,returnValidPatientDTO,validMobileForInputDate}}>
+        <appContext.Provider value={{messages,localeintl,languageId,captchaKey,user,setUser,renderState,restorePatientDefault,setModificateUser,getDefaultPatient,returnValidPatientDTO,validMobileForInputDate,getStorage}}>
              <IntlProvider locale={localeintl} messages={messages}>
                 {children}
             </IntlProvider>

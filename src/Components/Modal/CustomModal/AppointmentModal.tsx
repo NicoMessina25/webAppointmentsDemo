@@ -34,7 +34,7 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
     const BoxList: React.FC = (detailsList:any) => {
 
         let index = 0;
-        
+       console.log(detailsList) 
         const boxes = detailsList.map((component:any) => (
             
             <div key={index++} className={`flexible--column appointment-modal-container ${component.background}`}>
@@ -44,8 +44,10 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
                     </div>
                     <div className='flexible--column content'>
                         <div className='title'>{component.label}</div>
-                        <div className='infoText textBold description'>{component.description}</div>
-                        <div className='footer'>{component.footer}</div>
+                        {component.footer.props.children 
+                        ? <div className={`infoText textBold description`}>{component.description}</div> : <div className={`infoText textBold description-without-footer`}>{component.description}</div>} 
+
+                        {component.footer.props.children && <div className='footer'>{component.footer}</div>}
                     </div>
                 </div>
             </div>
@@ -73,7 +75,19 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
                         <div className='lightPrimaryText textBold description'>{component.description}</div>
                     </div>
                 </div>
-                <div className='flexible--rowWrap'>
+                
+                {/* <div className='flexible--rowWrap buttons-container'>
+                {
+                component.component.map((item:any, index:any) => (
+                    <div className='hour-buttons' key={index}>
+                        {item}
+                    </div>
+                ))
+               
+                }
+                 </div>  */}
+
+                <div className='flexible--rowWrap buttons-container'>
                     {component.component}
                 </div>
                
@@ -98,8 +112,7 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
 
   
 return (
-
-    <Modal visible={visible} setVisible={setVisible} header={header} footerButtonRightText={footerButtonRightText} footerButtonLeftText={footerButtonLeftText} onClickLeftBtn={onClickLeftBtn} onClickRightBtn={onClickRightBtn} pathRightBtn={pathRightBtn} pathLeftBtn={pathLeftBtn} onHideCustom={onHideCustom} footermessage={FooterMessage}>
+    <Modal visible={visible} setVisible={setVisible}  header={header} footerButtonRightText={footerButtonRightText} footerButtonLeftText={footerButtonLeftText} onClickLeftBtn={onClickLeftBtn} onClickRightBtn={onClickRightBtn} pathRightBtn={pathRightBtn} pathLeftBtn={pathLeftBtn} onHideCustom={onHideCustom} footermessage={FooterMessage}>
         { detailsList && BoxList(detailsList) }
         { components && ComponentsList(components)}
         

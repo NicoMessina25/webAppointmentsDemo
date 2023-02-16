@@ -39,7 +39,7 @@ export default function ForgotPasswordStepOne(){
     return (
         <div className='containerFormForgotPass flexible--column' >
             <div >
-                { logo!='' && <img src={process.env.REACT_APP_MEDERE_ADDRESS+`/imgs/${logo}`} alt="" className='img' /> }
+                { logo!='' && <img src={`/imgs/${logo}`} alt="" className='img' /> }
             </div>
             <div className='headerFormForgotPass'>
                 { !toggleFormBoolean ? <h1>{ intl.formatMessage({ id: 'ForgotPassword' }) }</h1> : <h1>{ intl.formatMessage({ id: 'NewPassword' }) }</h1> }

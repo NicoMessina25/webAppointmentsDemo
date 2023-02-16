@@ -1,11 +1,9 @@
 import axios from "axios";
+import { getDevice } from "./loginService";
 
-export function getLanguage(){
-    return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getLanguage').then(res=>res.data)
-}
 
 export function getCaptchaKey(){
-    return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getWebAppointmentsCaptchaKey',{
+    return axios.get('/api/notsecure/getWebAppointmentsCaptchaKey',{
         params:{
             appid:2
         }
@@ -15,7 +13,10 @@ export function getCaptchaKey(){
 }
 
 export function logout(){
-    return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/api/auth/logout').then(res => {
+    return axios.post('/api/auth/logout',{
+        appId:2,
+        deviceId:getDevice(),
+    }).then(res => {
         return res.data
     } );   
 }

@@ -1,17 +1,22 @@
 import axios from "axios";
-
+axios.defaults.withCredentials = true
 
 export function getLanguage(){
-    return axios.get(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getLanguage').then(res=>res.data)
+    return axios.get('/api/notsecure/getLanguage').then(res=>res.data)
 }
 
 
 export function getPatientInfo(medereEntity:any){
     
-    return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/getPatientInfo',null,{
+    const instance = axios.create({
+        withCredentials: true
+     })
+
+
+    return instance.post('/api/secure/getPatientInfo',null,{
         params:{
             id:medereEntity
-        }
+        },
     }).then(res => {
         return res.data
     });
@@ -22,21 +27,21 @@ export function savePatientInfo(user:any,returnValidPatientDTO:any,mobilePhone:a
     let validDTO=returnValidPatientDTO(user)
     validDTO.mobilePhone=mobilePhone;
     console.log(validDTO)
-    return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/updatePatient',validDTO
+    return axios.post('/api/secure/updatePatient',validDTO
     ).then(res => {
         return res
     });
 }
 
 export function changePassword(newPasswordDTO:any){
-    return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/changePassword',newPasswordDTO
+    return axios.post('/api/secure/changePassword',newPasswordDTO
     ).then(res => {
         return res
     });
 }
 
 export function addRelativeMedere(dto:any){
-    return axios.post(process.env.REACT_APP_MEDERE_ADDRESS+'/rest/webappointments/addRelative',dto
+    return axios.post('/api/secure/addRelative',dto
     ).then(res => {
         return res
     });

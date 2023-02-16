@@ -5,7 +5,7 @@ export function getCities(inputText:any, offset:any, pageSize:any, languageId:an
     
 
 
-    return axios.post(process.env.REACT_APP_MEDERE_ADDRESS +  '/rest/webappointments/getCities'
+    return axios.post('/api/notsecure/getCities'
     , null, {
         params:{
             languageCode:languageId,

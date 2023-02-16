@@ -1,39 +1,28 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { appContext } from "../Context/appContext";
 
 import { Navigate, Outlet } from 'react-router-dom';
 import Login from "../Login/Login";
 import { amilogged } from "../../services/loginService";
 
-const PrivateComponent = ({children, ...props}:any) => {
-    
+const PrivateComponent =  ({children, ...props}:any) : JSX.Element => {
 
-    function serverConfirmation() {
-      return true;  
-      // console.log("verificando");
-      //   try {
-      //     amilogged().then(res=>{
-      //       console.log(res)
-      //       if (res.status === 403) {
-      //           return false;
-      //         }
-      //       return true;
-      //     })
-      //   } catch (e) {
-      //     return false;
-      //   }
-    }
+    const {getStorage}:any = useContext(appContext);
 
-    let storedSettings=localStorage.getItem("settings");
-    if(storedSettings) 
-        if(JSON.parse(storedSettings).userId===-1){
+    let storedSettings=getStorage().getItem("settings");
+    if(storedSettings) {
+        let storedSettingsJson=JSON.parse(storedSettings)
+        if(storedSettingsJson.userId===-1){
             return <Navigate to="/login"/>
         }
         else{
-            if(serverConfirmation())
-                return <Outlet/>
-            else
-                return <Navigate to="/login"/>
+                if(storedSettingsJson.isLogged){
+                    return <Outlet/>
+                } else {
+                    return <Navigate to="/login"/>
+                }
+                
+            }
         }
     else{
         return <Navigate to="/login"/>

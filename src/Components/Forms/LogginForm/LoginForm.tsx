@@ -38,7 +38,7 @@ export default function LogginForm({googleLogin}:any){
     const {validMobileForInputDate}:any = useContext(appContext);
     
     const {user}:any = useContext(appContext);
-
+    const {getStorage}:any = useContext(appContext);
     
 
     function validateUser(){
@@ -57,9 +57,20 @@ export default function LogginForm({googleLogin}:any){
         if(password!="" && userName!=""){
             authenticateUser(userName,password).then(res=>{
                 if(res.request.status==200){
-
-                    localStorage.setItem("settings",JSON.stringify(res.data))
-                    let settingsString: any = localStorage.getItem("settings");
+                    res.data={
+                        ...res.data,
+                        isLogged:true,   
+                    }
+                    
+                    localStorage.setItem("remember",JSON.stringify(checked))
+                    
+                    if(checked){
+                        localStorage.setItem("settings",JSON.stringify(res.data))
+                    }else{
+                        sessionStorage.setItem("settings",JSON.stringify(res.data))
+                    }
+                    
+                    let settingsString: any = getStorage().getItem("settings");
                     let settingsJson;
                 
                     if (settingsString){

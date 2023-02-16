@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 export function getMedicalCoverages(inputText:any, offSet:any, pageSize:any){
-    return axios.get(process.env.REACT_APP_MEDERE_ADDRESS +  '/rest/webappointments/getMedicalCompanies', {
+    return axios.get('/api/notsecure/getMedicalCompanies', {
         params: {
             inputText:inputText,
             offSet: offSet,
@@ -13,8 +13,7 @@ export function getMedicalCoverages(inputText:any, offSet:any, pageSize:any){
 
 export function getPlans(inputText:any, offSet:any, pageSize:any, filterId:any){
     
-    
-    return axios.get(process.env.REACT_APP_MEDERE_ADDRESS +  '/rest/webappointments/getPlans', {
+    return axios.get('/api/notsecure/getPlans', {
         params: {
             inputText: inputText,
             filterId: filterId || 0,

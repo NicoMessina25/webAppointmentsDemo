@@ -5,7 +5,7 @@ import "./TermsStyles.scss"
 
 export default function Terms(){
 
-    const [src,setSrc]=useState(process.env.REACT_APP_MEDERE_ADDRESS+"/imgs/");
+    const [src,setSrc]=useState("/imgs/");
     //const [defaultLogo,setDefaultLogo]=useState("/img/graylogo.png");
     const [logo,setLogo]=useState(false);
     let logoBoolean=false;

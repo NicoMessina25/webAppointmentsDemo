@@ -23,7 +23,9 @@ const ProfileForm=forwardRef( (props:any,ref) => {
   const {getDefaultPatient}:any = useContext(appContext);
   const {returnValidPatientDTO}:any = useContext(appContext);
 
-  let settings=localStorage.getItem("settings");
+  const {getStorage}:any = useContext(appContext);
+
+  let settings=getStorage().getItem("settings");
   
   const intl = useIntl();
   const [name,setName]=useState("");
