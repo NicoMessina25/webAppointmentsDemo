@@ -1,0 +1,85 @@
+import axios from "axios";
+
+
+export function getProfessionals(inputText:String,offSet:number,pageSize:number,language:number,params:any ){
+    
+    return axios.get('/rest/webappointments/getProfessionals',
+    {
+        params: {
+            pageSize:pageSize,
+            offSet:offSet,
+            language:language,
+            inputText:inputText,
+            facetoface:params.facetoface,
+            allowsdigitalrp:params.allowsdigitalrp,
+            medicalspeciality:params.medicalspeciality
+
+        }
+    }).then(res => res.data)
+}
+
+export function getSpecialities(inputText:String,offSet:number,pageSize:number,language:number,params:any ){
+    
+    let professional=-1;
+    if(params.professional)
+        professional=params.professional;
+
+    return axios.get('/api/secure/getSpecialities',
+    {
+        params: {
+            pageSize:pageSize,
+            offSet:offSet,
+            language:language,
+            inputText:inputText,
+            professional:professional
+
+        }
+    }).then(res => {return res.data})
+}
+
+export function getAppointments(inputText:any,offSet:any,pageSize:any,language:any,params:any ){
+    
+    /* "language":1,
+    "medicalspeciality":51,
+    "professional":58946,
+    "videocall":false,
+    "building":3,
+    "hour":"",
+    "time":"tade",
+    "date":"2023-02-25T10:31:59.000Z"
+     */
+
+    let professional=-1;
+    if(params.professional)
+        professional=params.professional;
+
+    return axios.post('/rest/webappointments/getAppointments',params,
+    {
+        params: {
+            pageSize:pageSize,
+            offSet:offSet,
+            // language:params.language,
+            // inputText:inputText,
+            // medicalspeciality:params.medicalspeciality,
+            // professional:professional,
+            // videocall:false,
+            // building:3,
+            // hour:"",
+            // time:"tarde",
+            // date:"2023-02-25T10:31:59.000Z"
+        }
+    }).then(res => {console.log(res.data);return res.data})
+}
+
+export function getBuildings(inputText:String,offSet:number,pageSize:number,language:number,params:any ){
+
+    return axios.get('/rest/webappointments/getBuildings',
+    {
+        params: {
+            pageSize:pageSize,
+            offSet:offSet,
+            speciality:params.speciality,
+            professional:params.professional
+        }
+    }).then(res => {console.log(res.data);return res.data})
+}

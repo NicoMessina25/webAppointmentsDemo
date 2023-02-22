@@ -4,7 +4,7 @@ import { appContext } from '../Context/appContext';
 import {langContext} from '../Context/langContext';
 import Loader from '../Loader/Loader';
 
-function Combobox({label, getItems, value, setValue, className, optionLabel, placeholder, scrollHeight, error, caption, reLoadItemsValue, width,disable}:any) {
+function Combobox({label, getItems,list,params, value, setValue, className, optionLabel, placeholder, scrollHeight, error, caption, reLoadItemsValue, width,disable}:any) {
   const [items, setItems]:any = useState([]);
   const [isMoreData, setIsMoreData] = useState(true);
   const [isLoadingData, setIsLoadingData] = useState(false);
@@ -50,9 +50,8 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
 
   function loadItems(reset:boolean){
     let _items;
-
     setIsLoadingData(true)
-    getItems && getItems(filterValue,page*pageSize, pageSize, languageId).then((data:any)=>{
+    getItems && getItems(filterValue,page*pageSize, pageSize, languageId,params).then((data:any)=>{
       
       setIsMoreData(data.length === pageSize);
       
@@ -89,6 +88,11 @@ function Combobox({label, getItems, value, setValue, className, optionLabel, pla
       
       setIsLoadingData(false);
     }) 
+    if(list){
+      setItems(list)
+      setIsLoadingData(false);
+    }
+  
   }
 
   function onScroll(e:any){  

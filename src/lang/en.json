@@ -143,5 +143,9 @@
     "AddRelative":"Add relative",
     "Add":"Add",
     "ChangesCouldNotBeSaved":"Changes couldn't be saved",
-    "Success":"Success"
+    "Success":"Success",
+    "Morning":"Morning",
+    "Afternoon":"Afternoon",
+    "Night":"Night"
+    
 }

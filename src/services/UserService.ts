@@ -26,7 +26,6 @@ export function savePatientInfo(user:any,returnValidPatientDTO:any,mobilePhone:a
     //Pasar mobilePhone como string
     let validDTO=returnValidPatientDTO(user)
     validDTO.mobilePhone=mobilePhone;
-    console.log(validDTO)
     return axios.post('/api/secure/updatePatient',validDTO
     ).then(res => {
         return res

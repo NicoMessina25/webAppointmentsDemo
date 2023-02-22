@@ -143,5 +143,8 @@
     "AddRelative":"Agregar familiar",
     "Add":"Agregar",
     "ChangesCouldNotBeSaved":"Los cambios no pudieron ser guardados",
-    "Success":"Éxito"
+    "Success":"Éxito",
+    "Morning":"Mañana",
+    "Afternoon":"Tarde",
+    "Night":"Noche"
 }
