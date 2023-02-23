@@ -82,6 +82,8 @@ const Menu = React.forwardRef((props: any, ref) => {
                     
                     let _subItem:any;
                     subKey = subItem.menuItem;
+                    
+                    
                     _subItem={
                         key: "_" + subKey,
                         caption: subItem.caption,
@@ -145,7 +147,9 @@ const Menu = React.forwardRef((props: any, ref) => {
                     <div>
 
                         <div className="menuOption background-red flexible--row">
-                            <Icon className="consent-medicine" icon="material-symbols:edit-document-outline-sharp" />
+                            <div>
+                                 <Icon className="consent-medicine" icon="material-symbols:edit-document-outline-sharp" />
+                            </div>
                             <span className="consent-medicine">{intl.formatMessage({ id: 'TelemedicineConsent' })}</span>
                         </div>
                         <div className="menuOption flexible--row" onClick={handleSignOut}>

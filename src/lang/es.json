@@ -146,5 +146,13 @@
     "Success":"Éxito",
     "Morning":"Mañana",
     "Afternoon":"Tarde",
-    "Night":"Noche"
+    "Night":"Noche",
+    "Hello":"Hola",
+    "MyPrescriptions":"Mis recetas",
+    "MyAppointments":"Mis turnos agendados",
+    "ClinicalMedicine":"Medicina Clínica",
+    "NextAppointment":"Próximo turno",
+    "RememberToBeConnected":"Recuerde estar conectado 5 minutos antes de su turno",
+    "Telemedicine":"Telemedicina",
+    "Office":"Consultorio"
 }

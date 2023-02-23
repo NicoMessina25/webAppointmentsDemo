@@ -38,12 +38,12 @@ export default function TreeMenu({items, selectedItemKey, onSelectionChange}:any
         setExpandedKeys(_expandedKeys);
     }
 
-    const collapseNode = (node:any, _expandedKeys:any) => {
+    /* const collapseNode = (node:any, _expandedKeys:any) => {
         if (node.children && node.children.length) {
             _expandedKeys[node.key] = false;
         }
         setExpandedKeys(_expandedKeys);
-    }
+    } */
 
     return (
         <Tree value={items} expandedKeys={expandedKeys} selectionMode="single" selectionKeys={selectedItemKey} onSelectionChange={onSelectionChange} onToggle={e => {

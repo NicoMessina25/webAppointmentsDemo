@@ -146,6 +146,13 @@
     "Success":"Success",
     "Morning":"Morning",
     "Afternoon":"Afternoon",
-    "Night":"Night"
-    
+    "Night":"Night",
+    "Hello":"Hello",
+    "MyPrescriptions":"My prescriptions",
+    "MyAppointments":"My appointments",
+    "ClinicalMedicine":"Clinical medicine",
+    "NextAppointment":"Next appointment",
+    "RememberToBeConnected":"Remember to be connected 5 minutes before your appointment",
+    "Telemedicine":"Telemedicine",
+    "Office":"Office"
 }

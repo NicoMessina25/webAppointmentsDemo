@@ -1,9 +1,12 @@
 import { VirtualScroller } from 'primereact/virtualscroller'
 import React from 'react'
+import { useIntl } from 'react-intl';
 import ItemListTemplate from '../../ItemListTemplate/ItemListTemplate';
 import "./HomePrescriptionsPanel.scss"
 
 export default function HomePrescriptionsPanel({receivedPrescriptions}:any) {
+
+  const intl = useIntl();
 
   const template = (item:any, options:any) => {
     // item: Current item.
@@ -17,10 +20,10 @@ export default function HomePrescriptionsPanel({receivedPrescriptions}:any) {
     const {doctor, date, medicationDesc, status} = item;
 
     return <ItemListTemplate header={doctor} desc={medicationDesc} date={date} state={status} />;
-}
+  }
 
   return ( <div className='homePrescriptionsPanel'  >
-    <h2 className='infoText'>Mis Recetas</h2>
+    <h2 className='infoText'>{intl.formatMessage({id:"MyPrescriptions"})}</h2>
     <VirtualScroller scrollHeight='300px' items={receivedPrescriptions} itemSize={46} itemTemplate={template} />
   </div>
     

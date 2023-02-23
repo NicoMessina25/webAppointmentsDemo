@@ -3,9 +3,10 @@
 .options-panel{
     width:100%;
     background-color: map-get($lightPrimary,text);
-    padding: 2%;
+    padding: 8px;
     margin: 1% 0%;
     justify-content: space-between;
+    border-radius: 8px;
     .title{
         color:map-get($lightBase,main);
         margin-bottom: 1%;
@@ -15,16 +16,25 @@
         margin-right: 2%;
     }
 
+    .optionsPanelHeader{
+        border-bottom: 1px solid map-get($lightContrastShade, 30);
+    }
+
     .combobox,.inputdate,.radioButtonGroup{
         margin: 1%;
-        
+        width:100%;
         font-size: 90% !important;
         min-width: 150px;
 
         .label,label{
             color: $contrast;
+            font-weight: 400;
         }
 
+    }
+
+    .radioButtonGroup{
+        min-width: 300px;
     }
 
     .buttonMain{
@@ -39,12 +49,11 @@
         justify-content: space-between;
     }
 
-    .inputs{
-        width: 80%;
-        justify-content: space-between;
+    
+    .buttonMain{
+        width: 100% !important;
     }
-
-    border-radius: 8px;
+   
 
     .options-panel-footer{
         margin-top: 1%;
@@ -52,16 +61,26 @@
         color: map-get($lightText, heading);
     }
 
-    .inputContainer{
-        width:auto !important;
-    }
+
 
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
     .options-panel{
-        .combobox, .buttonMain{
-            width: 100% !important;
+        .buttonMain{
+            width: 18% !important;
+            margin: 1% !important;
+        }
+
+        .combobox,.inputdate,.radioButtonGroup{
+    
+            width:18%;
+           
+    
+        }
+
+        .optionsPanelHeader{
+
         }
     }
 }

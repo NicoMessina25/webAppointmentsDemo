@@ -27,17 +27,22 @@
 }
 
 .menu-container{
-    height: 95vh;
+    height: 100vh;
     width:215px;
     justify-content: space-between;
     z-index: 3;
-    position: fixed;
+    
     background-color: $contrast;
     border-right: 5px solid map-get($lightContrastShade, 10) !important;
     transition: all .5s ease;
 
     span{
         transition: all .5s ease;
+    }
+
+    .icon{
+        width: 16px !important;
+        height: 16px !important;
     }
 }
 
@@ -160,9 +165,10 @@
 
 
 .consent-medicine{
-    .iconify{
-        color:map-get($lightInfo, text);
-    }
+    /* .iconify{
+        color:map-get($lightInfo, text)
+        
+    } */
     margin-right: 10px;
     color:map-get($lightInfo, text);
     
@@ -188,7 +194,8 @@
 
 @media screen and (min-width: 1024px) {
     .menu-container{
-        position:relative;
+        position:sticky;
+        top: 40px;
         
     }
 

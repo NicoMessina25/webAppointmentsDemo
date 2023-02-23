@@ -21,13 +21,13 @@ export default function AppointmentCard({appointment}:any) {
                 <div className='flexible--column professionalAndHour'>
                     <p className='hour'>{intl.formatDate(date, {hour:'2-digit', minute: '2-digit'})} HS</p>
                     <p className='textDark' >{professional} - {speciality}</p>
-                    {telemedicine && <p className='caption'>*Recuerde estar conectado 5 minutos antes de su turno</p>}
+                    {telemedicine && <p className='caption'>*{intl.formatMessage({id:"RememberToBeConnected"})}</p>}
                 </div>
             </div>
             
             <div className='telemedicine flexible--column' >
                 <Icon icon={telemedicine? "fa6-solid:video" : "ion:home"}/>
-                <p>{telemedicine?"Telemedicina":"Consultorio"}</p>
+                <p>{intl.formatMessage({id:telemedicine?"Telemedicine":"Office"})}</p>
                 
             </div>
         </div>

@@ -273,10 +273,6 @@ input,
     color: map-get($lightText , tertiary)
 }
 
-.space-between{
-    justify-content: space-between;
-}
-
 .highlight {
     color: map-get($lightPrimary, main) !important;
     background: map-get($lightPrimary, transparent15) !important;
