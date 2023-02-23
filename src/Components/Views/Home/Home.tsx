@@ -15,6 +15,7 @@ import RequestsStatePanel from '../../Panels/RequestsStatePanel/RequestsStatePan
 import { amilogged } from '../../../services/loginService';
 import { getAppointments, getBuildings, getProfessionals, getSpecialities } from '../../../services/appointmentsService';
 import InputDate from '../../Inputs/InputDate/InputDate';
+import RadioButtonGroup from '../../RadioButtonGroup/RadioButtonGroup';
 
 export default function Home() {
 
@@ -67,96 +68,9 @@ export default function Home() {
   
   }
 
-  const [professional,setProfessional]:any=useState({});
-  const [speciality,setSpeciality]:any=useState({medicalspeciality:-1});
-  const [appointmentDate,setAppointmentDate]=useState("");
-  
-
-  let params={
-    facetoface:true,
-    allowsdigitalrp:null,
-    medicalspeciality:speciality.medicalspeciality
-  }
-
-  let params2={
-    professional:professional.professional
-  }
-
-  let timeZone=[{name:intl.formatMessage({id:"Morning"})},{name:intl.formatMessage({id:"Afternoon"})+'-'+intl.formatMessage({id:"Night"})}]
-  let [timeZone1,setTimeZone1]:any=useState({});
-  let [location,setLocation]:any=useState({});
-
-
-  function searchAppointments(){
-    console.log(speciality.medicalspeciality)
-    
-    // console.log(appointmentDate)
-    //valida campos
-    if(!speciality || !professional || !appointmentDate || !timeZone1 || Object.keys(timeZone1).length === 0
-       || Object.keys(speciality).length === 0 && Object.keys(professional).length === 0 || appointmentDate==="")
-      return 
-
-    let params={
-      language:1,
-      medicalspeciality:speciality.medicalspeciality,
-      professional:professional.professional,
-      videocall:false,
-      building:3,
-      hour:"",
-      time:timeZone1.name,
-      date:appointmentDate
-    }
-    console.log(getAppointments('',0,20,1,params).then(res=>res))
-  }
-  
-
-  function buildingsParams(){
-
-    if(!speciality || !professional || Object.keys(speciality).length === 0 && Object.keys(professional).length === 0)
-    return {
-      speciality:-1,
-      professional:-1
-    }
-    return {
-      speciality:speciality.medicalspeciality,
-      professional:professional.professional
-    }
-  }
 
   return (
     <div className='Home-container'>
-        <OptionsPanel buttonLabel={"Buscar turno"} onClickBtn={searchAppointments}>
-        
-        <Combobox  getItems={getSpecialities} params={params2} label={"Especialidad D:"} value={speciality} 
-            //reLoadItemsValue={professional}
-           optionLabel={"name"} setValue={(e:any) =>
-            {                 
-              setSpeciality(e);
-            }} placeholder={intl.formatMessage({id: "Select"})} className="width-50 combobox"  />
-
-          <Combobox  getItems={getProfessionals} params={params} label={"Profesional :D"} value={professional} optionLabel={"prefixAndFullName"} setValue={(e:any)=>
-            {                 
-              setProfessional(e);
-            }} placeholder={intl.formatMessage({id: "Select"})} className="width-50 combobox" reLoadItemsValue={speciality}  />
-
-          
-
-            
-        <InputDate value={setSpeciality} className='inputdate width-50'  label={"Turnos desde"} onChange={(e:any)=>{setAppointmentDate(e.value)}} showIcon dateFormat="dd/mm/yy" minDate={new Date()} placeholder='dd/mm/aaaa'/>
-
-        <Combobox  list={timeZone} params={null} label={"Franja horaria D:"} value={timeZone1} optionLabel={"name"} setValue={(e:any) =>
-            {                 
-              setTimeZone1(e);
-            }} placeholder={intl.formatMessage({id: "Select"})} className="width-50 combobox"  />
-
-        { Object.keys(speciality).length > 0 && Object.keys(professional).length > 0 &&
-          <Combobox  getItems={getBuildings} params={buildingsParams()} label={"Sede"} value={location} optionLabel={"buildingname"} setValue={(e:any) =>
-            {                 
-              setLocation(e);
-            }} placeholder={intl.formatMessage({id: "Select"})} className="width-50 combobox" reLoadItemsValue={professional} />}
-        </OptionsPanel>
-
-        
         
         <div className='flexible--rowWrap'>
           <NextAppointment/>

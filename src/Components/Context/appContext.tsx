@@ -135,7 +135,6 @@ const AppProvider = ({children}:any) => {
 
         // const { hasMedicalCoverage, healthentity, healthentityplan, voluntary, healthpatientcoverage } = healthpatientcoverage;
 
-        console.log(patient)
         
         if (patient) {
             let modificatedUser:any;

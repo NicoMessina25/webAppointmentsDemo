@@ -58,15 +58,6 @@ export function getAppointments(inputText:any,offSet:any,pageSize:any,language:a
         params: {
             pageSize:pageSize,
             offSet:offSet,
-            // language:params.language,
-            // inputText:inputText,
-            // medicalspeciality:params.medicalspeciality,
-            // professional:professional,
-            // videocall:false,
-            // building:3,
-            // hour:"",
-            // time:"tarde",
-            // date:"2023-02-25T10:31:59.000Z"
         }
     }).then(res => {console.log(res.data);return res.data})
 }
@@ -81,5 +72,5 @@ export function getBuildings(inputText:String,offSet:number,pageSize:number,lang
             speciality:params.speciality,
             professional:params.professional
         }
-    }).then(res => {console.log(res.data);return res.data})
+    }).then(res => {return res.data})
 }

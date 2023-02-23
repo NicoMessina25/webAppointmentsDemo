@@ -32,12 +32,7 @@ const BoxList: React.FC = (options:any) => {
     return <div className='flexible--row'>{boxes}</div>;
   };
 
-  
-
-
-
-
-export default function OptionsPanel({title,children, buttonLabel, onClickBtn}:any) {
+export default function OptionsPanel({title,header,children, buttonLabel, onClickBtn}:any) {
   return (
     <div className='flexible--column options-panel'>
         {title!="" && 
@@ -45,6 +40,13 @@ export default function OptionsPanel({title,children, buttonLabel, onClickBtn}:a
         <div className='title'>{title}</div>
 
         }
+
+        <div className='flexible--row'>
+        {
+          header && {header}
+        }
+        </div>
+        
 
         <div className='flexible--rowWrap optionsContainer'>
           {children}

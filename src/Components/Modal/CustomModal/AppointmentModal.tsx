@@ -34,7 +34,6 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
     const BoxList: React.FC = (detailsList:any) => {
 
         let index = 0;
-       console.log(detailsList) 
         const boxes = detailsList.map((component:any) => (
             
             <div key={index++} className={`flexible--column appointment-modal-container ${component.background}`}>

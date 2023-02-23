@@ -15,19 +15,16 @@
         margin-right: 2%;
     }
 
-    .combobox,.inputdate{
+    .combobox,.inputdate,.radioButtonGroup{
         margin: 1%;
         
         font-size: 90% !important;
         min-width: 150px;
 
-        .label{
+        .label,label{
             color: $contrast;
         }
 
-        
-        
-       
     }
 
     .buttonMain{
@@ -53,6 +50,10 @@
         margin-top: 1%;
         text-align: center;
         color: map-get($lightText, heading);
+    }
+
+    .inputContainer{
+        width:auto !important;
     }
 
 }
