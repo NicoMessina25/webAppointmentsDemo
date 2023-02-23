@@ -74,8 +74,10 @@ export default function LogginForm({googleLogin}:any){
                     let settingsJson;
                     if (settingsString){
                         settingsJson = JSON.parse(settingsString)
+                        console.log(settingsJson);
+                        
                         getPatientInfo(settingsJson.entityId).then(res=>{
-                            res.mobilephone=validMobileForInputPhone(res)
+                            res.mobilephone=validMobileForInputPhone(res.mobilePhone)
                             res.birthDate = new Date(res.birthDate);
                             setModificateUser(res);  
                         })   

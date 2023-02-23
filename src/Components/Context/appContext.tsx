@@ -47,10 +47,10 @@ const AppProvider = ({children}:any) => {
     const [user, setUser] : any= useState(getDefaultPatient());
     
     
-    function validMobileForInputPhone(res:any){
+    function validMobileForInputPhone(mobilePhone:any){
         try{
             const phoneUtil = PhoneNumberUtil.getInstance();
-            const parsedNumber = phoneUtil.parse(res.mobilePhone);
+            const parsedNumber = phoneUtil.parse(mobilePhone);
             /* console.log(phoneUtil.getLengthOfGeographicalAreaCode(parsedNumber)); 
 
             const ex = phoneUtil.getExampleNumber("UY");
@@ -58,8 +58,7 @@ const AppProvider = ({children}:any) => {
             console.log(ex, phoneUtil.getLengthOfGeographicalAreaCode(ex), phoneUtil.format(ex, PhoneNumberFormat.INTERNATIONAL))*/
             let geographicalAreaCodeLength = phoneUtil.getLengthOfGeographicalAreaCode(parsedNumber); 
             const countryCode = "+" + parsedNumber.getCountryCode();
-            const areaCode = parsedNumber.getNationalNumber()?.toString().slice(0,geographicalAreaCodeLength);
-            const phoneNumber = parsedNumber.getNationalNumber()?.toString().slice(geographicalAreaCodeLength);
+            const phoneNumber = parsedNumber.getNationalNumber();
 
             //console.log(countryCode, areaCode, phoneNumber);
             
@@ -71,7 +70,6 @@ const AppProvider = ({children}:any) => {
 
             return {
                 prefix: countryCode,
-                area: areaCode,
                 number: phoneNumber,
             };
         }catch(e){
@@ -79,8 +77,7 @@ const AppProvider = ({children}:any) => {
             //console.log("celu invalido")
             return {
                 prefix: "+54",
-                area: "",
-                number: res.mobilePhone,
+                number: mobilePhone,
             };
         }
     }
@@ -106,7 +103,7 @@ const AppProvider = ({children}:any) => {
             settingsJson = JSON.parse(settingsString)
         
             getPatientInfo(settingsJson.entityId).then(res=>{
-                res.mobilephone=validMobileForInputPhone(res);
+                res.mobilephone=validMobileForInputPhone(res.mobilePhone);
                 setModificateUser(res);
             })
             
@@ -195,7 +192,6 @@ const AppProvider = ({children}:any) => {
             birthdate: null,
             mobilephone: {
                 prefix: "+54",
-                area: "",
                 number: "",
             },
             address: "",
@@ -241,7 +237,7 @@ const AppProvider = ({children}:any) => {
             }
                 
             validPatientDTO.phoneNumber=null;
-            validPatientDTO.mobilePhone=patient.mobilephone.prefix+patient.mobilephone.area+patient.mobilephone.number;
+            validPatientDTO.mobilePhone=patient.mobilephone.prefix+patient.mobilephone.number;
             validPatientDTO.medereentity=patient.medereentity;
             validPatientDTO.clinichistoryid="";
             validPatientDTO.birthdate=patient.birthdate;
@@ -303,6 +299,18 @@ const AppProvider = ({children}:any) => {
         setInputErrors(_inputErrors)
     }
 
+    function resetInputErrors(){
+
+        let _inputErrors:any = {...inputErrors};
+
+        for(const ie in inputErrors){
+            _inputErrors[ie].isValid = true;
+            _inputErrors[ie].caption = "";
+          }
+        
+          setInputErrors(_inputErrors)
+    }
+
     function validateData(fields: Array<string>, u:any) {
         let valid = true;
         let _inputErrors: any = { ...inputErrors }
@@ -351,7 +359,7 @@ const AppProvider = ({children}:any) => {
                 break;
             }
             case "mobilephone": {
-                if (u.mobilephone.area === "" || u.mobilephone.number === "") {
+                if (u.mobilephone.number === "") {
                     _inputErrors.mobilephone.caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
                     _inputErrors.mobilephone.isValid = valid = false;
                 }
@@ -366,16 +374,6 @@ const AppProvider = ({children}:any) => {
             }
         }
 
-        /* if (!user[field] && user[field] !== false && field.localeCompare("mobilephone")) {
-            _inputErrors[field].caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
-            _inputErrors[field].isValid = valid = false;
-        } else if (!field.localeCompare("mobilephone")) {
-            if (user.mobilephone.area === "" || user.mobilephone.number === "") {
-                _inputErrors.mobilephone.caption = intl.formatMessage({ id: "ThisFieldIsRequired" });
-                _inputErrors.mobilephone.isValid = valid = false;
-            }
-        } */
-
         
 
         
@@ -386,7 +384,7 @@ const AppProvider = ({children}:any) => {
 
 
     return (
-        <appContext.Provider value={{captchaKey,user,setUser,renderState,restorePatientDefault,setModificateUser,getDefaultPatient,returnValidPatientDTO,validMobileForInputPhone, inputErrors, setInputErrors, onChangeRemoveError, validateData, getStorage}}>           
+        <appContext.Provider value={{captchaKey,user,setUser,renderState,restorePatientDefault,setModificateUser,getDefaultPatient,returnValidPatientDTO,validMobileForInputPhone, inputErrors, setInputErrors, resetInputErrors, onChangeRemoveError, validateData, getStorage}}>           
                 {children}
         </appContext.Provider>
     )

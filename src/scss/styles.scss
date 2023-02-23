@@ -13,6 +13,10 @@ body {
     font-size: 100%; //75%
 }
 
+h1, h2{
+    font-weight: 600;
+}
+
 .flexible--row {
     display: flex;
     flex-direction: row;
@@ -62,6 +66,10 @@ a {
     width: fit-content;
     transition: all .5s !important;
     padding: 0.65rem 1.083rem !important; //0.35rem 0.583rem 
+    
+    .p-button-label{
+       font-weight: 600 !important; 
+    }
 
     &:hover {
         transform: scale(1.01, 1.01);
@@ -117,11 +125,11 @@ a {
     font-weight: 500;
     color: #1b2b41b8;
     font-size: 100%;
-    
+    margin: 4px 0% 8px 0%;
 
     input,
-    .p-dropdown {
-        margin: 4px 0% 8px 0% !important;
+    .p-dropdown, .p-calendar {
+        //margin: 4px 0% 8px 0% !important;
     }
 
 }
@@ -265,7 +273,9 @@ input,
     color: map-get($lightText , tertiary)
 }
 
-
+.space-between{
+    justify-content: space-between;
+}
 
 .highlight {
     color: map-get($lightPrimary, main) !important;
@@ -273,7 +283,7 @@ input,
 }
 
 .p-calendar {
-    margin: 4px 0% 8px 0% !important;
+    //margin: 4px 0% 8px 0% !important;
 
     .p-inputtext {
         font-size: 100% !important; //75%

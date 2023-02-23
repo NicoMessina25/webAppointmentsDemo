@@ -16,6 +16,7 @@
     "bcryptjs": "^2.4.3",
     "google-libphonenumber": "^3.2.32",
     "iconify": "^1.4.0",
+    "lodash": "^4.17.21",
     "primeicons": "6.0.1",
     "primereact": "^8.7.3",
     "react": "^18.2.0",
@@ -56,6 +57,7 @@
   "devDependencies": {
     "@iconify/react": "^4.0.1",
     "@types/google-libphonenumber": "^7.4.23",
+    "@types/lodash": "^4.14.191",
     "@types/node-sass": "^4.11.3",
     "@types/react-google-recaptcha": "^2.1.5"
   }

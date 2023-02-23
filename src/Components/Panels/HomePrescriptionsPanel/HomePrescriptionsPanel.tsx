@@ -20,7 +20,7 @@ export default function HomePrescriptionsPanel({receivedPrescriptions}:any) {
 }
 
   return ( <div className='homePrescriptionsPanel'  >
-    <h2>Recetas Recibidas</h2>
+    <h2 className='infoText'>Mis Recetas</h2>
     <VirtualScroller scrollHeight='300px' items={receivedPrescriptions} itemSize={46} itemTemplate={template} />
   </div>
     

@@ -31,7 +31,7 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
     */
 
 
-    const BoxList: React.FC = (detailsList:any) => {
+    const boxList = (detailsList:any) => {
 
         let index = 0;
         const boxes = detailsList.map((component:any) => (
@@ -59,7 +59,7 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
         </div>;
       };
 
-      const ComponentsList: React.FC = (components:any) => {
+      const componentsList = (components:any) => {
 
         let index = 0;
         
@@ -101,7 +101,7 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
       };
 
       
-      const FooterMessage: React.FC = (components:any) => {
+      const footerMessage = (components:any) => {
 
         return <div className='flexible--column'>
             <div className={`${modalfooter.background}`}>{modalfooter.description}</div>
@@ -111,9 +111,9 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
 
   
 return (
-    <Modal visible={visible} setVisible={setVisible}  header={header} footerButtonRightText={footerButtonRightText} footerButtonLeftText={footerButtonLeftText} onClickLeftBtn={onClickLeftBtn} onClickRightBtn={onClickRightBtn} pathRightBtn={pathRightBtn} pathLeftBtn={pathLeftBtn} onHideCustom={onHideCustom} footermessage={FooterMessage}>
-        { detailsList && BoxList(detailsList) }
-        { components && ComponentsList(components)}
+    <Modal visible={visible} setVisible={setVisible}  header={header} footerButtonRightText={footerButtonRightText} footerButtonLeftText={footerButtonLeftText} onClickLeftBtn={onClickLeftBtn} onClickRightBtn={onClickRightBtn} pathRightBtn={pathRightBtn} pathLeftBtn={pathLeftBtn} onHideCustom={onHideCustom} footermessage={footerMessage}>
+        { detailsList && boxList(detailsList) }
+        { components && componentsList(components)}
         
     </Modal>
     

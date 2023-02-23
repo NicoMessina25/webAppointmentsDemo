@@ -1,0 +1,48 @@
+@import '../../../../scss/mixins', '../../../../scss/colors', '../../../../scss/fontFamilies';
+
+.appointmentCard{
+    background-color: map-get($lightPrimary, transparent10);
+    margin: 8px 0px;
+    padding: 12px 16px;
+    height: 90px;
+
+    .appointmentInfo{
+        width: 80%;
+
+        .date{
+            align-items: center;
+            justify-content: center;
+            min-width: 20%;
+            margin-right: 16px;
+            background-color: $contrast !important;
+
+            .dayMonth{
+                font-weight: 900;
+                font-size: 20px;
+            }
+
+            .weekday{
+                font-weight: 500;
+            }
+        }
+
+        .professionalAndHour{
+            .hour{
+                font-weight: 600;
+            }
+            .caption{
+                font-size: 70%;
+            }
+        }
+    }
+
+    
+    .telemedicine{
+        justify-content: space-evenly;
+        align-items: center;
+        width: 20%;
+    }
+    
+
+    
+}

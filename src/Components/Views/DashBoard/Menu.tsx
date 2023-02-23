@@ -130,6 +130,8 @@ const Menu = React.forwardRef((props: any, ref) => {
             
             <div className={`menu-container flexible--column ${!bigMenu?'hideLeft':""}`}>
                     <TreeMenu items={items} selectedItemKey={selectedItemKey} onSelectionChange={(e:any) => {
+                        if(window.innerWidth < 1024) 
+                            setBigmenu(false);
                         if(e.value === '_2114'){
                             setVisibilityChangePasswordModal(true);
                         } else {
@@ -170,6 +172,7 @@ const Menu = React.forwardRef((props: any, ref) => {
                     </Route>
                 </Routes>
             </div>
+            <div className={`menuBackground ${bigMenu? "active":"inactive"}`} onScroll={(e)=>{e.preventDefault()}} ></div>
             </div>
             <ChangePasswordModal visible={visibilityChangePasswordModal} setVisible={setVisibilityChangePasswordModal}></ChangePasswordModal>
             

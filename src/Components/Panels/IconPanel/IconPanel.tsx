@@ -8,8 +8,8 @@ export default function IconPanel({label,iconName,className,onClick}:any) {
         <div>
             <Icon className='icon-panel-icon' icon={iconName}/>
         </div>
-        <div className='label'>
-            {label}
+        <div className='label textBold'>
+            {label.toUpperCase()}
         </div>
     </div>
   )

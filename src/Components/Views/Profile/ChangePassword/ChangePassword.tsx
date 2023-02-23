@@ -32,7 +32,7 @@ export default function ChangePassword() {
             <p className=' textBold line-bottom title-color'>{user.firstname + " " + user.lastname}</p>
             <p>{intl.formatMessage({id:"User"})+": " + user.username}</p>
             <p>{intl.formatMessage({id:"Email"})+": " + user.email}</p>
-            <p>{intl.formatMessage({id:"Mobile"})+": " + user.mobilephone.prefix+user.mobilephone.area+user.mobilephone.number}</p>
+            <p>{intl.formatMessage({id:"Mobile"})+": " + user.mobilephone.prefix+user.mobilephone.number}</p>
             
         </div>
 

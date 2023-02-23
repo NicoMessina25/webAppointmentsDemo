@@ -6,15 +6,17 @@ import { useEffect, useState } from "react";
 import Combobox from "../../Combobox/Combobox";
 import getPhonePrefixes, { getEspecifiedPhonePrefix } from "../../../services/phonePrefixes";
 import InputNumber from "../InputNumber/InputNumber";
+import { PhoneNumberFormat, PhoneNumberUtil } from "google-libphonenumber";
 
 export default function InputPhone({value, setValue, label, className, error, caption,disable}:any){
     const intl = useIntl();
-    
+    const phoneUtil = PhoneNumberUtil.getInstance();
    
     const [country, setCountry]:any = useState({name: "Argentina",
     dial_code: "+54",
     code: "AR"});
 
+    const [example, setExample] = useState(phoneUtil.getExampleNumber("AR"));
 
     /* useEffect(() => {
         setCountries(getPhonePrefixes());
@@ -28,7 +30,9 @@ export default function InputPhone({value, setValue, label, className, error, ca
 
     }, [value.prefix])
     
-
+    useEffect(() => {  
+        setExample(phoneUtil.getExampleNumber(country.code));
+    }, [country])
     
 
     return(
@@ -39,10 +43,10 @@ export default function InputPhone({value, setValue, label, className, error, ca
                     setValue(e.dial_code, "prefix");
                     }} className="comboboxPhone" getItems={getPhonePrefixes} optionLabel={"dial_code"} disable={disable}/>
                
-                <InputNumber placeholder={intl.formatMessage({id:"Area"}).toLowerCase()} value={value.area} onChange={(e:any)=>{
+                {/* <InputNumber placeholder={intl.formatMessage({id:"Area"}).toLowerCase()} value={value.area} onChange={(e:any)=>{
                     setValue(e.target.value, "area");
-                }} className="areaInputPhone" error={error} disable={disable}/>
-                <InputNumber placeholder={intl.formatMessage({id:"Number"}).toLowerCase()} value={value.number} onChange={(e:any)=>{
+                }} className="areaInputPhone" error={error} disable={disable}/> */}
+                <InputNumber placeholder={example?.getNationalNumber()} value={value.number} onChange={(e:any)=>{
                     setValue(e.target.value, "number")
                 }} className="numberInputPhone" error={error} disable={disable}/>
             </div>

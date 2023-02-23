@@ -21,7 +21,7 @@ export function getMailAndCellphone(document:any,documenttype:any){
 
 export function saveUser(user:any, onlyUser:boolean) {
   let newUser= {...user}
-  newUser.mobilephone = user.mobilephone.prefix + user.mobilephone.area + user.mobilephone.number
+  newUser.mobilephone = user.mobilephone.prefix + user.mobilephone.number
   //newUser.birthdate = Date.parse(user.birthdate);
   newUser.city = user.city.city;
   newUser.medicalCoverage = user.medicalCoverage?.entityid;

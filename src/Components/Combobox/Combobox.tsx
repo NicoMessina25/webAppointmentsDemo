@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import { appContext } from '../Context/appContext';
 import {langContext} from '../Context/langContext';
 import Loader from '../Loader/Loader';
+import _ from "lodash";
 
 function Combobox({label, getItems,list,params, value, setValue, className, optionLabel, placeholder, scrollHeight, error, caption, reLoadItemsValue, width,disable}:any) {
   const [items, setItems]:any = useState([]);
@@ -23,6 +24,7 @@ function Combobox({label, getItems,list,params, value, setValue, className, opti
   },[page, filterValue]);
 
   useEffect(()=>{
+  
    
     if(reLoadItemsValue){
       if (page !== 0)
@@ -34,6 +36,18 @@ function Combobox({label, getItems,list,params, value, setValue, className, opti
     
 
   },[reLoadItemsValue]);
+
+  useEffect(()=>{
+  
+    if(value){
+      if (page !== 0)
+        setPage(0)
+      else {
+        loadItems(false)
+      }
+    }
+    
+  }, [value])
 
   /* useEffect(()=>{
     loadItems(false);
@@ -60,28 +74,34 @@ function Combobox({label, getItems,list,params, value, setValue, className, opti
 
       if(!reset){
         if(value){
-                let element = _items.find((i)=>i[optionLabel] === value[optionLabel])
+          let element = _items.find((i)=>i[optionLabel] === value[optionLabel])
 
-                if(element){
-                  
-                  _items.splice(_items.indexOf(element), 1)
-                }
-              }
-                
+          if(element){
+            
+            _items.splice(_items.indexOf(element), 1)
+          }
+        }
+          
 
-              if(page !== 0){
-                _items = [...items, ..._items];
-              }
+        if(page !== 0){
+          _items = [...items, ..._items];
+        }
       }
 
-      
+      let valueInItems = _items.find((i)=> _.isEqual(i,value));
   
-      if(!reset && value && !_items.find((i)=>i[optionLabel] === value[optionLabel])){
-        
-        
+      if(value && !valueInItems && !reset){
         setItems([value, ..._items]);
-      } else {
         
+        
+
+      } else if(reset) {        
+        setItems(_items);
+      
+        if(_items.length === 1){
+          setValue(_items[0]);
+        }
+      } else {
         setItems(_items);
       }
 

@@ -32,20 +32,49 @@
         background-color: map-get($lightContrastShadeTransparent, 10) !important;
     }
 
-    .space-between{
-        justify-content: space-between;
-    }
+    
 
     .number-container{
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
+        .profileFormInput{
+            width: 100%;
+        }
     }
 
     .margin-bottom-1{
         margin-bottom: 8px;
+    }
+
+    .p-invalid{
+        background-color: map-get($lightError, transparent10) !important;
+    }
+
+    .medicalCoverageDiv{
+        margin-top: 20px;
+    }
+
+    .profileFormInput{
+        width: 100%;
     }
 }
 
 .margin-right-rbg{
     margin-right: 20px !important;
 }
+
+
+@media screen and (min-width: 768px) {
+    .profile-form-container{
+        .profileFormInput{
+            width: 49%;
+        }
+
+        .number-container{
+            .profileFormInput{
+                width: 32%;
+            }
+        }
+    }
+}
+    

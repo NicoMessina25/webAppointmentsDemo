@@ -51,7 +51,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
     const [loading, setLoading] = useState(false);
 
     const { languageId}: any = useContext(langContext);
-    const {inputErrors, setInputErrors, onChangeRemoveError, validateData}:any = useContext(appContext);
+    const {inputErrors, validMobileForInputPhone, onChangeRemoveError, validateData}:any = useContext(appContext);
 
     const [displayUserExists,setDisplayUserExists]=useState(false);
 
@@ -156,7 +156,6 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                     birthdate: null,
                     mobilephone: {
                         prefix: "+54",
-                        area: "",
                         number: "",
                     },
                     address: "",
@@ -257,7 +256,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
             }} onClickRightBtn={() => {
                 if (validateCompleteAnswers()) {
                     sendValidationDataAnswers(answers, patientId).then((patient) => {
-                        const { firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, birthdate, city } = patient
+                        const { firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, mobilephone, birthdate, city } = patient
                         let _user:any;
                         if(healthpatientcoverage){
                             const { hasMedicalCoverage, healthentity, healthentityplan } = healthpatientcoverage;
@@ -277,6 +276,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                                 address: address,
                                 birthdate: new Date(birthdate),
                                 email: email,
+                                mobilephone: validMobileForInputPhone(mobilephone),
                                 document: document,
                                 documentType: documentType.documentType,
                                 gender: gender,

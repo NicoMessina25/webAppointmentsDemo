@@ -17,7 +17,7 @@ const ProfileForm=forwardRef( ({profile,setProfile, disable, isNew}:any,ref) => 
 
 
 
-  const {user, setUser, returnValidPatientDTO, inputErrors, onChangeRemoveError}:any = useContext(appContext);
+  const {user, setUser, returnValidPatientDTO, resetInputErrors, inputErrors, onChangeRemoveError}:any = useContext(appContext);
 
 
   const {getStorage}:any = useContext(appContext);
@@ -57,10 +57,16 @@ const [errorModalVisibility,setErrorModalVisibility]=useState(false)
 useImperativeHandle(ref,()=>({
   cancelEdit(){
     setProfile({...user,mobilephone : {...user.mobilephone}});
+
+    
+
+    resetInputErrors();
+
+
   }
   ,
   saveChanges(){    
-    let mobileString=profile.mobilephone.prefix+profile.mobilephone.area+profile.mobilephone.number;
+    let mobileString=profile.mobilephone.prefix+profile.mobilephone.number;
 
     savePatientInfo(profile,returnValidPatientDTO,mobileString).then(res=>{
       if(res.status===200 && res.data===true){
@@ -127,93 +133,112 @@ useEffect(() => {
             </div>
         {/* </div > */}
 
-        <div className="flexible--row space-between">  
-          <InputTextCustom className='width-50' disable={disable} value={profile.firstname} label={intl.formatMessage({ id: "Name" })} onChange={(e:any)=>{setProfile({ ...profile, firstname: e.target.value })}} placeholder=""/>
+        <div className="flexible--rowWrap space-between">  
+          <InputTextCustom className=' profileFormInput' disable={disable} value={profile.firstname} label={intl.formatMessage({ id: "Name" })} onChange={(e:any)=>{
+            setProfile({ ...profile, firstname: e.target.value })
+            onChangeRemoveError("firstname")
             
-          <InputTextCustom className='width-50' value={profile.lastname} label={intl.formatMessage({ id: "Lastname" })} onChange={(e:any)=>{setProfile({ ...profile, lastname: e.target.value })}} placeholder="" disable={disable}/>
+            }} placeholder="" error={!inputErrors.firstname.isValid} caption={inputErrors.firstname.caption} />
+            
+          <InputTextCustom className=' profileFormInput' value={profile.lastname} label={intl.formatMessage({ id: "Lastname" })} onChange={(e:any)=>{
+            setProfile({ ...profile, lastname: e.target.value })
+            onChangeRemoveError("lastname")
+            }} placeholder="" disable={disable} error={!inputErrors.lastname.isValid} caption={inputErrors.lastname.caption} />
         </div>
 
-        <div className="flexible--row space-between">
+        <div className="flexible--rowWrap space-between">
           <RadioButtonGroup options={genderOptions} setValue={(gender: any) => {
                           setProfile({...profile, gender: gender})
-                      }} label={intl.formatMessage({ id: "Gender" })} value={profile.gender} className="radioGroup width-50" orientation={"row"} 
-                      disable={disable}/>
+                          onChangeRemoveError("gender")
+                      }} label={intl.formatMessage({ id: "Gender" })} value={profile.gender} className="radioGroup  profileFormInput" orientation={"row"} 
+                      disable={disable} error={!inputErrors.gender.isValid} caption={inputErrors.gender.caption} />
         
           
-        <InputDate value={profile.birthdate} className='width-50' label={intl.formatMessage({id:"BirthDate"})} onChange={(e:any)=>{setProfile({...profile,birthdate:e.value})}}  disable={disable} showIcon dateFormat="dd/mm/yy" maxDate={new Date()} placeholder='dd/mm/aaaa'/>
+        <InputDate value={profile.birthdate} className=' profileFormInput' label={intl.formatMessage({id:"BirthDate"})} onChange={(e:any)=>{
+          setProfile({...profile,birthdate:e.value})
+          onChangeRemoveError("birthdate");
+          }}  disable={disable} showIcon dateFormat="dd/mm/yy" maxDate={new Date()} placeholder='dd/mm/aaaa' error={!inputErrors.birthdate.isValid} caption={inputErrors.birthdate.caption} />
 
         </div>
 
         {/* <div className="flexible--row space-between">
           <RadioButtonGroup options={documentOptions} setValue={(docType: any) => {
                               setProfile({ ...profile, documentType: docType })
-                          }} label={intl.formatMessage({ id: "DocumentType" })} value={profile.documentType} className="radioGroup width-50" orientation={"row"} error={!inputErrors.documentType.isValid} caption={inputErrors.documentType.caption} disable={!props.isEditButtonClicked}/>
-            <InputTextCustom  className='width-50' value={profile.document} disable={!props.isEditButtonClicked} label="Document" onChange={(e:any)=>{
+                          }} label={intl.formatMessage({ id: "DocumentType" })} value={profile.documentType} className="radioGroup  profileFormInput" orientation={"row"} error={!inputErrors.documentType.isValid} caption={inputErrors.documentType.caption} disable={!props.isEditButtonClicked}/>
+            <InputTextCustom  className=' profileFormInput' value={profile.document} disable={!props.isEditButtonClicked} label="Document" onChange={(e:any)=>{
               setProfile({ ...profile, document: e.target.value })
             }} placeholder=""/>
         </div> */}
            
-        <div className="flexible--row space-between">
-          {!isNew && <InputTextCustom className='width-50' value={profile.address} disable={disable} label="Address" onChange={(e:any)=>{setProfile({...profile,address:e.target.value})}} placeholder=""/>}
+        <div className="flexible--rowWrap space-between">
+          {!isNew && <InputTextCustom className=' profileFormInput' value={profile.address} disable={disable} label="Address" onChange={(e:any)=>{
+            setProfile({...profile,address:e.target.value})
+            onChangeRemoveError("address")
+            }} placeholder="" error={!inputErrors.address.isValid} caption={inputErrors.address.caption} />}
           
-          {!isNew && <Combobox className='width-50' getItems={getCities} label={intl.formatMessage({ id: "City" })} optionLabel="location" value={profile.city} placeholder={profile.city?.description} setValue={(c: any) => {
+          {!isNew && <Combobox className=' profileFormInput' getItems={getCities} label={intl.formatMessage({ id: "City" })} optionLabel="location" value={profile.city} placeholder={profile.city?.description} setValue={(c: any) => {
                         setProfile({ ...profile, city: c });
-                    }} disable={disable}/>}
+                        
+                    }} disable={disable}  />}
         </div>
 
-        <div className="flexible--row space-between">
-          {!isNew && <InputPhone className='width-50' label={intl.formatMessage({ id: "Phone" })} value={profile.mobilephone} setValue={(val: any, valField: any) => {
+        <div className="flexible--rowWrap space-between">
+          {!isNew && <InputPhone className=' profileFormInput' label={intl.formatMessage({ id: "Phone" })} value={profile.mobilephone} setValue={(val: any, valField: any) => {
                           let _profile = { ...profile }
                           _profile.mobilephone[valField] = val;
                           setProfile(_profile);
+                          onChangeRemoveError("mobilephone")
                       }} 
-                      disable={disable}/>}
+                      disable={disable} error={!inputErrors.mobilephone.isValid} caption={inputErrors.mobilephone.caption} />}
             
-          {!isNew && <InputTextCustom className='width-50' value={profile.email} label={intl.formatMessage({ id: "Email" })} onChange={(e:any)=>{setProfile({...profile,email:e.target.value})}} placeholder="" disable={disable}/>}
+          {!isNew && <InputTextCustom className=' profileFormInput' value={profile.email} label={intl.formatMessage({ id: "Email" })} onChange={(e:any)=>{
+            setProfile({...profile,email:e.target.value})
+            onChangeRemoveError("email")
+            }} placeholder="" disable={disable} error={!inputErrors.email.isValid} caption={inputErrors.email.caption}/>}
         </div>
         
-        <div className='flexible--column'>
-            <div className='title textBold margin-bottom-1'>
-                {intl.formatMessage({id:"MedicalCoverage"})}
+        <div className='flexible--column medicalCoverageDiv'>
+            <div className='title textBold line-bottom title-color'>
+            {intl.formatMessage({id:"MedicalCoverage"})}
             </div>
 
-            <div className='flexible--row'>
+            <div className='flexible--rowWrap'>
               
-              <div className="width-20">
-              <RadioButtonGroup id={1} className='radioGroup margin-right-rbg' options={yesNo} value={profile.hasMedicalCoverage} setValue={(value:any)=>{
+              
+              <RadioButtonGroup id={1} className='radioGroup profileFormInput' options={yesNo} value={profile.hasMedicalCoverage} setValue={(value:any)=>{
                 setProfile({...profile, hasMedicalCoverage: value})
                 onChangeRemoveError("hasMedicalCoverage")
                 }} label={intl.formatMessage({id: "DoYouHaveMedicalCoverage?"})} orientation="row" error={!inputErrors.hasMedicalCoverage.isValid} caption={inputErrors.hasMedicalCoverage.caption} disable={disable}/>
-              </div>
+      
               {profile.hasMedicalCoverage &&
-                  <div className="width-20">
-                  <RadioButtonGroup id={2} className='radioGroup' options={yesNo} value={profile.isMedCoverageThroughJob} setValue={(value:any)=>{
+                 
+                  <RadioButtonGroup id={2} className='radioGroup profileFormInput' options={yesNo} value={profile.isMedCoverageThroughJob} setValue={(value:any)=>{
                       setProfile({...profile, isMedCoverageThroughJob: value})
                       onChangeRemoveError("isMedCoverageThroughJob")
                   }} label={intl.formatMessage({id: "IsThroughYourJob?"})} orientation="row" error={!inputErrors.isMedCoverageThroughJob.isValid} caption={inputErrors.isMedCoverageThroughJob.caption} disable={disable}/>
-                </div>
+                
             }
             </div>
             { 
               profile.hasMedicalCoverage &&
-              <div className='flexible--row number-container space-between'>
+              <div className='flexible--rowWrap number-container space-between'>
 
-              <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} placeholder={profile.medicalCoverage?.name || intl.formatMessage({id: "Select"})} className="combobox" getItems={getMedicalCoverages} value={profile.medicalCoverage} setValue={(p:any)=>{
+              <Combobox label={intl.formatMessage({id: "PrepaidHealthInsurance"})} className="profileFormInput" placeholder={profile.medicalCoverage?.name || intl.formatMessage({id: "Select"})} getItems={getMedicalCoverages} value={profile.medicalCoverage} setValue={(p:any)=>{
                       setProfile({...profile, medicalCoverage: p});
                       onChangeRemoveError("medicalCoverage")
                       
                   }} optionLabel="name" error={!inputErrors.medicalCoverage.isValid} caption={inputErrors.medicalCoverage.caption}disable={disable} />
 
-                <Combobox label={intl.formatMessage({id:"Plan"})} className="combobox" placeholder={intl.formatMessage({id: "Select"})} getItems={(inputText:any, offSet:any, pageSize:any)=>{
+                <Combobox label={intl.formatMessage({id:"Plan"})} className="profileFormInput" placeholder={intl.formatMessage({id: "Select"})} getItems={(inputText:any, offSet:any, pageSize:any)=>{
                                     return getPlans(inputText, offSet, pageSize, profile.medicalCoverage?.entityid)
                                 }} value={profile.plan} setValue={(p:any)=>{
                                     setProfile({...profile, plan: p})
                                     onChangeRemoveError("plan");
                                 }} optionLabel="name" reLoadItemsValue={profile.medicalCoverage} error={!inputErrors.plan.isValid} caption={inputErrors.plan.caption} disable={disable}/>
               
-              <InputTextCustom label={intl.formatMessage({ id: "NumberOfMember" })}  value={profile.affiliateNo} onChange={(e:any)=>{
+              <InputTextCustom label={intl.formatMessage({ id: "NumberOfMember" })} className="profileFormInput"  value={profile.affiliateNo} onChange={(e:any)=>{
                       setProfile({...profile, affiliateNo: e.target.value})
-                      onChangeRemoveError("memberNumber");
+                      onChangeRemoveError("affiliateNo");
                   }} error={!inputErrors.affiliateNo.isValid} caption={inputErrors.affiliateNo.caption} disable={disable}/>
               
               </div>

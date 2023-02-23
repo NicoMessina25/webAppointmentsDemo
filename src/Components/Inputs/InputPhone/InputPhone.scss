@@ -1,9 +1,10 @@
 .phoneFieldsContainer{
     justify-content: center;
     align-items: center;
-    margin: 4px 0% 8px 0% !important;
+
     .comboboxPhone{
         width: 30% !important;
+        max-width: 120px !important;
         justify-content: center;
         height: 45px;
         .p-dropdown{
@@ -14,26 +15,24 @@
         } */
 
         .p-dropdown-trigger{
-            /* width: 0.5rem !important;
-            .p-dropdown-trigger-icon{
-                font-size: 0%;
-            } */
+            width: 2.4rem !important;
+
         }
         
     }
 
-    .areaInputPhone{
-        width: 30%;
-        margin: 0 1%;
+    
+
+    .inputContainer{
+        margin: 0;
+    }
+    
+    .numberInputPhone{
+        width: 100%;
+        margin: 0 0 0 1%;
 
         input{
             margin: 0 !important;
         }
-    }
-
-    .numberInputPhone{
-        @extend.areaInputPhone;
-        width: 40%;
-        margin: 0;
     }
 }

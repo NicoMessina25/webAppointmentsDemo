@@ -13,7 +13,7 @@ import './ChangePasswordModal.scss'
 
 export default function ChangePasswordModal({visible,setVisible}:any) {
     const intl=useIntl(); 
-    const textWithFormat=<div><span className='' >{intl.formatMessage({id:"Enter"})}</span> <span className='infoText'>{intl.formatMessage({id:"CurrentPassword"})}</span></div>
+    const textWithFormat=<span><span className='' >{intl.formatMessage({id:"Enter"})}</span> <span className='infoText'>{intl.formatMessage({id:"CurrentPassword"})}</span></span>
 
     const [currentPassword,setCurrentPassword]=useState("")
     const [newPassword,setNewPassword]=useState("")
