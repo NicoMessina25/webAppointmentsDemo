@@ -38,6 +38,7 @@ export default function LogginForm({googleLogin}:any){
     const {validMobileForInputPhone}:any = useContext(appContext);
     
     const {user}:any = useContext(appContext);
+    
     const {getStorage}:any = useContext(appContext);
     
 
@@ -55,7 +56,8 @@ export default function LogginForm({googleLogin}:any){
       
 
         if(password!="" && userName!=""){
-            authenticateUser(userName,password).then(res=>{
+          console.log(checked)
+            authenticateUser(userName,password,checked).then(res=>{
                 if(res.request.status==200){
                     res.data={
                         ...res.data,

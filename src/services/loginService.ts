@@ -123,7 +123,7 @@ export function getDevice(){
   return os;
 }
 
-export async function authenticateUser(username:string,password:string){
+export async function authenticateUser(username:string,password:string,remember:boolean){
 
  
     return axios.post(
@@ -132,7 +132,8 @@ export async function authenticateUser(username:string,password:string){
         password:password,
         siteURL:baseUrl,
         appId:2,
-        deviceId:getDevice()
+        deviceId:getDevice(),
+        remember:remember
       },{
         headers: {
           'Content-Type': 'application/json',

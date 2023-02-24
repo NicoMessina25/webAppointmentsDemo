@@ -16,7 +16,7 @@ import { appContext } from './Components/Context/appContext';
 import { amilogged } from './services/loginService';
 import PrivateComponent from './Components/PrivateComponent/PrivateComponent';
 import MyPrescriptions from './Components/Views/Prescriptions/MyPrescriptions';
-import NewAppointments from './Components/Views/Appointments/NewAppointments';
+import NewAppointments from './Components/Views/Appointments/NewAppointments/NewAppointments';
 import HistoricAppointments from './Components/Views/Appointments/HistoricAppointments';
 import MyAppointments from './Components/Views/Appointments/MyAppointments';
 import NewRp from './Components/Views/Prescriptions/NewRp';
@@ -33,22 +33,6 @@ function App() {
   
   const [authServer,setAuthServer]=useState(false);
 
-
-
-  
-  
-  
-
-  // function validateClient(){
-  //   if(localStorage.getItem("auth")!=null)
-  //     if(localStorage.getItem("auth")==="true"){
-  //       serverConfirmation().then((result)=>{
-  //         console.log(result)
-  //         return result;
-  //       })
-  //     }
-  //   return false;
-  // }
 
   return (
     <BrowserRouter>

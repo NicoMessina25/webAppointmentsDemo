@@ -9,6 +9,8 @@ const PrivateComponent =  ({children, ...props}:any) : JSX.Element => {
 
     const {getStorage}:any = useContext(appContext);
 
+    
+
     let storedSettings=getStorage().getItem("settings");
     if(storedSettings) {
         let storedSettingsJson=JSON.parse(storedSettings)

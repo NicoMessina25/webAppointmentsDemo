@@ -9,7 +9,7 @@ import './Menu.scss'
 
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import PrivateComponent from "../../PrivateComponent/PrivateComponent";
-import NewAppointments from "../Appointments/NewAppointments";
+import NewAppointments from "../Appointments/NewAppointments/NewAppointments";
 import MyAppointments from "../Appointments/MyAppointments";
 import HistoricAppointments from "../Appointments/HistoricAppointments";
 import NewRp from "../Prescriptions/NewRp";

@@ -1,0 +1,56 @@
+@import '../../../../scss/colors';
+
+
+.appointment-card-container{
+
+    box-shadow: 0px 1px 4px -1px rgba(28, 48, 74, 0.5);
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 16px;
+
+    .lightPaletteText-info-background{
+        background-color: map-get($lightPaletteText,info);
+        color:white;
+        text-align: center;
+    }
+
+    .day{
+
+        padding: 16px;
+        justify-content: center !important;
+        align-items: center !important;
+        height: 100%;
+        width:100%;
+        border-right: 1.5px solid rgba(28, 55, 90, 0.16);;
+
+        .iconify{
+            font-size: 150%;
+            color: rgba(28, 46, 69, 0.6);;
+        }
+        color:map-get($lightInfo, main);
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .speciality{
+        padding: 8px;
+        padding-left: 16px;
+        background: rgba(217, 232, 252, 0.7);
+    }
+    .building{
+        padding: 8px;
+        padding-left: 16px;
+        background: rgba(25, 59, 103, 0.05);
+    }
+    .appointment-buttons-container{
+        padding: 16px;
+        border-right: 1.5px solid rgba(28, 55, 90, 0.16);;
+    }
+    .button{
+        width:15%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    
+}

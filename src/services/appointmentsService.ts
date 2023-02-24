@@ -59,7 +59,7 @@ export function getAppointments(inputText:any,offSet:any,pageSize:any,language:a
             pageSize:pageSize,
             offSet:offSet,
         }
-    }).then(res => {console.log(res.data);return res.data})
+    }).then(res => {return res.data})
 }
 
 export function getBuildings(inputText:String,offSet:number,pageSize:number,language:number,params:any ){
