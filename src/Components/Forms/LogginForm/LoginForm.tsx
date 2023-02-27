@@ -56,7 +56,7 @@ export default function LogginForm({googleLogin}:any){
       
 
         if(password!="" && userName!=""){
-          console.log(checked)
+          //console.log(checked)
             authenticateUser(userName,password,checked).then(res=>{
                 if(res.request.status==200){
                     res.data={

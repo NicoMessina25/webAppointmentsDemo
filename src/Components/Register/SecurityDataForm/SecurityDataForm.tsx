@@ -19,12 +19,12 @@ export default function SecurityDataForm({user, setUser, setDisplayRegisterCance
 
     return (
         <div className="flexible--column">
-            <Button label={intl.formatMessage({ id: 'SignInWithGoogle' })} className="buttonMain2 googleButton"/>
+            {/* <Button label={intl.formatMessage({ id: 'SignInWithGoogle' })} className="buttonMain2 googleButton"/>
             <div className="lineContainer flexible--row">
                 <div className="lineGreenBlue"></div>
                 <p>O</p>
                 <div className="lineGreenBlue"></div>
-            </div>
+            </div> */}
 
             <InputTextCustom value={user.username} onChange={(e:any) =>{
                 setUser({...user, username: e.target.value});

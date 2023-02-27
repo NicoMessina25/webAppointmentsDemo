@@ -15,7 +15,7 @@ export default function TreeMenu({items, selectedItemKey, onSelectionChange}:any
         if(!item.key.includes("_"))
             return <MenuItem element={item} />
 
-        return <div /* to={"./" + item.route} */ className={"subItem"} ><Icon icon={item.icon} />{item.caption}</div>
+        return <div /* to={"./" + item.route} */ className={"subItem"} ><div className="flexible--row menuIcon"> <Icon icon={item.icon} /></div>{item.caption}</div>
     }
 
     function onSelect(e:any){

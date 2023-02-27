@@ -3,7 +3,7 @@ import axios from "axios";
 
 export function getProfessionals(inputText:String,offSet:number,pageSize:number,language:number,params:any ){
     
-    return axios.get('/rest/webappointments/getProfessionals',
+    return axios.get('/api/secure/getProfessionals',
     {
         params: {
             pageSize:pageSize,
@@ -53,7 +53,7 @@ export function getAppointments(inputText:any,offSet:any,pageSize:any,language:a
     if(params.professional)
         professional=params.professional;
 
-    return axios.post('/rest/webappointments/getAppointments',params,
+    return axios.post('/api/secure/getAppointments',params,
     {
         params: {
             pageSize:pageSize,
@@ -64,7 +64,7 @@ export function getAppointments(inputText:any,offSet:any,pageSize:any,language:a
 
 export function getBuildings(inputText:String,offSet:number,pageSize:number,language:number,params:any ){
 
-    return axios.get('/rest/webappointments/getBuildings',
+    return axios.get('/api/secure/getBuildings',
     {
         params: {
             pageSize:pageSize,

@@ -250,13 +250,13 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                 }} className='buttonMain' >{loading && <Loader size={25} strokeWidth={6} className={"whiteSpinner"} margin={"0% 5%"} />}  </Button>}
             </div>
 
-            <Modal visible={displayUserVerification} setVisible={setDisplayUserVerification} header={intl.formatMessage({ id: "Attention" })} footerButtonRightText={intl.formatMessage({ id: 'SignIn' })} footerButtonLeftText={intl.formatMessage({ id: 'Back' })} onClickLeftBtn={() => {
+            <Modal visible={displayUserVerification} setVisible={setDisplayUserVerification} header={"Ya existen tus datos en el sistema..."} footerButtonRightText={intl.formatMessage({ id: 'Verify' })} footerButtonLeftText={intl.formatMessage({ id: 'Back' })} onClickLeftBtn={() => {
                 setDisplayUserVerification(false);
                 setUser({ ...user, document: "" })
             }} onClickRightBtn={() => {
                 if (validateCompleteAnswers()) {
                     sendValidationDataAnswers(answers, patientId).then((patient) => {
-                        const { firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, mobilephone, birthdate, city } = patient
+                        const { firstname, address, lastname, email, document, documentType, gender, healthpatientcoverage, mobilePhone, birthdate, city } = patient
                         let _user:any;
                         if(healthpatientcoverage){
                             const { hasMedicalCoverage, healthentity, healthentityplan } = healthpatientcoverage;
@@ -276,7 +276,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                                 address: address,
                                 birthdate: new Date(birthdate),
                                 email: email,
-                                mobilephone: validMobileForInputPhone(mobilephone),
+                                mobilephone: validMobileForInputPhone(mobilePhone),
                                 document: document,
                                 documentType: documentType.documentType,
                                 gender: gender,
@@ -284,7 +284,7 @@ export default function PersonalDataForm({ user, setUser, setDisplayRegisterCanc
                             }
                             
                             
-
+                            toast.current?.show({ severity: 'success', summary: intl.formatMessage({id:"Success"}), detail: "Los datos coincidieron" });
                             setUser(_user);
                             setDisplayUserVerification(false)
                             setLoadMoreFields(true)

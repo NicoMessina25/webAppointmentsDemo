@@ -20,6 +20,7 @@ const appContext = React.createContext({});
 const AppProvider = ({children}:any) => {
     
     const intl = useIntl();
+    const [isLoading, setIsLoading] = useState(true)
     
     const [inputErrors, setInputErrors] = useState({
         firstname: { caption: "", isValid: true },
@@ -36,7 +37,7 @@ const AppProvider = ({children}:any) => {
         plan: {caption: "", isValid: true},
         affiliateNo: {caption: "", isValid: true},
         username: {caption: "", isValid: true},
-        password: {caption: intl.formatMessage({id:"AtLeast8Characters"}), isValid: true},
+        password: {caption: "", isValid: true},
         repeatPassword: {caption: "", isValid: true},
         email:{isValid:true, caption: ""}
     }) 
@@ -140,7 +141,7 @@ const AppProvider = ({children}:any) => {
                 firstname: firstname,
                 lastname: lastname,
                 address: address,
-                birthdate: new Date(birthdate),
+                birthdate: birthdate? new Date(birthdate): null,
                 email: email,
                 document: document,
                 documentType: documentType.documentType,
@@ -170,6 +171,7 @@ const AppProvider = ({children}:any) => {
 
 
             setUser(modificatedUser);
+            setIsLoading(false);
             
         }
        }
@@ -384,7 +386,7 @@ const AppProvider = ({children}:any) => {
 
 
     return (
-        <appContext.Provider value={{captchaKey,user,setUser,renderState,restorePatientDefault,setModificateUser,getDefaultPatient,returnValidPatientDTO,validMobileForInputPhone, inputErrors, setInputErrors, resetInputErrors, onChangeRemoveError, validateData, getStorage}}>           
+        <appContext.Provider value={{captchaKey,user,setUser,renderState,restorePatientDefault,setModificateUser,getDefaultPatient,returnValidPatientDTO,validMobileForInputPhone, inputErrors, setInputErrors, resetInputErrors, onChangeRemoveError, validateData, getStorage, isLoading}}>           
                 {children}
         </appContext.Provider>
     )

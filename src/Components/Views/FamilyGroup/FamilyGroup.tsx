@@ -1,13 +1,16 @@
 import { Icon } from '@iconify/react'
 import { Button } from 'primereact/button'
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import ProfileForm from '../../Forms/ProfileForm/ProfileForm'
 import intl, { useIntl } from "react-intl"
+import { appContext } from '../../Context/appContext'
 
 export default function FamilyGroup() {
   const intl=useIntl();
   const [visibility,setVisibility]=useState(true);
   const formRef:any=useRef(null);
+  const {user}:any = useContext(appContext);
+  const [profile,setProfile]=useState({mobilephone:{}});
 
   return (
     <div className='flexible--column my-profile-container'>
@@ -21,7 +24,7 @@ export default function FamilyGroup() {
 
       </div>
     {/* HEADER */}
-    <ProfileForm new addButton cancelButton isEditButtonClicked={visibility} ref={formRef}></ProfileForm>
+    <ProfileForm isNew addButton cancelButton isEditButtonClicked={visibility} ref={formRef} profile={profile} setProfile={setProfile} ></ProfileForm>
 
 
     </div>

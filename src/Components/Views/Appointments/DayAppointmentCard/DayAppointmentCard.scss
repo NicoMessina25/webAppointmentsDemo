@@ -14,6 +14,11 @@
         text-align: center;
     }
 
+    .dayAndProfessional{
+        max-width: 160px;
+        width: 20%;
+    }
+
     .day{
 
         padding: 16px;
@@ -34,22 +39,21 @@
     }
     .speciality{
         padding: 8px;
-        padding-left: 16px;
         background: rgba(217, 232, 252, 0.7);
+        width: 100%;
     }
     .building{
         padding: 8px;
-        padding-left: 16px;
         background: rgba(25, 59, 103, 0.05);
+        min-width:max-content
     }
     .appointment-buttons-container{
         padding: 16px;
-        border-right: 1.5px solid rgba(28, 55, 90, 0.16);;
+        border-right: 1.5px solid rgba(28, 55, 90, 0.16);
+        
     }
-    .button{
-        width:15%;
-        justify-content: center;
-        align-items: center;
+    .timeBtn{
+        width:90px !important;
     }
 
     

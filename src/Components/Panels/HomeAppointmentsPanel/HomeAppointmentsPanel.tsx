@@ -1,11 +1,6 @@
 
 import React, {useContext} from 'react'
 import "./HomeAppointmentsPanel.scss"
-import {DataTable} from "primereact/datatable";
-import { Column } from 'primereact/column';
-import { Icon } from '@iconify/react';
-import { Button } from 'primereact/button';
-import { appContext } from '../../Context/appContext';
 import AppointmentCard from './AppointmentCard/AppointmentCard';
 import { useIntl } from 'react-intl';
 

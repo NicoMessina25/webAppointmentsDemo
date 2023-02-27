@@ -1,15 +1,19 @@
+@import "../../scss/colors";
+
 .my-div-class{
-    border: 1px solid red;
+    border: 1px solid map-get($lightError, text);
     border-radius: 2em;
     padding: 1em;
 }
 
 .red{
-    color:red;
+    color:map-get($lightError, text);
 }
 
 .exclutions{
-    border: 1px solid red;border-radius: 2em;padding: 1em;
+    background-color: map-get($lightError, transparent20);
+    border-radius: 8px;
+    padding: 1em;
     
 }
 .TermImage{

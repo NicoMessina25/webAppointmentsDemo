@@ -9,7 +9,7 @@ import './Menu.scss'
 
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import PrivateComponent from "../../PrivateComponent/PrivateComponent";
-import NewAppointments from "../Appointments/NewAppointments/NewAppointments";
+import NewAppointments from "../Appointments/NewAppointments/NewAppointments"
 import MyAppointments from "../Appointments/MyAppointments";
 import HistoricAppointments from "../Appointments/HistoricAppointments";
 import NewRp from "../Prescriptions/NewRp";
@@ -28,17 +28,19 @@ import { logout } from "../../../services/siteService";
 import ChangePassword from "../Profile/ChangePassword/ChangePassword";
 import ChangePasswordModal from "../../Modal/ChangePasswordModal/ChangePasswordModal";
 import Combobox from "../../Combobox/Combobox";
+import Loader from "../../Loader/Loader";
 
 const Menu = React.forwardRef((props: any, ref) => {
 
     
     const [bigMenu, setBigmenu] = useState(true);
+    
     const [selectedItemKey, setSelectedItemKey] = useState(0);
     const [items, setItems]: any = useState([]);
     const intl = useIntl();
     const {restorePatientDefault}:any = useContext(appContext);
    
-  const {getStorage}:any = useContext(appContext);
+  const {getStorage, isLoading}:any = useContext(appContext);
     let iconbutton = <Icon icon="material-symbols:menu-rounded" />
     let settingsString: any = getStorage().getItem("settings");
     let settingsJson: any;
@@ -130,53 +132,53 @@ const Menu = React.forwardRef((props: any, ref) => {
 
             <div className="flexible--row maxwidth menuBody" >
             
-            <div className={`menu-container flexible--column ${!bigMenu?'hideLeft':""}`}>
-                    <TreeMenu items={items} selectedItemKey={selectedItemKey} onSelectionChange={(e:any) => {
-                        if(window.innerWidth < 1024) 
-                            setBigmenu(false);
-                        if(e.value === '_2114'){
-                            setVisibilityChangePasswordModal(true);
-                        } else {
-                            setSelectedItemKey(e.value)
-                        }
+                <div className={`menu-container flexible--column ${!bigMenu?'hideLeft':""}`}>
+                        <TreeMenu items={items} selectedItemKey={selectedItemKey} onSelectionChange={(e:any) => {
+                            if(window.innerWidth < 1024) 
+                                setBigmenu(false);
+                            if(e.value === '_2114'){
+                                setVisibilityChangePasswordModal(true);
+                            } else {
+                                setSelectedItemKey(e.value)
+                            }
+                            
+                        }} />
+                    {/* <CustomMenu activeIndex={activeIndex} setActiveIndex={setActiveIndex} bigMenu={bigMenu} settingsJson={settingsJson} items={items} setItems={setItems} /> */}
                         
-                    }} />
-                   {/* <CustomMenu activeIndex={activeIndex} setActiveIndex={setActiveIndex} bigMenu={bigMenu} settingsJson={settingsJson} items={items} setItems={setItems} /> */}
-                    
-                    
-                    <div>
+                        
+                        <div>
 
-                        <div className="menuOption background-red flexible--row">
-                            <div>
-                                 <Icon className="consent-medicine" icon="material-symbols:edit-document-outline-sharp" />
+                            <div className="menuOption background-red flexible--row">
+                                <div className="flexible--row menuIcon">
+                                    <Icon className="consent-medicine" icon="material-symbols:edit-document-outline-sharp" />
+                                </div>
+                                <span className="consent-medicine">{intl.formatMessage({ id: 'TelemedicineConsent' })}</span>
                             </div>
-                            <span className="consent-medicine">{intl.formatMessage({ id: 'TelemedicineConsent' })}</span>
+                            <div className="menuOption flexible--row" onClick={handleSignOut}>
+                                <Icon className="consent-medicine" icon="vaadin:sign-out" />
+                                <span className="text-secondary"> {intl.formatMessage({ id: 'SignOut' })}</span>
+                            </div>
                         </div>
-                        <div className="menuOption flexible--row" onClick={handleSignOut}>
-                            <Icon className="consent-medicine" icon="vaadin:sign-out" />
-                            <span className="text-secondary"> {intl.formatMessage({ id: 'SignOut' })}</span>
-                        </div>
-                    </div>
-                    
-            </div>
-            
-            <div className="inside-component">
-                <Routes>
-                    <Route element={<PrivateComponent />}>
-                        <Route path='/home' element={<Home />} />
-                        <Route path='/newAppointment' element={<NewAppointments />} />
-                        <Route path='/myAppointments' element={<MyAppointments />} />
-                        <Route path='/historicAppointments' element={<HistoricAppointments />} />
-                        <Route path='/newRp' element={<NewRp />} />
-                        <Route path='/myPrescriptions' element={<MyPrescriptions />} />
-                        <Route path='/sendStudyResults' element={<SendStudyResults />} />
-                        <Route path='/request' element={<ClinicRequest />} />
-                        <Route path='/myData' element={<MyProfile />} />
-                        <Route path='/familyGroup' element={<FamilyGroup />} />
-                    </Route>
-                </Routes>
-            </div>
-            <div className={`menuBackground ${bigMenu? "active":"inactive"}`} onScroll={(e)=>{e.preventDefault()}} ></div>
+                        
+                </div>
+                
+                <div className="inside-component">
+                    {isLoading? <Loader size={32} strokeWidth={6} className="primarySpinner"/> : <Routes>
+                        <Route element={<PrivateComponent />}>
+                            <Route path='/home' element={<Home />} />
+                            <Route path='/newAppointment' element={<NewAppointments />} />
+                            <Route path='/myAppointments' element={<MyAppointments />} />
+                            <Route path='/historicAppointments' element={<HistoricAppointments />} />
+                            <Route path='/newRp' element={<NewRp />} />
+                            <Route path='/myPrescriptions' element={<MyPrescriptions />} />
+                            <Route path='/sendStudyResults' element={<SendStudyResults />} />
+                            <Route path='/request' element={<ClinicRequest />} />
+                            <Route path='/myData' element={<MyProfile />} />
+                            <Route path='/familyGroup' element={<FamilyGroup />} />
+                        </Route>
+                    </Routes>}
+                </div>
+                <div className={`menuBackground ${bigMenu? "active":"inactive"}`} onScroll={(e)=>{e.preventDefault()}} ></div>
             </div>
             <ChangePasswordModal visible={visibilityChangePasswordModal} setVisible={setVisibilityChangePasswordModal}></ChangePasswordModal>
             

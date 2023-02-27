@@ -52,7 +52,7 @@ export default function MyProfile() {
       <div className='flexible--row header-view-2'>
         <div className='flexible--row header-container'>
           <Icon icon="vaadin:user"></Icon>
-          <div className='infoText textBold header-title'>{intl.formatMessage({id:"ProfileData"})}</div>
+          <h2 className='infoText textBold header-title'>{intl.formatMessage({id:"ProfileData"})}</h2>
         </div>
         <Button className='buttonMain2 buttonWidth--maxContent' onClick={handleEditCancelClick} label={isEditing ? intl.formatMessage({id:"Cancel"}): intl.formatMessage({id:"Edit"}) } ></Button>
         {isEditing && <Button className={"buttonMain buttonWidth--maxContent"} onClick={handleSaveClick} label={intl.formatMessage({id:"SaveChanges"})} ></Button>}

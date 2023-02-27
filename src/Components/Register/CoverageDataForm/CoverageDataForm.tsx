@@ -84,7 +84,7 @@ export default function CoverageDataForm({user, setUser, setDisplayRegisterCance
                 <Link to="/register/1" className='linkReactRouter'><Button icon="pi pi-angle-left" iconPos="left" label={intl.formatMessage({id: "Back"})} className="buttonMain3" /></Link>
                 <Link to="#" className='linkReactRouter'><Button label={intl.formatMessage({id: "Cancel"})} className="buttonMain3" onClick={()=>{setDisplayRegisterCancel(true)}}/></Link>
                 <Button icon="pi pi-angle-right" iconPos="right" label={intl.formatMessage({id: "Follow"})} className="buttonMain" onClick={()=>{
-                    if(user.hasMedicalCoverage !== null && user.hasMedicalCoverage && validateData(inputFields, user) || !user.hasMedicalCoverage){
+                    if(user.hasMedicalCoverage !== null && (!user.hasMedicalCoverage || validateData(inputFields, user))){
                         navigate("/register/3");
                     } else if (user.hasMedicalCoverage === null){
                         let _inputErrors = {...inputErrors};

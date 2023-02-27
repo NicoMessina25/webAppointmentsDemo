@@ -21,7 +21,7 @@ export default function DayAppointmentCard({appointments}:any) {
   return (
     <div className='flexible--row appointment-card-container'>
         {/* Parte izquierda */}
-        <div className='flexible--column'>
+        <div className='flexible--column dayAndProfessional'>
             <div className='lightPaletteText-info-background'>
                 <p className='padding-8'>{appointments[0].professionalnames.replace(/^(Dra\.|Dr\.)/, '').trim()}</p>
             </div>
@@ -35,8 +35,8 @@ export default function DayAppointmentCard({appointments}:any) {
         <div className='flexible--column width-100'>
             {/* Especialidad medica y consultorio */}
             <div className='flexible--row width-100 space-between'>
-                <p className='speciality width-70'>{appointments[0].specialityname}</p>
-                <p className='building  width-30'>{appointments[0].locationsname}</p>
+                <p className='speciality'>{appointments[0].specialityname}</p>
+                <p className='building '>{appointments[0].locationsname}</p>
             </div>
 
             {/* Horarios disponibles para turnos y boton agendar */}
@@ -49,7 +49,7 @@ export default function DayAppointmentCard({appointments}:any) {
                         <Button
                             key={index}
                             label={objeto.initialhour}
-                            className='buttonMain2'
+                            className='buttonMain2 timeBtn'
                         />
                         ))}
 

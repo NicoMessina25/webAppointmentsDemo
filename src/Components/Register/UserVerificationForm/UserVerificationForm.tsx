@@ -23,9 +23,10 @@ export default function UserVerificationForm({questions, answers, setAnswers, er
   return (
     <div>
         <p className='textDark'>{intl.formatMessage({id: "UserVerificationLabel"})}:</p>
+        <br />
         {questions.map(({label, field, options}:any, ind:number)=>{
         return options.length? <RadioButtonGroup 
-                                  key={field + ind} 
+                                  key={field + ind}
                                   orientation="column"  
                                   options={options} 
                                   value={answers[field]}

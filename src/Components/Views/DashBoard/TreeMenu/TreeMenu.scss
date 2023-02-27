@@ -3,19 +3,25 @@
 .p-tree{
     border: 0px !important;
     border-radius: 0 !important;
-    
-    
+    overflow-y: auto;
+    padding: 10px !important;
     
 
     .p-treenode-content{
         flex-direction: row-reverse !important;
         justify-content: space-between;
+
+        
         
         .p-treenode-content{
             border-bottom: 1px solid map-get($lightContrastShade, 10) !important;
         }
 
         .p-tree-toggler{
+
+            .p-tree-toggler-icon{
+                transition: all .5s ease !important;
+            }
 
             &:hover{
                 background-color: none !important;

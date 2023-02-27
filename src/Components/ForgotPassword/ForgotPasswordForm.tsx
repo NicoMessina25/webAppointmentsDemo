@@ -30,8 +30,8 @@ export default function ForgotPasswordForm(props: any) {
     const [document, setDocument] = useState("");
     const [documentType, setDocumentType] = useState("");
     const sendOptions = [
-        { label: mail, value: mail, captions: "Email" },
-        { label: mobilephone, value: mobilephone, captions: "SMS" }
+        { label: "Email: " + mail, value: mail},
+        { label: "SMS: " + mobilephone, value: mobilephone}
     ];
     const [sendOptionSelected, setSendOptionSelected] = useState("");
 
@@ -113,10 +113,16 @@ export default function ForgotPasswordForm(props: any) {
                     <span className={dniClass}> {intl.formatMessage({ id: 'DniRegistered' }) + ":"}</span></p>
             </div>
 
-            <RadioButtonGroup className="radioButtonGroup littleMargin" orientation="row" options={options} value={documentType} setValue={setDocumentType} label={intl.formatMessage({ id: 'Type' })} />
+            <RadioButtonGroup className="radioButtonGroup littleMargin" orientation="row" options={options} value={documentType} setValue={(e:any) => {
+                    setDocumentType(e);
+                    confirm && setConfirm(false);
+                }} label={intl.formatMessage({ id: 'Type' })} />
 
 
-            <InputTextCustom label={intl.formatMessage({id: "Number"})} value={document} onChange={(e: any) => setDocument(e.target.value)} className="input" placeholder="" />
+            <InputTextCustom label={intl.formatMessage({id: "Number"})} value={document} onChange={(e: any) => {
+                setDocument(e.target.value)
+                confirm && setConfirm(false);
+            } } className="input" placeholder="" />
 
             {
                 confirm && <div >
