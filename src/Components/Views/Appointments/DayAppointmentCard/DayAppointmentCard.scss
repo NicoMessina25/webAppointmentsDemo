@@ -8,6 +8,16 @@
     width: 100%;
     margin-bottom: 16px;
 
+    .left-side-card{
+        width:200px;
+    }
+
+    .color-disabled{
+        background-color: rgba(25, 59, 103, 0.1) !important;
+        color:map-get($lightContrastShadeTransparent,80)!important;
+        border:0px !important;
+    }
+
     .lightPaletteText-info-background{
         background-color: map-get($lightPaletteText,info);
         color:white;

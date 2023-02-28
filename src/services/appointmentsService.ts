@@ -37,7 +37,7 @@ export function getSpecialities(inputText:String,offSet:number,pageSize:number,l
     }).then(res => {return res.data})
 }
 
-export function getAppointments(inputText:any,offSet:any,pageSize:any,language:any,params:any ){
+export function getAppointments(offSet:any,pageSize:any,language:any,params:any ){
     
     /* "language":1,
     "medicalspeciality":51,

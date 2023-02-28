@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { Button } from 'primereact/button';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';
 import { getAppointments, getBuildings, getProfessionals, getSpecialities } from '../../../../services/appointmentsService';
 import Combobox from '../../../Combobox/Combobox';
@@ -17,7 +17,7 @@ export default function NewAppointments() {
   const intl = useIntl();
   const [professional,setProfessional]:any=useState({});
   const [speciality,setSpeciality]:any=useState({medicalspeciality:-1});
-  const [appointmentDate,setAppointmentDate]=useState("");
+  const [appointmentDate,setAppointmentDate]=useState(new Date());
   
 
   let params={
@@ -35,7 +35,7 @@ export default function NewAppointments() {
   let [location,setLocation]:any=useState({});
   
 
-  function buildingsParams(){
+  function buildingsParams2(){
 
     if(!speciality || !professional || Object.keys(speciality).length === 0 && Object.keys(professional).length === 0)
     return {
@@ -58,7 +58,7 @@ export default function NewAppointments() {
     return <div className='flexible--rowWrap space-between'>
             <RadioButtonGroup className="radioButtonGroup littleMargin " orientation="row" options={modalityOptions} value={appointmentType} setValue={setAppointmentType} label={intl.formatMessage({ id: 'Type' })} />
 
-            <Combobox  getItems={getBuildings} params={buildingsParams()} label={"Sede"} value={location} optionLabel={"buildingname"} setValue={(e:any) =>
+            <Combobox  getItems={getBuildings} params={buildingsParams2()} label={"Sede"} value={location} optionLabel={"buildingname"} setValue={(e:any) =>
               {                 
                 setLocation(e);
               }} placeholder={intl.formatMessage({id: "Select"})} className="combobox" reLoadItemsValue={professional}/>
@@ -67,14 +67,19 @@ export default function NewAppointments() {
   }
 
   let [appointmentType,setAppointmentType]:any=useState(1);
-  let [appointments,setAppointments]:any=useState({});
   let [fragmentedAppointments,setFragmentedAppointments]:any=useState([]);
+  const [appointments,setAppointments]:any=useState([]);
+  let [appointmentsOfDay,setAppointmentsOfDay]:any=useState({});
+
+  let [page,setPage]=useState(-1);
 
   function searchAppointments(){
+
+
     let turnos;
     //valida campos
     if(!speciality || !professional || !appointmentDate || !timeZone1 || Object.keys(timeZone1).length === 0
-       || Object.keys(speciality).length === 0 && Object.keys(professional).length === 0 || appointmentDate==="")
+       || Object.keys(speciality).length === 0 && Object.keys(professional).length === 0)
       return 
 
     let params={
@@ -87,70 +92,53 @@ export default function NewAppointments() {
       time:timeZone1.name,
       date:appointmentDate
     }
-    getAppointments('',0,50,1,params).then(res=>{
-      console.log(res);
-      appointmentsOfDay(res);
-      setAppointments(res);});
-  }
-
-  function appointmentsOfDay(appointmentsParam:any){
-    let index=0;
     
-    let allAppointments:any=[];
-    
-    let appointmentsListOfDay:any=[];
-    
-    let previousAppointment:any="";
-
-    if(appointmentsParam.length==1){
-      appointmentsListOfDay.push(appointmentsParam[0])
-      allAppointments.push(appointmentsListOfDay);
-    }else{
-      const firstDate = new Date(appointmentsParam[0].appointmentdatetime);
-      const firstDay = firstDate.getDate();
-      const lastDate = new Date(appointmentsParam[appointmentsParam.length-1].appointmentdatetime);
-      const lastDay = lastDate.getDate();
+    getAppointments(page*10,10,1,params).then(res=>{
       
-      if(firstDate==lastDate){
-        allAppointments.push(appointmentsParam);
-      }else{
-        for (const app of appointmentsParam) {
-
-
-          const fechaObj = new Date(app.appointmentdatetime);
-          const day = fechaObj.getDate();
-    
-          if(previousAppointment!=""){
-            const previousObj = new Date(previousAppointment.appointmentdatetime);
-            const previousday = previousObj.getDate();
-            if(day==previousday){
-              appointmentsListOfDay.push(app)
-              if(index+1==appointmentsParam.length){
-                allAppointments.push(appointmentsListOfDay);
-              }
-            }else{
-              allAppointments.push(appointmentsListOfDay);
-              appointmentsListOfDay=[];
-              appointmentsListOfDay.push(app)
-            }
-          }else{
-            appointmentsListOfDay.push(app)
-          }
-          previousAppointment=app;
-          index++;
-        }
+      for(let i=0;i<res.length;i++){
+        res[i].jsonappointments=JSON.parse(res[i].jsonappointments);
       }
-    }
-    setFragmentedAppointments(allAppointments)
+      setAppointments([...appointments,...res]);
+    });
   }
+
+  function buildingsParams(){
+
+    if(!speciality || !professional || Object.keys(speciality).length === 0 && Object.keys(professional).length === 0)
+    return {
+      speciality:-1,
+      professional:-1
+    }
+    return {
+      speciality:speciality.medicalspeciality,
+      professional:professional.professional
+    }
+  }
+
+  const options = [
+    { label: "Presencial!", value: 1 },
+    { label: "Virtual!", value: 2 }
+  ];
+
+
+  useEffect(()=>{
+    searchAppointments();
+  },[page])
 
   return (
-    <div className='newAppointmentsContainer'>
-      <h2 className='infoText textBold'> <Icon icon="vaadin:stethoscope" /> {intl.formatMessage({id:"SeacrhAppointment"})}</h2>
-      <OptionsPanel buttonLabel={intl.formatMessage({id:"SeacrhAppointment"})} header={optionsPanelHeader} className={"newAppointmentsOptionPanel"} onClickBtn={searchAppointments}>
+    <div>
+    
+      <OptionsPanel buttonLabel={"Buscar turno"} onClickBtn={()=>{setPage(page+1)}}>
 
-        
-        <Combobox  getItems={getSpecialities} params={params2} label={"Especialidad D:"} value={speciality} 
+      <div className='flexible--row width-100'>
+              <RadioButtonGroup className="width-50 radioButtonGroup littleMargin " orientation="row" options={options} value={appointmentType} setValue={setAppointmentType} label={intl.formatMessage({ id: 'Type' })} />
+
+              <Combobox  getItems={getBuildings} params={buildingsParams()} label={"Sede"} value={location} optionLabel={"buildingname"} setValue={(e:any) =>
+              {                 
+                setLocation(e);
+              }} placeholder={intl.formatMessage({id: "Select"})} className="combobox"  />
+
+              <Combobox  getItems={getSpecialities} params={params2} label={"Especialidad D:"} value={speciality} 
               //reLoadItemsValue={professional}
             optionLabel={"name"} setValue={(e:any) =>
               {                 
@@ -162,24 +150,23 @@ export default function NewAppointments() {
                 setProfessional(e);
               }} placeholder={intl.formatMessage({id: "Select"})} className="combobox" reLoadItemsValue={speciality}  />
               
-          <InputDate value={setSpeciality} className='inputdate '  label={"Turnos desde"} onChange={(e:any)=>{setAppointmentDate(e.value)}} showIcon dateFormat="dd/mm/yy" minDate={new Date()} placeholder='dd/mm/aaaa'/>
+          <InputDate value={appointmentDate} className='inputdate '  label={"Turnos desde"} onChange={(e:any)=>{setAppointmentDate(e.value)}} showIcon dateFormat="dd/mm/yy" minDate={new Date()} placeholder='dd/mm/aaaa'/>
 
           <Combobox  list={timeZone} params={null} label={"Franja horaria D:"} value={timeZone1} optionLabel={"name"} setValue={(e:any) =>
               {                 
                 setTimeZone1(e);
               }} placeholder={intl.formatMessage({id: "Select"})} className=" combobox"  />
-              
+         </div>     
       </OptionsPanel>
 
-      <p className='infoText appointmentsResultsHeader'> <span className='infoText textBold'>Turnos disponibles</span> - Resultados de tu búsqueda </p>
-      {fragmentedAppointments.length>=0 && 
-        fragmentedAppointments.map((obj:any,index:any)=>(
-          <DayAppointmentCard key={index} appointments={obj}></DayAppointmentCard>
-        ))
-        
+      { 
+        appointments.length>=0 && 
+          appointments.map((obj:any,index:any)=> {
+            return <DayAppointmentCard key={index} appointments={obj}></DayAppointmentCard>
+          })
       }
-      
 
+      
     </div>
   )
 }
