@@ -99,7 +99,10 @@ export default function NewAppointments() {
         res[i].jsonappointments=JSON.parse(res[i].jsonappointments);
       }
       setAppointments([...appointments,...res]);
+      buildBooleansArray(res)
+
     });
+
   }
 
   function buildingsParams(){
@@ -124,6 +127,41 @@ export default function NewAppointments() {
   useEffect(()=>{
     searchAppointments();
   },[page])
+
+
+  const [booleanButtonsArray,setBooleanButtonArray]:any=useState([]);
+  const [buttonsArray,setButtonArray]:any=useState([]);
+
+  function buildBooleansArray(res:any){
+    let booleanArrayCopy=[...booleanButtonsArray];
+    let subBooleanArrayCopy=[];
+    let webAppointments=appointments;
+    if(appointments.length==0)
+      webAppointments=res;
+    
+    try{
+      for(let j=0;j<webAppointments.length;j++){
+        subBooleanArrayCopy=[];
+        for(let i=0;i<webAppointments[j].jsonappointments.length;i++){
+          subBooleanArrayCopy[i]=false;
+        }
+        booleanArrayCopy[j]=subBooleanArrayCopy;
+      }
+      console.log(booleanArrayCopy)
+      setBooleanButtonArray(booleanArrayCopy);
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+
+  function disableAll(){
+    let buttonsArrayCopy=[...booleanButtonsArray];
+    buttonsArrayCopy.map((arr:any,index:any)=>{
+      buttonsArrayCopy[index].fill(false)
+    })
+    setBooleanButtonArray(buttonsArrayCopy);
+  }
 
   return (
     <div>
@@ -162,11 +200,10 @@ export default function NewAppointments() {
       { 
         appointments.length>=0 && 
           appointments.map((obj:any,index:any)=> {
-            return <DayAppointmentCard key={index} appointments={obj}></DayAppointmentCard>
+            console.log("index ",index)
+            return <DayAppointmentCard disableAll={disableAll} booleanArray={booleanButtonsArray[index]} setBooleanArray={setBooleanButtonArray} ref={buttonsArray[index]} key={index} appointments={obj}></DayAppointmentCard>
           })
       }
-
-      
     </div>
   )
 }

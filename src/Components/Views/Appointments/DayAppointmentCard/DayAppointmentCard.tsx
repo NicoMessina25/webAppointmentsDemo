@@ -1,11 +1,10 @@
 import { Icon } from '@iconify/react'
 import { Button } from 'primereact/button'
-import React, { useContext, useState } from 'react'
+import React, { forwardRef, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import './DayAppointmentCard.scss'
 import {langContext} from '../../../Context/langContext';
 
-export default function DayAppointmentCard({appointments}:any) {
-
+const DayAppointmentCard=forwardRef(({disableAll,booleanArray,setBooleanArray,appointments}:any,ref)=> {
 
     const {localeintl}:any = useContext(langContext);
     function formatearFecha(fecha: string): string {
@@ -14,7 +13,6 @@ export default function DayAppointmentCard({appointments}:any) {
         const nombreMes = fechaObj.toLocaleDateString(localeintl, { month: 'long' });
         const nombreDiaSemana = fechaObj.toLocaleDateString(localeintl, { weekday: 'long' });
         return `${dia} de ${nombreMes} ${nombreDiaSemana}`;
-        
     }
 
     const [buttonStyle,setButtonStyle]=useState('buttonMain color-disabled');
@@ -22,47 +20,39 @@ export default function DayAppointmentCard({appointments}:any) {
 
     const [buttonSelected,setButtonSelected]=useState({});
 
-    let buttons:any=[];
-    // function toggleStyle(){
-    //     setButtonStyle('buttonMain')
 
-    // }
+    useImperativeHandle(ref,()=>({
+        unSelectAll(){
+            setButtonStyle('buttonMain2')
+            let booleanArrayCopy=[...booleanArray]
+            booleanArrayCopy.fill(false);
+            setBooleanArray(booleanArrayCopy)
+        }
+      }))
 
-    // function toggleHourStyle(e:any){
-    //     console.log(e)
-    //     e.target.className="p-button p-component buttonMain"
-        
-    // }
-
-    const handleButtonClick = (index: number) => {
-        // set the style of the clicked button
-        buttons[index]?.classList.add("buttonMain");
-    
+    function handleButtonClick(index: number){
+        disableAll()
         // clear the style of other buttons
-        buttons.forEach((buttons:any, i:any) => {
-          if (i !== index) {
-            buttons?.classList.remove("buttonMain");
-          }
-        });
+        setButtonStyle('buttonMain')
+        let booleanArrayCopy=[...booleanArray]
+        booleanArrayCopy.fill(false);
+        booleanArrayCopy[index]=true;
+        setBooleanArray(booleanArrayCopy)
       };
+    
+    
+    useEffect(()=>{
+        createButtons()
+    },[])
 
     function createButtons(){
-        let btnRef:any;
-        let component:any;
-        
-        // for(let i=0;i<)
-        component=appointments.jsonappointments.map( (objeto:any,index:any) => (
-                        
-            <Button
-                ref={btnRef}
-                key={index}
-                label={objeto.time}
-                className={hourButtonStyle}
-                // onClick={}
-            />
-            ))
-        return component;
+        let btn:any;
+        let component:any=[];
+        let localBooleanArray=new Array(appointments.jsonappointments.length).fill(false);
+        setBooleanArray(localBooleanArray)
     }
+
+    console.log(booleanArray)
 
   return (
     <div className='flexible--row appointment-card-container'>
@@ -92,7 +82,14 @@ export default function DayAppointmentCard({appointments}:any) {
                     {/* Buttons */}
                     <div className=''>
                         {
-                            createButtons()
+                           appointments && appointments.jsonappointments.map((obj:any,index:any)=>{
+                            return <Button
+                                className={booleanArray[index] ? 'buttonMain' : 'buttonMain2'}
+                                key={index}
+                                label={obj.time}
+                                onClick={()=>{handleButtonClick(index)}}
+                                />
+                            })
                         }
                     </div>
                 </div>
@@ -105,4 +102,6 @@ export default function DayAppointmentCard({appointments}:any) {
 
     </div>
   )
-}
+})
+
+export default DayAppointmentCard;
