@@ -1,6 +1,6 @@
 import { addLocale, locale } from 'primereact/api';
 import React, {useEffect, useState} from 'react'
-import { getLanguage } from '../../services/UserService';
+import { getLanguage } from '../../services/nsGeneralService';
 import EnglishMessages from '../../lang/en.json';
 import SpanishMessages from '../../lang/es.json';
 import SpanishMessagesPrime from '../../lang/esPrimeReact.json';

@@ -1,10 +1,9 @@
-import { render } from "@testing-library/react";
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
-import { useEffect, useRef, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useIntl } from "react-intl";
 import { Link, useNavigate } from "react-router-dom";
-import { getMedicalCoverages, getPlans } from "../../../services/medicalCoverageService";
+import { getMedicalCoverages, getPlans } from "../../../services/nsGeneralService";
 import Combobox from "../../Combobox/Combobox";
 import { appContext } from "../../Context/appContext";
 import InputTextCustom from "../../Inputs/InputText/InputTextCustom";

@@ -24,7 +24,7 @@ import TreeMenu from "./TreeMenu/TreeMenu";
 import MenuItem from "./TreeMenu/MenuItem/MenuItem";
 
 import { appContext } from '../../Context/appContext';
-import { logout } from "../../../services/siteService";
+import { logout } from "../../../services/loginService";
 import ChangePassword from "../Profile/ChangePassword/ChangePassword";
 import ChangePasswordModal from "../../Modal/ChangePasswordModal/ChangePasswordModal";
 import Combobox from "../../Combobox/Combobox";
@@ -187,3 +187,4 @@ const Menu = React.forwardRef((props: any, ref) => {
 });
 
 export default Menu;
+

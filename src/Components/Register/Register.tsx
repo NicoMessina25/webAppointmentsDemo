@@ -3,14 +3,12 @@ import { Steps } from 'primereact/steps';
 import { useIntl } from 'react-intl';
 import { useEffect, useState, useRef, useContext } from "react";
 import { Toast } from 'primereact/toast';
-import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PersonalDataForm from "./PersonalDataForm/PersonalDataForm";
 import CoverageDataForm from "./CoverageDataForm/CoverageDataForm";
 import SecurityDataForm from "./SecurityDataForm/SecurityDataForm";
 import Modal from "../Modal/Modal";
-import { getValidationData, saveUser, sendValidationDataAnswers } from "../../services/loginService";
-import UserVerificationForm from "./UserVerificationForm/UserVerificationForm";
-import { forEachChild } from "typescript";
+import { saveUser} from "../../services/nsUserService";
 import { appContext } from "../Context/appContext";
 import { langContext } from "../Context/langContext";
 

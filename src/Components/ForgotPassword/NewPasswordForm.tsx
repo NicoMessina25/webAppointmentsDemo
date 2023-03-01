@@ -1,15 +1,11 @@
 import { Button } from "primereact/button";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
-import { postNewPassword } from "../../services/loginService";
+import { postNewPassword } from "../../services/nsUserService";
 import InputTextCustom from "../Inputs/InputText/InputTextCustom";
 import Modal from "../Modal/Modal";
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha"
-
-
-import { Toast } from 'primereact/toast';
-import { getCaptchaKey } from "../../services/siteService";
 import { appContext } from "../Context/appContext";
 
 

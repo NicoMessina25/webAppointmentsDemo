@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { getLogo } from "../../services/imageService";
+import { getLogo } from "../../services/nsGeneralService";
 import "./TermsStyles.scss"
 
 export default function Terms(){

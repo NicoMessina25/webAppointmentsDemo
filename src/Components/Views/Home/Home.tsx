@@ -1,24 +1,13 @@
-import React, { useState } from 'react'
-import getPhonePrefixes from '../../../services/phonePrefixes';
-import Combobox from '../../Combobox/Combobox';
 import IconPanel from '../../Panels/IconPanel/IconPanel';
 import InputTextCustom from '../../Inputs/InputText/InputTextCustom';
-import OptionsPanel from '../../Panels/OptionesPanel/OptionsPanel'
 import './Home.scss'
 import NextAppointment from '../../Panels/NextAppointment/NextAppointment';
-import AppointmentModal from '../../Modal/CustomModal/AppointmentModal';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { Icon } from '@iconify/react';
 import HomePrescriptionsPanel from '../../Panels/HomePrescriptionsPanel/HomePrescriptionsPanel';
-import { Button } from 'primereact/button';
 import HomeAppointmentsPanel from '../../Panels/HomeAppointmentsPanel/HomeAppointmentsPanel';
-import { amilogged } from '../../../services/loginService';
-import { getAppointments, getBuildings, getProfessionals, getSpecialities } from '../../../services/appointmentsService';
-import InputDate from '../../Inputs/InputDate/InputDate';
-import RadioButtonGroup from '../../RadioButtonGroup/RadioButtonGroup';
 import WelcomePanel from '../../Panels/WelcomePanel/WelcomePanel';
 import {useContext} from "react";
 import { appContext } from '../../Context/appContext';
+import { useIntl } from 'react-intl';
 
 export default function Home() {
 
@@ -41,31 +30,7 @@ export default function Home() {
     {telemedicine:true, date: new Date(2023, 11, 16, 15, 30), professional: "Dr. Pinna", speciality: "Medicina Clínica"},
     {telemedicine:false, date: new Date(2023, 12, 25, 13, 0), professional: "Dr. Pinna", speciality: "Medicina Clínica"}
   ]
-  
-  function createComponents(){
-    
-    let componentes:any=[];
-    
-    let component={
-      id:1,
-      label:'roberto',
-      component:<InputTextCustom></InputTextCustom>,
-      footer:"Acepto solo numeros"
-    }
 
-    let component2={
-      id:1,
-      label:'roberto',
-      component:<InputTextCustom></InputTextCustom>,
-      footer:"asd"
-    }
-
-    componentes.push(component)
-    componentes.push(component2)
-
-    return componentes;
-  
-  }
 
 
   return (

@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import LogginForm from "../Forms/LogginForm/LoginForm";
 import "../../scss/styles.scss"
 import "./Login.scss"
-import { getLogo } from "../../services/imageService";
+import { getLogo } from "../../services/nsGeneralService";
 import ReCAPTCHA from "react-google-recaptcha";
-import { getCaptchaKey } from "../../services/siteService";
 
 export default function Login(){
     const [logo, setLogo] = useState("");

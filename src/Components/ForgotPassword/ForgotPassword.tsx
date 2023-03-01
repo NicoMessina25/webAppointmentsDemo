@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import {  useIntl } from 'react-intl';
 import "./ForgotPassword.scss"
-import { getLogo } from "../../services/imageService";
+import { getLogo } from "../../services/nsGeneralService";
 import Modal from '../Modal/Modal';
 import NewPasswordForm from './NewPasswordForm';
 import ForgotPasswordForm from './ForgotPasswordForm';

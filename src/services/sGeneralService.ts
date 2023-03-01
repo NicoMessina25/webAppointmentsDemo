@@ -1,9 +1,8 @@
 import axios from "axios";
 
-
 export function getProfessionals(inputText:String,offSet:number,pageSize:number,language:number,params:any ){
     
-    return axios.get('/api/secure/getProfessionals',
+    return axios.get('/api/secure/general/getProfessionals',
     {
         params: {
             pageSize:pageSize,
@@ -24,7 +23,7 @@ export function getSpecialities(inputText:String,offSet:number,pageSize:number,l
     if(params.professional)
         professional=params.professional;
 
-    return axios.get('/api/secure/getSpecialities',
+    return axios.get('/api/secure/general/getSpecialities',
     {
         params: {
             pageSize:pageSize,
@@ -37,34 +36,9 @@ export function getSpecialities(inputText:String,offSet:number,pageSize:number,l
     }).then(res => {return res.data})
 }
 
-export function getAppointments(offSet:any,pageSize:any,language:any,params:any ){
-    
-    /* "language":1,
-    "medicalspeciality":51,
-    "professional":58946,
-    "videocall":false,
-    "building":3,
-    "hour":"",
-    "time":"tade",
-    "date":"2023-02-25T10:31:59.000Z"
-     */
-
-    let professional=-1;
-    if(params.professional)
-        professional=params.professional;
-
-    return axios.post('/api/secure/getAppointments',params,
-    {
-        params: {
-            pageSize:pageSize,
-            offSet:offSet,
-        }
-    }).then(res => {return res.data})
-}
-
 export function getBuildings(inputText:String,offSet:number,pageSize:number,language:number,params:any ){
 
-    return axios.get('/api/secure/getBuildings',
+    return axios.get('/api/secure/general/getBuildings',
     {
         params: {
             pageSize:pageSize,
@@ -73,4 +47,10 @@ export function getBuildings(inputText:String,offSet:number,pageSize:number,lang
             professional:params.professional
         }
     }).then(res => {return res.data})
+}
+
+export function amilogged(){
+  
+    return axios.get('/api/secure/general/amilogged');
+    
 }

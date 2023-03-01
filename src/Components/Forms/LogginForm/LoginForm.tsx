@@ -11,7 +11,7 @@ import { authenticateUser } from "../../../services/loginService";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../../Context/appContext";
 import { log } from "console";
-import { getPatientInfo } from "../../../services/UserService";
+import { getPatientInfo } from "../../../services/sUserService";
 
 
 

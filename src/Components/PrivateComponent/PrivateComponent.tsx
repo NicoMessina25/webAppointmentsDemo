@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext} from "react";
 import { appContext } from "../Context/appContext";
 
 import { Navigate, Outlet } from 'react-router-dom';
-import Login from "../Login/Login";
-import { amilogged } from "../../services/loginService";
 
 const PrivateComponent =  ({children, ...props}:any) : JSX.Element => {
 

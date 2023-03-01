@@ -2,15 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { IntlProvider, useIntl } from 'react-intl';
 import EnglishMessages from '../../lang/en.json';
 import SpanishMessages from '../../lang/es.json';
-import { getCaptchaKey} from '../../services/siteService';
+import { getCaptchaKey} from '../../services/nsGeneralService';
 import { locale, addLocale } from 'primereact/api';
 import SpanishMessagesPrime from '../../lang/esPrimeReact.json';
 import { any } from 'prop-types';
-import { getLanguage, getPatientInfo } from '../../services/UserService';
+import { getPatientInfo } from '../../services/sUserService';
 import { Button } from 'primereact/button';
 import { Icon } from '@iconify/react';
-import { PhoneNumberFormat, PhoneNumberUtil } from 'google-libphonenumber';
-import axios from 'axios';
+import { PhoneNumberUtil } from 'google-libphonenumber';
 
 
 

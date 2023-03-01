@@ -1,7 +1,8 @@
 import { Button } from 'primereact/button';
 import React, { useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl';
-import { getMailAndCellphone, sendCodeByMail, validateRecoveryCode } from '../../services/loginService';
+import { getMailAndMobilephone, validateRecoveryCode } from '../../services/nsUserService';
+import {sendCodeByMail} from  '../../services/nsGeneralService'
 import InputTextCustom from '../Inputs/InputText/InputTextCustom';
 import Modal from '../Modal/Modal'
 import RadioButtonGroup from '../RadioButtonGroup/RadioButtonGroup'
@@ -67,7 +68,7 @@ export default function ForgotPasswordForm(props: any) {
         if (documentType != "" && document != "") {
             //SETEAR CAMPO MAIL Y DNI, ej:
             
-            getMailAndCellphone(document, documentType).then(res => {
+            getMailAndMobilephone(document, documentType).then(res => {
                 if ("response" in res && res.response.status === 404) {
                     toggleModalUserNotExists();
                 } else {

@@ -2,7 +2,7 @@ import { Button } from 'primereact/button'
 import React, { useContext, useState } from 'react'
 
 import {useIntl} from 'react-intl'
-import { changePassword } from '../../../services/UserService';
+import { changePassword } from '../../../services/sUserService';
 import { appContext } from '../../Context/appContext';
 import InputTextCustom from '../../Inputs/InputText/InputTextCustom'
 import ErrorModal from '../ErrorModal/ErrorModal';

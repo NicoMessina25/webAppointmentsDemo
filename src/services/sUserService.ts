@@ -1,9 +1,7 @@
 import axios from "axios";
 axios.defaults.withCredentials = true
 
-export function getLanguage(){
-    return axios.get('/api/notsecure/getLanguage').then(res=>res.data)
-}
+
 
 
 export function getPatientInfo(medereEntity:any){
@@ -13,7 +11,7 @@ export function getPatientInfo(medereEntity:any){
      })
 
 
-    return instance.post('/api/secure/getPatientInfo',null,{
+    return instance.post('/api/secure/user/getPatientInfo',null,{
         params:{
             id:medereEntity
         },
@@ -26,21 +24,21 @@ export function savePatientInfo(user:any,returnValidPatientDTO:any,mobilePhone:a
     //Pasar mobilePhone como string
     let validDTO=returnValidPatientDTO(user)
     validDTO.mobilePhone=mobilePhone;
-    return axios.post('/api/secure/updatePatient',validDTO
+    return axios.post('/api/secure/user/updatePatient',validDTO
     ).then(res => {
         return res
     });
 }
 
 export function changePassword(newPasswordDTO:any){
-    return axios.post('/api/secure/changePassword',newPasswordDTO
+    return axios.post('/api/secure/user/changePassword',newPasswordDTO
     ).then(res => {
         return res
     });
 }
 
 export function addRelativeMedere(dto:any){
-    return axios.post('/api/secure/addRelative',dto
+    return axios.post('/api/secure/user/addRelative',dto
     ).then(res => {
         return res
     });

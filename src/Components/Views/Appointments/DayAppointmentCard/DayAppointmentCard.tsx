@@ -4,7 +4,7 @@ import React, { forwardRef, useContext, useEffect, useImperativeHandle, useRef, 
 import './DayAppointmentCard.scss'
 import {langContext} from '../../../Context/langContext';
 
-const DayAppointmentCard=forwardRef(({disableAll,booleanArray,setBooleanArray,appointments}:any,ref)=> {
+const DayAppointmentCard=forwardRef(({index, activeIndex, activeDayIndex, setActiveIndex, setActiveDayIndex, appointments}:any,ref)=> {
 
     const {localeintl}:any = useContext(langContext);
     function formatearFecha(fecha: string): string {
@@ -15,44 +15,43 @@ const DayAppointmentCard=forwardRef(({disableAll,booleanArray,setBooleanArray,ap
         return `${dia} de ${nombreMes} ${nombreDiaSemana}`;
     }
 
-    const [buttonStyle,setButtonStyle]=useState('buttonMain color-disabled');
+    /* const [buttonStyle,setButtonStyle]=useState('buttonMain color-disabled');
     const [hourButtonStyle,setHourButtonStyle]=useState('buttonMain2');
 
-    const [buttonSelected,setButtonSelected]=useState({});
+    const [buttonSelected,setButtonSelected]=useState({}); */
 
 
-    useImperativeHandle(ref,()=>({
+    /* useImperativeHandle(ref,()=>({
         unSelectAll(){
             setButtonStyle('buttonMain2')
-            let booleanArrayCopy=[...booleanArray]
+            let booleanArrayCopy=[...booleansArray]
             booleanArrayCopy.fill(false);
-            setBooleanArray(booleanArrayCopy)
+            
         }
-      }))
+      })) */
 
-    function handleButtonClick(index: number){
-        disableAll()
-        // clear the style of other buttons
-        setButtonStyle('buttonMain')
-        let booleanArrayCopy=[...booleanArray]
-        booleanArrayCopy.fill(false);
-        booleanArrayCopy[index]=true;
-        setBooleanArray(booleanArrayCopy)
+    function handleButtonClick(ind: number){
+        //disableAll()
+        // clear the style of other buttons}
+        setActiveDayIndex(index);
+        setActiveIndex(ind);
       };
     
     
-    useEffect(()=>{
+    /* useEffect(()=>{
         createButtons()
+        
+        
     },[])
 
     function createButtons(){
         let btn:any;
         let component:any=[];
         let localBooleanArray=new Array(appointments.jsonappointments.length).fill(false);
-        setBooleanArray(localBooleanArray)
-    }
+        //setBooleansArray(localBooleanArray)
+    } */
 
-    console.log(booleanArray)
+    //console.log(booleanArray)
 
   return (
     <div className='flexible--row appointment-card-container'>
@@ -81,20 +80,20 @@ const DayAppointmentCard=forwardRef(({disableAll,booleanArray,setBooleanArray,ap
                     <p className='textBold'>Elegir horario</p>
                     {/* Buttons */}
                     <div className=''>
-                        {
-                           appointments && appointments.jsonappointments.map((obj:any,index:any)=>{
+                        {   
+                           appointments && appointments.jsonappointments.map((obj:any,ind:any)=>{
                             return <Button
-                                className={booleanArray[index] ? 'buttonMain' : 'buttonMain2'}
-                                key={index}
+                                className={activeDayIndex === index && activeIndex === ind ? 'buttonMain' : 'buttonMain2'}
+                                key={ind}
                                 label={obj.time}
-                                onClick={()=>{handleButtonClick(index)}}
+                                onClick={()=>{handleButtonClick(ind)}}
                                 />
                             })
                         }
                     </div>
                 </div>
                 <div className='flexible--column button'>
-                    <Button className={buttonStyle}  label="Agendar"/>
+                    <Button className={`buttonMain ${activeDayIndex !== index && "buttonMain color-disabled"}`}  label="Agendar"/>
                 </div>
             </div>
 

@@ -34,6 +34,7 @@
 
 .menu-container{
     width:215px;
+    height: 93vh;
     justify-content: space-between;
     z-index: 3;
     position: fixed;
@@ -197,7 +198,7 @@
     .menu-container{
         position:sticky;
         bottom: 0;
-        
+        height: auto;
     }
 
     .container{

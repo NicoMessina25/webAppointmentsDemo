@@ -7,17 +7,14 @@ import InputPhone from '../../Inputs/InputPhone/InputPhone';
 import { Button } from 'primereact/button';
 import { Link, useNavigate } from 'react-router-dom';
 import Combobox from '../../Combobox/Combobox';
-import { getCities } from '../../../services/citiesService';
+import { getCities } from '../../../services/nsGeneralService';
 import { appContext } from '../../Context/appContext';
 import InputDate from '../../Inputs/InputDate/InputDate';
 import Modal from '../../Modal/Modal';
-import { existsPatientAndNotUser, getValidationData, saveUser, sendValidationDataAnswers } from '../../../services/loginService';
+import { existsPatientAndNotUser, getValidationData, sendValidationDataAnswers } from '../../../services/nsUserService';
 import UserVerificationForm from '../UserVerificationForm/UserVerificationForm';
 import { Toast } from 'primereact/toast';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import Loader from '../../Loader/Loader';
-import { isErrored } from 'stream';
-import InputNumber from '../../Inputs/InputNumber/InputNumber';
 import { langContext } from '../../Context/langContext';
 
 export default function PersonalDataForm({ user, setUser, setDisplayRegisterCancel, onSubmit }: any) {

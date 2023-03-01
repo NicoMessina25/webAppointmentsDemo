@@ -2,7 +2,8 @@ import { Icon } from '@iconify/react';
 import { Button } from 'primereact/button';
 import React, { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl';
-import { getAppointments, getBuildings, getProfessionals, getSpecialities } from '../../../../services/appointmentsService';
+import { getAppointments} from '../../../../services/sAppointmentsService';
+import {getProfessionals, getSpecialities, getBuildings } from '../../../../services/sGeneralService';
 import Combobox from '../../../Combobox/Combobox';
 import InputDate from '../../../Inputs/InputDate/InputDate';
 import AppointmentModal from '../../../Modal/CustomModal/AppointmentModal'
@@ -14,6 +15,8 @@ import './NewAppointments.scss'
 export default function NewAppointments() {
 
   const [appointmentModalVisibility,setAppointmentModalVisibility]=useState(false);
+  const [activeDayIndex,setActiveDayIndex]=useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
   const intl = useIntl();
   const [professional,setProfessional]:any=useState({});
   const [speciality,setSpeciality]:any=useState({medicalspeciality:-1});
@@ -67,16 +70,15 @@ export default function NewAppointments() {
   }
 
   let [appointmentType,setAppointmentType]:any=useState(1);
-  let [fragmentedAppointments,setFragmentedAppointments]:any=useState([]);
+  
   const [appointments,setAppointments]:any=useState([]);
-  let [appointmentsOfDay,setAppointmentsOfDay]:any=useState({});
+ 
 
-  let [page,setPage]=useState(-1);
+  let [page,setPage]=useState(0);
 
   function searchAppointments(){
 
 
-    let turnos;
     //valida campos
     if(!speciality || !professional || !appointmentDate || !timeZone1 || Object.keys(timeZone1).length === 0
        || Object.keys(speciality).length === 0 && Object.keys(professional).length === 0)
@@ -99,82 +101,76 @@ export default function NewAppointments() {
         res[i].jsonappointments=JSON.parse(res[i].jsonappointments);
       }
       setAppointments([...appointments,...res]);
-      buildBooleansArray(res)
+  
 
     });
 
   }
-
-  function buildingsParams(){
-
-    if(!speciality || !professional || Object.keys(speciality).length === 0 && Object.keys(professional).length === 0)
-    return {
-      speciality:-1,
-      professional:-1
-    }
-    return {
-      speciality:speciality.medicalspeciality,
-      professional:professional.professional
-    }
-  }
-
-  const options = [
-    { label: "Presencial!", value: 1 },
-    { label: "Virtual!", value: 2 }
-  ];
 
 
   useEffect(()=>{
     searchAppointments();
   },[page])
 
-
-  const [booleanButtonsArray,setBooleanButtonArray]:any=useState([]);
-  const [buttonsArray,setButtonArray]:any=useState([]);
-
-  function buildBooleansArray(res:any){
-    let booleanArrayCopy=[...booleanButtonsArray];
-    let subBooleanArrayCopy=[];
-    let webAppointments=appointments;
-    if(appointments.length==0)
-      webAppointments=res;
+  /* useEffect(()=>{
+    appointments.length > 0 && buildBooleansArray();
     
-    try{
-      for(let j=0;j<webAppointments.length;j++){
-        subBooleanArrayCopy=[];
-        for(let i=0;i<webAppointments[j].jsonappointments.length;i++){
-          subBooleanArrayCopy[i]=false;
-        }
-        booleanArrayCopy[j]=subBooleanArrayCopy;
-      }
-      console.log(booleanArrayCopy)
-      setBooleanButtonArray(booleanArrayCopy);
-    }catch(e){
-      console.log(e)
-    }
-  }
+  },[appointments]) */
 
 
-  function disableAll(){
-    let buttonsArrayCopy=[...booleanButtonsArray];
+
+  const [booleansArray,setBooleansArray]:any=useState([]);
+
+  /* function buildBooleansArray(){
+    let _booleansArray:any = [];
+
+    appointments.map((ap:any, index:any)=>{
+      let booleansElement = {day: false, appointments: new Array(ap.jsonappointments.length)};
+      booleansElement.appointments.fill(false);
+      _booleansArray[index] = booleansElement;
+    });
+
+
+
+    /* let subBooleanArrayCopy=[];
+    let webAppointments=appointments; 
+
+    
+    //console.log(booleanArrayCopy)
+    //setBooleansArray(_booleansCopy);
+    
+    setBooleansArray(_booleansArray);
+
+  } */
+
+  //declare a new array and fill it with false values
+/*   function resetBooleansArray(){
+    let booleanArrayCopy=[...booleansArray];
+    booleanArrayCopy.map((arr:any,index:any)=>{
+      booleanArrayCopy[index].day=false;
+      booleanArrayCopy[index].appointments.fill(false);
+    })
+    setBooleansArray(booleanArrayCopy);
+  } */
+
+
+
+
+
+  /* function disableAll(){
+    let buttonsArrayCopy=[...booleansArray];
     buttonsArrayCopy.map((arr:any,index:any)=>{
       buttonsArrayCopy[index].fill(false)
     })
-    setBooleanButtonArray(buttonsArrayCopy);
-  }
+    setBooleansArray(buttonsArrayCopy);
+  } */
+
+  
 
   return (
-    <div>
-    
-      <OptionsPanel buttonLabel={"Buscar turno"} onClickBtn={()=>{setPage(page+1)}}>
-
-      <div className='flexible--row width-100'>
-              <RadioButtonGroup className="width-50 radioButtonGroup littleMargin " orientation="row" options={options} value={appointmentType} setValue={setAppointmentType} label={intl.formatMessage({ id: 'Type' })} />
-
-              <Combobox  getItems={getBuildings} params={buildingsParams()} label={"Sede"} value={location} optionLabel={"buildingname"} setValue={(e:any) =>
-              {                 
-                setLocation(e);
-              }} placeholder={intl.formatMessage({id: "Select"})} className="combobox"  />
+    <div className='newAppointmentsContainer'>
+      <h2 className='infoText textBold'> <Icon icon="vaadin:stethoscope" /> {intl.formatMessage({id:"SeacrhAppointment"})}</h2>
+      <OptionsPanel buttonLabel={"Buscar turno"} header={optionsPanelHeader} className={"newAppointmentsOptionPanel"} onClickBtn={searchAppointments}>
 
               <Combobox  getItems={getSpecialities} params={params2} label={"Especialidad D:"} value={speciality} 
               //reLoadItemsValue={professional}
@@ -193,16 +189,18 @@ export default function NewAppointments() {
           <Combobox  list={timeZone} params={null} label={"Franja horaria D:"} value={timeZone1} optionLabel={"name"} setValue={(e:any) =>
               {                 
                 setTimeZone1(e);
-              }} placeholder={intl.formatMessage({id: "Select"})} className=" combobox"  />
-         </div>     
+              }} placeholder={intl.formatMessage({id: "Select"})} className=" combobox"  />    
       </OptionsPanel>
 
+      
+      <p className='infoText appointmentsResultsHeader'> <span className='infoText textBold'>Turnos disponibles</span> - Resultados de tu búsqueda </p>
       { 
-        appointments.length>=0 && 
+        appointments.length > 0 && 
           appointments.map((obj:any,index:any)=> {
-            console.log("index ",index)
-            return <DayAppointmentCard disableAll={disableAll} booleanArray={booleanButtonsArray[index]} setBooleanArray={setBooleanButtonArray} ref={buttonsArray[index]} key={index} appointments={obj}></DayAppointmentCard>
+            
+            return <DayAppointmentCard key={index} index={index} activeDayIndex={activeDayIndex} activeIndex={activeIndex} setActiveDayIndex={setActiveDayIndex} setActiveIndex={setActiveIndex} appointments={obj}></DayAppointmentCard>
           })
+        
       }
     </div>
   )

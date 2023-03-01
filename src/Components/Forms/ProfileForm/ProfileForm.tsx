@@ -8,9 +8,8 @@ import InputPhone from '../../Inputs/InputPhone/InputPhone';
 import Combobox from '../../Combobox/Combobox';
 import { Button } from 'primereact/button';
 import { appContext } from '../../Context/appContext';
-import { getMedicalCoverages, getPlans } from '../../../services/medicalCoverageService';
-import { getCities } from '../../../services/citiesService';
-import { addRelativeMedere, savePatientInfo } from '../../../services/UserService';
+import { getCities, getMedicalCoverages, getPlans } from '../../../services/nsGeneralService';
+import { addRelativeMedere, savePatientInfo } from '../../../services/sUserService';
 import ErrorModal from '../../Modal/ErrorModal/ErrorModal';
 
 const ProfileForm=forwardRef( ({profile,setProfile, disable, isNew}:any,ref) => {

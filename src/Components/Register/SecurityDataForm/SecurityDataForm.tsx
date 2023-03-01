@@ -1,12 +1,9 @@
 import { Button } from "primereact/button";
-import { useEffect, useRef, useState, useContext } from "react";
+import { useContext } from "react";
 import { useIntl } from "react-intl";
-import { Link, useNavigate } from "react-router-dom";
-import { saveUser, sendLocationConsent } from "../../../services/loginService";
+import { Link } from "react-router-dom";
 import { appContext } from "../../Context/appContext";
 import InputTextCustom from "../../Inputs/InputText/InputTextCustom";
-import Modal from "../../Modal/Modal";
-import RadioButtonGroup from "../../RadioButtonGroup/RadioButtonGroup";
 
 
 export default function SecurityDataForm({user, setUser, setDisplayRegisterCancel, toast, onSubmit}:any){
