@@ -10,18 +10,15 @@ export function getProfessionals(inputText:String,offSet:number,pageSize:number,
             language:language,
             inputText:inputText,
             facetoface:params.facetoface,
-            allowsdigitalrp:params.allowsdigitalrp,
-            medicalspeciality:params.medicalspeciality
+            medicalspeciality:params.medicalspeciality,
+            building:params.building
 
         }
     }).then(res => res.data)
 }
 
 export function getSpecialities(inputText:String,offSet:number,pageSize:number,language:number,params:any ){
-    
-    let professional=-1;
-    if(params.professional)
-        professional=params.professional;
+
 
     return axios.get('/api/secure/general/getSpecialities',
     {
@@ -30,7 +27,6 @@ export function getSpecialities(inputText:String,offSet:number,pageSize:number,l
             offSet:offSet,
             language:language,
             inputText:inputText,
-            professional:professional
 
         }
     }).then(res => {return res.data})
@@ -43,8 +39,6 @@ export function getBuildings(inputText:String,offSet:number,pageSize:number,lang
         params: {
             pageSize:pageSize,
             offSet:offSet,
-            speciality:params.speciality,
-            professional:params.professional
         }
     }).then(res => {return res.data})
 }

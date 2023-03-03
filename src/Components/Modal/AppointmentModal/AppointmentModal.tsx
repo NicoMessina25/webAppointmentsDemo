@@ -1,12 +1,14 @@
 import { Icon } from '@iconify/react';
 import React from 'react'
+import { useIntl } from 'react-intl';
+import InfoCard from '../InfoCard/InfoCard';
 import Modal from '../Modal'
 import './AppointmentModal.scss'
 
 
-export default function AppointmentModal({visible, setVisible, header, footerButtonRightText, footerButtonLeftText, onClickLeftBtn, onClickRightBtn, pathRightBtn, pathLeftBtn,onHideCustom,detailsList,components,modalfooter}:any) {
+export default function AppointmentModal({visible, setVisible,patient, appointment, descriptionText}:any) {
   
-
+    const intl = useIntl();
     /* 
     
     Component Structure
@@ -31,7 +33,7 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
     */
 
 
-    const boxList = (detailsList:any) => {
+    /* const boxList = (detailsList:any) => {
 
         let index = 0;
         const boxes = detailsList.map((component:any) => (
@@ -84,7 +86,7 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
                 ))
                
                 }
-                 </div>  */}
+                 </div>  }
 
                 <div className='flexible--rowWrap buttons-container'>
                     {component.component}
@@ -106,14 +108,31 @@ export default function AppointmentModal({visible, setVisible, header, footerBut
         return <div className='flexible--column'>
             <div className={`${modalfooter.background}`}>{modalfooter.description}</div>
         </div>;
-      };
+      }; */
   
 
   
 return (
-    <Modal visible={visible} setVisible={setVisible}  header={header} footerButtonRightText={footerButtonRightText} footerButtonLeftText={footerButtonLeftText} onClickLeftBtn={onClickLeftBtn} onClickRightBtn={onClickRightBtn} pathRightBtn={pathRightBtn} pathLeftBtn={pathLeftBtn} onHideCustom={onHideCustom} footermessage={footerMessage}>
-        { detailsList && boxList(detailsList) }
-        { components && componentsList(components)}
+    <Modal visible={visible} setVisible={setVisible}  header={intl.formatMessage({id:"YouAreAboutToScheduleThisAppointment"})} footerButtonRightText={intl.formatMessage({id:"Confirm"})} footerButtonLeftText={intl.formatMessage({id:"Cancel"})} onClickLeftBtn={()=>{setVisible(false)}} onClickRightBtn={()=>{console.log("Confirmado")}
+    } pathRightBtn={"#"} pathLeftBtn={"#"}>
+        <div className='appointmentModalContainer flexible--column'>
+            <div className='flexible--row patientInfoContainer'>
+                <div className='icon'>
+                    <Icon icon="mdi:account" />
+                </div>
+                <div className='flexible--column patientInfo'>
+                    <p className='textDark'>{intl.formatMessage({id:"Patient"})}</p>
+                    <h3 className='infoText textBold'>{patient.firstname + " " + patient.lastname}</h3>
+                    <div className='text personalInfo flexible--column'>
+                        <p>Mail: {patient.email}</p>
+                        <p>{intl.formatMessage({id:"Phone"})}: {patient.mobilephone.prefix} {patient.mobilephone.number}</p>
+                        <p>{intl.formatMessage({id:"PrepaidHealthInsurance"})}: {patient.medicalCoverage.name}</p>
+                    </div>
+                </div>
+            </div>
+            <InfoCard label={intl.formatMessage({id:"Professional"})} text={appointment.professional?.prefixAndFullName} textClassName={"textBold infoText"} />
+        </div>
+        
         
     </Modal>
     

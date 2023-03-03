@@ -10,7 +10,7 @@ $lightContrastShade: (100: $contrastDark, 90: #263446, 80: #414D5E,70: #5A6676, 
 
 
 $lightPrimary:(main: #3CB8BA, text: #01717C, contrast: $contrast, transparent50: #3cb8ba50, transparent15: #3cb8ba15, transparent10: #3cb8ba10);
-$lightInfo:(main: #E29583, text: #B27668, contrast: $contrast,shiny:#E17056, transparent60:rgba(230, 230, 230, 0.6)); 
+$lightInfo:(main: #E29583, text: #B27668, contrast: $contrast,shiny:#E17056, transparent60:rgba(230, 230, 230, 0.6), transparent50:rgba(230, 230, 230, 0.5)); 
 $lightWarning:(main: #FFC107, text: #E0A800, contrast: $contrast); 
 $lightSuccess:(main: #28A745, text: #28A745, contrast: $contrast); 
 $lightError:(main: #fdf2f3, transparent10: #DC354510, transparent20:#DC354520, text: #DC3545, contrast: $contrast);

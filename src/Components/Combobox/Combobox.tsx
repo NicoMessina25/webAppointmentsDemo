@@ -5,12 +5,13 @@ import {langContext} from '../Context/langContext';
 import Loader from '../Loader/Loader';
 import _ from "lodash";
 
-function Combobox({label, getItems,list,params, value, setValue, className, optionLabel, placeholder, scrollHeight, error, caption, reLoadItemsValue, width,disable}:any) {
+function Combobox({label, getItems,list,params, value, showClear, setValue, className, optionLabel, placeholder, scrollHeight, error, caption, reLoadItemsValue, width,disable}:any) {
   const [items, setItems]:any = useState([]);
   const [isMoreData, setIsMoreData] = useState(true);
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [filterValue, setFilterValue] = useState("");
   const [page, setPage] = useState(0);
+  const [previousReLoadItemsValue, setPreviousReLoadItemsValue] = useState(reLoadItemsValue);
 
   const dropdown:any = useRef(null);
   let filterTimeout:any = useRef(null)
@@ -19,14 +20,15 @@ function Combobox({label, getItems,list,params, value, setValue, className, opti
   const {languageId}:any = useContext(langContext);
 
 
-  useEffect(()=>{
+  useEffect(()=>{    
     loadItems(false)
   },[page, filterValue]);
 
   useEffect(()=>{
   
    
-    if(reLoadItemsValue){
+    if(!_.isEqual(reLoadItemsValue, previousReLoadItemsValue)){
+      setPreviousReLoadItemsValue(reLoadItemsValue);
       if (page !== 0)
         setPage(0)
       else {
@@ -37,17 +39,17 @@ function Combobox({label, getItems,list,params, value, setValue, className, opti
 
   },[reLoadItemsValue]);
 
-  useEffect(()=>{
+  /* useEffect(()=>{
   
     if(value){
       if (page !== 0)
         setPage(0)
       else {
-        loadItems(false)
+        loadItems(true)
       }
     }
     
-  }, [value])
+  }, [value]) */
 
   /* useEffect(()=>{
     loadItems(false);
@@ -97,10 +99,9 @@ function Combobox({label, getItems,list,params, value, setValue, className, opti
 
       } else if(reset) {        
         setItems(_items);
-      
-        if(_items.length === 1){
-          setValue(_items[0]);
-        }
+        !valueInItems && setValue(null);
+        _items.length === 1 && setValue(_items[0]);
+  
       } else {
         setItems(_items);
       }
@@ -125,10 +126,11 @@ function Combobox({label, getItems,list,params, value, setValue, className, opti
   }
   
   function onFilter(e:any){
-    setFilterValue(e.filter);
+    
     clearTimeout(filterTimeout.current);
     filterTimeout.current =  setTimeout(()=>{
-      setPage(0)
+      setPage(0) 
+      setFilterValue(e.filter);     
     }, 500)
     
   }
@@ -141,17 +143,14 @@ function Combobox({label, getItems,list,params, value, setValue, className, opti
           value={value} 
           onChange={(e:any) => {
             setValue(e.value)
-            //e.originalEvent.target.parentElement.parentElement.scrollTo(0,0)
-            
-            
-            
           }} 
           scrollHeight={`${scrollHeight}px`}  
           placeholder={placeholder} 
           filter 
           resetFilterOnHide
           onFilter={onFilter} 
-          optionLabel={optionLabel} 
+          optionLabel={optionLabel}
+          showClear={showClear} 
           options={items} 
           className={error && "p-invalid"} 
           disabled={disable}

@@ -152,9 +152,13 @@
     "MyAppointments":"Mis turnos agendados",
     "ClinicalMedicine":"Medicina Clínica",
     "NextAppointment":"Próximo turno",
-    "RememberToBeConnected":"Recuerdá conectarte 5 minutos antes de su turno",
     "Telemedicine":"Telemedicina",
     "Office":"Consultorio",
+    "RememberToBeConnected":"Recuerdá conectarte 5 minutos antes de su turno",
     "SeacrhAppointment":"Buscar turno",
-    "Verify":"Verificar"
+    "Verify":"Verificar",
+    "All":"Todos",
+    "YouAreAboutToScheduleThisAppointment":"Estás por agendar este turno...",
+    "Patient":"Paciente",
+    "Professional":"Profesional"
 }

@@ -156,5 +156,9 @@
     "Telemedicine":"Telemedicine",
     "Office":"Office",
     "SeacrhAppointment":"Search appointment",
-    "Verify":"Verify"
+    "Verify":"Verify",
+    "All":"All",
+    "YouAreAboutToScheduleThisAppointment":"You are about to schedule this appointment",
+    "Patient":"Patient",
+    "Professional":"Professional"
 }

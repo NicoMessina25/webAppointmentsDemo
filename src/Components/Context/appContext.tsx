@@ -208,7 +208,6 @@ const AppProvider = ({children}:any) => {
        }
 
        function returnValidPatientDTO(patient:any){
-        console.log(patient)
             let validPatientDTO=Object.assign({} , patient)
             validPatientDTO.documentType={
                 documentType: patient.documentType,

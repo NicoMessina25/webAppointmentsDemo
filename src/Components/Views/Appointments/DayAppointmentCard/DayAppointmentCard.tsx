@@ -4,7 +4,7 @@ import React, { forwardRef, useContext, useEffect, useImperativeHandle, useRef, 
 import './DayAppointmentCard.scss'
 import {langContext} from '../../../Context/langContext';
 
-const DayAppointmentCard=forwardRef(({index, activeIndex, activeDayIndex, setActiveIndex, setActiveDayIndex, appointments}:any,ref)=> {
+const DayAppointmentCard=forwardRef(({index, activeIndex, activeDayIndex, setActiveIndex, setActiveDayIndex, appointments, onClickSchedule}:any,ref)=> {
 
     const {localeintl}:any = useContext(langContext);
     function formatearFecha(fecha: string): string {
@@ -53,12 +53,23 @@ const DayAppointmentCard=forwardRef(({index, activeIndex, activeDayIndex, setAct
 
     //console.log(booleanArray)
 
+
+    function toCamelCase(str: string): string {
+        let words = str.split(' ');
+        let result = "";
+        for (let i = 0; i < words.length; i++) {
+          let word = words[i];
+          result += " " + word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        }
+        return result;
+      }
+
   return (
     <div className='flexible--row appointment-card-container'>
         {/* Parte izquierda */}
         <div className='flexible--column dayAndProfessional'>
             <div className='lightPaletteText-info-background'>
-                <p className='padding-8'>{appointments.professionalnames.replace(/^(Dra\.|Dr\.)/, '').trim()}</p>
+                <p className='padding-8'>{toCamelCase(appointments.professionalnames.replace(/^(Dra\.|Dr\.)/, '').trim())}</p>
             </div>
             <div className='flexible--column day'>
                 <Icon icon='vaadin:calendar'></Icon>
@@ -93,7 +104,7 @@ const DayAppointmentCard=forwardRef(({index, activeIndex, activeDayIndex, setAct
                     </div>
                 </div>
                 <div className='flexible--column button'>
-                    <Button className={`buttonMain ${activeDayIndex !== index && "buttonMain color-disabled"}`}  label="Agendar"/>
+                    <Button className={`buttonMain ${activeDayIndex !== index && "color-disabled"}`} disabled={activeDayIndex !== index}  label="Agendar" onClick={onClickSchedule} />
                 </div>
             </div>
 

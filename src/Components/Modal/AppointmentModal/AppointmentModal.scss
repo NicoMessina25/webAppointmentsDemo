@@ -1,0 +1,26 @@
+@import "../../../scss/colors";
+
+.appointmentModalContainer{
+    .patientInfoContainer{
+        width: 100%;
+        background-color: map-get($lightInfo, transparent50);
+        padding: 16px;
+        
+        
+    }
+
+    .patientInfo{
+        .personalInfo{
+            margin-top: 10px;
+            font-size: 13px;
+        }
+    }
+
+    .icon{
+        font-size: 32px;
+    }
+}
+
+
+
+
